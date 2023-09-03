@@ -6,6 +6,10 @@ public class Managers : MonoBehaviour
 {
     static Managers s_instance;
     static Managers instance { get { Init(); return s_instance; } }
+    private void Start()
+    {
+        _data.Init();
+    }
     public static void Init()
     {
         if (s_instance == null)

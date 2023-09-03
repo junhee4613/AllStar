@@ -4,17 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public static class Util<T>
+public class Util
 {
-    public static T LoadToAsync(string KeyValue,Action callback)
+    public static void LoadToAsync<T>(string keyValue,Action callback) where T : UnityEngine.Object
     {
-        var loadHandler = Addressables.LoadAssetAsync<T>(KeyValue);
+        var loadHandler = Addressables.LoadAssetAsync<T>(keyValue);
         loadHandler.Completed += ((DT) =>
         {
-            Debug.Log("로딩이 끝날때까지 대기하는 액션을 넣어줘야함");
-            
+            Managers.DataManager.Datas.Add(keyValue, DT.Result);
         });
+    }
+    public static void LoadLavelToAsync<T>(string labelName) where T : UnityEngine.Object
+    {
+        var operationHandle = Addressables.LoadResourceLocationsAsync(labelName, typeof(T));
+        operationHandle.Completed += ((DT) =>
+        {
+            foreach (var item in DT.Result)
+            {
+                Managers.DataManager.Datas.Add(item.PrimaryKey, item as T);
+            }
+        });
+    }
 
-        return loadHandler.Result;
+    public static T Load<T>(string keyValue) where T : UnityEngine.Object
+    {
+        if (Managers.DataManager.Datas.TryGetValue(keyValue,out UnityEngine.Object resourceResult))
+        {
+            return resourceResult as T;
+        }
+        else
+        {
+            Debug.LogError("로드 안됨");
+            
+            return null;
+        }
     }
 }

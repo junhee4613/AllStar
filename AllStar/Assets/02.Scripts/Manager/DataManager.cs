@@ -6,6 +6,9 @@ using UnityEngine.AddressableAssets;
 
 public class DataManager
 {
-    public GameObject LoadedOBJ;
-
+    public Dictionary<string, UnityEngine.Object> Datas = new Dictionary<string, UnityEngine.Object>();
+    public void Init()
+    {
+        Util.LoadLavelToAsync<UnityEngine.Object>("PreLoad");
+    }
 }
