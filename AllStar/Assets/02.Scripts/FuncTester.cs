@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class FuncTester : MonoBehaviour
 {
+    public Bullets[] BulletTest = new Bullets[2];
+    public void Start()
+    {
+        BulletTest[0] = new Santan();
+        BulletTest[1] = new MachineGun();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -15,6 +21,14 @@ public class FuncTester : MonoBehaviour
         {
             /*Util.Load<UnityEngine.Object>("AA");*/
             Debug.Log(Managers.DataManager.Datas.Count);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            BulletTest[0].BasicValue();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            BulletTest[1].BasicValue();
         }
     }
 
