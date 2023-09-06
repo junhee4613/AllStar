@@ -29,10 +29,9 @@ public class FuncTester : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Bullets a = null;
-            a = BulletTest[1].init();
+/*            Bullets a = null;
+            a = BulletTest[1].init();*/
             Debug.Log(Managers.DataManager.Datas["AA"] + "오브젝트는");
-            Debug.Log(Managers.DataManager.Datas["BulletTable"]);
         }
     }
 

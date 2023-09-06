@@ -7,38 +7,22 @@ using Newtonsoft.Json;
 
 public class Util
 {
-    public static void LoadToAsync<T>(string keyValue,Action callback) where T : UnityEngine.Object
+    public static T GetOrAddCompo<T>(GameObject GO) where T : Component
     {
-        var loadHandler = Addressables.LoadAssetAsync<T>(keyValue);
-        loadHandler.Completed += ((DT) =>
-        {
-            Managers.DataManager.Datas.Add(keyValue, DT.Result);
-        });
-    }
-    public static void LoadLavelToAsync<T>(string labelName) where T : UnityEngine.Object
-    {
-        var operationHandle = Addressables.LoadResourceLocationsAsync(labelName, typeof(T));
-        operationHandle.Completed += ((DT) =>
-        {
-            foreach (var item in DT.Result)
-            {
-                Debug.Log(item.PrimaryKey);
-                Managers.DataManager.Datas.Add(item.PrimaryKey , item as T);
-            }
-        });
-    }
 
-    public static T Load<T>(string keyValue) where T : UnityEngine.Object
-    {
-        if (Managers.DataManager.Datas.TryGetValue(keyValue,out UnityEngine.Object resourceResult))
+        T component = GO.GetComponent<T>();
+        if (component == null)
         {
-            return resourceResult as T;
+            if (GO.GetComponentInChildren<T>() != null)
+            {
+                component = GO.GetComponentInChildren<T>();
+            }
+            else
+            {
+                GO.AddComponent<T>();
+            }
         }
-        else
-        {
-            Debug.LogError("·Îµå ¾ÈµÊ");
-            
-            return null;
-        }
+        return component;
+
     }
 }

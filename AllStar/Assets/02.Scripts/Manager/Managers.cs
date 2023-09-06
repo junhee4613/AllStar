@@ -28,7 +28,9 @@ public class Managers : MonoBehaviour
     GameManager _game = new GameManager();
     [SerializeField]
     DataManager _data = new DataManager();
+    PoolingManager _pool = new PoolingManager();
 
     public static GameManager GameManager { get { return instance?._game; } }
     public static DataManager DataManager { get { return instance?._data; }}
+    public static PoolingManager Pool { get { return instance?._pool; } }
 }
