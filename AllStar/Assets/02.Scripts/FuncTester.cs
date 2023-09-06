@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Util;
 
 public class FuncTester : MonoBehaviour
 {
@@ -28,7 +29,10 @@ public class FuncTester : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            BulletTest[1].BasicValue();
+            Bullets a = null;
+            a = BulletTest[1].init();
+            Debug.Log(Managers.DataManager.Datas["AA"] + "오브젝트는");
+            Debug.Log(Managers.DataManager.Datas["BulletTable"]);
         }
     }
 

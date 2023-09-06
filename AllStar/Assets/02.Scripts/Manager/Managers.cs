@@ -22,11 +22,11 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
-            Debug.Log("积己");
+            Debug.Log("霸烙 皋聪历 积己");
         }
-        Debug.Log("け?ぉ");
     }
     GameManager _game = new GameManager();
+    [SerializeField]
     DataManager _data = new DataManager();
 
     public static GameManager GameManager { get { return instance?._game; } }

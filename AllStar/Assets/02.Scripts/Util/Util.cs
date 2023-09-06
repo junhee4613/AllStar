@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Newtonsoft.Json;
 
 public class Util
 {
@@ -21,7 +22,8 @@ public class Util
         {
             foreach (var item in DT.Result)
             {
-                Managers.DataManager.Datas.Add(item.PrimaryKey, item as T);
+                Debug.Log(item.PrimaryKey);
+                Managers.DataManager.Datas.Add(item.PrimaryKey , item as T);
             }
         });
     }
