@@ -7,6 +7,12 @@ public class GameManager
     public Status PlayerStat = new Status();
     public void BasicPlayerStats()
     {
+        PlayerStat.moveSpeed = 10;
+        PlayerStat.HP = 10;
+        PlayerStat.attackSpeed = 10;
+        PlayerStat.attackDamage = 10;
+        PlayerStat.criticalChance = 10;
+        PlayerStat.criticalDamage = 10;
 
     }
     public void AddStatus(statusType type, float addValue)
