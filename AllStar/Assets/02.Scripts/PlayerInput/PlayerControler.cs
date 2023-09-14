@@ -37,8 +37,9 @@ public class PlayerControler : MonoBehaviour
         {
             playerAhead = new Vector3(0, rb.velocity.y, 0);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
+            //여기다가 이프문으로 딜레이를 넣을까?
             GetMousePos();
         }
     }
@@ -51,7 +52,6 @@ public class PlayerControler : MonoBehaviour
         {
             AttackPoint(hit.point, ref rotTemp, () => 
             {
-                Debug.Log(rotTemp);
                 if (Managers.DataManager.Datas.TryGetValue("Bullet_Test",out UnityEngine.Object Result))
                 {
                     
@@ -64,8 +64,7 @@ public class PlayerControler : MonoBehaviour
     public void AttackPoint(Vector3 TargetPos,ref float quatTemp,Action Time) 
     {
         TargetPos = new Vector3(TargetPos.x - transform.position.x,TargetPos.z - transform.position.z);
-        Debug.Log(TargetPos);
-        quatTemp = (((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)/2)-45)*-1;
+        quatTemp = ((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)-90)*-1;
         Time?.Invoke();
         //localPos,WorldPos쪽 문제가 아닐지 한번
     }
