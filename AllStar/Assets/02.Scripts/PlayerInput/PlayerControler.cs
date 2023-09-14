@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -44,20 +45,28 @@ public class PlayerControler : MonoBehaviour
     public void GetMousePos()
     {
         RaycastHit hit;
-        Vector3 tempVec = Vector3.zero;
+        float rotTemp = 0;
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(mouseRay,out hit,Mathf.Infinity,8))
         {
-            tempVec = hit.point;
-            AttackPoint(ref tempVec, () => 
+            AttackPoint(hit.point, ref rotTemp, () => 
             {
-                Debug.Log(tempVec);
+                Debug.Log(rotTemp);
+                if (Managers.DataManager.Datas.TryGetValue("Bullet_Test",out UnityEngine.Object Result))
+                {
+                    
+                    Instantiate<GameObject>(Result.GameObject(), transform.position, Quaternion.Euler(0, rotTemp, 0));
+                }
+                
             });
         }
     }
-    public void AttackPoint(ref Vector3 TargetPos,Action Time) 
+    public void AttackPoint(Vector3 TargetPos,ref float quatTemp,Action Time) 
     {
-        TargetPos = new Vector3(TargetPos.x - transform.position.x, TargetPos.z - transform.position.z);
+        TargetPos = new Vector3(TargetPos.x - transform.position.x,TargetPos.z - transform.position.z);
+        Debug.Log(TargetPos);
+        quatTemp = (((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)/2)-45)*-1;
         Time?.Invoke();
+        //localPos,WorldPos쪽 문제가 아닐지 한번
     }
 }
