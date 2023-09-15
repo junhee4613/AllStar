@@ -11,17 +11,23 @@ public class PlayerControler : MonoBehaviour
     public Vector2 playerDir;
     public Transform aa;
     public Ray mouseRay;
+    public Status stat;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        Managers.GameManager.BasicPlayerStats();
+        Managers.GameManager.BasicPlayerStats(()=> 
+        {
+            stat = Managers.GameManager.PlayerStat;
+        });
+
     }
+    
     private void Update()
     {
         rb.velocity = playerAhead;
+        playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (Input.GetButtonDown("Horizontal")|| Input.GetButtonDown("Vertical"))
         {
-            playerDir =new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
             {
                 playerDir = playerDir.normalized;

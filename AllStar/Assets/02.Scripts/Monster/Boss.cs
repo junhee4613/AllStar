@@ -9,13 +9,6 @@ public class Boss : MonoBehaviour
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
     public BossMotion motion;
-    public enum BossMotion
-    {
-        STOP,
-        ROTATE,
-        MOVE,
-        SCALE_UP,
-    }
 
     // Start is called before the first frame update
     void Start()

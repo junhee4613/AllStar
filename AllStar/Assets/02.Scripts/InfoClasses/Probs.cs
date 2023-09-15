@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class Status
 {
     public float moveSpeed;
@@ -19,4 +19,11 @@ public class BulletStatus
 {
     public float damage;
     public int bulletCount;
+}
+public enum BossMotion
+{
+    STOP,
+    ROTATE,
+    MOVE,
+    SCALE_UP,
 }

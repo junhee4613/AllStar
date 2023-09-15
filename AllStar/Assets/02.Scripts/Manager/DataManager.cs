@@ -11,11 +11,15 @@ public class DataManager
 {
     public TextAsset JsonFile;
     public Dictionary<string, Object> Datas = new Dictionary<string, Object>();
-    public void Init()
+    public void Init(Action Done)
     {
         LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
+            if (count == totalCount)
+            {
+                Done?.Invoke();
+            }
         });
     }
     public T Load<T>(string key) where T : Object

@@ -8,7 +8,7 @@ public class Managers : MonoBehaviour
     static Managers instance { get { Init(); return s_instance; } }
     private void Start()
     {
-        _data.Init();
+        
     }
     public static void Init()
     {
@@ -25,6 +25,7 @@ public class Managers : MonoBehaviour
             Debug.Log("게임 메니저 생성");
         }
     }
+    [SerializeField]
     GameManager _game = new GameManager();
     [SerializeField]
     DataManager _data = new DataManager();
