@@ -12,6 +12,7 @@ public class PlayerControler : MonoBehaviour
     public Transform aa;
     public Ray mouseRay;
     public Status stat;
+    public float playerAttackTimer;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,9 +20,16 @@ public class PlayerControler : MonoBehaviour
         {
             stat = Managers.GameManager.PlayerStat;
         });
-
+        BaseState tempState = new PlayerFSM.Dotge();
+        tempState.SetDefault(stat.animator,ref stat.states, "dodge");
+        tempState = new GeneralFSM.Attack();
+        tempState.SetDefault(stat.animator,ref stat.states, "attack");
+        tempState = new GeneralFSM.Damaged();
+        tempState.SetDefault(stat.animator,ref stat.states, "damaged");
+        tempState = new GeneralFSM.Run();
+        tempState.SetDefault(stat.animator,ref stat.states, "run");
     }
-    
+
     private void Update()
     {
         rb.velocity = playerAhead;
@@ -43,11 +51,13 @@ public class PlayerControler : MonoBehaviour
         {
             playerAhead = new Vector3(0, rb.velocity.y, 0);
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0)&&1f/stat.attackSpeed <playerAttackTimer)
         {
             //여기다가 이프문으로 딜레이를 넣을까?
             GetMousePos();
+            playerAttackTimer = 0;
         }
+        playerAttackTimer += Time.deltaTime;
     }
     public void GetMousePos()
     {

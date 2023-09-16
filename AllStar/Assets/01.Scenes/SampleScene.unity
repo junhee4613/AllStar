@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 10711353}
   - component: {fileID: 10711352}
   - component: {fileID: 10711350}
+  - component: {fileID: 10711357}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -160,6 +161,15 @@ MonoBehaviour:
   playerAhead: {x: 0, y: 0, z: 0}
   playerDir: {x: 0, y: 0}
   aa: {fileID: 1518265563}
+  stat:
+    moveSpeed: 0
+    HP: 0
+    attackSpeed: 0
+    attackDamage: 0
+    criticalChance: 0
+    criticalDamage: 0
+    animator: {fileID: 0}
+  playerAttackTimer: 0
 --- !u!54 &10711352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -254,6 +264,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &10711357
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10711349}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &191068098
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &191068099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +836,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cfb8845a0af3447ace71b27026960b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game:
+    PlayerStat:
+      moveSpeed: 0
+      HP: 0
+      attackSpeed: 0
+      attackDamage: 0
+      criticalChance: 0
+      criticalDamage: 0
+      animator: {fileID: 0}
   _data:
     JsonFile: {fileID: 4900000, guid: 7179b7d394257d343ae72e0f7fb09951, type: 3}
 --- !u!1 &2023381528
@@ -819,6 +858,7 @@ GameObject:
   - component: {fileID: 2023381531}
   - component: {fileID: 2023381530}
   - component: {fileID: 2023381529}
+  - component: {fileID: 2023381532}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -892,3 +932,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &2023381532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023381528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af78a06471318b4e986b849e8d91dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraDistance: 8
+  target: {fileID: 10711356}
