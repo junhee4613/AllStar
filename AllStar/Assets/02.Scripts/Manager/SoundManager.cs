@@ -14,19 +14,20 @@ public class SoundManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(Instance);
+            SceneManager.sceneLoaded += SceneLoadedSetting;
         }
         else
         {
             Destroy(this);
-            DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += SceneLoadedSetting;
         }
     }
-    public void SFX_Sound(GameObject go)
+    public void SFX_Sound(AudioClip clip)
     {
-        go = new GameObject();
+        GameObject go = new GameObject();
         AudioSource temp = go.AddComponent<AudioSource>();
-        temp.loop = false;
+        temp.outputAudioMixerGroup = mixer.FindMatchingGroups("그룹 안에 있는 이름")[0];
+        temp.clip = clip;
         temp.Play();
         Destroy(go, temp.clip.length);
     }
@@ -37,8 +38,30 @@ public class SoundManager : MonoBehaviour
             if(bgmList[i].name == arg.name)
             {
                 bgm_Sound.clip = bgmList[i];
+                bgm_Sound.loop = true;
+                bgm_Sound.outputAudioMixerGroup = mixer.FindMatchingGroups("그룹 안에 있는 이름")[0];
+                bgm_Sound.Play();
             }
         }
+    }
+    public void SFX_Sound_Volume(float val)
+    {
+        if (val > 0)
+        {
+            mixer.SetFloat("파라미터", Mathf.Log10(val) * 20);
+        }
+        else
+            mixer.SetFloat("파라미터", -80);
+
+    }
+    public void BGM_Sound_Volume(float val)
+    {
+        if (val > 0)
+        {
+            mixer.SetFloat("파라미터", Mathf.Log10(val) * 20);
+        }
+        else
+            mixer.SetFloat("파라미터", -80);
     }
     public void SceneLoadedSetting(Scene arg, LoadSceneMode arg1)
     {
