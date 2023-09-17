@@ -11,6 +11,7 @@ public class MonsterController : MonoBehaviour
         if (monsterStatus.HP-damage <=0)
         {
             monsterStatus.HP -= damage;
+            monsterStatus.nowState = monsterStatus.states["die"];
         }
         else
         {
@@ -20,7 +21,7 @@ public class MonsterController : MonoBehaviour
     }
     void Start()
     {
-        monsterStatus.states.SetGeneralFSMDefault(monsterStatus.animator,this.gameObject);
+        monsterStatus.states.SetGeneralFSMDefault(ref monsterStatus.animator,this.gameObject);
     }
 
     // Update is called once per frame

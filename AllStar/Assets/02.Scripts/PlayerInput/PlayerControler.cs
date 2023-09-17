@@ -7,47 +7,35 @@ using Unity.VisualScripting;
 public class PlayerControler : MonoBehaviour
 {
     public Rigidbody rb;
-    public Vector3 playerAhead;
     public Vector2 playerDir;
-    public Transform aa;
     public Ray mouseRay;
     public Status stat;
     public float playerAttackTimer;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        stat.animator = GetComponent<Animator>();
         Managers.GameManager.BasicPlayerStats(()=> 
         {
             stat = Managers.GameManager.PlayerStat;
+            stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
+            stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
         });
-        stat.states.SetGeneralFSMDefault(stat.animator,this.gameObject);
-        stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
     }
 
     private void Update()
     {
-        rb.velocity = playerAhead;
-        playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (Input.GetButtonDown("Horizontal")|| Input.GetButtonDown("Vertical"))
+        rb.velocity = new Vector3(stat.moveSpeed * playerDir.x, 0,stat.moveSpeed * playerDir.y);
+        if (Input.GetButton("Horizontal")&& Input.GetButton("Vertical"))
         {
-            if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
-            {
-                playerDir = playerDir.normalized;
-                playerAhead = new Vector3(Managers.GameManager.PlayerStat.moveSpeed * playerDir.x, 0, Managers.GameManager.PlayerStat.moveSpeed * playerDir.y);
-            }
-            else
-            {
-                playerAhead = new Vector3(Managers.GameManager.PlayerStat.moveSpeed * Input.GetAxisRaw("Horizontal"), 0, Managers.GameManager.PlayerStat.moveSpeed * Input.GetAxisRaw("Vertical"));
-            }
-
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; ;
         }
-        else if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
+        else
         {
-            playerAhead = new Vector3(0, rb.velocity.y, 0);
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
         if (Input.GetKey(KeyCode.Mouse0)&&1f/stat.attackSpeed <playerAttackTimer)
         {
-            //여기다가 이프문으로 딜레이를 넣을까?
             GetMousePos();
             playerAttackTimer = 0;
         }
@@ -64,8 +52,9 @@ public class PlayerControler : MonoBehaviour
             {
                 if (Managers.DataManager.Datas.TryGetValue("Bullet_Test",out UnityEngine.Object Result))
                 {
-                    
-                    Instantiate<GameObject>(Result.GameObject(), transform.position, Quaternion.Euler(0, rotTemp, 0));
+                    GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());
+                    bulletTemp.transform.position = transform.position;
+                    bulletTemp.transform.rotation = Quaternion.Euler(0, rotTemp, 0);
                 }
                 
             });
