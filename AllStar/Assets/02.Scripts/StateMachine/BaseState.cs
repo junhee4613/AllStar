@@ -10,6 +10,10 @@ public abstract class BaseState
     public abstract void OnStateUpdate();
     public abstract void OnStateExit();
 }
+namespace FSMSetUp
+{
+
+}
 namespace GeneralFSM
 {
     public class Run : BaseState
@@ -28,6 +32,21 @@ namespace GeneralFSM
         }
     }
     public class Attack : BaseState
+    {
+        public override void OnStateEnter()
+        {
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Die : BaseState
     {
         public override void OnStateEnter()
         {
@@ -68,7 +87,7 @@ namespace CommonMonsterFSM
 }
 namespace PlayerFSM
 {
-    public class Dotge : BaseState
+    public class Dodge : BaseState
     {
         public override void OnStateEnter()
         {

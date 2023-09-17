@@ -20,14 +20,8 @@ public class PlayerControler : MonoBehaviour
         {
             stat = Managers.GameManager.PlayerStat;
         });
-        BaseState tempState = new PlayerFSM.Dotge();
-        tempState.SetDefault(stat.animator,ref stat.states, "dodge");
-        tempState = new GeneralFSM.Attack();
-        tempState.SetDefault(stat.animator,ref stat.states, "attack");
-        tempState = new GeneralFSM.Damaged();
-        tempState.SetDefault(stat.animator,ref stat.states, "damaged");
-        tempState = new GeneralFSM.Run();
-        tempState.SetDefault(stat.animator,ref stat.states, "run");
+        stat.states.SetGeneralFSMDefault(stat.animator,this.gameObject);
+        stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
     }
 
     private void Update()

@@ -12,6 +12,7 @@ public class Status
     public float criticalDamage;
     public Animator animator;
     public Dictionary<string,BaseState> states = new Dictionary<string, BaseState>();
+    public BaseState nowState;
 }
 public enum statusType
 {
