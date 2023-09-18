@@ -5,20 +5,24 @@ public class Util
 {
     public static T GetOrAddCompo<T>(GameObject GO) where T : Component
     {
-
-        T component = GO.GetComponent<T>();
-        if (component == null)
+        T compo = default;
+        if (GO.TryGetComponent<T>(out T result))
+        {
+            GO.GetComponent<T>();
+            compo = result;
+        }
+        else
         {
             if (GO.GetComponentInChildren<T>() != null)
             {
-                component = GO.GetComponentInChildren<T>();
+                compo = GO.GetComponentInChildren<T>();
             }
             else
             {
-                GO.AddComponent<T>();
+                compo = GO.AddComponent<T>();
             }
         }
-        return component;
+        return compo;
 
     }
 }

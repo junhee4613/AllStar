@@ -51,5 +51,6 @@ public static class FSMExtension
             item.Value.animator = anim;
             Debug.Log(item.Key + anim.gameObject.name);
         }
+        Debug.Log(dict.Count+anim.gameObject.name);
     }
 }
