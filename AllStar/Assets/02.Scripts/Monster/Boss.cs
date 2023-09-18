@@ -8,7 +8,7 @@ public class Boss : MonoBehaviour
     public float standby_time;                          //모든 패턴 중지 시간
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
-    public BossMotion motion;
+    public BossPattern motion;
 
     // Start is called before the first frame update
     void Start()
@@ -30,19 +30,19 @@ public class Boss : MonoBehaviour
         pattern_Start_bool = false;         
         randomNum = Random.Range(0, 4);
         motion_Type = $"Motion{randomNum}";
-        motion = (BossMotion)randomNum;
+        motion = (BossPattern)randomNum;
         switch (motion)
         {
-            case (BossMotion)0: //가만히 있기
+            case (BossPattern)0: //가만히 있기
                 StartCoroutine(motion_Type);
                 break;
-            case (BossMotion)1:
+            case (BossPattern)1:
                 StartCoroutine(motion_Type);
                 break;
-            case (BossMotion)2:
+            case (BossPattern)2:
                 StartCoroutine(motion_Type);
                 break;
-            case (BossMotion)3:
+            case (BossPattern)3:
                 StartCoroutine(motion_Type);
                 break;
             default:

@@ -24,10 +24,22 @@ public class BulletStatus
     public float damage;
     public int bulletCount;
 }
-public enum BossMotion
+public enum BossPattern
 {
     STOP,
     ROTATE,
     MOVE,
     SCALE_UP,
+}
+public enum MonsterPaattern
+{
+    STOP,
+    RUN,
+    ATTACK
+}
+public enum GeneralMonsters_Type        //일반몬스터 타입들 이 타입들로 몬스터 공격 방법을 정해줌
+{
+    NEAR,
+    RANGED,
+    SPECIAL
 }
