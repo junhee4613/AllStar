@@ -20,7 +20,7 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-
+            animator.Play("run",0);
         }
         public override void OnStateUpdate()
         {
@@ -28,14 +28,14 @@ namespace GeneralFSM
         }
         public override void OnStateExit()
         {
-
+            
         }
     }
     public class Attack : BaseState
     {
         public override void OnStateEnter()
         {
-
+            animator.Play("attack", 0);
         }
         public override void OnStateUpdate()
         {
@@ -50,7 +50,7 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-
+            animator.Play("die", 0);
         }
         public override void OnStateUpdate()
         {
@@ -65,7 +65,7 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-
+            animator.Play("damaged", 0);
         }
         public override void OnStateUpdate()
         {
@@ -80,7 +80,7 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-            
+            animator.Play("idle", 0);
         }
         public override void OnStateUpdate()
         {
@@ -106,7 +106,7 @@ namespace PlayerFSM
     {
         public override void OnStateEnter()
         {
-            
+            animator.Play("dodge", 0);
         }
         public override void OnStateUpdate()
         {

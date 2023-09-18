@@ -35,7 +35,6 @@ public static class FSMExtension
         foreach (var item in dict)
         {
             item.Value.animator = anim;
-            Debug.Log(item.Key + anim.gameObject.name);
         }
     }
     public static void SetPlayerFSMDefault(this Dictionary<string, BaseState> dict,Animator anim,GameObject target)
@@ -50,8 +49,6 @@ public static class FSMExtension
         foreach (var item in dict)
         {
             item.Value.animator = anim;
-            Debug.Log(item.Key + anim.gameObject.name);
         }
-        Debug.Log(dict.Count+anim.gameObject.name);
     }
 }

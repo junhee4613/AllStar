@@ -13,6 +13,7 @@ public class PlayerControler : MonoBehaviour
     
     public float playerAttackTimer = 0;
     public float dodgeCooldown = 0 ;
+    public bool nonControllable;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,35 +23,40 @@ public class PlayerControler : MonoBehaviour
             stat = Managers.GameManager.PlayerStat;
             stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
             stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
+            stat.nowState = stat.states["idle"];
         });
     }
 
     private void Update()
     {
-        rb.velocity = new Vector3(stat.moveSpeed * playerDir.x, 0,stat.moveSpeed * playerDir.y);
-        if (stat.states.ContainsKey("dodge")&&stat.nowState != stat.states["dodge"])
+        if (Input.GetButton("Horizontal") && Input.GetButton("Vertical"))
         {
-            if (Input.GetButton("Horizontal")&& Input.GetButton("Vertical"))
-            {
-                playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; ;
-            }
-            else
-            {
-                playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            }
-            if (Input.GetKey(KeyCode.Mouse0)&&1f/stat.attackSpeed <playerAttackTimer)
-            {
-                GetMousePos();
-                playerAttackTimer = 0;
-            }
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; ;
         }
-        playerAttackTimer += Time.deltaTime;
-        dodgeCooldown += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space)&&dodgeCooldown >= stat.skillCoolTime)
+        else
         {
-            dodgeCooldown = 0;
-            stat.nowState = stat.states["dodge"];
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
+        if (!nonControllable)
+        {
+            rb.velocity = new Vector3(stat.moveSpeed * playerDir.x, 0, stat.moveSpeed * playerDir.y);
+            if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"])
+            {
+                if (Input.GetKey(KeyCode.Mouse0) && 1f / stat.attackSpeed < playerAttackTimer)
+                {
+                    GetMousePos();
+                    playerAttackTimer = 0;
+                }
+            }
+            playerAttackTimer += Time.deltaTime;
+            dodgeCooldown += Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldown >= stat.skillCoolTime)
+            {
+                dodgeCooldown = 0;
+                fsmChanger(stat.states["dodge"]);
+            } 
+        }
+        /*Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);*/
     }
     public void GetMousePos()
     {
@@ -76,5 +82,28 @@ public class PlayerControler : MonoBehaviour
         TargetPos = new Vector3(TargetPos.x - transform.position.x,TargetPos.z - transform.position.z);
         quatTemp = ((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)-90)*-1;
         Time?.Invoke();
+    }
+    public void fsmChanger(BaseState BS)
+    {
+        stat.nowState.OnStateExit();
+        stat.nowState = BS;
+        stat.nowState.OnStateEnter();
+        if (BS == stat.states["dodge"]/*여기다가 추후 추가될 정지 애니메이션*/)
+        {
+            nonControllable = true;
+            rb.velocity = Vector3.zero;
+            StartCoroutine(dodgeTimer());
+        }
+    }
+    public IEnumerator dodgeTimer()
+    {
+        rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y)*40,ForceMode.Impulse);
+        yield return null;
+        Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        yield return new WaitUntil(() => stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
+        rb.velocity = Vector3.zero;
+        Debug.Log("애님끝남");
+        nonControllable = false;
+        fsmChanger(stat.states["idle"]);
     }
 }
