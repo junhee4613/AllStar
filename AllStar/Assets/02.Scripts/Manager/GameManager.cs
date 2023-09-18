@@ -16,6 +16,7 @@ public class GameManager
             PlayerStat.attackDamage = 10;
             PlayerStat.criticalChance = 10;
             PlayerStat.criticalDamage = 10;
+            PlayerStat.skillCoolTime = 2;
             done?.Invoke();
         });
     }

@@ -31,6 +31,7 @@ public static class FSMExtension
         dict.Add("damaged", new GeneralFSM.Damaged());
         dict.Add("run", new GeneralFSM.Run());
         dict.Add("die", new GeneralFSM.Die());
+        dict.Add("idle", new GeneralFSM.Idle());
         foreach (var item in dict)
         {
             item.Value.animator = anim;

@@ -76,6 +76,21 @@ namespace GeneralFSM
 
         }
     }
+    public class Idle : BaseState
+    {
+        public override void OnStateEnter()
+        {
+            
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
 }
 namespace EpicMonsterFSM
 {
