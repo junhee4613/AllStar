@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 10711352}
   - component: {fileID: 10711350}
   - component: {fileID: 10711357}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +170,7 @@ MonoBehaviour:
     animator: {fileID: 0}
   playerAttackTimer: 0
   dodgeCooldown: 0
+  nonControllable: 0
 --- !u!54 &10711352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -347,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &228254000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -447,6 +448,9 @@ MonoBehaviour:
     criticalDamage: 0
     skillCoolTime: 0
     animator: {fileID: 0}
+  monster_Motion: 0
+  Detect_Range_Free: 0
+  Detect_Range_Fix: 0
 --- !u!1 &524928566
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &524928567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -566,6 +570,9 @@ MonoBehaviour:
     criticalDamage: 0
     skillCoolTime: 0
     animator: {fileID: 0}
+  monster_Motion: 0
+  Detect_Range_Free: 0
+  Detect_Range_Fix: 0
 --- !u!1 &660661350
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &660661351
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -685,6 +692,9 @@ MonoBehaviour:
     criticalDamage: 0
     skillCoolTime: 0
     animator: {fileID: 0}
+  monster_Motion: 0
+  Detect_Range_Free: 0
+  Detect_Range_Fix: 0
 --- !u!1 &1133029863
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1249473034
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -851,6 +861,9 @@ MonoBehaviour:
     criticalDamage: 0
     skillCoolTime: 0
     animator: {fileID: 0}
+  monster_Motion: 0
+  Detect_Range_Free: 0
+  Detect_Range_Fix: 0
 --- !u!1 &1290567749
 GameObject:
   m_ObjectHideFlags: 0

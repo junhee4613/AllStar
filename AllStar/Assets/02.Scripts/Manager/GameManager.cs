@@ -5,7 +5,7 @@ using System;
 [System.Serializable]
 public class GameManager
 {
-    public Status PlayerStat = new Status();
+    public PlayerOnlyStatus PlayerStat = new PlayerOnlyStatus();
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
@@ -16,7 +16,8 @@ public class GameManager
             PlayerStat.attackDamage = 10;
             PlayerStat.criticalChance = 10;
             PlayerStat.criticalDamage = 10;
-            PlayerStat.skillCoolTime = 2;
+            PlayerStat.dodgeCooltime = 1;
+            PlayerStat.dodgeDistance = 60;
             done?.Invoke();
         });
     }

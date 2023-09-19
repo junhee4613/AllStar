@@ -6,18 +6,20 @@ using Unity.VisualScripting;
 
 public class PlayerControler : MonoBehaviour
 {
+    [Header("컨트롤 부속")]
     public Rigidbody rb;
     public Vector2 playerDir;
     public Ray mouseRay;
-    public Status stat;
+    [Header("플레이어 스텟")]
+    public PlayerOnlyStatus stat;
     
+    [Header("타이머")]
     public float playerAttackTimer = 0;
     public float dodgeCooldown = 0 ;
     public bool nonControllable;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        stat.animator = GetComponent<Animator>();
         Managers.GameManager.BasicPlayerStats(()=> 
         {
             stat = Managers.GameManager.PlayerStat;
@@ -31,7 +33,7 @@ public class PlayerControler : MonoBehaviour
     {
         if (Input.GetButton("Horizontal") && Input.GetButton("Vertical"))
         {
-            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; ;
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; 
         }
         else
         {
@@ -40,22 +42,38 @@ public class PlayerControler : MonoBehaviour
         if (!nonControllable)
         {
             rb.velocity = new Vector3(stat.moveSpeed * playerDir.x, 0, stat.moveSpeed * playerDir.y);
+            if (playerDir != Vector2.zero)
+            {
+                if (stat.states.ContainsKey("run") && stat.nowState != stat.states["run"] &&isInAttacking())
+                {
+                    fsmChanger(stat.states["run"]);
+                }
+            }
+            else if (playerDir == Vector2.zero)
+            {
+                if (stat.states.ContainsKey("idle") && stat.nowState != stat.states["idle"])
+                {
+                    fsmChanger(stat.states["idle"]);
+                }
+            }
+
             if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"])
             {
                 if (Input.GetKey(KeyCode.Mouse0) && 1f / stat.attackSpeed < playerAttackTimer)
                 {
                     GetMousePos();
+                    fsmChanger(stat.states["attack"]);
                     playerAttackTimer = 0;
                 }
             }
-            playerAttackTimer += Time.deltaTime;
-            dodgeCooldown += Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldown >= stat.skillCoolTime)
+            if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldown >= stat.dodgeCooltime)
             {
                 dodgeCooldown = 0;
                 fsmChanger(stat.states["dodge"]);
             } 
         }
+        playerAttackTimer += Time.deltaTime;
+        dodgeCooldown += Time.deltaTime;
         /*Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);*/
     }
     public void GetMousePos()
@@ -83,21 +101,37 @@ public class PlayerControler : MonoBehaviour
         quatTemp = ((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)-90)*-1;
         Time?.Invoke();
     }
+    #region fsm 중계기를 만들어서 변수로 참조해와야함
     public void fsmChanger(BaseState BS)
     {
-        stat.nowState.OnStateExit();
-        stat.nowState = BS;
-        stat.nowState.OnStateEnter();
-        if (BS == stat.states["dodge"]/*여기다가 추후 추가될 정지 애니메이션*/)
+        if (BS != stat.nowState)
         {
-            nonControllable = true;
-            rb.velocity = Vector3.zero;
-            StartCoroutine(dodgeTimer());
+            stat.nowState.OnStateExit();
+            stat.nowState = BS;
+            stat.nowState.OnStateEnter();
+            if (BS == stat.states["dodge"]/*여기다가 추후 추가될 정지 애니메이션*/)
+            {
+                nonControllable = true;
+                rb.velocity = Vector3.zero;
+                StartCoroutine(dodgeTimer());
+            }
+            else if(BS == stat.states["attack"])
+            {
+                StartCoroutine(animTimer());
+            }
         }
     }
+
     public IEnumerator dodgeTimer()
     {
-        rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y)*40,ForceMode.Impulse);
+        if (playerDir.x== 0&&playerDir.y==0)
+        {
+            rb.AddForce(Vector3.forward * stat.dodgeDistance, ForceMode.Impulse);
+        }
+        else
+        {
+            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * stat.dodgeDistance, ForceMode.Impulse);            
+        }
         yield return null;
         Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         yield return new WaitUntil(() => stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
@@ -106,4 +140,24 @@ public class PlayerControler : MonoBehaviour
         nonControllable = false;
         fsmChanger(stat.states["idle"]);
     }
+    public IEnumerator animTimer()
+    {
+        yield return null;
+        Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        yield return new WaitUntil(() => stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
+        fsmChanger(stat.states["idle"]);
+    }
+    public bool isInAttacking()
+    {
+        if (stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && stat.nowState==stat.states["attack"])
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+    #endregion
 }
