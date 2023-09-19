@@ -55,7 +55,7 @@ public class MonsterController : MonoBehaviour
     public void Follow()
     {
 
-        if (Physics.SphereCast(transform.position, Detect_Range_Free, Vector3.one, out RaycastHit hit, Detect_Range_Fix, 128))
+        if (Physics.SphereCast(transform.position, Detect_Range_Free, transform.forward, out RaycastHit hit, Detect_Range_Fix, 128))
         {
             Debug.Log(hit.collider.gameObject.name);
             monster_Motion = MonsterPaattern.RUN;
@@ -68,7 +68,8 @@ public class MonsterController : MonoBehaviour
     }
     public float LookPlayer(RaycastHit hit)
     {           //-90을 해준다 인스펙터 창에서 전역 기준으로 앞을 볼 때 Y축 회전이 0인데 0.1의 아크탄젠트를 각도로 표현하면 90이 나오기 때문이다.
-        float target = Mathf.Atan2(hit.transform.position.z, hit.transform.position.x) * Mathf.Rad2Deg - 90;
+        //몬스터 기준으로 타겟의 좌표를 구해야돼서 이거 생각해서 수정하기
+        float target = Mathf.Atan2(hit.transform.position.z - transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90;
         return target;
     }
 }

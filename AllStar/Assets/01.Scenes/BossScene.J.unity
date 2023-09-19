@@ -222,7 +222,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69604448}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &69604453
 Transform:
   m_ObjectHideFlags: 0
@@ -257,7 +257,6 @@ MonoBehaviour:
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
-    skillCoolTime: 0
     animator: {fileID: 0}
   monster_Motion: 0
   Detect_Range_Free: 0
