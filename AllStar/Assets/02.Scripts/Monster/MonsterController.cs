@@ -9,6 +9,7 @@ public class MonsterController : MonoBehaviour
     public MonsterPaattern monster_Motion;
     public float Detect_Range_Free;
     public float Detect_Range_Fix;
+    public Collider[] test;
     Rigidbody rb;
     public void getDamage(float damage)
     {
@@ -43,8 +44,11 @@ public class MonsterController : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 break;
             case MonsterPaattern.RUN:
-                Debug.Log("쫒아감");
-                //rb.velocity = transform.forward;
+                /*if(Mathf.Abs(rb.velocity.z) < 5 &&  Mathf.Abs(rb.velocity.x) < 5)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z) + transform.forward;
+                }*/
+
                 break;
             case MonsterPaattern.ATTACK:
                 break;
@@ -54,22 +58,41 @@ public class MonsterController : MonoBehaviour
     }
     public void Follow()
     {
-
-        if (Physics.SphereCast(transform.position, Detect_Range_Free, transform.forward, out RaycastHit hit, Detect_Range_Fix, 128))
+        test = Physics.OverlapSphere(transform.position, Detect_Range_Free, 128);
+        foreach (var item in test)
         {
-            Debug.Log(hit.collider.gameObject.name);
-            monster_Motion = MonsterPaattern.RUN;
-            gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(hit), transform.rotation.z);
+            Debug.Log("도는 중");
+            if (item.name == "Player")
+            {
+                monster_Motion = MonsterPaattern.RUN;
+                gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(item), transform.rotation.z);
+                break;
+            }
+            
         }
-        else
+        if (test.Length == 0)
         {
             monster_Motion = MonsterPaattern.STOP;
         }
     }
-    public float LookPlayer(RaycastHit hit)
-    {           //-90을 해준다 인스펙터 창에서 전역 기준으로 앞을 볼 때 Y축 회전이 0인데 0.1의 아크탄젠트를 각도로 표현하면 90이 나오기 때문이다.
-        //몬스터 기준으로 타겟의 좌표를 구해야돼서 이거 생각해서 수정하기
-        float target = Mathf.Atan2(hit.transform.position.z - transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90;
+    public float LookPlayer(Collider hit)
+    {
+
+        float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
+        float distanceX = hit.transform.position.x - transform.position.x;
+        float distancez = hit.transform.position.z - transform.position.z;
+        if(Mathf.Abs(distanceX) < 1 && Mathf.Abs(distancez) < 1)
+        {
+            monster_Motion = MonsterPaattern.STOP;
+        }
+        else
+        {
+            transform.position +=  transform.forward * 5 * Time.deltaTime;
+        }
+        /*if (Mathf.Abs(gameObject.transform.position.z - hit.transform.position.z) < 1
+            && Mathf.Abs(hit.transform.position.x - transform.position.x) < 1)
+        {
+        }*/
         return target;
     }
 }
