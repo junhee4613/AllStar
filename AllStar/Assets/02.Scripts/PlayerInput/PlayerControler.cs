@@ -10,6 +10,7 @@ public class PlayerControler : MonoBehaviour
     public Rigidbody rb;
     public Vector2 playerDir;
     public Ray mouseRay;
+    public List<BulletBase> playerWeapons = new List<BulletBase>(3); 
     [Header("플레이어 스텟")]
     public PlayerOnlyStatus stat;
     

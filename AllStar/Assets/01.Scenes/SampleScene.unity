@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,6 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   playerDir: {x: 0, y: 0}
+  playerWeapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   stat:
     moveSpeed: 0
     HP: 0
@@ -166,8 +170,9 @@ MonoBehaviour:
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
-    skillCoolTime: 0
     animator: {fileID: 0}
+    dodgeCooltime: 0
+    dodgeDistance: 0
   playerAttackTimer: 0
   dodgeCooldown: 0
   nonControllable: 0
@@ -348,7 +353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &228254000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -446,11 +451,11 @@ MonoBehaviour:
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
-    skillCoolTime: 0
     animator: {fileID: 0}
   monster_Motion: 0
   Detect_Range_Free: 0
   Detect_Range_Fix: 0
+  test: []
 --- !u!1 &524928566
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,11 +573,11 @@ MonoBehaviour:
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
-    skillCoolTime: 0
     animator: {fileID: 0}
   monster_Motion: 0
   Detect_Range_Free: 0
   Detect_Range_Fix: 0
+  test: []
 --- !u!1 &660661350
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &660661351
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -690,11 +695,11 @@ MonoBehaviour:
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
-    skillCoolTime: 0
     animator: {fileID: 0}
   monster_Motion: 0
   Detect_Range_Free: 0
   Detect_Range_Fix: 0
+  test: []
 --- !u!1 &1133029863
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,11 +864,11 @@ MonoBehaviour:
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
-    skillCoolTime: 0
     animator: {fileID: 0}
   monster_Motion: 0
   Detect_Range_Free: 0
   Detect_Range_Fix: 0
+  test: []
 --- !u!1 &1290567749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,8 +1113,9 @@ MonoBehaviour:
       attackDamage: 0
       criticalChance: 0
       criticalDamage: 0
-      skillCoolTime: 0
       animator: {fileID: 0}
+      dodgeCooltime: 0
+      dodgeDistance: 0
   _data:
     JsonFile: {fileID: 4900000, guid: 7179b7d394257d343ae72e0f7fb09951, type: 3}
 --- !u!1 &2023381528
