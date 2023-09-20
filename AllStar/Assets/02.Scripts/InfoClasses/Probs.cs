@@ -29,14 +29,14 @@ public class BulletStatus
     public float damage;
     public int bulletCount;
 }
-public enum BossPattern
+public enum BossAttackPattern
 {
     STOP,
     ROTATE,
     MOVE,
     SCALE_UP,
 }
-public enum MonsterPaattern
+public enum MonsterPaattern_Base
 {
     STOP,
     RUN,
