@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
   - name: ' Launcher'
-    bulletSpeed: 0
-    removeTimer: 0
-    totalDamage: 0
-    explosionRange: 0
-    explosionDamage: 0
+    bulletSpeed: 10
+    removeTimer: 10
+    totalDamage: 10
+    explosionRange: 10
+    explosionDamage: 10
     explosionEffect: {fileID: 0}
     bulletType: 0
     shotType: 0

@@ -14,7 +14,7 @@ public class PlayerControler : MonoBehaviour
     public int nowWeapon = 2;
     [Header("피직스 관련")]
     public Collider[] itemSencer; //아이템 인식
-    public physicsPlus.EnhancedPhysics<ItemBase> physicsPlus = new physicsPlus.EnhancedPhysics<ItemBase>();
+    public physicsPlus.EnhancedPhysics<IItemBase> physicsPlus = new physicsPlus.EnhancedPhysics<IItemBase>();
     [Header("플레이어 스텟")]
     public PlayerOnlyStatus stat;
     
@@ -121,7 +121,7 @@ public class PlayerControler : MonoBehaviour
     {
         for (byte i = 0; i < playerWeapons.Length; i++)
         {
-            if (playerWeapons[i] ==null)
+            if (playerWeapons[i].stat.isEmptySlot())
             {
                 return i;
             }
@@ -133,20 +133,9 @@ public class PlayerControler : MonoBehaviour
         if (physicsPlus.IsChangedInArray(itemSencer,transform.position,2,8))    
         {
             itemSencer = Physics.OverlapSphere(transform.position,2,256);
-            if (physicsPlus.SearchTheComponent(itemSencer,out ItemBase target,"Item"))
+            if (physicsPlus.SearchTheComponent(itemSencer,out IItemBase target,"Item"))
             {
-                switch (target.itemType)
-                {
-                    case ItemTypeEnum.weapon:
-                        /*target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);*/
-                        break;
-                    case ItemTypeEnum.artifacts:
-
-                        break;
-                    case ItemTypeEnum.consumer:
-                        break;
-
-                }
+                target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);
                 Debug.Log(target);
                 return true;
             }

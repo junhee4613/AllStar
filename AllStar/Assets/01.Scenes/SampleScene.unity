@@ -160,9 +160,30 @@ MonoBehaviour:
   rb: {fileID: 0}
   playerDir: {x: 0, y: 0}
   playerWeapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - stat:
+      bulletSpeed: 0
+      removeTimer: 0
+      totalDamage: 0
+      bulletType: 0
+      shotType: 0
+      shotStatus: {fileID: 0}
+    data: {fileID: 11400000, guid: 638e29c7b56bf2844968268b7565d888, type: 2}
+  - stat:
+      bulletSpeed: 0
+      removeTimer: 0
+      totalDamage: 0
+      bulletType: 0
+      shotType: 0
+      shotStatus: {fileID: 0}
+    data: {fileID: 11400000, guid: 638e29c7b56bf2844968268b7565d888, type: 2}
+  - stat:
+      bulletSpeed: 0
+      removeTimer: 0
+      totalDamage: 0
+      bulletType: 0
+      shotType: 0
+      shotStatus: {fileID: 0}
+    data: {fileID: 11400000, guid: 638e29c7b56bf2844968268b7565d888, type: 2}
   nowWeapon: 2
   itemSencer: []
   stat:
@@ -454,11 +475,9 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
-  monster_Motion: 0
-  Detect_Range_Free: 0
-  Detect_Range_Fix: 0
+  Detect_Range: 0
   attack_Distance: 0
-  test: []
+  playerSence: []
 --- !u!1 &467861538
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,9 +585,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 467861538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bffc68a05598884a8311353ca718295, type: 3}
+  m_Script: {fileID: 11500000, guid: 74ab629a9e88c4d4a8c73604238ef97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Launcher
+  gunbase:
+    stat:
+      bulletSpeed: 0
+      removeTimer: 0
+      totalDamage: 0
+      bulletType: 0
+      shotType: 0
+      shotStatus: {fileID: 0}
+    data: {fileID: 0}
 --- !u!1 &524928566
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,11 +716,9 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
-  monster_Motion: 0
-  Detect_Range_Free: 0
-  Detect_Range_Fix: 0
+  Detect_Range: 0
   attack_Distance: 0
-  test: []
+  playerSence: []
 --- !u!1 &660661350
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,11 +837,9 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
-  monster_Motion: 0
-  Detect_Range_Free: 0
-  Detect_Range_Fix: 0
+  Detect_Range: 0
   attack_Distance: 0
-  test: []
+  playerSence: []
 --- !u!1 &1011928489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,11 +1119,9 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
-  monster_Motion: 0
-  Detect_Range_Free: 0
-  Detect_Range_Fix: 0
+  Detect_Range: 0
   attack_Distance: 0
-  test: []
+  playerSence: []
 --- !u!1 &1290567749
 GameObject:
   m_ObjectHideFlags: 0
