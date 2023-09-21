@@ -10,7 +10,7 @@ public class PlayerControler : MonoBehaviour
     public Rigidbody rb;
     public Vector2 playerDir;
     public Ray mouseRay;
-    public List<BulletBase> playerWeapons = new List<BulletBase>(3); 
+    public List<GunBase> playerWeapons = new List<GunBase>(3); 
     [Header("플레이어 스텟")]
     public PlayerOnlyStatus stat;
     
@@ -52,7 +52,7 @@ public class PlayerControler : MonoBehaviour
             }
             else if (playerDir == Vector2.zero)
             {
-                if (stat.states.ContainsKey("idle") && stat.nowState != stat.states["idle"])
+                if (stat.states.ContainsKey("idle") && stat.nowState != stat.states["idle"]&& stat.nowState != stat.states["attack"])
                 {
                     fsmChanger(stat.states["idle"]);
                 }

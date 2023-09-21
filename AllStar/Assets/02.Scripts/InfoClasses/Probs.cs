@@ -48,3 +48,7 @@ public enum GeneralMonsters_Type        //일반몬스터 타입들 이 타입들로 몬스터 �
     RANGED,
     SPECIAL
 }
+public enum bulletTypeEnum
+{
+    explosion, basicBullet
+}
