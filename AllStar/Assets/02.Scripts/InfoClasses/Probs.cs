@@ -52,3 +52,7 @@ public enum bulletTypeEnum
 {
     explosion, basicBullet
 }
+public enum ItemTypeEnum
+{
+    weapon, artifacts,consumer
+}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GunBase : MonoBehaviour
+public class GunBase : MonoBehaviour
 {
     public BulletStat stat;
     public BulletSCROBJ data;

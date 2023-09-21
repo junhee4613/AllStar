@@ -10,7 +10,11 @@ public class PlayerControler : MonoBehaviour
     public Rigidbody rb;
     public Vector2 playerDir;
     public Ray mouseRay;
-    public List<GunBase> playerWeapons = new List<GunBase>(3); 
+    public GunBase[] playerWeapons = new GunBase[3];
+    public int nowWeapon = 2;
+    [Header("피직스 관련")]
+    public Collider[] itemSencer; //아이템 인식
+    public physicsPlus.EnhancedPhysics<ItemBase> physicsPlus = new physicsPlus.EnhancedPhysics<ItemBase>();
     [Header("플레이어 스텟")]
     public PlayerOnlyStatus stat;
     
@@ -73,6 +77,22 @@ public class PlayerControler : MonoBehaviour
                 fsmChanger(stat.states["dodge"]);
             } 
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            nowWeapon = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            nowWeapon = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            nowWeapon = 2;
+        }
+        if (PlayerGetItem())
+        {
+
+        }
         playerAttackTimer += Time.deltaTime;
         dodgeCooldown += Time.deltaTime;
         /*Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);*/
@@ -89,12 +109,49 @@ public class PlayerControler : MonoBehaviour
                 if (Managers.DataManager.Datas.TryGetValue("Bullet_Test",out UnityEngine.Object Result))
                 {
                     GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());
+                    /*playerWeapons[nowWeapon].여기다가발사 로직 */
                     bulletTemp.transform.position = transform.position;
                     bulletTemp.transform.rotation = Quaternion.Euler(0, rotTemp, 0);
                 }
                 
             });
         }
+    }
+    public byte whatIsEmptySlot()
+    {
+        for (byte i = 0; i < playerWeapons.Length; i++)
+        {
+            if (playerWeapons[i] ==null)
+            {
+                return i;
+            }
+        }
+        return 255;
+    }
+    public bool PlayerGetItem()
+    {
+        if (physicsPlus.IsChangedInArray(itemSencer,transform.position,2,8))    
+        {
+            itemSencer = Physics.OverlapSphere(transform.position,2,256);
+            if (physicsPlus.SearchTheComponent(itemSencer,out ItemBase target,"Item"))
+            {
+                switch (target.itemType)
+                {
+                    case ItemTypeEnum.weapon:
+                        /*target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);*/
+                        break;
+                    case ItemTypeEnum.artifacts:
+
+                        break;
+                    case ItemTypeEnum.consumer:
+                        break;
+
+                }
+                Debug.Log(target);
+                return true;
+            }
+        }
+        return false;
     }
     public void AttackPoint(Vector3 TargetPos,ref float quatTemp,Action Time) 
     {

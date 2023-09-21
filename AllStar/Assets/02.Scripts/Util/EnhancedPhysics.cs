@@ -3,9 +3,22 @@ using System.Linq;
 
 namespace physicsPlus
 {
-    public class EnhancedPhysics
+    public class EnhancedPhysics<T>
     {
-        public bool OverlapSearchTheOBJ(ref Collider[] coll, out GameObject targetOBJ, string name = null)
+        public bool SearchTheComponent(in Collider[] coll,out T targetComponent,string objName)
+        {
+            targetComponent = default;
+            for (int i = 0; i < coll.Length; i++)
+            {
+                if (coll[i].gameObject.name.Contains(objName))
+                {
+                    targetComponent = coll[i].gameObject.GetComponent<T>();
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool OverlapSearchTheOBJ(in Collider[] coll, out GameObject targetOBJ, string name = null)
         {
             //오버랩 기능을 사용할떄 매개변수 name값과 같은 이름의 오브젝트를 out으로 내보내줌
             targetOBJ = null;
