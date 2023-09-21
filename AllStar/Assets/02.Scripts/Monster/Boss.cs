@@ -10,12 +10,13 @@ public class Boss : MonoBehaviour
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
     public BossAttackPattern pattern;
+    Animator an;
     public Status stat;
-    public bool nonControllable;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {                                   //this는 현재 클래스를 나타냄
+        stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
     }
 
     // Update is called once per frame
@@ -34,10 +35,7 @@ public class Boss : MonoBehaviour
         randomNum = Random.Range(0, 4);
         motion_Type = $"BosePattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
         pattern = (BossAttackPattern)randomNum;
-        if (stat.states.ContainsKey("attack") && stat.nowState != stat.states["attack"])
-        {
-            fsmChanger(stat.states["attack"]);
-        }
+        
         switch (pattern)             //여긴 공격패턴
         {
             case (BossAttackPattern)1: //가만히 있기
@@ -65,28 +63,29 @@ public class Boss : MonoBehaviour
     IEnumerator BosePattern1()              //공격패턴
     {
         
+        AttackAnimator_Run();
         while (pattern_loop)
         {
             gameObject.transform.Rotate(360 * Time.deltaTime, 360 * Time.deltaTime, 360 * Time.deltaTime) ;
             Pattern_Stop();
             yield return null;
         }
-        IdelAnimator_Run();
         pattern_Start_bool = true;
     }
     IEnumerator BosePattern2()              //공격패턴
     {
+        AttackAnimator_Run();
         while (pattern_loop)
         {
             gameObject.transform.position += Vector3.one * Time.deltaTime;
             Pattern_Stop();
             yield return null;
         }
-        IdelAnimator_Run();
         pattern_Start_bool = true;
     }
     IEnumerator BosePattern3()              //공격패턴
     {
+        AttackAnimator_Run();
         while (pattern_loop)
         {
             gameObject.transform.localScale += Vector3.one * Time.deltaTime;
@@ -98,7 +97,10 @@ public class Boss : MonoBehaviour
     }
     IEnumerator BosePattern4()              //가만히 패턴
     {
-        IdelAnimator_Run();
+        if (stat.nowState != stat.states["idle"] && stat.states.ContainsKey("idle"))
+        {
+            fsmChanger(stat.states["idle"]);
+        }
         while (pattern_loop)
         {
             gameObject.transform.localScale += Vector3.one * Time.deltaTime;
@@ -109,10 +111,13 @@ public class Boss : MonoBehaviour
     }
     IEnumerator BosePattern5()              //움직이는 패턴
     {
+        if(stat.nowState != stat.states["run"] && stat.states.ContainsKey("run"))
+        {
+            fsmChanger(stat.states["run"]);
+        }
         while (pattern_loop)
         {
             gameObject.transform.localScale += Vector3.one * Time.deltaTime;
-            Pattern_Stop();
             yield return null;
         }
         pattern_Start_bool = true;
@@ -122,11 +127,11 @@ public class Boss : MonoBehaviour
         if (stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             pattern_loop = false;
     }
-    public void IdelAnimator_Run()
+    public void AttackAnimator_Run()
     {
-        if (stat.states.ContainsKey("idle") && stat.nowState != stat.states["idle"])
+        if (stat.states.ContainsKey("attack") && stat.nowState != stat.states["attack"])
         {
-            fsmChanger(stat.states["idle"]);
+            fsmChanger(stat.states["attack"]);
         }
     }
     #endregion

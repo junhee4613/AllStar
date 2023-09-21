@@ -6,12 +6,9 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     public Status monsterStatus;
-    public MonsterPaattern_Base monster_Motion;
-    public float Detect_Range_Free;
-    public float Detect_Range_Fix;
+    public float Detect_Range;
     public float attack_Distance;
-    public Collider[] test;
-    Rigidbody rb;
+    public Collider[] playerSence;
     public void getDamage(float damage)
     {
         if (monsterStatus.HP-damage <=0)
@@ -25,55 +22,44 @@ public class MonsterController : MonoBehaviour
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
     }
+    private void Awake()
+    {
+        monsterStatus.states.SetGeneralFSMDefault(ref monsterStatus.animator, this.gameObject);
+        monsterStatus.nowState = monsterStatus.states["idle"];
+    }
     void Start()
     {
-        monsterStatus.states.SetGeneralFSMDefault(ref monsterStatus.animator,this.gameObject);
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Follow();
-        MonsterPattern();
+        
     }
-    public void MonsterPattern()        //이거 fsm적용시켜야됨
-    {
-        switch (monster_Motion)
-        {
-            case MonsterPaattern_Base.STOP:
-                rb.velocity = Vector3.zero;
-                break;
-            case MonsterPaattern_Base.RUN:
-                /*if(Mathf.Abs(rb.velocity.z) < 5 &&  Mathf.Abs(rb.velocity.x) < 5)
-                {
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z) + transform.forward;
-                }*/
-
-                break;
-            case MonsterPaattern_Base.ATTACK:
-                break;
-            default:
-                break;
-        }
-    }
+    
     #region 플레이어 따라가며 공격 로직
     public void Follow()
     {
-        test = Physics.OverlapSphere(transform.position, Detect_Range_Free, 128);
-        foreach (var item in test)
+        playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);
+        
+        if (playerSence.Length == 0)
         {
-            if (item.name == "Player")
+            if(monsterStatus.nowState != monsterStatus.states["idle"])
             {
-                monster_Motion = MonsterPaattern_Base.RUN;
-                gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(item), transform.rotation.z);
-                break;
+                fsmChanger(monsterStatus.states["idle"]);
             }
-            
         }
-        if (test.Length == 0)
+        else
         {
-            monster_Motion = MonsterPaattern_Base.STOP;
+            foreach (var item in playerSence)
+            {
+                if (item.name == "Player")
+                {
+                    
+                    gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(item), transform.rotation.z);
+                    break;
+                }
+            }
         }
     }
     public float LookPlayer(Collider hit)
@@ -82,19 +68,50 @@ public class MonsterController : MonoBehaviour
         float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
         float distanceX = hit.transform.position.x - transform.position.x;
         float distancez = hit.transform.position.z - transform.position.z;
-        if(Mathf.Abs(distanceX) < attack_Distance && Mathf.Abs(distancez) < attack_Distance)
+
+        if (Mathf.Abs(distanceX) < attack_Distance && Mathf.Abs(distancez) < attack_Distance)
         {
-            monster_Motion = MonsterPaattern_Base.STOP;
+            if(monsterStatus.nowState != monsterStatus.states["attack"])
+            {
+                fsmChanger(monsterStatus.states["attack"]);
+            }
         }
         else
         {
-            transform.position +=  transform.forward * 5 * Time.deltaTime;
+            FollowPlayer();
         }
-        /*if (Mathf.Abs(gameObject.transform.position.z - hit.transform.position.z) < 1
-            && Mathf.Abs(hit.transform.position.x - transform.position.x) < 1)
-        {
-        }*/
+
         return target;
     }
+    public void FollowPlayer()
+    {
+        if (monsterStatus.nowState != monsterStatus.states["run"])
+        {
+            fsmChanger(monsterStatus.states["run"]);
+        }
+        transform.position += transform.forward * 5/*나중에 5 대신 moveSpeed로 변경*/ * Time.deltaTime;
+    }
     #endregion
+    public void fsmChanger(BaseState BS)
+    {
+        if (BS != monsterStatus.nowState)
+        {
+            monsterStatus.nowState.OnStateExit();
+            monsterStatus.nowState = BS;
+            monsterStatus.nowState.OnStateEnter();
+
+            if (BS == monsterStatus.states["attack"])
+            {
+                StartCoroutine(animTimer());
+            }
+        }
+    }
+
+    public IEnumerator animTimer()
+    {
+        yield return null;
+        Debug.Log(monsterStatus.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        yield return new WaitUntil(() => monsterStatus.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
+        fsmChanger(monsterStatus.states["idle"]);
+    }
 }

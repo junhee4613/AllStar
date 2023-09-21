@@ -80,6 +80,7 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
+            Debug.Log("idleÁøÀÔ");
             animator.Play("idle", 0);
         }
         public override void OnStateUpdate()
