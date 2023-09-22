@@ -36,6 +36,11 @@ MonoBehaviour:
     m_Address: BulletTable
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 638e29c7b56bf2844968268b7565d888
+    m_Address: TempBulletTable
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:

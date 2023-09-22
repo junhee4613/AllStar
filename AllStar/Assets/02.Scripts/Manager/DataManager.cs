@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 public class DataManager
 {
     public TextAsset JsonFile;
+    public BulletSCROBJ testTDataBase;
     public Dictionary<string, Object> Datas = new Dictionary<string, Object>();
     public void Init(Action Done)
     {

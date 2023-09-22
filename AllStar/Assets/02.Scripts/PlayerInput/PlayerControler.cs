@@ -31,6 +31,7 @@ public class PlayerControler : MonoBehaviour
             stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
             stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
             stat.nowState = stat.states["idle"];
+            Managers.DataManager.testTDataBase = Managers.DataManager.Datas["TempBulletTable"] as BulletSCROBJ;
         });
     }
 
@@ -135,7 +136,12 @@ public class PlayerControler : MonoBehaviour
             itemSencer = Physics.OverlapSphere(transform.position,2,256);
             if (physicsPlus.SearchTheComponent(itemSencer,out IItemBase target,"Item"))
             {
-                target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);
+                if (whatIsEmptySlot()!= 255)
+                {
+                    target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);
+                    return false;
+                }
+
                 Debug.Log(target);
                 return true;
             }

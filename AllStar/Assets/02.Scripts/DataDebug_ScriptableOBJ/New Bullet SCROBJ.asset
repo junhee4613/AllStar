@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Bullet SCROBJ
   m_EditorClassIdentifier: 
   Data:
-  - name: ' Launcher'
+  - name: Launcher
     bulletSpeed: 10
     removeTimer: 10
     totalDamage: 10
