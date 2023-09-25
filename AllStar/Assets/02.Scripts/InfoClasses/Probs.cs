@@ -31,10 +31,13 @@ public class BulletStatus
 }
 public enum BossAttackPattern
 {
+    BARRAGE1,
+    BARRAGE2,
+    BARRAGE3,
+    SIMPLE_ATTACK,
+    SIMPLE_BULLET,
     STOP,
-    ROTATE,
-    MOVE,
-    SCALE_UP,
+
 }
 public enum MonsterPaattern_Base
 {

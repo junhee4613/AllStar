@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : MonsterBase
+public class Boss_Static : MonsterBase_Static
 {
     public bool pattern_Start_bool = true;              //패턴이 시작하기 위한 불값
     public bool pattern_loop;
@@ -10,8 +10,6 @@ public class Boss : MonsterBase
     public int randomNum;
     public BossAttackPattern pattern;
     public bool barrage_start = false;
-    public float pattern_Time = 0.0f;
-    public float pattern_CheckTime = 5.0f;
 
     // Start is called before the first frame update
     protected override void Awake()
@@ -26,7 +24,7 @@ public class Boss : MonsterBase
     // Update is called once per frame
     protected override void Update()
     {
-        if (monsterStatus.nowState != monsterStatus.states["die"] && monsterStatus.nowState != monsterStatus.states["attack"] )
+        if (monsterStatus.nowState != monsterStatus.states["die"] && monsterStatus.nowState != monsterStatus.states["attack"])
         {
             Follow();
         }
@@ -35,29 +33,16 @@ public class Boss : MonsterBase
             Pattern();
         }
 
-       /* pattern_Time += Time.deltaTime;
-        if (pattern_Time >= pattern_CheckTime)
-        {
-            PatternChange();
-            pattern_Time = 0.0f;
-        }*/
 
     }
-
-    /*public void PatternChange()
-    {
-        Debug.Log("패턴 바뀜");
-    }*/
-
-
-    public void Pattern()
+    public void Pattern()       //코루틴으로 하지말고 시간 체크해서 
     {
         pattern_Start_bool = false;
         pattern_loop = true;
         randomNum = Random.Range(0, 5);
         motion_Type = $"BosePattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
         pattern = (BossAttackPattern)randomNum;
-        
+
         switch (pattern)             //여긴 공격패턴
         {
             case BossAttackPattern.BARRAGE1: //가만히 있기
@@ -87,11 +72,11 @@ public class Boss : MonsterBase
     #region 보스 패턴들
     IEnumerator BosePattern1()              //탄막패턴
     {
-        
+
         AttackAnimator_Run();
         while (pattern_loop)
         {
-            Debug.Log("패턴2");
+            Debug.Log("패턴1");
             Pattern_Stop();
             yield return null;
         }
@@ -103,6 +88,7 @@ public class Boss : MonsterBase
         while (pattern_loop)
         {
             Debug.Log("패턴2");
+
             Pattern_Stop();
             yield return null;
         }
@@ -117,7 +103,7 @@ public class Boss : MonsterBase
             Pattern_Stop();
             yield return null;
         }
-        
+
         pattern_Start_bool = true;
     }
     IEnumerator BosePattern4()              //가만히 패턴
@@ -166,5 +152,4 @@ public class Boss : MonsterBase
         }
     }
     #endregion
-    
 }
