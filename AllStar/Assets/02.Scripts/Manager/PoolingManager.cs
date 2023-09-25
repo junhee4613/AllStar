@@ -76,7 +76,7 @@ public class PoolingManager
         }
         //게임오브젝트를 풀로 반환해준다
         _pools[go.name].Push(go);
-        //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 없으면 true를 반환
+        //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 있으면 true를 반환
         return true;
     }
     public void Clear()

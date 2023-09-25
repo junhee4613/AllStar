@@ -13,6 +13,7 @@ public class BulletSCRData
 {
     public string name;
     public float bulletSpeed;
+    public float fireSpeed;
     public float removeTimer;
     public float totalDamage;
 

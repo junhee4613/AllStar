@@ -14,11 +14,11 @@ public class BulletTest : MonoBehaviour
 
         if (Physics.SphereCast(transform.position-Vector3.forward,0.5f,transform.forward, out RaycastHit hit,0.7f,64))
         {
-            Managers.Pool.Push(this.gameObject);
             if (hit.collider.gameObject.TryGetComponent<MonsterController>(out MonsterController MC))
             {
                 MC.getDamage(bulletDamage);
             }
+            Managers.Pool.Push(this.gameObject);
         }
         else if(removeTimer > 10)
         {

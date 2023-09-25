@@ -10,14 +10,14 @@ public class GameManager
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
         Managers.DataManager.Init(()=> {
-            PlayerStat.moveSpeed = 10;
+            PlayerStat.moveSpeed = 2;
             PlayerStat.HP = 10;
             PlayerStat.attackSpeed = 0.65f;
             PlayerStat.attackDamage = 10;
             PlayerStat.criticalChance = 10;
             PlayerStat.criticalDamage = 10;
             PlayerStat.dodgeCooltime = 1;
-            PlayerStat.dodgeDistance = 60;
+            PlayerStat.dodgeDistance = 5;
             done?.Invoke();
         });
     }
