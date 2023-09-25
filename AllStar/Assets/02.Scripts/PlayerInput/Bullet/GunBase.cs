@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class GunBase
@@ -8,7 +9,7 @@ public class GunBase
     public BulletStat stat;
 
     //¼¼ÆÃ 
-    public virtual void SetBasicValue(string weaponName)
+    public virtual void SetBasicValue(string weaponName, Action doneCheck = null)
     {
         stat = new BulletStat();
         Debug.Log(this.GetType());
@@ -38,11 +39,12 @@ public class GunBase
                         break;
                 }
                 stat.bulletSpeed = target.bulletSpeed;
+                stat.fireSpeed = target.fireSpeed;
                 stat.removeTimer = target.removeTimer;
                 stat.totalDamage = target.totalDamage;
             }
         }
-
+        doneCheck?.Invoke();
     }
 }
 

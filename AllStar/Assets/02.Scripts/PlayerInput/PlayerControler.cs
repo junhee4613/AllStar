@@ -17,7 +17,7 @@ public class PlayerControler : MonoBehaviour
     public physicsPlus.EnhancedPhysics<IItemBase> physicsPlus = new physicsPlus.EnhancedPhysics<IItemBase>();
     [Header("플레이어 스텟")]
     public PlayerOnlyStatus stat;
-    
+    public float rotationSpeed = 500;
     [Header("타이머")]
     public float playerAttackTimer = 0;
     public float dodgeCooldown = 0 ;
@@ -37,20 +37,19 @@ public class PlayerControler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Horizontal") && Input.GetButton("Vertical"))
-        {
-            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; 
-        }
-        else
-        {
-            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        }
+        // 이동 방향을 기반으로 회전 각도를 계산
         if (!nonControllable)
         {
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            Vector3 movement = new Vector3(playerDir.x, 0, playerDir.y) * stat.moveSpeed * Time.deltaTime;
+            transform.Translate(movement, Space.World);
             rb.velocity = new Vector3(stat.moveSpeed * playerDir.x, 0, stat.moveSpeed * playerDir.y);
-            if (playerDir != Vector2.zero)
+            if (movement != Vector3.zero)
             {
-                if (stat.states.ContainsKey("run") && stat.nowState != stat.states["run"] &&isInAttacking())
+                Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
+                Quaternion rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+                transform.rotation = rotation;
+                if (stat.states.ContainsKey("run") && stat.nowState != stat.states["run"] && isInAttacking())
                 {
                     fsmChanger(stat.states["run"]);
                 }
@@ -65,7 +64,7 @@ public class PlayerControler : MonoBehaviour
 
             if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"])
             {
-                if (Input.GetKey(KeyCode.Mouse0) && 1f / stat.attackSpeed < playerAttackTimer)
+                if (Input.GetKey(KeyCode.Mouse0) && (1f / (stat.attackSpeed+playerWeapons[nowWeapon].stat.fireSpeed)) < playerAttackTimer)
                 {
                     GetMousePos();
                     fsmChanger(stat.states["attack"]);
@@ -96,7 +95,7 @@ public class PlayerControler : MonoBehaviour
         }
         playerAttackTimer += Time.deltaTime;
         dodgeCooldown += Time.deltaTime;
-        /*Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);*/
+
     }
     public void GetMousePos()
     {
@@ -131,13 +130,17 @@ public class PlayerControler : MonoBehaviour
     }
     public bool PlayerGetItem()
     {
-        if (physicsPlus.IsChangedInArray(itemSencer, transform.position + Vector3.down, 1, 8))
+        Debug.Log("함수들어옴");
+        if (physicsPlus.IsChangedInArray(itemSencer, transform.position , 2, 8))
         {
-            itemSencer = Physics.OverlapSphere(transform.position + Vector3.down, 1, 256);
+            Debug.Log("변경있음");
+            itemSencer = Physics.OverlapSphere(transform.position , 2, 256);
             if (physicsPlus.SearchTheComponent(itemSencer,out IItemBase target,"Item"))
             {
+                Debug.Log("빈칸찾음");
                 if (whatIsEmptySlot()!= 255)
                 {
+                    Debug.Log("총먹음");
                     target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);
                     return false;
                 }
@@ -148,10 +151,15 @@ public class PlayerControler : MonoBehaviour
         }
         return false;
     }
-    public void AttackPoint(Vector3 TargetPos,ref float quatTemp,Action Time) 
+    public void functionTest()
+    {
+        Debug.Log("asd");
+    }
+    public void AttackPoint(Vector3 TargetPos,ref float quatTemp,Action Time = null) 
     {
         TargetPos = new Vector3(TargetPos.x - transform.position.x,TargetPos.z - transform.position.z);
         quatTemp = ((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)-90)*-1;
+        transform.rotation = Quaternion.Euler(0, quatTemp, 0);
         Time?.Invoke();
     }
     #region fsm 중계기를 만들어서 변수로 참조해와야함
@@ -177,12 +185,17 @@ public class PlayerControler : MonoBehaviour
 
     public IEnumerator dodgeTimer()
     {
+        transform.rotation = Quaternion.Euler(0, ((MathF.Atan2(playerDir.y, playerDir.x)*Mathf.Rad2Deg- 90)*-1), 0);
         if (playerDir.x== 0&&playerDir.y==0)
         {
             rb.AddForce(Vector3.forward * stat.dodgeDistance, ForceMode.Impulse);
         }
         else
         {
+            if (playerDir == Vector2.one)
+            {
+                playerDir = playerDir.normalized;
+            }
             rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * stat.dodgeDistance, ForceMode.Impulse);            
         }
         yield return null;

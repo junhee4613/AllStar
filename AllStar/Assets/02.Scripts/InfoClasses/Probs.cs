@@ -19,6 +19,7 @@ public class PlayerOnlyStatus : Status
 {
     public float dodgeCooltime;
     public float dodgeDistance;
+    
 }
 public enum statusType
 {

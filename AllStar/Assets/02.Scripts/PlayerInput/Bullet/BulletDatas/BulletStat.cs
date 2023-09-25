@@ -7,6 +7,7 @@ public class BulletStat
 {
     public string name;
     public float bulletSpeed;
+    public float fireSpeed;
     public float removeTimer;
     public float totalDamage;
     [Header("투사체 타입")]

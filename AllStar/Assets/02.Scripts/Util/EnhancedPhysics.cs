@@ -40,12 +40,10 @@ namespace physicsPlus
             //overlap 배열 내에 있는 콜라이더를 최신값과 이전값을 비교하여 달라진게 있으면 True를 반환,그게 아니면 false를 반환
             if (Enumerable.SequenceEqual(array.OrderBy(a => a.name), Physics.OverlapSphere(originPos, range, targetLayer).OrderBy(a => a.name)))
             {
-                Debug.Log("시퀀스 펄스 반환");
                 return false;
             }
             else
             {
-                Debug.Log("시퀀스 트루 반환");
                 return true;
             }
         }

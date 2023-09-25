@@ -10,5 +10,6 @@ public class WeaponItem : MonoBehaviour,IItemBase
     {
         gunbase = t as GunBase;
         gunbase.SetBasicValue(weaponName);
+        Managers.Pool.Push(this.gameObject);
     }
 }
