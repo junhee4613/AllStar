@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class BulletStat
 {
+    public string name;
     public float bulletSpeed;
     public float removeTimer;
     public float totalDamage;

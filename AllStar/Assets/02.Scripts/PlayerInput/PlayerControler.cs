@@ -131,9 +131,9 @@ public class PlayerControler : MonoBehaviour
     }
     public bool PlayerGetItem()
     {
-        if (physicsPlus.IsChangedInArray(itemSencer,transform.position,2,8))    
+        if (physicsPlus.IsChangedInArray(itemSencer, transform.position + Vector3.down, 1, 8))
         {
-            itemSencer = Physics.OverlapSphere(transform.position,2,256);
+            itemSencer = Physics.OverlapSphere(transform.position + Vector3.down, 1, 256);
             if (physicsPlus.SearchTheComponent(itemSencer,out IItemBase target,"Item"))
             {
                 if (whatIsEmptySlot()!= 255)

@@ -17,6 +17,7 @@ public class GunBase
         {
             if (target.name.Contains(weaponName))
             {
+                stat.name = weaponName;
                 switch (target.bulletType)
                 {
                     case bulletTypeEnum.explosion:
