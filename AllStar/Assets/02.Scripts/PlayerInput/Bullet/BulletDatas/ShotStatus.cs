@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotStatus : MonoBehaviour
+public abstract class ShotStatus
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+}
+public class MultiShot : ShotStatus
+{
+    public float fragmentCount;
+    public float fireAngle;
+}
+public class SingleShot : ShotStatus
+{
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

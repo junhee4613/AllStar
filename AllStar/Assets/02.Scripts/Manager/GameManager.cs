@@ -17,7 +17,6 @@ public class GameManager
             PlayerStat.criticalChance = 10;
             PlayerStat.criticalDamage = 10;
             PlayerStat.dodgeCooltime = 1;
-            PlayerStat.dodgeDistance = 5;
             done?.Invoke();
         });
     }
@@ -26,7 +25,7 @@ public class GameManager
         switch (type)
         {
             case statusType.moveSpeed:
-                PlayerStat.moveSpeed = sumOper( PlayerStat.moveSpeed, addValue);
+                PlayerStat.moveSpeed = multipleOper( PlayerStat.moveSpeed, addValue,2);
                 break;
             case statusType.HP:
                 PlayerStat.HP = sumOper( PlayerStat.HP, addValue);
@@ -45,15 +44,16 @@ public class GameManager
                 break;
         }
     }
-    public float sumOper( float nowValue,float addValue)
+    private float sumOper( float nowValue,float addValue)
     {
         //합연산 데미지
         nowValue += addValue;
         return nowValue;
     }
-    public float multipleOper( float nowValue, float addValue, float defaultValue)
+    private float multipleOper( float nowValue, float addValue, float defaultValue)
     {
-        //곱연산 데미지
+        //곱연산 스텟
+        //퍼센트만큼 
 
         nowValue += (defaultValue * ((addValue/100f)+1))-defaultValue;
         return nowValue;
@@ -63,7 +63,7 @@ public class GameManager
         switch (type)
         {
             case statusType.moveSpeed:
-                PlayerStat.moveSpeed = minusOper(PlayerStat.moveSpeed, addValue);
+                PlayerStat.moveSpeed = divisionOper(PlayerStat.moveSpeed, addValue,2);
                 break;
             case statusType.HP:
                 PlayerStat.HP = minusOper(PlayerStat.HP, addValue);
@@ -82,7 +82,7 @@ public class GameManager
                 break;
         }
     }
-    public float divisionOper( float nowValue, float reduceValue, float defaultValue)
+    private float divisionOper( float nowValue, float reduceValue, float defaultValue)
     {
         //곱연산 능력치 데미지 감소
         //defaultValue에는 기본능력치 대입해야함
@@ -97,7 +97,7 @@ public class GameManager
         }
 
     }
-    public float minusOper(float nowValue, float reduceValue)
+    private float minusOper(float nowValue, float reduceValue)
     {
         //합연산 능력치 감소
         if (nowValue - reduceValue >0)

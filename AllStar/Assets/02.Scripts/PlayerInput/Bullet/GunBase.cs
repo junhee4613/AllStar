@@ -7,7 +7,6 @@ using System;
 public class GunBase
 {
     public BulletStat stat;
-
     //技泼 
     public virtual void SetBasicValue(string weaponName, Action doneCheck = null)
     {
@@ -23,10 +22,11 @@ public class GunBase
                 {
                     case bulletTypeEnum.explosion:
                         stat.projectileStat = new explosionType();
-                        stat.projectileStat.SetDefaultValue(target.explosionDamage, target.explosionRange);
+                        explosionType tempEx = stat.projectileStat as explosionType;
+                        tempEx.SetExplosionValue(target.explosionRange, target.explosionDamage);
                         break;
                     case bulletTypeEnum.basicBullet:
-                        stat.projectileStat = new basicBullet();
+                        stat.projectileStat = new basicBulletType();
                         break;
                 }
                 switch (target.shotType)
@@ -41,14 +41,20 @@ public class GunBase
                 stat.bulletSpeed = target.bulletSpeed;
                 stat.fireSpeed = target.fireSpeed;
                 stat.removeTimer = target.removeTimer;
-                stat.totalDamage = target.totalDamage;
+                stat.bulletDamage = target.totalDamage;
             }
         }
         doneCheck?.Invoke();
     }
-}
-
-public enum ShotType
-{
-    multiShot,singleShot
+    public float GetTotalDamage(float playerDMG,float criDamage,float criChance)
+    {
+        float totalDMG = stat.bulletDamage + playerDMG;
+        if (UnityEngine.Random.Range((float)0,1) <= criChance/100)
+        {
+            Debug.Log("农府惯悼");
+            return totalDMG+(totalDMG * (criDamage/100));
+        }
+        Debug.Log("农府酒丛");
+        return totalDMG;
+    }
 }

@@ -37,13 +37,11 @@ public class PlayerControler : MonoBehaviour
 
     private void Update()
     {
-        // 이동 방향을 기반으로 회전 각도를 계산
         if (!nonControllable)
         {
-            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             Vector3 movement = new Vector3(playerDir.x, 0, playerDir.y) * stat.moveSpeed * Time.deltaTime;
             transform.Translate(movement, Space.World);
-            rb.velocity = new Vector3(stat.moveSpeed * playerDir.x, 0, stat.moveSpeed * playerDir.y);
             if (movement != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
@@ -106,12 +104,13 @@ public class PlayerControler : MonoBehaviour
         {
             AttackPoint(hit.point, ref rotTemp, () => 
             {
-                if (Managers.DataManager.Datas.TryGetValue("Bullet_Test",out UnityEngine.Object Result))
+                if (Managers.DataManager.Datas.TryGetValue(playerWeapons[nowWeapon].stat.name+"_Bullet", out UnityEngine.Object Result))
                 {
+                    Debug.Log(Result.ToString());
                     GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());
-                    /*playerWeapons[nowWeapon].여기다가발사 로직 */
+                    bulletTemp.GetComponent<Bullet>().BulletSetting(playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalDamage(stat.attackDamage,stat.criticalDamage,stat.criticalChance));
                     bulletTemp.transform.position = transform.position;
-                    bulletTemp.transform.rotation = Quaternion.Euler(0, rotTemp, 0);
+                    bulletTemp.transform.rotation = Quaternion.Euler(bulletTemp.transform.rotation.eulerAngles.x, rotTemp, bulletTemp.transform.rotation.eulerAngles.z);
                 }
                 
             });
@@ -142,6 +141,7 @@ public class PlayerControler : MonoBehaviour
                 {
                     Debug.Log("총먹음");
                     target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);
+                    Debug.Log(target);
                     return false;
                 }
 
@@ -188,15 +188,11 @@ public class PlayerControler : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, ((MathF.Atan2(playerDir.y, playerDir.x)*Mathf.Rad2Deg- 90)*-1), 0);
         if (playerDir.x== 0&&playerDir.y==0)
         {
-            rb.AddForce(Vector3.forward * stat.dodgeDistance, ForceMode.Impulse);
+            rb.AddForce(Vector3.forward * (stat.moveSpeed * 5), ForceMode.Impulse);
         }
         else
         {
-            if (playerDir == Vector2.one)
-            {
-                playerDir = playerDir.normalized;
-            }
-            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * stat.dodgeDistance, ForceMode.Impulse);            
+            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * (stat.moveSpeed*5), ForceMode.Impulse);
         }
         yield return null;
         Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);

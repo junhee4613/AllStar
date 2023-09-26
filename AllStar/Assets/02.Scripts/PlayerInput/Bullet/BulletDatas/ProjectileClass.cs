@@ -4,20 +4,16 @@ using UnityEngine;
 
 public abstract class ProjectileClass
 {
-    public ParticleSystem explosionEffect;
-    public abstract void SetDefaultValue(float weaponDMG, float explosionRange);
     public abstract float GetTotalDamage(float playerDamage);
 }
 public class explosionType : ProjectileClass
 {
     public float explosionRange;
     public float explosionDamage;
-    public override void SetDefaultValue(float exDamage,float exRange)
+    public void SetExplosionValue(float exRange,float exDamage)
     {
-        explosionDamage = exDamage;
         explosionRange = exRange;
-        //이거 데이터테이블에 연결해야함
-
+        explosionDamage = exDamage;
     }
     public override float GetTotalDamage(float playerDamage)
     {
@@ -25,12 +21,8 @@ public class explosionType : ProjectileClass
         return explosionDamage + playerDamage;
     }
 }
-public class basicBullet : ProjectileClass
+public class basicBulletType : ProjectileClass
 {
-    public override void SetDefaultValue(float weaponDMG, float explosionRange)
-    {
-        
-    }
     public override float GetTotalDamage(float playerDamage)
     {
         return playerDamage;

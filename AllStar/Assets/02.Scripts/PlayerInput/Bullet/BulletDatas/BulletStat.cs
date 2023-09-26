@@ -9,7 +9,8 @@ public class BulletStat
     public float bulletSpeed;
     public float fireSpeed;
     public float removeTimer;
-    public float totalDamage;
+    public float colDamage;
+    public float bulletDamage;
     [Header("투사체 타입")]
     public bulletTypeEnum bulletType;
     public ProjectileClass projectileStat;
@@ -18,7 +19,7 @@ public class BulletStat
     public ShotStatus shotStatus;
     public bool isEmptySlot()
     {
-        if (bulletSpeed == 0&&removeTimer == 0&&totalDamage==0)
+        if (bulletSpeed == 0&&removeTimer == 0&&bulletDamage==0)
         {
             return true;
         }

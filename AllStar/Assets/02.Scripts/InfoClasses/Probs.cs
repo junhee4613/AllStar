@@ -18,8 +18,6 @@ public class Status
 public class PlayerOnlyStatus : Status
 {
     public float dodgeCooltime;
-    public float dodgeDistance;
-    
 }
 public enum statusType
 {
@@ -58,5 +56,10 @@ public enum bulletTypeEnum
 }
 public enum ItemTypeEnum
 {
-    weapon, artifacts,consumer
+    weapon, artifacts,consumAble
+}
+
+public enum ShotType
+{
+    multiShot, singleShot
 }
