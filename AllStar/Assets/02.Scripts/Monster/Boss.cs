@@ -28,7 +28,7 @@ public class Boss : MonsterBase
     {
         if (monsterStatus.nowState != monsterStatus.states["die"] && monsterStatus.nowState != monsterStatus.states["attack"] )
         {
-            Follow();
+            Perceive_player();
         }
         if (pattern_Start_bool && (monsterStatus.nowState == monsterStatus.states["attack"] || barrage_start))
         {

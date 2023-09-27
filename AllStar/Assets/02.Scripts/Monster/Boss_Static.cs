@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Static : MonsterBase_Static
+public class Boss_Static : MonsterBase
 {
     public bool pattern_Start_bool = true;              //패턴이 시작하기 위한 불값
     public bool pattern_loop;
@@ -26,7 +26,7 @@ public class Boss_Static : MonsterBase_Static
     {
         if (monsterStatus.nowState != monsterStatus.states["die"] && monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            Follow();
+            Perceive_player();
         }
         if (pattern_Start_bool && (monsterStatus.nowState == monsterStatus.states["attack"] || barrage_start))
         {
