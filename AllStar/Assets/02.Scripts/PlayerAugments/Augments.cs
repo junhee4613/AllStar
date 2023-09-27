@@ -6,7 +6,7 @@ using System;
 public abstract class Augments
 {
     private string name;
-    private statusType addType;
+    private statType addType;
     private float addValue;
     public abstract void ResetSetting();
 }

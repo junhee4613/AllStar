@@ -15,18 +15,18 @@ public class FuncTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Managers.GameManager.ReduceStatus(statusType.criticalDamage, 40);
-            Managers.GameManager.ReduceStatus(statusType.attackSpeed, 40);
-            Managers.GameManager.ReduceStatus(statusType.attackDamage, 140);
-            Managers.GameManager.ReduceStatus(statusType.moveSpeed, 240);
+            Managers.GameManager.ReduceStatus(statType.criticalDamage, 40);
+            Managers.GameManager.ReduceStatus(statType.attackSpeed, 40);
+            Managers.GameManager.ReduceStatus(statType.attackDamage, 140);
+            Managers.GameManager.ReduceStatus(statType.moveSpeed, 240);
             Debug.Log(Managers.GameManager.PlayerStat.criticalChance);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Managers.GameManager.AddStatus(statusType.criticalDamage, 40);
-            Managers.GameManager.AddStatus(statusType.attackSpeed, 40);
-            Managers.GameManager.AddStatus(statusType.attackDamage, 140);
-            Managers.GameManager.AddStatus(statusType.moveSpeed, 240);
+            Managers.GameManager.AddStatus(statType.criticalDamage, 40);
+            Managers.GameManager.AddStatus(statType.attackSpeed, 40);
+            Managers.GameManager.AddStatus(statType.attackDamage, 140);
+            Managers.GameManager.AddStatus(statType.moveSpeed, 240);
             Debug.Log(Managers.GameManager.PlayerStat.criticalChance);
         }
         if (Input.GetKeyDown(KeyCode.S))

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 using Newtonsoft.Json;
+using System.IO;
 
 [System.Serializable]
 public class DataManager
@@ -12,10 +13,14 @@ public class DataManager
     public TextAsset JsonFile;
     public BulletSCROBJ testTDataBase;
     public Dictionary<string, Object> Datas = new Dictionary<string, Object>();
+    public List<WeaponData> WeaponTable = new List<WeaponData>();
+    public List<ArtifactData> ArtifactTable = new List<ArtifactData>();
+    public List<ConsumableData> Consumable = new List<ConsumableData>();
     public void Init(Action Done)
     {
         LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
+            /*string jsonConvert = File.ReadAllText();*/
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
             if (count == totalCount)
             {

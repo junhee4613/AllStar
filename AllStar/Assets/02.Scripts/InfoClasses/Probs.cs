@@ -19,7 +19,7 @@ public class PlayerOnlyStatus : Status
 {
     public float dodgeCooltime;
 }
-public enum statusType
+public enum statType
 {
     moveSpeed,HP,attackSpeed,attackDamage,criticalChance,criticalDamage
 }

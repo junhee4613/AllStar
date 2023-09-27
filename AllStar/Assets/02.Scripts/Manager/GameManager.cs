@@ -20,26 +20,26 @@ public class GameManager
             done?.Invoke();
         });
     }
-    public void AddStatus(statusType type, float addValue)
+    public void AddStatus(statType type, float addValue)
     {
         switch (type)
         {
-            case statusType.moveSpeed:
+            case statType.moveSpeed:
                 PlayerStat.moveSpeed = multipleOper( PlayerStat.moveSpeed, addValue,2);
                 break;
-            case statusType.HP:
+            case statType.HP:
                 PlayerStat.HP = sumOper( PlayerStat.HP, addValue);
                 break;
-            case statusType.attackSpeed:
+            case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
                 break;
-            case statusType.attackDamage:
+            case statType.attackDamage:
                 PlayerStat.attackDamage = sumOper( PlayerStat.attackDamage, addValue);
                 break;
-            case statusType.criticalChance:
+            case statType.criticalChance:
                 PlayerStat.criticalChance = sumOper( PlayerStat.criticalChance, addValue);
                 break;
-            case statusType.criticalDamage:
+            case statType.criticalDamage:
                 PlayerStat.criticalDamage = multipleOper( PlayerStat.criticalDamage, addValue,10);
                 break;
         }
@@ -58,26 +58,26 @@ public class GameManager
         nowValue += (defaultValue * ((addValue/100f)+1))-defaultValue;
         return nowValue;
     }
-    public void ReduceStatus(statusType type, float addValue)
+    public void ReduceStatus(statType type, float addValue)
     {
         switch (type)
         {
-            case statusType.moveSpeed:
+            case statType.moveSpeed:
                 PlayerStat.moveSpeed = divisionOper(PlayerStat.moveSpeed, addValue,2);
                 break;
-            case statusType.HP:
+            case statType.HP:
                 PlayerStat.HP = minusOper(PlayerStat.HP, addValue);
                 break;
-            case statusType.attackSpeed:
+            case statType.attackSpeed:
                 PlayerStat.attackSpeed = divisionOper(PlayerStat.attackSpeed, addValue,0.65f);
                 break;
-            case statusType.attackDamage:
+            case statType.attackDamage:
                 PlayerStat.attackDamage = minusOper(PlayerStat.attackDamage, addValue);
                 break;
-            case statusType.criticalChance:
+            case statType.criticalChance:
                 PlayerStat.criticalChance = minusOper(PlayerStat.criticalChance, addValue);
                 break;
-            case statusType.criticalDamage:
+            case statType.criticalDamage:
                 PlayerStat.criticalDamage = divisionOper(PlayerStat.criticalDamage, addValue,10);
                 break;
         }
