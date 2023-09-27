@@ -6,6 +6,7 @@ using UnityEngine;
 public class BulletStat
 {
     public string name;
+    public string codeName;
     public float bulletSpeed;
     public float fireSpeed;
     public float removeTimer;

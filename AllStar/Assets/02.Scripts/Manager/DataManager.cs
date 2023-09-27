@@ -13,18 +13,27 @@ public class DataManager
     public TextAsset JsonFile;
     public BulletSCROBJ testTDataBase;
     public Dictionary<string, Object> Datas = new Dictionary<string, Object>();
-    public List<WeaponData> WeaponTable = new List<WeaponData>();
-    public List<ArtifactData> ArtifactTable = new List<ArtifactData>();
-    public List<ConsumableData> Consumable = new List<ConsumableData>();
-    public void Init(Action Done)
+    public List<WeaponData> weaponTable = new List<WeaponData>();
+    public List<ArtifactData> artifactTable = new List<ArtifactData>();
+    public List<ConsumableData> consumableTable = new List<ConsumableData>();
+    public bool isLoadDone = false;
+    public event Action onFunctionDone;
+    public void Init(Action Done = null)
     {
         LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
-            /*string jsonConvert = File.ReadAllText();*/
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
             if (count == totalCount)
             {
+                string jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ArtifactTable.json");
+                artifactTable = JsonConvert.DeserializeObject<List<ArtifactData>>(jsonConvert);
+                jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ConsumableItemTable.json");
+                consumableTable = JsonConvert.DeserializeObject<List<ConsumableData>>(jsonConvert);
+                jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/GunItemTable.json");
+                weaponTable = JsonConvert.DeserializeObject<List<WeaponData>>(jsonConvert);
                 Done?.Invoke();
+                isLoadDone = true;
+                onFunctionDone?.Invoke();
             }
         });
     }

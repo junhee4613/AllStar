@@ -8,42 +8,37 @@ public class GunBase
 {
     public BulletStat stat;
     //세팅 
-    public virtual void SetBasicValue(string weaponName, Action doneCheck = null)
+    public virtual void SetBasicValue(byte weaponIndex, Action doneCheck = null)
     {
         stat = new BulletStat();
         Debug.Log(this.GetType());
-        //확인 결과 클래스 이름을 가져올 수 있으니 데이터테이블에 총알 스텟을 딕셔너리화 하여 총알 클래스 이름을 기획서와 맞춰 데이터를 불러는식으로 진행
-        foreach (BulletSCRData target in Managers.DataManager.testTDataBase.Data)
+        WeaponData tempData = Managers.DataManager.weaponTable[weaponIndex];
+        stat.codeName = tempData.codename;
+        stat.name = tempData.name;
+        switch (tempData.bullettype)
         {
-            if (target.name.Contains(weaponName))
-            {
-                stat.name = weaponName;
-                switch (target.bulletType)
-                {
-                    case bulletTypeEnum.explosion:
-                        stat.projectileStat = new explosionType();
-                        explosionType tempEx = stat.projectileStat as explosionType;
-                        tempEx.SetExplosionValue(target.explosionRange, target.explosionDamage);
-                        break;
-                    case bulletTypeEnum.basicBullet:
-                        stat.projectileStat = new basicBulletType();
-                        break;
-                }
-                switch (target.shotType)
-                {
-                    case ShotType.multiShot:
-                        //기능 추가 필요
-                        break;
-                    case ShotType.singleShot:
-                        //기능 추가 필요
-                        break;
-                }
-                stat.bulletSpeed = target.bulletSpeed;
-                stat.fireSpeed = target.fireSpeed;
-                stat.removeTimer = target.removeTimer;
-                stat.bulletDamage = target.totalDamage;
-            }
+            case bulletTypeEnum.explosion:
+                stat.projectileStat = new explosionType();
+                explosionType tempEx = stat.projectileStat as explosionType;
+                tempEx.SetExplosionValue(tempData.explosionrange, tempData.explosiondamage);
+                break;
+            case bulletTypeEnum.basicBullet:
+                stat.projectileStat = new basicBulletType();
+                break;
         }
+        switch (tempData.shottype)
+        {
+            case ShotType.multiShot:
+                //기능 추가 필요
+                break;
+            case ShotType.singleShot:
+                //기능 추가 필요
+                break;
+        }
+        stat.bulletSpeed = tempData.bulletspeed;
+        stat.fireSpeed = tempData.firespeed;
+        stat.removeTimer = tempData.removetimer;
+        stat.bulletDamage = tempData.collisiondamage;
         doneCheck?.Invoke();
     }
     public float GetTotalDamage(float playerDMG,float criDamage,float criChance)

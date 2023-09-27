@@ -61,6 +61,36 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
+  - m_GUID: 73109c416f9c34245b310fceb1a11532
+    m_Address: Launcher_Item_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: ae3a2091b21c19b479c417b89587d5b0
+    m_Address: Revolver_Item_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: e01adb9b26b658a488f7003b61e9d8ed
+    m_Address: ShotGun_Item_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: e4d55c7f52ea55646ad3eb662a890a73
+    m_Address: Revolver_Item_Mesh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 74d675572a146f043a1659b084addcd6
+    m_Address: Launcher_Item_Mesh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 448525204de2b1f4eba936187fd1094d
+    m_Address: ShotGun_Item_Mesh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:

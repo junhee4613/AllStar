@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
+public abstract class DataTable
+{
 
+}
 [System.Serializable]
 public class WeaponData : DataTable
 {
@@ -19,6 +23,7 @@ public class WeaponData : DataTable
     public float fireAngle;
     public string codename;
 }
+[System.Serializable]
 public class ArtifactData : DataTable
 {
     public byte itemnum;
@@ -28,11 +33,12 @@ public class ArtifactData : DataTable
     public string flavortext;
     public string codename;
 }
+[System.Serializable]
 public class ConsumableData : DataTable
 {
     public byte itemnum;
     public string name;
     public statType statustype;
     public float value;
-    public string cordname;
+    public string codename;
 }

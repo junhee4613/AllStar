@@ -1,0 +1,50 @@
+﻿[
+    {
+        "itemnum": "0",
+        "name": "공격력증강",
+        "statustype": "attackDamage",
+        "value": "10",
+        "flavortext": "일해라 기획",
+        "codename": "artifact_damage"
+    },
+    {
+        "itemnum": "1",
+        "name": "치명타확률 증강",
+        "statustype": "criticalChance",
+        "value": "10",
+        "flavortext": "달려라 기획",
+        "codename": "artifact_crichance"
+    },
+    {
+        "itemnum": "2",
+        "name": "치명타 데미지 증강",
+        "statustype": "criticalDamage",
+        "value": "50",
+        "flavortext": "굴러라 기획",
+        "codename": "artifact_cridamage"
+    },
+    {
+        "itemnum": "3",
+        "name": "이동속도 증강",
+        "statustype": "moveSpeed",
+        "value": "30",
+        "flavortext": "처리해라 기획",
+        "codename": "artifact_moveSpeed"
+    },
+    {
+        "itemnum": "4",
+        "name": "체력 증강",
+        "statustype": "HP",
+        "value": "50",
+        "flavortext": "블라블라 기획",
+        "codename": "artifact_HP"
+    },
+    {
+        "itemnum": "5",
+        "name": "공격속도 증강",
+        "statustype": "attackSpeed",
+        "value": "50",
+        "flavortext": "블랙핑크 기획",
+        "codename": "artifact_attackSpeed"
+    }
+]

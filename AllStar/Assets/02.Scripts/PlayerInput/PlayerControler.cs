@@ -104,7 +104,7 @@ public class PlayerControler : MonoBehaviour
         {
             AttackPoint(hit.point, ref rotTemp, () => 
             {
-                if (Managers.DataManager.Datas.TryGetValue(playerWeapons[nowWeapon].stat.name+"_Bullet", out UnityEngine.Object Result))
+                if (Managers.DataManager.Datas.TryGetValue(playerWeapons[nowWeapon].stat.codeName+ "_Bullet", out UnityEngine.Object Result))
                 {
                     Debug.Log(Result.ToString());
                     GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());

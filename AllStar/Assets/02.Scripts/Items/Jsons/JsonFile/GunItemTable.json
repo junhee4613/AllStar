@@ -1,0 +1,47 @@
+﻿[
+    {
+        "itemnum": "0",
+        "name": "로켓런처",
+        "bulletspeed": "40",
+        "firespeed": "-0.33",
+        "removetimer": "8",
+        "collisiondamage": "30",
+        "bullettype": "explosion",
+        "explosiondamage": "300",
+        "explosionrange": "4",
+        "shottype": "singleShot",
+        "fragmentCount": "0",
+        "fireAngle": "0",
+        "codename": "Launcher"
+    },
+    {
+        "itemnum": "1",
+        "name": "샷건",
+        "bulletspeed": "160",
+        "firespeed": "0",
+        "removetimer": "4",
+        "collisiondamage": "20",
+        "bullettype": "basicBullet",
+        "explosiondamage": "0",
+        "explosionrange": "0",
+        "shottype": "MultiShot",
+        "fragmentCount": "10",
+        "fireAngle": "15",
+        "codename": "ShotGun"
+    },
+    {
+        "itemnum": "2",
+        "name": "리볼버",
+        "bulletspeed": "160",
+        "firespeed": "0.3",
+        "removetimer": "4",
+        "collisiondamage": "160",
+        "bullettype": "basicBullet",
+        "explosiondamage": "0",
+        "explosionrange": "0",
+        "shottype": "singleShot",
+        "fragmentCount": "0",
+        "fireAngle": "0",
+        "codename": "Revolver"
+    }
+]

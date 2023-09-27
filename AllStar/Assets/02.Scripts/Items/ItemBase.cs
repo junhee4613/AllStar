@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IItemBase
+public abstract class IItemBase : MonoBehaviour
 {
-    public void UseItem<T>(ref T changeOriginValue);
+    [SerializeField]protected byte itemIndex;
+    public abstract void UseItem<T>(ref T changeOriginValue);
+    public void SetItemModel(Material mat, Mesh mesh, byte index) 
+    {
+        itemIndex = index;
+        this.gameObject.GetComponent<MeshRenderer>().material = mat;
+        this.gameObject.GetComponent<MeshFilter>().mesh = mesh;
+    }
 }
 
