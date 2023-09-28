@@ -10,7 +10,6 @@ public class BulletStat
     public float bulletSpeed;
     public float fireSpeed;
     public float removeTimer;
-    public float colDamage;
     public float bulletDamage;
     [Header("투사체 타입")]
     public bulletTypeEnum bulletType;

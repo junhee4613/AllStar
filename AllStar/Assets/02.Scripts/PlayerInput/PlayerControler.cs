@@ -12,6 +12,7 @@ public class PlayerControler : MonoBehaviour
     public Ray mouseRay;
     public GunBase[] playerWeapons = new GunBase[3];
     public int nowWeapon = 2;
+    [SerializeField] private Transform firePos;
     [Header("피직스 관련")]
     public Collider[] itemSencer; //아이템 인식
     public physicsPlus.EnhancedPhysics<IItemBase> physicsPlus = new physicsPlus.EnhancedPhysics<IItemBase>();
@@ -108,8 +109,12 @@ public class PlayerControler : MonoBehaviour
                 {
                     Debug.Log(Result.ToString());
                     GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());
-                    bulletTemp.GetComponent<Bullet>().BulletSetting(playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalDamage(stat.attackDamage,stat.criticalDamage,stat.criticalChance));
-                    bulletTemp.transform.position = transform.position;
+                    bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
+                    if (playerWeapons[nowWeapon].stat.bulletType == bulletTypeEnum.explosion)
+                    {
+                        bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance), playerWeapons[nowWeapon].GetTotalExDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
+                    }
+                    bulletTemp.transform.position = firePos.position;
                     bulletTemp.transform.rotation = Quaternion.Euler(bulletTemp.transform.rotation.eulerAngles.x, rotTemp, bulletTemp.transform.rotation.eulerAngles.z);
                 }
                 

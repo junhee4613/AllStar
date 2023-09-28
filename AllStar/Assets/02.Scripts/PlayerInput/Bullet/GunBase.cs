@@ -13,9 +13,11 @@ public class GunBase
         stat = new BulletStat();
         Debug.Log(this.GetType());
         WeaponData tempData = Managers.DataManager.weaponTable[weaponIndex];
+        stat.bulletType = tempData.bullettype;
+        stat.shotType = tempData.shottype;
         stat.codeName = tempData.codename;
         stat.name = tempData.name;
-        switch (tempData.bullettype)
+        switch (stat.bulletType)
         {
             case bulletTypeEnum.explosion:
                 stat.projectileStat = new explosionType();
@@ -41,7 +43,7 @@ public class GunBase
         stat.bulletDamage = tempData.collisiondamage;
         doneCheck?.Invoke();
     }
-    public float GetTotalDamage(float playerDMG,float criDamage,float criChance)
+    public float GetTotalCollDamage(in float playerDMG, in float criDamage, in float criChance)
     {
         float totalDMG = stat.bulletDamage + playerDMG;
         if (UnityEngine.Random.Range((float)0,1) <= criChance/100)
@@ -51,5 +53,17 @@ public class GunBase
         }
         Debug.Log("크리아님");
         return totalDMG;
+    }
+    public Vector2 GetTotalExDamage(in float playerDMG,  in float criDamage,in float criChance)
+    {
+        //x값 데미지,Y값 범위
+        explosionType tempPro = stat.projectileStat as explosionType;
+        if (UnityEngine.Random.Range((float)0,1) <= criChance/100)
+        {
+            Debug.Log("크리발동");
+            return new Vector2(tempPro.explosionDamage + playerDMG + ((tempPro.explosionDamage + playerDMG) * (criDamage / 100)), tempPro.explosionRange);
+        }
+        Debug.Log("크리아님");
+        return new Vector2(tempPro.explosionDamage + playerDMG, tempPro.explosionRange);
     }
 }
