@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float hp = 100;
     void Start()
     {
         
@@ -17,6 +17,7 @@ public class MonsterController : MonoBehaviour
     }
     public void getDamage(float test)
     {
-
+        Debug.Log(test);
+        hp -= test;
     }
 }

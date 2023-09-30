@@ -6,6 +6,7 @@ using System;
 public class GameManager
 {
     public PlayerOnlyStatus PlayerStat = new PlayerOnlyStatus();
+    public GunBase[] playerWeapons = new GunBase[3];
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
@@ -108,5 +109,30 @@ public class GameManager
         {
             return nowValue;
         }
+    }
+    public void SetBullet(in string bulletName,ref Bullet target)
+    {
+        byte slotNum = GetWeaponSlot(bulletName);
+       
+        if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.explosion)
+        {
+            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance), 
+                playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance));
+        }
+        else if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.basicBullet)
+        {
+            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance));
+        }
+    }
+    public byte GetWeaponSlot(in string bulletName)
+    {
+        for (byte i = 0; i < playerWeapons.Length; i++)
+        {
+            if (bulletName.Contains(playerWeapons[i].stat.codeName))
+            {
+                return i;
+            }
+        }
+        return 255;
     }
 }

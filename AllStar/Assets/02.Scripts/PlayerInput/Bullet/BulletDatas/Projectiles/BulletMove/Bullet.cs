@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -12,25 +13,27 @@ public class Bullet : MonoBehaviour
     [SerializeField]private float bulletTotalDMG;
     [SerializeField] private float totalExplosionDMG;
     [SerializeField] private float totalExplosionRange;
+
+    private void OnEnable()
+    {
+        Bullet tempThisCompo = this;
+        Managers.GameManager.SetBullet(this.gameObject.name,ref tempThisCompo);
+    }
     private void Update()
     {
-        transform.Translate(transform.forward * (bulletSpeed * Time.deltaTime), Space.World);
-
         if (Physics.SphereCast(transform.position - Vector3.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 64))
         {
             if (hit.collider.gameObject.TryGetComponent<MonsterController>(out MonsterController MC))
             {
                 if (!targetHitParticle.gameObject.activeSelf)
                 {
+                    MC.getDamage(bulletTotalDMG);
                     targetHitParticle.gameObject.SetActive(true);
                     GetComponent<MeshRenderer>().enabled = false;
-                }
-                if ((targetHitParticle.time/targetHitParticle.main.duration) < 1)
-                {
                     timer = removeTimer;
-                    bulletSpeed = 0;
-
-                    MC.getDamage(bulletTotalDMG);
+                }
+                if ((targetHitParticle.time / targetHitParticle.main.duration) < 1)
+                {
                 }
                 else
                 {
@@ -40,9 +43,12 @@ public class Bullet : MonoBehaviour
                 }
                 Debug.Log("파티클 시스템이 끝난 뒤 실행되는 함수 만들어서 넣어줘야함");
             }
-
         }
-        else if (timer <= 0)
+        else
+        {
+            transform.Translate(transform.forward * (bulletSpeed * Time.deltaTime), Space.World);
+        }
+        if (timer <= 0)
         {
             timer = removeTimer;
             targetHitParticle.gameObject.SetActive(false);

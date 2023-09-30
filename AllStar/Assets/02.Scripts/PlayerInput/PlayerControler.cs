@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class PlayerControler : MonoBehaviour
             stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
             stat.nowState = stat.states["idle"];
             Managers.DataManager.testTDataBase = Managers.DataManager.Datas["TempBulletTable"] as BulletSCROBJ;
+            Managers.GameManager.playerWeapons = playerWeapons;
         });
     }
 
@@ -109,11 +111,11 @@ public class PlayerControler : MonoBehaviour
                 {
                     Debug.Log(Result.ToString());
                     GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());
-                    bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
+/*                    bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
                     if (playerWeapons[nowWeapon].stat.bulletType == bulletTypeEnum.explosion)
                     {
                         bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance), playerWeapons[nowWeapon].GetTotalExDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
-                    }
+                    }*/
                     bulletTemp.transform.position = firePos.position;
                     bulletTemp.transform.rotation = Quaternion.Euler(bulletTemp.transform.rotation.eulerAngles.x, rotTemp, bulletTemp.transform.rotation.eulerAngles.z);
                 }

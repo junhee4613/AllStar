@@ -2,7 +2,7 @@
     {
         "itemnum": "0",
         "name": "로켓런처",
-        "bulletspeed": "40",
+        "bulletspeed": "15",
         "firespeed": "-0.33",
         "removetimer": "8",
         "collisiondamage": "30",
@@ -17,7 +17,7 @@
     {
         "itemnum": "1",
         "name": "샷건",
-        "bulletspeed": "160",
+        "bulletspeed": "40",
         "firespeed": "0",
         "removetimer": "4",
         "collisiondamage": "20",
@@ -32,7 +32,7 @@
     {
         "itemnum": "2",
         "name": "리볼버",
-        "bulletspeed": "160",
+        "bulletspeed": "40",
         "firespeed": "0.3",
         "removetimer": "4",
         "collisiondamage": "160",
