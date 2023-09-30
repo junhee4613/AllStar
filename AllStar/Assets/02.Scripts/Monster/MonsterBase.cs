@@ -43,14 +43,14 @@ public class MonsterBase : MonoBehaviour
     }
     public void getDamage(float damage)
     {
-        if (monsterStatus.HP - damage <= 0)
+        if (monsterStatus.nowHP - damage <= 0)
         {
-            monsterStatus.HP -= damage;
+            monsterStatus.nowHP -= damage;
             monsterStatus.nowState = monsterStatus.states["die"];
         }
         else
         {
-            monsterStatus.HP -= damage;
+            monsterStatus.nowHP -= damage;
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
     }

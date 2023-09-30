@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd966430fd9d794bb2c20cab232d2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mesh: {fileID: 5946520541266323070}
   targetHitParticle: {fileID: 7880226650290069255}
   bulletType: 0
   bulletTotalDMG: 0

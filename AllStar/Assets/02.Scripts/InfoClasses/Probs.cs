@@ -5,7 +5,8 @@ using UnityEngine;
 public class Status
 {
     public float moveSpeed;
-    public float HP;
+    public float maxHP;
+    public float nowHP;
     public float attackSpeed;
     public float attackDamage;
     public float criticalChance;
@@ -13,6 +14,10 @@ public class Status
     public Animator animator;
     public Dictionary<string,BaseState> states = new Dictionary<string, BaseState>();
     public BaseState nowState;
+    public void GetDamage(float Damage)
+    {
+        nowHP -= Damage;
+    }
 }
 [System.Serializable]
 public class PlayerOnlyStatus : Status

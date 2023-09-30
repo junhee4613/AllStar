@@ -8,40 +8,48 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed;
     private float removeTimer;
     private float timer;
+    [SerializeField] private MeshRenderer mesh;
     [SerializeField] private ParticleSystem targetHitParticle;
     [SerializeField]private bulletTypeEnum bulletType;
     [SerializeField]private float bulletTotalDMG;
+    [SerializeField]private bool isExplode = false;
     [SerializeField] private float totalExplosionDMG;
     [SerializeField] private float totalExplosionRange;
-
     private void OnEnable()
     {
         Bullet tempThisCompo = this;
         Managers.GameManager.SetBullet(this.gameObject.name,ref tempThisCompo);
+        mesh.enabled = true;
     }
     private void Update()
     {
         if (Physics.SphereCast(transform.position - Vector3.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 64))
         {
-            if (hit.collider.gameObject.TryGetComponent<MonsterController>(out MonsterController MC))
+            if (!targetHitParticle.gameObject.activeSelf)
             {
-                if (!targetHitParticle.gameObject.activeSelf)
+                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
+                targetHitParticle.gameObject.SetActive(true);
+                mesh.enabled = false;
+                timer = removeTimer;
+            }
+            if (bulletType == bulletTypeEnum.explosion && (targetHitParticle.time / targetHitParticle.main.duration) > 0.5f&&isExplode == false)
+            {
+                Collider[] hitMonsters = Physics.OverlapSphere(transform.position, totalExplosionRange, 64);
+                Debug.Log("폭발");
+                isExplode = true;
+                for (int i = 0; i < hitMonsters.Length; i++)
                 {
-                    MC.getDamage(bulletTotalDMG);
-                    targetHitParticle.gameObject.SetActive(true);
-                    GetComponent<MeshRenderer>().enabled = false;
-                    timer = removeTimer;
+                    Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
                 }
-                if ((targetHitParticle.time / targetHitParticle.main.duration) < 1)
+            }
+            if ((targetHitParticle.time / targetHitParticle.main.duration) > 1)
+            {
+                targetHitParticle.gameObject.SetActive(false);
+                if (bulletType == bulletTypeEnum.explosion)
                 {
+                    isExplode = false;
                 }
-                else
-                {
-                    targetHitParticle.gameObject.SetActive(false);
-                    GetComponent<MeshRenderer>().enabled = true;
-                    Managers.Pool.Push(this.gameObject);
-                }
-                Debug.Log("파티클 시스템이 끝난 뒤 실행되는 함수 만들어서 넣어줘야함");
+                Managers.Pool.Push(this.gameObject);
             }
         }
         else
@@ -53,7 +61,6 @@ public class Bullet : MonoBehaviour
             timer = removeTimer;
             targetHitParticle.gameObject.SetActive(false);
             Managers.Pool.Push(this.gameObject);
-            Debug.Log("파티클 시스템이 끝난 뒤 실행되는 함수 만들어서 넣어줘야함");
         }
         timer -= Time.deltaTime;
     }
