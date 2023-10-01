@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class IItemBase : MonoBehaviour
 {
-    [SerializeField]protected byte itemIndex;
+    [SerializeField]public byte itemIndex;
     public abstract void UseItem<T>(ref T changeOriginValue);
     public void SetItemModel(Material mat, Mesh mesh, byte index) 
     {

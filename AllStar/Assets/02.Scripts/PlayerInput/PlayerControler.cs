@@ -29,6 +29,11 @@ public class PlayerControler : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Managers.GameManager.BasicPlayerStats(()=> 
         {
+            for (int i = 0; i < playerWeapons.Length; i++)
+            {
+                playerWeapons[i].stat.weaponIndex = 254;
+                //ÀÎµ¦½º 254´Â ¹«±â°¡ ¾ø´Â »óÅÂ
+            }
             stat = Managers.GameManager.PlayerStat;
             stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
             stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
@@ -65,7 +70,7 @@ public class PlayerControler : MonoBehaviour
 
             if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"])
             {
-                if (Input.GetKey(KeyCode.Mouse0) && (1f / (stat.attackSpeed+playerWeapons[nowWeapon].stat.fireSpeed)) < playerAttackTimer)
+                if (Input.GetKey(KeyCode.Mouse0) && (1f / (stat.attackSpeed+playerWeapons[nowWeapon].stat.fireSpeed)) < playerAttackTimer&&playerWeapons[nowWeapon].stat.weaponIndex !=254)
                 {
                     GetMousePos();
                     fsmChanger(stat.states["attack"]);
@@ -92,9 +97,9 @@ public class PlayerControler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (playerWeapons[nowWeapon] != default)
+            if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
             {
-                playerWeapons[nowWeapon].ResetGunSlot();
+                playerWeapons[nowWeapon].ResetGunSlot(transform.position);
             }
         }
         if (PlayerGetItem())
@@ -131,13 +136,20 @@ public class PlayerControler : MonoBehaviour
             });
         }
     }
-    public byte whatIsEmptySlot()
+    public byte whatIsEmptySlot(byte index)
     {
         for (byte i = 0; i < playerWeapons.Length; i++)
         {
-            if (playerWeapons[i].stat.isEmptySlot())
+            if (playerWeapons[i].stat.weaponIndex == index)
             {
-                return i;
+                break;
+            }
+            else
+            {
+                if (playerWeapons[i].stat.isEmptySlot())
+                {
+                    return i;
+                }
             }
         }
         return 255;
@@ -145,17 +157,36 @@ public class PlayerControler : MonoBehaviour
     public bool PlayerGetItem()
     {
         Debug.Log("ÇÔ¼öµé¾î¿È");
-        if (physicsPlus.IsChangedInArray(itemSencer, transform.position , 2, 8))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("º¯°æÀÖÀ½");
-            itemSencer = Physics.OverlapSphere(transform.position , 2, 256);
-            if (physicsPlus.SearchTheComponent(itemSencer,out IItemBase target,"Item"))
+            /*if (physicsPlus.IsChangedInArray(itemSencer, transform.position, 2, 8))
             {
+                Debug.Log("º¯°æÀÖÀ½");
+                itemSencer = Physics.OverlapSphere(transform.position, 2, 256);
+                if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
+                {
+                    Debug.Log("ºóÄ­Ã£À½");
+                    if (whatIsEmptySlot(target.itemIndex) != 255)
+                    {
+                        Debug.Log("ÃÑ¸ÔÀ½");
+                        target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
+                        Debug.Log(target);
+                        return false;
+                    }
+
+                    Debug.Log(target);
+                    return true;
+                }
+            }*/
+            itemSencer = Physics.OverlapSphere(transform.position, 2, 256);
+            if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
+            {
+
                 Debug.Log("ºóÄ­Ã£À½");
-                if (whatIsEmptySlot()!= 255)
+                if (whatIsEmptySlot(target.itemIndex) != 255)
                 {
                     Debug.Log("ÃÑ¸ÔÀ½");
-                    target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot()]);
+                    target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
                     Debug.Log(target);
                     return false;
                 }

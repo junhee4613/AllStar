@@ -64,7 +64,7 @@ public class Bullet : MonoBehaviour
         }
         timer -= Time.deltaTime;
     }
-    public void BulletSetting(in BulletStat tempBullet,in float totalCollDMG,in Vector2 totalExDMG = default)
+    public void BulletSetting(in GunStat tempBullet,in float totalCollDMG,in Vector2 totalExDMG = default)
     {
         bulletType = tempBullet.bulletType;
         bulletSpeed = tempBullet.bulletSpeed;

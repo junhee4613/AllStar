@@ -6,7 +6,7 @@ using System;
 [System.Serializable]
 public class GunBase
 {
-    public BulletStat stat;
+    public GunStat stat;
     //세팅 
     public void GunShot(Vector3 firePos,float rotTemp)
     {
@@ -47,16 +47,30 @@ public class GunBase
             }
         }
     }
-    public void ResetGunSlot()
+    public void ResetGunSlot(Vector3 pos)
     {
-        stat = default;
-        
+        GameObject tempOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["WeaponItem"] as GameObject);
+        byte tempIndex = stat.weaponIndex;
+        WeaponData tempDataWeap = Managers.DataManager.weaponTable[tempIndex];
+        tempOBJ.GetComponent<WeaponItem>().SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
+            Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, tempIndex);
+        tempOBJ.transform.position = pos;
+        stat.name = default;
+        stat.weaponIndex = 254;
+        stat.codeName = default;
+        stat.bulletSpeed = default;
+        stat.fireSpeed = default;
+        stat.removeTimer = default;
+        stat.bulletDamage = default;
+        //254는 무기가 없는 상태
+
     }
     public virtual void SetBasicValue(byte weaponIndex, Action doneCheck = null)
     {
-        stat = new BulletStat();
+        stat = new GunStat();
         Debug.Log(this.GetType());
         WeaponData tempData = Managers.DataManager.weaponTable[weaponIndex];
+        stat.weaponIndex = tempData.itemnum;
         stat.bulletType = tempData.bullettype;
         stat.shotType = tempData.shottype;
         stat.codeName = tempData.codename;

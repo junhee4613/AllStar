@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BulletStat
+public class GunStat
 {
     public string name;
+    public byte weaponIndex = 254;
     public string codeName;
     public float bulletSpeed;
     public float fireSpeed;
@@ -19,7 +20,7 @@ public class BulletStat
     public ShotStatus shotStatus;
     public bool isEmptySlot()
     {
-        if (bulletSpeed == 0&&removeTimer == 0&&bulletDamage==0)
+        if (weaponIndex == 254)
         {
             return true;
         }
