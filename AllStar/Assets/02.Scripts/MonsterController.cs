@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float hp = 100;
+    public Status monsterStat = new Status();
+    public void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void getDamage(float test)
-    {
-
+        this.gameObject.name = this.gameObject.GetHashCode().ToString();
+        Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStat);
     }
 }

@@ -6,12 +6,14 @@ using System;
 public class GameManager
 {
     public PlayerOnlyStatus PlayerStat = new PlayerOnlyStatus();
+    public GunBase[] playerWeapons = new GunBase[3];
+    public Dictionary<string,Status> monstersInScene = new Dictionary<string, Status>();
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
         Managers.DataManager.Init(()=> {
             PlayerStat.moveSpeed = 2;
-            PlayerStat.HP = 10;
+            PlayerStat.nowHP = 10;
             PlayerStat.attackSpeed = 0.65f;
             PlayerStat.attackDamage = 10;
             PlayerStat.criticalChance = 10;
@@ -28,7 +30,7 @@ public class GameManager
                 PlayerStat.moveSpeed = multipleOper( PlayerStat.moveSpeed, addValue,2);
                 break;
             case statType.HP:
-                PlayerStat.HP = sumOper( PlayerStat.HP, addValue);
+                PlayerStat.nowHP = sumOper( PlayerStat.nowHP, addValue);
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
@@ -66,7 +68,7 @@ public class GameManager
                 PlayerStat.moveSpeed = divisionOper(PlayerStat.moveSpeed, addValue,2);
                 break;
             case statType.HP:
-                PlayerStat.HP = minusOper(PlayerStat.HP, addValue);
+                PlayerStat.nowHP = minusOper(PlayerStat.nowHP, addValue);
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = divisionOper(PlayerStat.attackSpeed, addValue,0.65f);
@@ -108,5 +110,30 @@ public class GameManager
         {
             return nowValue;
         }
+    }
+    public void SetBullet(in string bulletName,ref Bullet target)
+    {
+        byte slotNum = GetWeaponSlot(bulletName);
+       
+        if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.explosion)
+        {
+            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance), 
+                playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance));
+        }
+        else if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.basicBullet)
+        {
+            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance));
+        }
+    }
+    public byte GetWeaponSlot(in string bulletName)
+    {
+        for (byte i = 0; i < playerWeapons.Length; i++)
+        {
+            if (bulletName.Contains(playerWeapons[i].stat.codeName))
+            {
+                return i;
+            }
+        }
+        return 255;
     }
 }
