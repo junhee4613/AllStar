@@ -90,6 +90,13 @@ public class PlayerControler : MonoBehaviour
         {
             nowWeapon = 2;
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (playerWeapons[nowWeapon] != default)
+            {
+                playerWeapons[nowWeapon].ResetGunSlot();
+            }
+        }
         if (PlayerGetItem())
         {
 
@@ -107,18 +114,19 @@ public class PlayerControler : MonoBehaviour
         {
             AttackPoint(hit.point, ref rotTemp, () => 
             {
-                if (Managers.DataManager.Datas.TryGetValue(playerWeapons[nowWeapon].stat.codeName+ "_Bullet", out UnityEngine.Object Result))
+                playerWeapons[nowWeapon].GunShot(firePos.position, rotTemp);
+                /*if (Managers.DataManager.Datas.TryGetValue(playerWeapons[nowWeapon].stat.codeName+ "_Bullet", out UnityEngine.Object Result))
                 {
                     Debug.Log(Result.ToString());
                     GameObject bulletTemp = Managers.Pool.Pop(Result.GameObject());
-/*                    bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
+*//*                    bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
                     if (playerWeapons[nowWeapon].stat.bulletType == bulletTypeEnum.explosion)
                     {
                         bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance), playerWeapons[nowWeapon].GetTotalExDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
-                    }*/
+                    }*//*
                     bulletTemp.transform.position = firePos.position;
                     bulletTemp.transform.rotation = Quaternion.Euler(bulletTemp.transform.rotation.eulerAngles.x, rotTemp, bulletTemp.transform.rotation.eulerAngles.z);
-                }
+                }*/
                 
             });
         }

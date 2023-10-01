@@ -8,6 +8,50 @@ public class GunBase
 {
     public BulletStat stat;
     //세팅 
+    public void GunShot(Vector3 firePos,float rotTemp)
+    {
+        if (Managers.DataManager.Datas.TryGetValue(stat.codeName + "_Bullet", out UnityEngine.Object Result))
+        {
+            if (stat.shotType == ShotType.singleShot)
+            {
+                Debug.Log(Result.ToString());
+                GameObject bulletTemp = Managers.Pool.Pop(Result as GameObject);
+                /*                    bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
+                                    if (playerWeapons[nowWeapon].stat.bulletType == bulletTypeEnum.explosion)
+                                    {
+                                        bulletTemp.GetComponent<Bullet>().BulletSetting(in playerWeapons[nowWeapon].stat, playerWeapons[nowWeapon].GetTotalCollDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance), playerWeapons[nowWeapon].GetTotalExDamage(stat.attackDamage, stat.criticalDamage, stat.criticalChance));
+                                    }*/
+                bulletTemp.transform.position = firePos;
+                bulletTemp.transform.rotation = Quaternion.Euler(bulletTemp.transform.rotation.eulerAngles.x, rotTemp, bulletTemp.transform.rotation.eulerAngles.z);
+            }
+            else if (stat.shotType == ShotType.multiShot)
+            {
+                MultiShot tempShotType = stat.shotStatus as MultiShot;
+                float rootedCase = MathF.Sqrt(tempShotType.fragmentCount);
+                int bulletCount = (int)tempShotType.fragmentCount;
+                for (float i = -rootedCase / 2; i < rootedCase / 2; i++)
+                {
+                    for (float E = -rootedCase / 2; E < rootedCase / 2; E++)
+                    {
+                        bulletCount -= 1;
+                        if (bulletCount >= 0)
+                        {
+                            Debug.Log("총알생성");
+                            GameObject tempBullet = Managers.Pool.Pop(Result as GameObject);
+                            tempBullet.transform.position = firePos;
+                            tempBullet.transform.rotation = Quaternion.Euler((i * tempShotType.fireAngle), (E * tempShotType.fireAngle) + rotTemp, 0);
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    public void ResetGunSlot()
+    {
+        stat = default;
+        
+    }
     public virtual void SetBasicValue(byte weaponIndex, Action doneCheck = null)
     {
         stat = new BulletStat();
@@ -28,12 +72,17 @@ public class GunBase
                 stat.projectileStat = new basicBulletType();
                 break;
         }
-        switch (tempData.shottype)
+        switch (stat.shotType)
         {
             case ShotType.multiShot:
+                MultiShot tempShot = new MultiShot();
+                tempShot.fireAngle = tempData.fireAngle;
+                tempShot.fragmentCount = tempData.fragmentCount;
+                stat.shotStatus = tempShot;
                 //기능 추가 필요
                 break;
             case ShotType.singleShot:
+                stat.shotStatus = new SingleShot();
                 //기능 추가 필요
                 break;
         }
