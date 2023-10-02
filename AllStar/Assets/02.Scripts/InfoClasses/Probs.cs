@@ -26,7 +26,7 @@ public class PlayerOnlyStatus : Status
 }
 public enum statType
 {
-    moveSpeed,HP,attackSpeed,attackDamage,criticalChance,criticalDamage
+    none,moveSpeed,HP,attackSpeed,attackDamage,criticalChance,criticalDamage
 }
 public class BulletStatus
 {
@@ -57,7 +57,7 @@ public enum GeneralMonsters_Type        //일반몬스터 타입들 이 타입들로 몬스터 �
 }
 public enum bulletTypeEnum
 {
-    explosion, basicBullet
+    none,explosion, basicBullet
 }
 public enum ItemTypeEnum
 {
@@ -66,5 +66,5 @@ public enum ItemTypeEnum
 
 public enum ShotType
 {
-    multiShot, singleShot
+    none,multiShot, singleShot
 }

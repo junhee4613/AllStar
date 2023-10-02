@@ -11,7 +11,7 @@ public class PlayerControler : MonoBehaviour
     public Rigidbody rb;
     public Vector2 playerDir;
     public Ray mouseRay;
-    public GunBase[] playerWeapons = new GunBase[3];
+    public GunBase[] playerWeapons;
     public int nowWeapon = 2;
     [SerializeField] private Transform firePos;
     [Header("피직스 관련")]
@@ -19,6 +19,7 @@ public class PlayerControler : MonoBehaviour
     public physicsPlus.EnhancedPhysics<IItemBase> physicsPlus = new physicsPlus.EnhancedPhysics<IItemBase>();
     [Header("플레이어 스텟")]
     public PlayerOnlyStatus stat;
+    public ArtifactSlot[] ownArtifacts;
     public float rotationSpeed = 500;
     [Header("타이머")]
     public float playerAttackTimer = 0;
@@ -27,19 +28,24 @@ public class PlayerControler : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerWeapons = Managers.GameManager.playerWeapons;
+        ownArtifacts = Managers.GameManager.playerArtifacts;
         Managers.GameManager.BasicPlayerStats(()=> 
         {
             for (int i = 0; i < playerWeapons.Length; i++)
             {
-                playerWeapons[i].stat.weaponIndex = 254;
-                //인덱스 254는 무기가 없는 상태
+                playerWeapons[i] = new GunBase();
+                playerWeapons[i].StartSetting();
+            }
+            for (int i = 0; i < ownArtifacts.Length; i++)
+            {
+                ownArtifacts[i] = new ArtifactSlot();
+                ownArtifacts[i].StartArtifactsSetting();
             }
             stat = Managers.GameManager.PlayerStat;
             stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
             stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
             stat.nowState = stat.states["idle"];
-            Managers.DataManager.testTDataBase = Managers.DataManager.Datas["TempBulletTable"] as BulletSCROBJ;
-            Managers.GameManager.playerWeapons = playerWeapons;
         });
     }
 

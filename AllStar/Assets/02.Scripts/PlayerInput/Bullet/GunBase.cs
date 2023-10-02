@@ -8,6 +8,12 @@ public class GunBase
 {
     public GunStat stat;
     //세팅 
+    public void StartSetting()
+    {
+        stat = new GunStat();
+        stat.weaponIndex = 254;
+        //인덱스 254는 무기가 없는 상태
+    }
     public void GunShot(Vector3 firePos,float rotTemp)
     {
         if (Managers.DataManager.Datas.TryGetValue(stat.codeName + "_Bullet", out UnityEngine.Object Result))
@@ -62,12 +68,13 @@ public class GunBase
         stat.fireSpeed = default;
         stat.removeTimer = default;
         stat.bulletDamage = default;
+        stat.shotType = ShotType.none;
+        stat.bulletType = bulletTypeEnum.none;
         //254는 무기가 없는 상태
 
     }
     public virtual void SetBasicValue(byte weaponIndex, Action doneCheck = null)
     {
-        stat = new GunStat();
         Debug.Log(this.GetType());
         WeaponData tempData = Managers.DataManager.weaponTable[weaponIndex];
         stat.weaponIndex = tempData.itemnum;

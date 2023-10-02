@@ -7,7 +7,9 @@ public class GameManager
 {
     public PlayerOnlyStatus PlayerStat = new PlayerOnlyStatus();
     public GunBase[] playerWeapons = new GunBase[3];
+    public ArtifactSlot[] playerArtifacts = new ArtifactSlot[20];
     public Dictionary<string,Status> monstersInScene = new Dictionary<string, Status>();
+    #region 스텟관련
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
@@ -46,20 +48,6 @@ public class GameManager
                 break;
         }
     }
-    private float sumOper( float nowValue,float addValue)
-    {
-        //합연산 데미지
-        nowValue += addValue;
-        return nowValue;
-    }
-    private float multipleOper( float nowValue, float addValue, float defaultValue)
-    {
-        //곱연산 스텟
-        //퍼센트만큼 
-
-        nowValue += (defaultValue * ((addValue/100f)+1))-defaultValue;
-        return nowValue;
-    }
     public void ReduceStatus(statType type, float addValue)
     {
         switch (type)
@@ -83,6 +71,20 @@ public class GameManager
                 PlayerStat.criticalDamage = divisionOper(PlayerStat.criticalDamage, addValue,10);
                 break;
         }
+    }
+    private float sumOper( float nowValue,float addValue)
+    {
+        //합연산 데미지
+        nowValue += addValue;
+        return nowValue;
+    }
+    private float multipleOper( float nowValue, float addValue, float defaultValue)
+    {
+        //곱연산 스텟
+        //퍼센트만큼 
+
+        nowValue += (defaultValue * ((addValue/100f)+1))-defaultValue;
+        return nowValue;
     }
     private float divisionOper( float nowValue, float reduceValue, float defaultValue)
     {
@@ -111,6 +113,8 @@ public class GameManager
             return nowValue;
         }
     }
+    #endregion
+    #region 무기관련
     public void SetBullet(in string bulletName,ref Bullet target)
     {
         byte slotNum = GetWeaponSlot(bulletName);
@@ -136,4 +140,28 @@ public class GameManager
         }
         return 255;
     }
+    #endregion
+    #region 아티펙트 관련
+    public void ArtifactEquipOnly(byte itemIndex,byte artifactArray)
+    {
+        playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
+        AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+    }
+    public void ArtifactRemoveOnly(byte artifactArray)
+    {
+        ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+        playerArtifacts[artifactArray].data.itemnum = 254;
+        playerArtifacts[artifactArray].data.name = default;
+        playerArtifacts[artifactArray].data.statustype = default;
+        playerArtifacts[artifactArray].data.value = default;
+        playerArtifacts[artifactArray].data.flavortext = default;
+        playerArtifacts[artifactArray].data.codename = default;
+    }
+    public void ChageArtifact(byte itemIndex,byte artifactArray)
+    {
+        ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+        playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
+        AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+    }
+    #endregion
 }

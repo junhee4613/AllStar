@@ -5317,7 +5317,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1760694688930558984, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: playerWeapons.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930558987, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_Name

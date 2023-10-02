@@ -11,7 +11,6 @@ using System.IO;
 public class DataManager
 {
     public TextAsset JsonFile;
-    public BulletSCROBJ testTDataBase;
     public Dictionary<string, Object> Datas = new Dictionary<string, Object>();
     public List<WeaponData> weaponTable = new List<WeaponData>();
     public List<ArtifactData> artifactTable = new List<ArtifactData>();
