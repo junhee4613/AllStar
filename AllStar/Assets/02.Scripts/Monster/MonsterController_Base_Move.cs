@@ -11,10 +11,12 @@ public class MonsterController_Base_Move : MonsterBase
     public GameObject pos_init = null;
     public bool Original_spot = false;
     float init_pos_dis;
-    public float attack_dis;
+    Rigidbody rb;
+    /*public float attack_dis;*/
     protected override void Awake()
     {
         base.Awake();
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -30,8 +32,14 @@ public class MonsterController_Base_Move : MonsterBase
         if (chase_player && monsterStatus.nowState != monsterStatus.states["attack"] && Original_spot)
         {
             float dis = Vector3.Distance(transform.position, player.transform.position);
-            if (dis <= Mathf.Abs(attack_dis))
-            {      
+            if (dis <= Mathf.Abs(attack_Distance))
+            {
+                Debug.Log("공격");
+                if(!agent.isStopped)
+                {
+                    agent.isStopped = true;
+                    rb.velocity = Vector3.zero;
+                }
                 //공격 가능한 거리에 닿으면 잠시 움직임을 멈추고 공격한다음 다시 움직이게 하기
                 if (monsterStatus.nowState != monsterStatus.states["attack"])
                 {
@@ -40,11 +48,17 @@ public class MonsterController_Base_Move : MonsterBase
             }
             else
             {
+                if (agent.isStopped)
+                {
+                    agent.isStopped = false;
+                }
                 agent.SetDestination(player.transform.position);
             }
+
         }
         else if(monsterStatus.nowState != monsterStatus.states["attack"])
         {
+            agent.stoppingDistance = 1;
             Original_spot = false;
             if(transform.position != pos_init.transform.position && !Original_spot)
             {
