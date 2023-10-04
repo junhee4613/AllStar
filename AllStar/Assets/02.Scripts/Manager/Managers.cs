@@ -26,8 +26,10 @@ public class Managers : MonoBehaviour
     [SerializeField]
     DataManager _data = new DataManager();
     PoolingManager _pool = new PoolingManager();
+    UIManager _ui = new UIManager();
 
     public static GameManager GameManager { get { return instance?._game; } }
     public static DataManager DataManager { get { return instance?._data; }}
     public static PoolingManager Pool { get { return instance?._pool; } }
+    public static UIManager UI { get { return instance?._ui; } }
 }
