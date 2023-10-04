@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -74,7 +75,7 @@ public class PlayerControler : MonoBehaviour
                 }
             }
 
-            if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"])
+            if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"]&&!EventSystem.current.IsPointerOverGameObject())
             {
                 if (Input.GetKey(KeyCode.Mouse0) && (1f / (stat.attackSpeed+playerWeapons[nowWeapon].stat.fireSpeed)) < playerAttackTimer&&playerWeapons[nowWeapon].stat.weaponIndex !=254)
                 {

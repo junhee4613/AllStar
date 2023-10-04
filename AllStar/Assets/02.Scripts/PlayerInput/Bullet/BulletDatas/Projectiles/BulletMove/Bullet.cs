@@ -60,6 +60,7 @@ public class Bullet : MonoBehaviour
         {
             timer = removeTimer;
             targetHitParticle.gameObject.SetActive(false);
+            isExplode = false;
             Managers.Pool.Push(this.gameObject);
         }
         timer -= Time.deltaTime;

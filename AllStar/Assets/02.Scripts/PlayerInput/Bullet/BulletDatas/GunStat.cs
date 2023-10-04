@@ -12,6 +12,8 @@ public class GunStat
     public float fireSpeed;
     public float removeTimer;
     public float bulletDamage;
+    public bool isValueChanged;
+    //무기 값이 바뀔때 체크되는 불값
     [Header("투사체 타입")]
     public bulletTypeEnum bulletType;
     public ProjectileClass projectileStat;

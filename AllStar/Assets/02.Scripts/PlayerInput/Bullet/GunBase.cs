@@ -58,9 +58,29 @@ public class GunBase
         GameObject tempOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["WeaponItem"] as GameObject);
         byte tempIndex = stat.weaponIndex;
         WeaponData tempDataWeap = Managers.DataManager.weaponTable[tempIndex];
-        tempOBJ.GetComponent<WeaponItem>().SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
+        WeaponItem tempItemCompo = tempOBJ.GetComponent<WeaponItem>();
+        tempItemCompo.SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
             Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, tempIndex);
         tempOBJ.transform.position = pos;
+        if (stat.isValueChanged)
+        {
+            if (tempItemCompo.weaponInfo == null)
+            {
+                tempItemCompo.weaponInfo = new GunStat();
+            }
+            tempItemCompo.weaponInfo.name = stat.name;
+            tempItemCompo.weaponInfo.weaponIndex = stat.weaponIndex;
+            tempItemCompo.weaponInfo.codeName = stat.codeName;
+            tempItemCompo.weaponInfo.bulletSpeed = stat.bulletSpeed;
+            tempItemCompo.weaponInfo.fireSpeed = stat.fireSpeed;
+            tempItemCompo.weaponInfo.removeTimer = stat.removeTimer;
+            tempItemCompo.weaponInfo.bulletDamage = stat.bulletDamage;
+            tempItemCompo.weaponInfo.shotType = stat.shotType;
+            tempItemCompo.weaponInfo.bulletType = stat.bulletType;
+            tempItemCompo.weaponInfo.isValueChanged = stat.isValueChanged;
+            tempItemCompo.weaponInfo.projectileStat = stat.projectileStat;
+            tempItemCompo.weaponInfo.shotStatus = stat.shotStatus;
+        }
         stat.name = default;
         stat.weaponIndex = 254;
         stat.codeName = default;
@@ -70,13 +90,15 @@ public class GunBase
         stat.bulletDamage = default;
         stat.shotType = ShotType.none;
         stat.bulletType = bulletTypeEnum.none;
+        stat.isValueChanged = default;
         //254는 무기가 없는 상태
 
     }
-    public virtual void SetBasicValue(byte weaponIndex, Action doneCheck = null)
+    public void SetBasicValue(byte weaponIndex, Action doneCheck = null)
     {
         Debug.Log(this.GetType());
         WeaponData tempData = Managers.DataManager.weaponTable[weaponIndex];
+        stat.isValueChanged = false;
         stat.weaponIndex = tempData.itemnum;
         stat.bulletType = tempData.bullettype;
         stat.shotType = tempData.shottype;
