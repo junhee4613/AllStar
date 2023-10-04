@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,8 @@ public class MonsterBase : MonoBehaviour
     public Status monsterStatus;
     public float attack_Distance;
     public bool chase_player;
+    public bool look_player = false;
+    public float attack_time = 0f;
 
     protected virtual void Awake()
     {
@@ -26,6 +28,7 @@ public class MonsterBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        attack_time += Time.deltaTime;
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);
@@ -54,14 +57,15 @@ public class MonsterBase : MonoBehaviour
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
     }
-    #region ÇÃ·¹ÀÌ¾î µû¶ó°¡¸ç °ø°İ ·ÎÁ÷
+    #region í”Œë ˆì´ì–´ ë”°ë¼ê°€ë©° ê³µê²© ë¡œì§
     public virtual void Perceive_player()
     {
         if(Detect_Range != move_Detect_Range)
         {
             Detect_Range = move_Detect_Range;
         }
-        //¿©±â¿¡ ÇÃ·¹ÀÌ¾î¸¦ ¹Ù·Îº¸°í ³×ºñ¸Ş½¬°¡ ½ÇÇàµÇ°Ô ÇØ¾ßµÈ´Ù.(bool µîÀ¸·Î) Áö±İ ³×ºñ¸Ş½¬°¡ ÀÏÁ¤°Å¸®ÀÌ»ó ´Ù°¡°¡¸é °ø°İÀÌ ³ª¿À´Âµ¥ °Å¸®´Â À¯ÁöÇÑÃ¤ µÚ·Î °¡¸é ÇÃ·¹ÀÌ¾î¸¦ º¸Áö ¾Ê°í °ø°İÀ» ÇÑ´Ù.
+        
+        //ì—¬ê¸°ì— í”Œë ˆì´ì–´ë¥¼ ë°”ë¡œë³´ê³  ë„¤ë¹„ë©”ì‰¬ê°€ ì‹¤í–‰ë˜ê²Œ í•´ì•¼ëœë‹¤.(bool ë“±ìœ¼ë¡œ) ì§€ê¸ˆ ë„¤ë¹„ë©”ì‰¬ê°€ ì¼ì •ê±°ë¦¬ì´ìƒ ë‹¤ê°€ê°€ë©´ ê³µê²©ì´ ë‚˜ì˜¤ëŠ”ë° ê±°ë¦¬ëŠ” ìœ ì§€í•œì±„ ë’¤ë¡œ ê°€ë©´ í”Œë ˆì´ì–´ë¥¼ ë³´ì§€ ì•Šê³  ê³µê²©ì„ í•œë‹¤.
     }
 #endregion
     public void fsmChanger(BaseState BS)
@@ -74,6 +78,7 @@ public class MonsterBase : MonoBehaviour
 
             if (BS == monsterStatus.states["attack"])
             {
+                look_player = true;
                 StartCoroutine(animTimer());
             }
         }
@@ -84,12 +89,62 @@ public class MonsterBase : MonoBehaviour
         {
             Detect_Range = idle_Detect_Range;
         }
-        //»óÅÂ¸¦ ÃÊ±âÈ­ÇÏ´Â ·ÎÁ÷ Ãß°¡
+        //ìƒíƒœë¥¼ ì´ˆê¸°í™”í•˜ëŠ” ë¡œì§ ì¶”ê°€
     }
     public IEnumerator animTimer()
     {
         yield return null;
         yield return new WaitUntil(() => monsterStatus.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
+        look_player = false;
+        attack_time = 0;
         fsmChanger(monsterStatus.states["idle"]);
     }
-}
+    /*public void Follow()
+    {
+
+        if (Physics.SphereCast(transform.position, Detect_Range_Free, transform.forward, out RaycastHit hit, Detect_Range_Fix, 128))
+            test = Physics.OverlapSphere(transform.position, Detect_Range_Free, 128);
+        foreach (var item in test)
+        {
+            Debug.Log(hit.collider.gameObject.name);
+            monster_Motion = MonsterPaattern.RUN;
+            gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(hit), transform.rotation.z);
+            if (item.name == "Player")
+            {
+                monster_Motion = MonsterPaattern.RUN;
+                gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(item), transform.rotation.z);
+                break;
+            }
+
+        }
+        else
+        if (test.Length == 0)
+        {
+            monster_Motion = MonsterPaattern.STOP;
+        }
+    }
+    public float LookPlayer(RaycastHit hit)
+    {           //-90ì„ í•´ì¤€ë‹¤ ì¸ìŠ¤í™í„° ì°½ì—ì„œ ì „ì—­ ê¸°ì¤€ìœ¼ë¡œ ì•ì„ ë³¼ ë•Œ Yì¶• íšŒì „ì´ 0ì¸ë° 0.1ì˜ ì•„í¬íƒ„ì  íŠ¸ë¥¼ ê°ë„ë¡œ í‘œí˜„í•˜ë©´ 90ì´ ë‚˜ì˜¤ê¸° ë•Œë¬¸ì´ë‹¤.
+        //ëª¬ìŠ¤í„° ê¸°ì¤€ìœ¼ë¡œ íƒ€ê²Ÿì˜ ì¢Œí‘œë¥¼ êµ¬í•´ì•¼ë¼ì„œ ì´ê±° ìƒê°í•´ì„œ ìˆ˜ì •í•˜ê¸°
+        float target = Mathf.Atan2(hit.transform.position.z - transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90;
+        public float LookPlayer(Collider hit)
+        {
+
+            float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
+            float distanceX = hit.transform.position.x - transform.position.x;
+            float distancez = hit.transform.position.z - transform.position.z;
+            if (Mathf.Abs(distanceX) < 1 && Mathf.Abs(distancez) < 1)
+            {
+                monster_Motion = MonsterPaattern.STOP;
+            }
+            else
+            {
+                transform.position += transform.forward * 5 * Time.deltaTime;
+            }
+            *//*if (Mathf.Abs(gameObject.transform.position.z - hit.transform.position.z) < 1
+                && Mathf.Abs(hit.transform.position.x - transform.position.x) < 1)
+            {
+            }*//*
+            return target;
+        }*/
+    }

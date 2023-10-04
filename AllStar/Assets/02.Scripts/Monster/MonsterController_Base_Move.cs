@@ -34,14 +34,17 @@ public class MonsterController_Base_Move : MonsterBase
             float dis = Vector3.Distance(transform.position, player.transform.position);
             if (dis <= Mathf.Abs(attack_Distance))
             {
-                Debug.Log("공격");
-                if(!agent.isStopped)
+                while (look_player)
+                {
+                    gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z);
+                    //지금 이게 제대로 작동을 안함
+                    Debug.Log("돌아보는중");
+                }
+                if (!agent.isStopped)
                 {
                     agent.isStopped = true;
-                    rb.velocity = Vector3.zero;
                 }
-                //공격 가능한 거리에 닿으면 잠시 움직임을 멈추고 공격한다음 다시 움직이게 하기
-                if (monsterStatus.nowState != monsterStatus.states["attack"])
+                if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                 {
                     fsmChanger(monsterStatus.states["attack"]);
                 }
@@ -70,5 +73,10 @@ public class MonsterController_Base_Move : MonsterBase
                 }
             }
         }
+    }
+    public float LookPlayer(GameObject hit)
+    {
+        float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
+        return target;
     }
 }
