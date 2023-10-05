@@ -6,11 +6,11 @@ public class MonsterBase : MonoBehaviour
 {
     [SerializeField]
     protected Collider[] playerSence;
-    public float Detect_Range;
+    public float Detect_Range = 0;
     public float move_Detect_Range;
     public float idle_Detect_Range;
+    public GameObject player = null;
     public Status monsterStatus;
-    public float attack_Distance;
     public bool chase_player;
     public bool look_player = false;
     public float attack_time = 0f;
@@ -19,11 +19,13 @@ public class MonsterBase : MonoBehaviour
     {
         monsterStatus.states.SetGeneralFSMDefault(ref monsterStatus.animator, this.gameObject);
         monsterStatus.nowState = monsterStatus.states["idle"];
+        Detect_Range = idle_Detect_Range;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+
     }
     // Update is called once per frame
     protected virtual void Update()
@@ -32,7 +34,7 @@ public class MonsterBase : MonoBehaviour
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);
-            if(playerSence.Length != 0)
+            if (playerSence.Length != 0)
             {
                 Perceive_player();
                 chase_player = true;
@@ -60,14 +62,13 @@ public class MonsterBase : MonoBehaviour
     #region 플레이어 따라가며 공격 로직
     public virtual void Perceive_player()
     {
-        if(Detect_Range != move_Detect_Range)
+        if (Detect_Range != move_Detect_Range)
         {
             Detect_Range = move_Detect_Range;
         }
-        
-        //여기에 플레이어를 바로보고 네비메쉬가 실행되게 해야된다.(bool 등으로) 지금 네비메쉬가 일정거리이상 다가가면 공격이 나오는데 거리는 유지한채 뒤로 가면 플레이어를 보지 않고 공격을 한다.
+        Debug.Log("움직임");
     }
-#endregion
+    #endregion
     public void fsmChanger(BaseState BS)
     {
         if (BS != monsterStatus.nowState)
@@ -86,11 +87,16 @@ public class MonsterBase : MonoBehaviour
     }
     public void Status_Init()
     {
-        if(Detect_Range != idle_Detect_Range)
+        if (Detect_Range != idle_Detect_Range)
         {
             Detect_Range = idle_Detect_Range;
         }
-        //상태를 초기화하는 로직 추가
+        Debug.Log("초기화");
+    }
+    public float LookPlayer(GameObject hit)
+    {
+        float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
+        return target;
     }
     public IEnumerator animTimer()
     {
@@ -100,52 +106,4 @@ public class MonsterBase : MonoBehaviour
         attack_time = 0;
         fsmChanger(monsterStatus.states["idle"]);
     }
-    /*public void Follow()
-    {
-
-        if (Physics.SphereCast(transform.position, Detect_Range_Free, transform.forward, out RaycastHit hit, Detect_Range_Fix, 128))
-            test = Physics.OverlapSphere(transform.position, Detect_Range_Free, 128);
-        foreach (var item in test)
-        {
-            Debug.Log(hit.collider.gameObject.name);
-            monster_Motion = MonsterPaattern.RUN;
-            gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(hit), transform.rotation.z);
-            if (item.name == "Player")
-            {
-                monster_Motion = MonsterPaattern.RUN;
-                gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(item), transform.rotation.z);
-                break;
-            }
-
-        }
-        else
-        if (test.Length == 0)
-        {
-            monster_Motion = MonsterPaattern.STOP;
-        }
-    }
-    public float LookPlayer(RaycastHit hit)
-    {           //-90을 해준다 인스펙터 창에서 전역 기준으로 앞을 볼 때 Y축 회전이 0인데 0.1의 아크탄젠트를 각도로 표현하면 90이 나오기 때문이다.
-        //몬스터 기준으로 타겟의 좌표를 구해야돼서 이거 생각해서 수정하기
-        float target = Mathf.Atan2(hit.transform.position.z - transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90;
-        public float LookPlayer(Collider hit)
-        {
-
-            float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
-            float distanceX = hit.transform.position.x - transform.position.x;
-            float distancez = hit.transform.position.z - transform.position.z;
-            if (Mathf.Abs(distanceX) < 1 && Mathf.Abs(distancez) < 1)
-            {
-                monster_Motion = MonsterPaattern.STOP;
-            }
-            else
-            {
-                transform.position += transform.forward * 5 * Time.deltaTime;
-            }
-            *//*if (Mathf.Abs(gameObject.transform.position.z - hit.transform.position.z) < 1
-                && Mathf.Abs(hit.transform.position.x - transform.position.x) < 1)
-            {
-            }*//*
-            return target;
-        }*/
-    }
+}

@@ -7,12 +7,12 @@ using UnityEngine.AI;
 public class MonsterController_Base_Move : MonsterBase
 {
     NavMeshAgent agent;
-    public GameObject player = null;
     public bool sense;
     public GameObject pos_init = null;
     public bool Original_spot = false;
     float init_pos_dis;
     public float rotateSpeed = 180f;
+    public float attack_Distance;
     Rigidbody rb;
     /*public float attack_dis;*/
     protected override void Awake()
@@ -20,7 +20,6 @@ public class MonsterController_Base_Move : MonsterBase
         base.Awake();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player");
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -40,13 +39,20 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     agent.isStopped = true;
                 }
-                sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
-                if (sense)
+                if (transform.rotation == Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z))
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
+                    sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
+                    if (sense)
                     {
-                        fsmChanger(monsterStatus.states["attack"]);
-                    }
+                        if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
+                        {
+                            fsmChanger(monsterStatus.states["attack"]);
+
+                            Managers.GameManager.BasicPlayerStats(() => {
+                                Managers.GameManager.PlayerStat.nowHP -= monsterStatus.attackDamage;
+                            });
+                        }
+                    } 
                 }
                 else
                 {
@@ -84,12 +90,6 @@ public class MonsterController_Base_Move : MonsterBase
             }
         }
     }
-    public float LookPlayer(GameObject hit)
-    {
-        float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
-        return target;
-    }
-
     public float TargetRotation(Transform oneself, Transform other)
     {
         float result = Mathf.Atan2(other.position.z - oneself.position.z, other.position.x - oneself.position.x) * Mathf.Rad2Deg;

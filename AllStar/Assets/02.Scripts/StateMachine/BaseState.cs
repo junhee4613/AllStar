@@ -119,3 +119,52 @@ namespace PlayerFSM
         }
     }
 }
+namespace BossFSM
+{
+    public class Pattern1 : BaseState
+    {
+        public override void OnStateEnter()
+        {
+            animator.Play("pattern1", 0);
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Pattern2 : BaseState
+    {
+        public override void OnStateEnter()
+        {
+            animator.Play("pattern2", 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Pattern3 : BaseState
+    {
+        public override void OnStateEnter()
+        {
+            animator.Play("pattern3", 0);
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+}
