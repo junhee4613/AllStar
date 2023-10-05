@@ -79,6 +79,7 @@ public class MonsterBase : MonoBehaviour
             if (BS == monsterStatus.states["attack"])
             {
                 look_player = true;
+                Debug.Log("공격 시작");
                 StartCoroutine(animTimer());
             }
         }
