@@ -41,7 +41,7 @@ public class PlayerControler : MonoBehaviour
             for (int i = 0; i < ownArtifacts.Length; i++)
             {
                 ownArtifacts[i] = new ArtifactSlot();
-                ownArtifacts[i].StartArtifactsSetting();
+                ownArtifacts[i].ResetArtifact();
             }
             stat = Managers.GameManager.PlayerStat;
             stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
@@ -163,7 +163,6 @@ public class PlayerControler : MonoBehaviour
     }
     public bool PlayerGetItem()
     {
-        Debug.Log("ÇÔ¼öµé¾î¿È");
         if (Input.GetKeyDown(KeyCode.F))
         {
             /*if (physicsPlus.IsChangedInArray(itemSencer, transform.position, 2, 8))

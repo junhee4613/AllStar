@@ -35,6 +35,10 @@ public class DataManager
                 onFunctionDone?.Invoke();
             }
         });
+        LoadAllAsync<Sprite>("Sprites", (key, count, totalCount) =>
+        {
+            Debug.Log("loading" + key + "||" + count + "/" + totalCount);
+        });
     }
     public T Load<T>(string key) where T : Object
     {

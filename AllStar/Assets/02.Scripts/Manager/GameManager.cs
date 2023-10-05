@@ -142,26 +142,35 @@ public class GameManager
     }
     #endregion
     #region 아티펙트 관련
-    public void ArtifactEquipOnly(byte itemIndex,byte artifactArray)
+    public void ArtifactEquipOnly(byte itemIndex)
     {
-        playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
-        AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+        //앞에서부터 채움
+        byte artifactArray = 255;
+        for (byte i = 0; i < playerArtifacts.Length; i++)
+        {
+            artifactArray = 254 == playerArtifacts[i].data.itemnum ? i : (byte)255;
+            if (artifactArray == i) break;
+        }
+        if (artifactArray != 255)
+        {
+            playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
+            AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+            Managers.UI.InventoryImageChanges(artifactArray,playerArtifacts[artifactArray].data.codename);
+        }
+
     }
     public void ArtifactRemoveOnly(byte artifactArray)
     {
         ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
-        playerArtifacts[artifactArray].data.itemnum = 254;
-        playerArtifacts[artifactArray].data.name = default;
-        playerArtifacts[artifactArray].data.statustype = default;
-        playerArtifacts[artifactArray].data.value = default;
-        playerArtifacts[artifactArray].data.flavortext = default;
-        playerArtifacts[artifactArray].data.codename = default;
+        playerArtifacts[artifactArray].ResetArtifact(false);
+        Managers.UI.InventoryImageChanges(artifactArray,"Null");
     }
     public void ChageArtifact(byte itemIndex,byte artifactArray)
     {
         ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
         playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
         AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+        Managers.UI.InventoryImageChanges(artifactArray, playerArtifacts[artifactArray].data.codename);
     }
     #endregion
 }

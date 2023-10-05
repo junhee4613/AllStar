@@ -6,9 +6,17 @@ using System;
 public class ArtifactSlot
 {
     [SerializeField]public ArtifactData data;
-    public void StartArtifactsSetting()
+    public void ResetArtifact(bool isStart = true)
     {
-        data = new ArtifactData();
+        if (isStart)
+        {
+            data = new ArtifactData();
+        }
         data.itemnum = 254;
+        data.name = default;
+        data.statustype = default;
+        data.value = default;
+        data.flavortext = default;
+        data.codename = default;
     }
 }

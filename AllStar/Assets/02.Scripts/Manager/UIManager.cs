@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager
 {
     private Stack<Transform> uiStack = new Stack<Transform>();
+    public Image[] artifactSlotIMG = new Image[20];
+    public void InventoryImageChanges(byte arrayNum,string codeName)
+    {
+        Sprite a = Managers.DataManager.Load<Sprite>(codeName + "_ICON");
+        artifactSlotIMG[arrayNum].sprite = a;
+        Debug.Log(a);
+    }
     public void OpenUI(Transform targetTR)
     {
         targetTR.gameObject.SetActive(true);

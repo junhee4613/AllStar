@@ -86,32 +86,32 @@ MonoBehaviour:
     m_Address: artifact_moveSpeed_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
   - m_GUID: 57c88e499acc832438623130cd45de50
     m_Address: artifact_crichance_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
   - m_GUID: 5d5590d072daea449af958595d5b1e58
     m_Address: artifact_damage_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
   - m_GUID: 65265b1f6dfb3184ba0277bb16d8ad22
     m_Address: artifact_HP_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
   - m_GUID: 4dbba11ecd85b034fba252446ca46feb
     m_Address: artifact_cridamage_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
   - m_GUID: 91a1e1348b74089449d4c702da2dd116
     m_Address: artifact_attackSpeed_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:
