@@ -84,7 +84,10 @@ public class Boss_Static : MonsterController_Static
     IEnumerator BosePattern1()              //탄막패턴
     {
 
-        AttackAnimator_Run();
+        if (monsterStatus.states.ContainsKey("pattern1") && monsterStatus.nowState != monsterStatus.states["pattern1"])
+        {
+            fsmChanger(monsterStatus.states["pattern1"]);
+        }
         while (pattern_loop)
         {
             Debug.Log("패턴1");
@@ -95,7 +98,10 @@ public class Boss_Static : MonsterController_Static
     }
     IEnumerator BosePattern2()              //공격패턴
     {
-        AttackAnimator_Run();
+        if (monsterStatus.states.ContainsKey("pattern2") && monsterStatus.nowState != monsterStatus.states["pattern2"])
+        {
+            fsmChanger(monsterStatus.states["pattern2"]);
+        }
         while (pattern_loop)
         {
             Debug.Log("패턴2");
@@ -107,7 +113,10 @@ public class Boss_Static : MonsterController_Static
     }
     IEnumerator BosePattern3()              //공격패턴
     {
-        AttackAnimator_Run();
+        if (monsterStatus.states.ContainsKey("pattern3") && monsterStatus.nowState != monsterStatus.states["pattern3"])
+        {
+            fsmChanger(monsterStatus.states["pattern3"]);
+        }
         while (pattern_loop)
         {
             Debug.Log("패턴3");
