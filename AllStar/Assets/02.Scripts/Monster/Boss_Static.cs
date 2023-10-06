@@ -34,23 +34,10 @@ public class Boss_Static : MonsterController_Static
             Perceive_player();
             time += Time.deltaTime;
         }
-        else if (pattern_Start_bool && (monsterStatus.nowState == monsterStatus.states["attack"] || barrage_start) && playerSence.Length == 0)
+        else if (pattern_Start_bool && (monsterStatus.nowState == monsterStatus.states["attack"] || barrage_start) && standby_time[Random.Range(0, 2)] < time)
         {
             Pattern();
         }
-        else if(pattern_Start_bool && (monsterStatus.nowState == monsterStatus.states["attack"] || barrage_start))
-        {
-            //일반 공격 범위 내에 있을 때의 패턴
-            if (standby_time[Random.Range(0, 2)] < time)
-            {
-                Pattern();
-            }
-            else
-            {
-                //여기에 일반 공격 패턴들
-            }
-        }
-
 
     }
     public void Pattern()       //코루틴으로 하지말고 시간 체크해서 
@@ -65,11 +52,10 @@ public class Boss_Static : MonsterController_Static
         }
         else
         {
-            randomNum = Random.Range(0, 5);
+            randomNum = Random.Range(0, 3);
             motion_Type = $"BosePattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
             pattern = (BossAttackPattern)randomNum;
         }
-        //여기의 패턴들을 if문으로 나눠서 근접공격 패턴과 원거리 공격 패턴을 적어보자*****************************
         switch (pattern)             //여긴 공격패턴(근접 공격 외에)
         {
             case BossAttackPattern.BARRAGE1: //가만히 있기
@@ -81,13 +67,13 @@ public class Boss_Static : MonsterController_Static
             case BossAttackPattern.BARRAGE3:
                 StartCoroutine(motion_Type);
                 break;
-            case BossAttackPattern.SIMPLE_ATTACK:
+            case BossAttackPattern.STOP:
                 StartCoroutine(motion_Type);
                 break;
             case BossAttackPattern.SIMPLE_BULLET:
                 StartCoroutine(motion_Type);
                 break;
-            case BossAttackPattern.STOP:
+            case BossAttackPattern.SIMPLE_ATTACK:
                 StartCoroutine(motion_Type);
                 break;
             default:
