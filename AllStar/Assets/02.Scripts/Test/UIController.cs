@@ -16,7 +16,9 @@ public class UIController : MonoBehaviour
     [Header("유물 아이콘이미지")]
     [SerializeField] private Image[] artifactInvenIMGs = new Image[20];
     public byte[] testNum = new byte[2];//0 아이템인덱스,1슬롯 인덱스 테스트코드
-    public Dictionary<Vector2,byte> artifactIconPosition = new Dictionary<Vector2, byte>();
+    public Vector2[] artifactIconPosition = new Vector2[20];
+    private float IconSize;
+    
     private void Start()
     {
         for (byte i = 0; i < inventory.GetChild(0).childCount; i++)
@@ -24,14 +26,27 @@ public class UIController : MonoBehaviour
             artifactInvenIMGs[i] = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
             Debug.Log(artifactInvenIMGs[i].gameObject.name);
             Vector2 tempVec = new Vector2(artifactInvenIMGs[i].rectTransform.position.x, artifactInvenIMGs[i].rectTransform.position.y);
-            artifactIconPosition.Add(tempVec, i);
+            artifactIconPosition[i] = tempVec;
         }
+        IconSize = artifactInvenIMGs[0].rectTransform.sizeDelta.x / 2;
         Managers.UI.artifactSlotIMG = artifactInvenIMGs;
     }
-    private bool isMouseOveredOnICON(Vector2 IconPos)
+    private byte GetMouseDistance()
     {
-        float distance = Vector2.Distance(IconPos, Input.mousePosition);
-        return distance < artifactInvenIMGs[0].rectTransform.sizeDelta.x/2 ? true : false;
+        float distance;
+        byte i = 0;
+        for (i = 0; i <= artifactIconPosition.Length; i++)
+        {
+            if (artifactIconPosition.Length > i)
+            {
+                distance = Vector2.Distance(artifactIconPosition[i], Input.mousePosition);
+                if (distance < IconSize)
+                {
+                    break;
+                }
+            }
+        }
+        return i;
     }
     private void Update()
     {
@@ -51,10 +66,11 @@ public class UIController : MonoBehaviour
         {
             //플레이버 텍스트 출력은 마우스 위치를 받고 유물 순서를 대입받아 hashSet그리드로 하면 될듯? 
             if (!flavorTextPanel.gameObject.activeSelf) flavorTextPanel.gameObject.SetActive(true);
+
             flavorTextPanel.anchoredPosition = Input.mousePosition;
-            if (isMouseOveredOnICON(artifactInvenIMGs[0].transform.position))
+            if(GetMouseDistance() <= (byte)artifactIconPosition.Length)
             {
-                Debug.Log("트루");
+                Debug.Log(GetMouseDistance());
             }
         }
         else if(!EventSystem.current.IsPointerOverGameObject()&& flavorTextPanel.gameObject.activeSelf)
