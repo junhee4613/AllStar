@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour
     {
         float distance;
         byte i = 0;
-        for (i = 0; i <= artifactIconPosition.Length; i++)
+        for (i = 0; i <= artifactIconPosition.Length+1; i++)
         {
             if (artifactIconPosition.Length > i)
             {
@@ -44,6 +44,11 @@ public class UIController : MonoBehaviour
                 {
                     break;
                 }
+            }
+            else if (artifactIconPosition.Length+1 == i)
+            {
+                i = 255;
+                break;
             }
         }
         return i;
@@ -65,17 +70,21 @@ public class UIController : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
         {
             //플레이버 텍스트 출력은 마우스 위치를 받고 유물 순서를 대입받아 hashSet그리드로 하면 될듯? 
-            if (!flavorTextPanel.gameObject.activeSelf) flavorTextPanel.gameObject.SetActive(true);
-
-            flavorTextPanel.anchoredPosition = Input.mousePosition;
-            if(GetMouseDistance() <= (byte)artifactIconPosition.Length)
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                Debug.Log(GetMouseDistance());
+                byte tempby = GetMouseDistance();
+                if (tempby <= (byte)artifactIconPosition.Length)
+                {
+                    string tempFlavor = Managers.GameManager.playerArtifacts[tempby].data.flavortext;
+                    if (tempFlavor != default)
+                    {
+                        UIOpenAndClose(flavorTextPanel);
+                        flavorText.text = Managers.GameManager.playerArtifacts[tempby].data.flavortext;
+                        flavorTextPanel.anchoredPosition = Input.mousePosition;
+                        Debug.Log(tempby);
+                    }
+                }
             }
-        }
-        else if(!EventSystem.current.IsPointerOverGameObject()&& flavorTextPanel.gameObject.activeSelf)
-        {
-            flavorTextPanel.gameObject.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
