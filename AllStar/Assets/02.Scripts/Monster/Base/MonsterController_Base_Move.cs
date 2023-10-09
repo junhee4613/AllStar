@@ -47,7 +47,7 @@ public class MonsterController_Base_Move : MonsterBase
                         if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                         {
                             fsmChanger(monsterStatus.states["attack"]);
-
+                            //이러면 베이직밸류로 계속 초기화될텐데?
                             Managers.GameManager.BasicPlayerStats(() => {
                                 Managers.GameManager.PlayerStat.nowHP -= monsterStatus.attackDamage;
                             });

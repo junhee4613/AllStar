@@ -9,19 +9,23 @@ public class GameManager
     public GunBase[] playerWeapons = new GunBase[3];
     public ArtifactSlot[] playerArtifacts = new ArtifactSlot[20];
     public Dictionary<string,Status> monstersInScene = new Dictionary<string, Status>();
+    public delegate void statChangeEvent();
+    public event statChangeEvent OnChange;
     #region 스텟관련
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
         Managers.DataManager.Init(()=> {
+            PlayerStat.maxHP = 100;
+            PlayerStat.nowHP = 100;
             PlayerStat.moveSpeed = 2;
-            PlayerStat.nowHP = 10;
             PlayerStat.attackSpeed = 0.65f;
             PlayerStat.attackDamage = 10;
             PlayerStat.criticalChance = 10;
             PlayerStat.criticalDamage = 10;
             PlayerStat.dodgeCooltime = 1;
             done?.Invoke();
+            OnChange();
         });
     }
     public void AddStatus(statType type, float addValue)
@@ -47,6 +51,7 @@ public class GameManager
                 PlayerStat.criticalDamage = multipleOper( PlayerStat.criticalDamage, addValue,10);
                 break;
         }
+        OnChange();
     }
     public void ReduceStatus(statType type, float addValue)
     {
@@ -71,6 +76,7 @@ public class GameManager
                 PlayerStat.criticalDamage = divisionOper(PlayerStat.criticalDamage, addValue,10);
                 break;
         }
+        OnChange();
     }
     private float sumOper( float nowValue,float addValue)
     {

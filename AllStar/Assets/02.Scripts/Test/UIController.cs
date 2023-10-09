@@ -8,7 +8,6 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private RectTransform inventory;
-    [SerializeField] private RectTransform charactorInfo;
     [SerializeField] private RectTransform escMenu;
     [Header("플레이버 텍스트")]
     [SerializeField] private RectTransform flavorTextPanel;
@@ -18,9 +17,14 @@ public class UIController : MonoBehaviour
     public byte[] testNum = new byte[2];//0 아이템인덱스,1슬롯 인덱스 테스트코드
     public Vector2[] artifactIconPosition = new Vector2[20];
     private float IconSize;
-    
-    private void Start()
+    [Header("플레이어 정보창")]
+    [SerializeField] private RectTransform charactorInfo;
+    public TextMeshProUGUI[] statusValues = new TextMeshProUGUI[5];
+    //0체력,1공격력,2공속,3치확,4치뎀
+
+    private void Awake()
     {
+        Managers.GameManager.OnChange += infoStatUpdate;
         for (byte i = 0; i < inventory.GetChild(0).childCount; i++)
         {
             artifactInvenIMGs[i] = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
@@ -30,6 +34,14 @@ public class UIController : MonoBehaviour
         }
         IconSize = artifactInvenIMGs[0].rectTransform.sizeDelta.x / 2;
         Managers.UI.artifactSlotIMG = artifactInvenIMGs;
+    }
+    private void infoStatUpdate()
+    {
+        statusValues[0].text = Managers.GameManager.PlayerStat.maxHP.ToString();
+        statusValues[1].text = Managers.GameManager.PlayerStat.attackDamage.ToString();
+        statusValues[2].text = Managers.GameManager.PlayerStat.attackSpeed.ToString();
+        statusValues[3].text = Managers.GameManager.PlayerStat.criticalChance.ToString();
+        statusValues[4].text = Managers.GameManager.PlayerStat.criticalDamage.ToString();
     }
     private byte GetMouseDistance()
     {
