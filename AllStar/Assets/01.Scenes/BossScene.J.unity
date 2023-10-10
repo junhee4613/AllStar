@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 43858663}
   - component: {fileID: 43858662}
   - component: {fileID: 43858661}
-  - component: {fileID: 43858666}
+  - component: {fileID: 43858669}
   - component: {fileID: 43858665}
   - component: {fileID: 43858667}
   - component: {fileID: 43858668}
@@ -145,7 +145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &43858661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -247,40 +247,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &43858666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 43858659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 356ef887cd3b3754889c664e80b16966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSence: []
-  Detect_Range: 10
-  move_Detect_Range: 20
-  idle_Detect_Range: 10
-  player: {fileID: 0}
-  monsterStatus:
-    moveSpeed: 0
-    maxHP: 0
-    nowHP: 0
-    attackSpeed: 3
-    attackDamage: 0
-    criticalChance: 0
-    criticalDamage: 0
-    animator: {fileID: 0}
-  chase_player: 0
-  look_player: 0
-  attack_time: 0
-  sense: 0
-  pos_init: {fileID: 1826866573}
-  Original_spot: 0
-  rotateSpeed: 180
-  attack_Distance: 2
 --- !u!95 &43858667
 Animator:
   serializedVersion: 5
@@ -317,6 +283,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &43858669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43858659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78efbb85b144294faa018f5f56e878f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSence: []
+  Detect_Range: 0
+  move_Detect_Range: 10
+  idle_Detect_Range: 5
+  player: {fileID: 0}
+  monsterStatus:
+    moveSpeed: 0
+    maxHP: 0
+    nowHP: 0
+    attackSpeed: 0
+    attackDamage: 0
+    criticalChance: 0
+    criticalDamage: 0
+    animator: {fileID: 0}
+  chase_player: 0
+  look_player: 0
+  attack_time: 0
+  sense: 0
+  pos_init: {fileID: 1826866573}
+  Original_spot: 0
+  rotateSpeed: 180
+  attack_Distance: 2
 --- !u!1 &69604448
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdd60b13b2321e4ba0c83373748a59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
   monsterStat:
     moveSpeed: 0
     maxHP: 0
@@ -2258,7 +2257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2055547735
 MonoBehaviour:
   m_ObjectHideFlags: 0

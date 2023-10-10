@@ -26,10 +26,7 @@ public class Monster_Bullet : MonoBehaviour
         rb.velocity = Vector3.forward * speed;
         if(Physics.SphereCast(transform.position - Vector3.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
         {
-            Managers.GameManager.BasicPlayerStats(() =>
-            {
-                Managers.GameManager.PlayerStat.nowHP -= damage;
-            });
+            Managers.GameManager.PlayerStat.GetDamage(damage);
         }
     }
 }

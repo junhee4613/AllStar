@@ -8,7 +8,7 @@ public class MonsterController_Base_Move : MonsterBase
 {
     NavMeshAgent agent;
     public bool sense;
-    public GameObject pos_init = null;
+    public Vector3 pos_init;
     public bool Original_spot = false;
     float init_pos_dis;
     public float rotateSpeed = 180f;
@@ -20,6 +20,7 @@ public class MonsterController_Base_Move : MonsterBase
         base.Awake();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        pos_init = transform.position;
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -76,10 +77,10 @@ public class MonsterController_Base_Move : MonsterBase
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
             Original_spot = false;
-            if (transform.position != pos_init.transform.position && !Original_spot)
+            if (transform.position != pos_init && !Original_spot)
             {
-                agent.SetDestination(pos_init.transform.position);
-                init_pos_dis = Vector3.Distance(transform.position, pos_init.transform.position);
+                agent.SetDestination(pos_init);
+                init_pos_dis = Vector3.Distance(transform.position, pos_init);
                 if (init_pos_dis < Mathf.Abs(1f))
                 {
                     Original_spot = true;
