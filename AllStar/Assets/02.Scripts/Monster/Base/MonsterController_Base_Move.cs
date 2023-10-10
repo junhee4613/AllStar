@@ -46,21 +46,18 @@ public class MonsterController_Base_Move : MonsterBase
                     {
                         if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                         {
+                            AttackStart();
                             fsmChanger(monsterStatus.states["attack"]);
-                            //이러면 베이직밸류로 계속 초기화될텐데?
-                            Managers.GameManager.BasicPlayerStats(() => {
-                                Managers.GameManager.PlayerStat.nowHP -= monsterStatus.attackDamage;
-                            });
                         }
-                    } 
+                    }
                 }
                 else
                 {
-                    if(TargetRotation(gameObject.transform, player.transform) >= 0)
+                    if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
-                    else if(TargetRotation(gameObject.transform, player.transform) < 0)
+                    else if (TargetRotation(gameObject.transform, player.transform) < 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
@@ -76,10 +73,10 @@ public class MonsterController_Base_Move : MonsterBase
                 agent.SetDestination(player.transform.position);
             }
         }
-        else if(monsterStatus.nowState != monsterStatus.states["attack"])
+        else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
             Original_spot = false;
-            if(transform.position != pos_init.transform.position && !Original_spot)
+            if (transform.position != pos_init.transform.position && !Original_spot)
             {
                 agent.SetDestination(pos_init.transform.position);
                 init_pos_dis = Vector3.Distance(transform.position, pos_init.transform.position);
@@ -94,5 +91,9 @@ public class MonsterController_Base_Move : MonsterBase
     {
         float result = Mathf.Atan2(other.position.z - oneself.position.z, other.position.x - oneself.position.x) * Mathf.Rad2Deg;
         return result;
+    }
+    public virtual void AttackStart()
+    {
+        Debug.Log("공격");
     }
 }
