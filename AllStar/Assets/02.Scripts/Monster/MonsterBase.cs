@@ -14,6 +14,7 @@ public class MonsterBase : MonoBehaviour
     public bool chase_player;
     public bool look_player = false;
     public float attack_time = 0f;
+    
 
     protected virtual void Awake()
     {
@@ -48,14 +49,14 @@ public class MonsterBase : MonoBehaviour
     }
     public void getDamage(float damage)
     {
+        monsterStatus.nowHP -= damage;
+
         if (monsterStatus.nowHP - damage <= 0)
         {
-            monsterStatus.nowHP -= damage;
-            monsterStatus.nowState = monsterStatus.states["die"];
+            MonsterDie();
         }
         else
         {
-            monsterStatus.nowHP -= damage;
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
     }
@@ -105,5 +106,9 @@ public class MonsterBase : MonoBehaviour
         look_player = false;
         attack_time = 0;
         fsmChanger(monsterStatus.states["idle"]);
+    }
+    public virtual void MonsterDie()
+    {
+        monsterStatus.nowState = monsterStatus.states["die"];
     }
 }

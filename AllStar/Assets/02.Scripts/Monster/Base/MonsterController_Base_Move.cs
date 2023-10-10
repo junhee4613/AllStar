@@ -14,6 +14,11 @@ public class MonsterController_Base_Move : MonsterBase
     public float rotateSpeed = 180f;
     public float attack_Distance;
     Rigidbody rb;
+    public float dropForce;
+    [Header("포션 드랍 퍼센트 조절")]
+    public int potionDropProbability = 0;
+    [Header("아이템(유물) 드랍 퍼센트 조절")]
+    public int itemDropProbability = 0;
     /*public float attack_dis;*/
     protected override void Awake()
     {
@@ -48,6 +53,7 @@ public class MonsterController_Base_Move : MonsterBase
                         if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                         {
                             AttackStart();
+                            MonsterDie();
                             fsmChanger(monsterStatus.states["attack"]);
                         }
                     }
@@ -96,5 +102,22 @@ public class MonsterController_Base_Move : MonsterBase
     public virtual void AttackStart()
     {
         Debug.Log("공격");
+    }
+    public override void MonsterDie()
+    {
+        base.MonsterDie();
+        int num1 = Random.Range(1, 100);
+        int num2 = Random.Range(1, 100);
+        if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
+        {
+            GameObject test = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
+            test.transform.position = transform.position;
+            test.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
+        }
+
+        if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
+        {
+            //유물 드랍
+        }
     }
 }
