@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     public bool sense;
     public Vector3 pos_init;
     public bool Original_spot = false;

@@ -5,7 +5,7 @@ using System;
 [System.Serializable]
 public class ArtifactSlot
 {
-    [SerializeField]public ArtifactData data;
+    [SerializeField] public ArtifactData data;
     public void ResetArtifact(bool isStart = true)
     {
         if (isStart)
@@ -18,5 +18,14 @@ public class ArtifactSlot
         data.value = default;
         data.flavortext = default;
         data.codename = default;
+    }
+    public void SetArtifact(in ArtifactData tempArti)
+    {
+        data.itemnum = tempArti.itemnum;
+        data.name = tempArti.name;
+        data.statustype = tempArti.statustype;
+        data.value = tempArti.value;
+        data.flavortext = tempArti.flavortext;
+        data.codename = tempArti.codename;
     }
 }

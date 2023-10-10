@@ -112,11 +112,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sprites
-  - m_GUID: 7ccc087e25d16924daaf11b05403b631
-    m_Address: Potion_Hp_Item
+  - m_GUID: 51490041f900fd34dac84683aca77b11
+    m_Address: ShotGun_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - Sprites
+  - m_GUID: 44b0aba88b9ec6e4f861c6c7df32aa3f
+    m_Address: Revolver_ICON
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprites
+  - m_GUID: 789f11d269c6a9a4abbfbf4d72baa6ca
+    m_Address: Launcher_ICON
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprites
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:

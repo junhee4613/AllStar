@@ -10,7 +10,8 @@ public class GameManager
     public ArtifactSlot[] playerArtifacts = new ArtifactSlot[20];
     public Dictionary<string,Status> monstersInScene = new Dictionary<string, Status>();
     public delegate void statChangeEvent();
-    public event statChangeEvent OnChange;
+    public event statChangeEvent OnIconChange;
+
     #region 스텟관련
     public void BasicPlayerStats(Action done)
     {
@@ -22,10 +23,10 @@ public class GameManager
             PlayerStat.attackSpeed = 0.65f;
             PlayerStat.attackDamage = 10;
             PlayerStat.criticalChance = 10;
-            PlayerStat.criticalDamage = 10;
+            PlayerStat.criticalDamage = 198.5f;
             PlayerStat.dodgeCooltime = 1;
             done?.Invoke();
-            OnChange();
+            OnIconChange();
         });
     }
     public void AddStatus(statType type, float addValue)
@@ -36,7 +37,7 @@ public class GameManager
                 PlayerStat.moveSpeed = multipleOper( PlayerStat.moveSpeed, addValue,2);
                 break;
             case statType.HP:
-                PlayerStat.nowHP = sumOper( PlayerStat.nowHP, addValue);
+                PlayerStat.maxHP = sumOper( PlayerStat.maxHP, addValue);
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
@@ -48,10 +49,10 @@ public class GameManager
                 PlayerStat.criticalChance = sumOper( PlayerStat.criticalChance, addValue);
                 break;
             case statType.criticalDamage:
-                PlayerStat.criticalDamage = multipleOper( PlayerStat.criticalDamage, addValue,10);
+                PlayerStat.criticalDamage = multipleOper( PlayerStat.criticalDamage, addValue, 198.5f);
                 break;
         }
-        OnChange();
+        OnIconChange();
     }
     public void ReduceStatus(statType type, float addValue)
     {
@@ -73,10 +74,10 @@ public class GameManager
                 PlayerStat.criticalChance = minusOper(PlayerStat.criticalChance, addValue);
                 break;
             case statType.criticalDamage:
-                PlayerStat.criticalDamage = divisionOper(PlayerStat.criticalDamage, addValue,10);
+                PlayerStat.criticalDamage = divisionOper(PlayerStat.criticalDamage, addValue, 198.5f);
                 break;
         }
-        OnChange();
+        OnIconChange();
     }
     private float sumOper( float nowValue,float addValue)
     {
@@ -151,6 +152,7 @@ public class GameManager
     public void ArtifactEquipOnly(byte itemIndex)
     {
         //앞에서부터 채움
+        //254는 빈칸 255는 어레이가 빈곳이 없을경우 artifactArray에 반환
         byte artifactArray = 255;
         for (byte i = 0; i < playerArtifacts.Length; i++)
         {
@@ -159,24 +161,75 @@ public class GameManager
         }
         if (artifactArray != 255)
         {
-            playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
+            playerArtifacts[artifactArray].SetArtifact(Managers.DataManager.artifactTable[itemIndex]);
             AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
-            Managers.UI.InventoryImageChanges(artifactArray,playerArtifacts[artifactArray].data.codename);
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray,playerArtifacts[artifactArray].data.codename);
         }
 
+    }
+    public void ChangeWeaponArray(byte weaponIndex,byte weaponIndex2)
+    {
+        GunBase tempGunbase = playerWeapons[weaponIndex];
+        GunBase tempGunbase2 = playerWeapons[weaponIndex2];
+        playerWeapons[weaponIndex] = tempGunbase2;
+        playerWeapons[weaponIndex2] = tempGunbase;
+        Managers.UI.WeaponInventoryImageChanges(weaponIndex, playerWeapons[weaponIndex].stat.codeName);
+        Managers.UI.WeaponInventoryImageChanges(weaponIndex2, playerWeapons[weaponIndex2].stat.codeName);
     }
     public void ArtifactRemoveOnly(byte artifactArray)
     {
         ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
         playerArtifacts[artifactArray].ResetArtifact(false);
-        Managers.UI.InventoryImageChanges(artifactArray,"Null");
+        Managers.UI.ArtifactInventoryImageChanges(artifactArray,"Null");
     }
     public void ChageArtifact(byte itemIndex,byte artifactArray)
     {
         ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
         playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
         AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
-        Managers.UI.InventoryImageChanges(artifactArray, playerArtifacts[artifactArray].data.codename);
+        Managers.UI.ArtifactInventoryImageChanges(artifactArray, playerArtifacts[artifactArray].data.codename);
+    }
+    public void BothChageArtifact(byte itemIndex1,byte artifactArray1,byte itemIndex2,byte artifactArray2)
+    {
+        if (itemIndex1 != 254&& itemIndex2 != 254)
+        {
+            ReduceStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
+            ReduceStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
+
+            AddStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
+            AddStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
+
+            playerArtifacts[artifactArray1].SetArtifact(Managers.DataManager.artifactTable[itemIndex2]);
+            playerArtifacts[artifactArray2].SetArtifact(Managers.DataManager.artifactTable[itemIndex1]);
+
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray1, playerArtifacts[artifactArray1].data.codename);
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray2, playerArtifacts[artifactArray2].data.codename); 
+        }
+        else if (itemIndex1 != 254 || itemIndex2 != 254)
+        {
+            MoveArtifact(itemIndex1, artifactArray1, itemIndex2, artifactArray2);
+        }
+    }
+    public void MoveArtifact(byte itemIndex1, byte artifactArray1, byte itemIndex2, byte artifactArray2)
+    {
+        if (itemIndex1 == 254)
+        {
+            ReduceStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
+            AddStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
+            playerArtifacts[artifactArray2].ResetArtifact(false);
+            playerArtifacts[artifactArray1].SetArtifact(Managers.DataManager.artifactTable[itemIndex2]);
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray1, playerArtifacts[artifactArray1].data.codename);
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray2, "Null");
+        }
+        else if (itemIndex2 == 254)
+        {
+            ReduceStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
+            AddStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
+            playerArtifacts[artifactArray1].ResetArtifact(false);
+            playerArtifacts[artifactArray2].SetArtifact(Managers.DataManager.artifactTable[itemIndex1]);
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray2, playerArtifacts[artifactArray2].data.codename);
+            Managers.UI.ArtifactInventoryImageChanges(artifactArray1, "Null");
+        }
     }
     #endregion
 }

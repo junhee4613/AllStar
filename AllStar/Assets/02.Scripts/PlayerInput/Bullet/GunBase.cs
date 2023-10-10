@@ -133,6 +133,17 @@ public class GunBase
         stat.fireSpeed = tempData.firespeed;
         stat.removeTimer = tempData.removetimer;
         stat.bulletDamage = tempData.collisiondamage;
+        GunBase[] tempGunbase = Managers.GameManager.playerWeapons;
+        byte indexCheck = 0;
+        foreach (var item in tempGunbase)
+        {
+            if (item == this)
+            {
+                Managers.UI.WeaponInventoryImageChanges(indexCheck,stat.codeName);
+                break;
+            }
+            indexCheck++;
+        }
         doneCheck?.Invoke();
     }
     public float GetTotalCollDamage(in float playerDMG, in float criDamage, in float criChance)
