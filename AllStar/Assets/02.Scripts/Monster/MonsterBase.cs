@@ -69,7 +69,7 @@ public class MonsterBase : MonoBehaviour
         {
             Detect_Range = move_Detect_Range;
         }
-        Debug.Log("움직임");
+/*        Debug.Log("움직임");*/
     }
     #endregion
     public void fsmChanger(BaseState BS)
@@ -101,6 +101,7 @@ public class MonsterBase : MonoBehaviour
         float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
         return target;
     }
+
     public IEnumerator animTimer()
     {
         yield return null;

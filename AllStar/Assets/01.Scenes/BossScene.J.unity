@@ -297,8 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSence: []
   Detect_Range: 0
-  move_Detect_Range: 10
-  idle_Detect_Range: 5
+  move_Detect_Range: 20
+  idle_Detect_Range: 10
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
@@ -312,17 +312,19 @@ MonoBehaviour:
   chase_player: 0
   look_player: 0
   attack_time: 0
+  Ranged: 0
   agent: {fileID: 0}
   monster_type: 0
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
   Original_spot: 0
-  rotateSpeed: 180
-  attack_Distance: 2
+  rotateSpeed: 300
+  attack_Distance: 10
   dropForce: 5
-  potionDropProbability: 100
+  potionDropProbability: 0
   itemDropProbability: 0
   weaponDropProbability: 0
+  bulletPos: {fileID: 652387408}
 --- !u!1 &69604448
 GameObject:
   m_ObjectHideFlags: 0
