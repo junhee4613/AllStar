@@ -12,6 +12,7 @@ public class MonsterController_Base_Move : MonsterBase
         TYPE2,
         TYPE3
     }
+    public bool ranged = false;
     public NavMeshAgent agent;
     public Monster_type monster_type;
     public bool sense;
@@ -53,10 +54,17 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     agent.isStopped = true;
                 }
-                if (transform.rotation == Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z))
+                if (transform.rotation.y != LookPlayer(player))
+                {       //지금 문제가 공격을 안함 불릿이 안나감
+                    if (TargetRotation(gameObject.transform, player.transform) != 0)
+                    {
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+                    }
+                }
+                else
                 {
                     sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
-                    if (sense)
+                    if (sense || ranged)
                     {
                         if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                         {
@@ -64,17 +72,6 @@ public class MonsterController_Base_Move : MonsterBase
                             MonsterDie();       //나중에 삭제
                             fsmChanger(monsterStatus.states["attack"]);
                         }
-                    }
-                }
-                else
-                {
-                    if (TargetRotation(gameObject.transform, player.transform) >= 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                    }
-                    else if (TargetRotation(gameObject.transform, player.transform) < 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                 }
             }
