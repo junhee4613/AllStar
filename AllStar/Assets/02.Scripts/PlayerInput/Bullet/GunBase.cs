@@ -62,6 +62,8 @@ public class GunBase
         tempItemCompo.SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
             Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, tempIndex);
         tempOBJ.transform.position = pos;
+        tempItemCompo.itemIndex = tempIndex;
+        tempItemCompo.type = ItemTypeEnum.weapon;
         if (stat.isValueChanged)
         {
             if (tempItemCompo.weaponInfo == null)
@@ -91,6 +93,17 @@ public class GunBase
         stat.shotType = ShotType.none;
         stat.bulletType = bulletTypeEnum.none;
         stat.isValueChanged = default;
+        GunBase[] tempGunbase = Managers.GameManager.playerWeapons;
+        byte indexCheck = 0;
+        foreach (var item in tempGunbase)
+        {
+            if (item == this)
+            {
+                Managers.UI.WeaponInventoryImageChanges(indexCheck, stat.codeName);
+                break;
+            }
+            indexCheck++;
+        }
         //254는 무기가 없는 상태
 
     }
