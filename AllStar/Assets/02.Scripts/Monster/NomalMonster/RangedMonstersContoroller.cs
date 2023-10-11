@@ -21,6 +21,8 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
     }
     public override void AttackStart()
     {
+        GameObject test = Managers.Pool.Pop(Managers.DataManager.Datas["여기에 총알"] as GameObject);
+        test.transform.rotation = Quaternion.Euler(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         //여기에 원거리 몬스터 공격타입 관련 로직을 넣으면 됨
     }
 }

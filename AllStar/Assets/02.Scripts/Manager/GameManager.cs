@@ -176,6 +176,20 @@ public class GameManager
         Managers.UI.WeaponInventoryImageChanges(weaponIndex, playerWeapons[weaponIndex].stat.codeName);
         Managers.UI.WeaponInventoryImageChanges(weaponIndex2, playerWeapons[weaponIndex2].stat.codeName);
     }
+    public void ArtifactWaste(byte artifactArray,Vector3 PlayerPosition)
+    {
+        GameObject tempOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
+        byte tempIndex = playerArtifacts[artifactArray].data.itemnum;
+        ArtifactData tempDataWeap = Managers.DataManager.artifactTable[tempIndex];
+        ArtifactItem tempItemCompo = tempOBJ.GetComponent<ArtifactItem>();
+        tempItemCompo.type = ItemTypeEnum.artifacts;
+        tempItemCompo.itemIndex = tempIndex;
+        Debug.Log("메쉬 받으면 밑에있는 주석 풀어야함");
+/*        tempItemCompo.SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
+            Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, tempIndex);*/
+        tempOBJ.transform.position = PlayerPosition;
+        ArtifactRemoveOnly(artifactArray);
+    }
     public void ArtifactRemoveOnly(byte artifactArray)
     {
         ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);

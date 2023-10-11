@@ -312,6 +312,8 @@ MonoBehaviour:
   chase_player: 0
   look_player: 0
   attack_time: 0
+  agent: {fileID: 0}
+  monster_type: 0
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
   Original_spot: 0
@@ -320,6 +322,7 @@ MonoBehaviour:
   dropForce: 5
   potionDropProbability: 100
   itemDropProbability: 0
+  weaponDropProbability: 0
 --- !u!1 &69604448
 GameObject:
   m_ObjectHideFlags: 0

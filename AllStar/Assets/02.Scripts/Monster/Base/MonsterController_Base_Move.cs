@@ -6,7 +6,14 @@ using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
+    public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
+    {
+        TYPE1,
+        TYPE2,
+        TYPE3
+    }
     public NavMeshAgent agent;
+    public Monster_type monster_type;
     public bool sense;
     public Vector3 pos_init;
     public bool Original_spot = false;
@@ -19,7 +26,8 @@ public class MonsterController_Base_Move : MonsterBase
     public int potionDropProbability = 0;
     [Header("아이템(유물) 드랍 퍼센트 조절")]
     public int itemDropProbability = 0;
-    /*public float attack_dis;*/
+    [Header("무기 드랍 퍼센트 조절")]
+    public int weaponDropProbability = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -53,7 +61,7 @@ public class MonsterController_Base_Move : MonsterBase
                         if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                         {
                             AttackStart();
-                            MonsterDie();
+                            MonsterDie();       //나중에 삭제
                             fsmChanger(monsterStatus.states["attack"]);
                         }
                     }
@@ -108,6 +116,7 @@ public class MonsterController_Base_Move : MonsterBase
         base.MonsterDie();
         int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
+        int num3 = Random.Range(1, 100);
         if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
         {
             GameObject test = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
@@ -118,6 +127,11 @@ public class MonsterController_Base_Move : MonsterBase
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
             //유물 드랍
+        }
+
+        if(num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
+        {
+            //여기에 무기 드랍
         }
     }
 }

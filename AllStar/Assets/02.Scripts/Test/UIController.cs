@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour
     [Header("UI인터렉션 관련")]
     public DraggingArrayOBJ drag = new DraggingArrayOBJ();   //끌어당기는 이미지
     public DraggingState dragState = DraggingState.none;
+    public float deleteItemAreaXPoint;
     [Header("무기 정보창")]
     [SerializeField] private Image[] weaponInvenIMGs = new Image[3];
     public Vector2[] weaponIconPosition = new Vector2[3];
@@ -34,7 +35,7 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         Managers.GameManager.OnIconChange += infoStatUpdate;
-
+        deleteItemAreaXPoint = inventory.position.x+inventory.sizeDelta.x;
         Vector2 tempVec;
         for (byte i = 0; i < inventory.GetChild(0).childCount; i++)
         {
@@ -53,7 +54,7 @@ public class UIController : MonoBehaviour
         weaponIconSize = weaponInvenIMGs[0].rectTransform.sizeDelta.x / 2;
         Managers.UI.artifactSlotIMG = artifactInvenIMGs;
         Managers.UI.weaponSlotIMG = weaponInvenIMGs;
-        GameObject.Find("PlayerController");
+        playerTR = GameObject.Find("PlayerController").transform;
     }
 
     private void Update()
@@ -115,11 +116,10 @@ public class UIController : MonoBehaviour
         {
             drag.targetTR.position = Input.mousePosition;
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        else if (Input.GetKeyUp(KeyCode.Mouse0)&&drag.targetTR != null)
         {
             byte clickEndPoint;
-            if (EventSystem.current.IsPointerOverGameObject())
-                //마우스를 계속 UI가 따라오기에 위 함수로 구분 불가 UI위치 외에 다른부분 좌표를 구해야할듯
+            if (deleteItemAreaXPoint >= Input.mousePosition.x)
             {
                 if (dragState == DraggingState.artifact)
                 {
@@ -139,18 +139,18 @@ public class UIController : MonoBehaviour
                     }
                 }
             }
-            else if(!EventSystem.current.IsPointerOverGameObject())
-            //마우스를 계속 UI가 따라오기에 위 함수로 구분 불가 UI위치 외에 다른부분 좌표를 구해야할듯
+            else if(deleteItemAreaXPoint<Input.mousePosition.x)
             {
                 if (dragState == DraggingState.artifact)
                 {
-
+                    Managers.GameManager.ArtifactWaste(tempby, playerTR.position);
                 }
                 else if (dragState == DraggingState.weapon)
                 {
                     if (Managers.GameManager.playerWeapons[tempby].stat.weaponIndex !=254)
                     {
                         Managers.GameManager.playerWeapons[tempby].ResetGunSlot(playerTR.position);
+
                     }
                 }
             }

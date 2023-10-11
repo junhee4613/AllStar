@@ -189,12 +189,24 @@ public class PlayerControler : MonoBehaviour
             {
 
                 Debug.Log("ºóÄ­Ã£À½");
-                if (whatIsEmptySlot(target.itemIndex) != 255)
+                if (whatIsEmptySlot(target.itemIndex) != 255&&target.type == ItemTypeEnum.weapon)
                 {
                     Debug.Log("ÃÑ¸ÔÀ½");
                     target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
                     Debug.Log(target);
                     return false;
+                }
+                else if (target.type == ItemTypeEnum.artifacts)
+                {
+                    foreach (var item in ownArtifacts)
+                    {
+                        if (item.data.itemnum == 254)
+                        {
+                            Managers.GameManager.ArtifactEquipOnly(target.itemIndex);
+                            target.OBJPushOnly();
+                            break;
+                        }
+                    }
                 }
 
                 Debug.Log(target);
