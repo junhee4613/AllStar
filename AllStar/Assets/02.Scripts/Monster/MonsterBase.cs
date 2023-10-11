@@ -7,7 +7,9 @@ public class MonsterBase : MonoBehaviour
     [SerializeField]
     protected Collider[] playerSence;
     public float Detect_Range = 0;
+    [Header("공격모드 일 때 감지 범위")]
     public float move_Detect_Range;
+    [Header("일반모드 일 때 감지 범위")]
     public float idle_Detect_Range;
     public GameObject player = null;
     public Status monsterStatus;
