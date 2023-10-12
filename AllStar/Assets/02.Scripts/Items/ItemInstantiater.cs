@@ -6,23 +6,24 @@ using Unity.VisualScripting;
 public class ItemInstantiater : MonoBehaviour
 {
     [SerializeField]private ItemTypeEnum ItemType;
-    [SerializeField]private int randomValue;
     // Start is called before the first frame update
     void Start()
     {
+        
         if (!Managers.DataManager.isLoadDone)
         {
-            Managers.DataManager.onFunctionDone += ItemSetting;
+            Managers.DataManager.onFunctionDone += this.ItemSetting;
         }
         else
         {
-            ItemSetting();
+            this.ItemSetting();
         }
     }
     void ItemSetting()
     {
-        Managers.DataManager.onFunctionDone -= ItemSetting;
-        switch (ItemType)
+        ItemTypeEnum tempType = this.ItemType;
+        int randomValue;
+        switch (tempType)
         {
             case ItemTypeEnum.weapon:
                 randomValue = Random.Range(0, Managers.DataManager.weaponTable.Count);
@@ -33,11 +34,16 @@ public class ItemInstantiater : MonoBehaviour
                 tempOBJ.transform.position = transform.position;
                 break;
             case ItemTypeEnum.artifacts:
+                Debug.Log("아티팩트 배열" + Managers.DataManager.artifactTable.Count);
                 randomValue = Random.Range(0, Managers.DataManager.artifactTable.Count);
                 GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
                 ArtifactData tempDataArt = Managers.DataManager.artifactTable[randomValue];
+                if (!Managers.DataManager.Datas.TryGetValue(tempDataArt.codename + "_Item_Mat",out Object aa))
+                {
+                    Debug.Log("오류 : "+tempDataArt.codename + "_Item_Mat");
+                }
                 tempArtifact.GetComponent<ArtifactItem>().SetItemModel(Managers.DataManager.Datas[tempDataArt.codename + "_Item_Mat"] as Material,
-                    Managers.DataManager.Datas[tempDataArt.codename + "_Item_Mesh"] as Mesh, (byte)randomValue);
+                    Managers.DataManager.Datas["Artifact" + "_Item_Mesh"] as Mesh, (byte)randomValue);
                 tempArtifact.transform.position = transform.position;
                 break;
             case ItemTypeEnum.consumAble:
@@ -49,6 +55,7 @@ public class ItemInstantiater : MonoBehaviour
                 tempConsumOBJ.transform.position = transform.position;
                 break;
         }
+        Managers.DataManager.onFunctionDone -= this.ItemSetting;
     }
 
 }
