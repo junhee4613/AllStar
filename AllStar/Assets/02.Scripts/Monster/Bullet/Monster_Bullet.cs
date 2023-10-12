@@ -29,7 +29,7 @@ public class Monster_Bullet : MonoBehaviour
     {
         pushTime += Time.deltaTime;
         rb.velocity = transform.forward * speed;
-        if(Physics.SphereCast(transform.position - Vector3.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
+        if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
         {
             Managers.GameManager.PlayerStat.GetDamage(damage);
             Managers.Pool.Push(this.gameObject);

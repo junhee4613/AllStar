@@ -50,28 +50,31 @@ public class MonsterController_Base_Move : MonsterBase
             float dis = Vector3.Distance(transform.position, player.transform.position);
             if (dis <= Mathf.Abs(attack_Distance))
             {
+                sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
                 if (!agent.isStopped)
                 {
                     agent.isStopped = true;
                 }
-                if (transform.rotation.y != LookPlayer(player))
-                {       //지금 문제가 공격을 안함 불릿이 안나감
-                    if (TargetRotation(gameObject.transform, player.transform) != 0)
+                if (sense)
+                {
+                    if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
                     {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+                        AttackStart();
+                        MonsterDie();
+                        fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
                 else
                 {
-                    sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
-                    if (sense || ranged)
+                    //sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128); sence가 true값일 때 if문이 돌면서 해당 값이 true를 계속 유지하는 것 같음
+                    Debug.Log("실행");
+                    if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
-                        if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
-                        {
-                            AttackStart();
-                            MonsterDie();       //나중에 삭제
-                            fsmChanger(monsterStatus.states["attack"]);
-                        }
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+                    }
+                    else if (TargetRotation(gameObject.transform, player.transform) < 0)
+                    {
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                 }
             }
@@ -81,7 +84,6 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     agent.isStopped = false;
                 }
-
                 agent.SetDestination(player.transform.position);
             }
         }
