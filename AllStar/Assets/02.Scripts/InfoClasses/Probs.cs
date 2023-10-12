@@ -68,3 +68,7 @@ public enum ShotType
 {
     none,multiShot, singleShot
 }
+public enum DraggingState
+{
+    none,weapon,artifact
+}

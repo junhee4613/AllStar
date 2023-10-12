@@ -7,13 +7,16 @@ public class MonsterBase : MonoBehaviour
     [SerializeField]
     protected Collider[] playerSence;
     public float Detect_Range = 0;
+    [Header("공격모드 일 때 감지 범위")]
     public float move_Detect_Range;
+    [Header("일반모드 일 때 감지 범위")]
     public float idle_Detect_Range;
     public GameObject player = null;
     public Status monsterStatus;
     public bool chase_player;
     public bool look_player = false;
     public float attack_time = 0f;
+    
 
     protected virtual void Awake()
     {
@@ -48,14 +51,14 @@ public class MonsterBase : MonoBehaviour
     }
     public void getDamage(float damage)
     {
+        monsterStatus.nowHP -= damage;
+
         if (monsterStatus.nowHP - damage <= 0)
         {
-            monsterStatus.nowHP -= damage;
-            monsterStatus.nowState = monsterStatus.states["die"];
+            MonsterDie();
         }
         else
         {
-            monsterStatus.nowHP -= damage;
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
     }
@@ -66,7 +69,7 @@ public class MonsterBase : MonoBehaviour
         {
             Detect_Range = move_Detect_Range;
         }
-        Debug.Log("움직임");
+/*        Debug.Log("움직임");*/
     }
     #endregion
     public void fsmChanger(BaseState BS)
@@ -98,6 +101,7 @@ public class MonsterBase : MonoBehaviour
         float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
         return target;
     }
+
     public IEnumerator animTimer()
     {
         yield return null;
@@ -105,5 +109,9 @@ public class MonsterBase : MonoBehaviour
         look_player = false;
         attack_time = 0;
         fsmChanger(monsterStatus.states["idle"]);
+    }
+    public virtual void MonsterDie()
+    {
+        monsterStatus.nowState = monsterStatus.states["die"];
     }
 }
