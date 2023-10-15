@@ -7,7 +7,7 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
-    private Transform playerTR;
+    [SerializeField]private Transform playerTR;
     [SerializeField] private RectTransform inventory;
     [SerializeField] private RectTransform escMenu;
     [Header("플레이버 텍스트")]

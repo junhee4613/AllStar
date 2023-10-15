@@ -29,6 +29,8 @@ public class ItemInstantiater : MonoBehaviour
                 randomValue = Random.Range(0, Managers.DataManager.weaponTable.Count);
                 GameObject tempOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["WeaponItem"] as GameObject);
                 WeaponData tempDataWeap = Managers.DataManager.weaponTable[randomValue];
+                Debug.Log("아이템 머테리얼 : "+tempDataWeap.codename + "_Item_Mat");
+                Debug.Log("아이템 메쉬 : "+tempDataWeap.codename + "_Item_Mesh");
                 tempOBJ.GetComponent<WeaponItem>().SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
                     Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, (byte)randomValue);
                 tempOBJ.transform.position = transform.position;

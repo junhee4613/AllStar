@@ -94,7 +94,6 @@ public class MonsterBase : MonoBehaviour
         {
             Detect_Range = idle_Detect_Range;
         }
-        Debug.Log("초기화");
     }
     public float LookPlayer(GameObject hit)
     {
