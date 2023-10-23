@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed;
     private float removeTimer;
     private float timer;
-    [SerializeField] private MeshRenderer mesh;
+    [SerializeField] private Transform meshtr;
     [SerializeField] private ParticleSystem targetHitParticle;
     [SerializeField]private bulletTypeEnum bulletType;
     [SerializeField]private float bulletTotalDMG;
@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
     {
         Bullet tempThisCompo = this;
         Managers.GameManager.SetBullet(this.gameObject.name,ref tempThisCompo);
-        mesh.enabled = true;
+        meshtr.gameObject.SetActive(true);
     }
     private void Update()
     {
@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
             {
                 Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
                 targetHitParticle.gameObject.SetActive(true);
-                mesh.enabled = false;
+                meshtr.gameObject.SetActive(false);
                 timer = removeTimer;
             }
             if (bulletType == bulletTypeEnum.explosion && (targetHitParticle.time / targetHitParticle.main.duration) > 0.5f&&isExplode == false)
