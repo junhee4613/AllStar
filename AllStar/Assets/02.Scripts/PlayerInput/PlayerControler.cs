@@ -26,6 +26,8 @@ public class PlayerControler : MonoBehaviour
     public float playerAttackTimer = 0;
     public float dodgeCooldown = 0 ;
     public bool nonControllable;
+    [Header("ÄðÅ¸ÀÓUI")]
+    [SerializeField]private UnityEngine.UI.Image[] coolTimeIMG;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -115,7 +117,15 @@ public class PlayerControler : MonoBehaviour
         }
         playerAttackTimer += Time.deltaTime;
         dodgeCooldown += Time.deltaTime;
-
+        if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
+        {
+            coolTimeIMG[0].fillAmount = ((stat.attackSpeed + playerWeapons[nowWeapon].stat.fireSpeed) / 1f) * playerAttackTimer;
+        }
+        else if ((playerWeapons[nowWeapon].stat.weaponIndex == 254 || playerWeapons[nowWeapon] != null))
+        {
+            coolTimeIMG[0].fillAmount = 0;
+        }
+        coolTimeIMG[1].fillAmount = dodgeCooldown/stat.dodgeCooltime;
     }
     public void GetMousePos()
     {

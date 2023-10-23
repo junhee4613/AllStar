@@ -29,11 +29,13 @@ public class UIController : MonoBehaviour
     private float weaponIconSize;
     [Header("플레이어 정보창")]
     [SerializeField] private RectTransform charactorInfo;
+    [SerializeField]private Slider PlrHPBar;
     public TextMeshProUGUI[] statusValues = new TextMeshProUGUI[5];
     //0체력,1공격력,2공속,3치확,4치뎀
 
     private void Awake()
     {
+        Managers.UI.hpbar = PlrHPBar;
         Managers.GameManager.OnIconChange += infoStatUpdate;
         deleteItemAreaXPoint = inventory.position.x+inventory.sizeDelta.x;
         Vector2 tempVec;
@@ -162,18 +164,6 @@ public class UIController : MonoBehaviour
                 drag.array = 255;
                 drag.originPos = default;
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            Managers.GameManager.ArtifactEquipOnly(testNum[0]);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            Managers.GameManager.ArtifactRemoveOnly(testNum[1]);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            Managers.GameManager.ChageArtifact(testNum[0], testNum[1]);
         }
     }
     private void infoStatUpdate()

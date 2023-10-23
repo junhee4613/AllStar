@@ -38,6 +38,7 @@ public class GameManager
                 break;
             case statType.HP:
                 PlayerStat.maxHP = sumOper( PlayerStat.maxHP, addValue);
+                Managers.UI.hpbar.maxValue = PlayerStat.maxHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
@@ -63,6 +64,9 @@ public class GameManager
                 break;
             case statType.HP:
                 PlayerStat.nowHP = minusOper(PlayerStat.nowHP, addValue);
+                PlayerStat.maxHP = minusOper(PlayerStat.maxHP, addValue);
+                Managers.UI.hpbar.maxValue = PlayerStat.maxHP;
+                Managers.UI.hpbar.value = PlayerStat.nowHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = divisionOper(PlayerStat.attackSpeed, addValue,0.65f);
