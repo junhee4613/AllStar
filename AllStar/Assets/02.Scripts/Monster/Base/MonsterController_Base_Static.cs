@@ -31,7 +31,7 @@ public class MonsterController_Static : MonsterBase
                 gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z);
                 if (monsterStatus.nowState != monsterStatus.states["attack"])
                 {
-                    fsmChanger(monsterStatus.states["attack"]);
+                    //fsmChanger(monsterStatus.states["attack"]);
                 }
                 break;
             }
