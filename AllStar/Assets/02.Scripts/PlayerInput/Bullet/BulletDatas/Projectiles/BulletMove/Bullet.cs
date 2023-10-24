@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if (Physics.SphereCast(transform.position - Vector3.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 64))
+        if (Physics.SphereCast(transform.position - Vector3.forward, 0.1f, transform.forward, out RaycastHit hit, 0.3f, 64))
         {
             if (!targetHitParticle.gameObject.activeSelf)
             {

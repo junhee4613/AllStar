@@ -5,6 +5,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
+using GeneralFSM;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class PlayerControler : MonoBehaviour
 
     private void Update()
     {
-        if (!nonControllable)
+        if (!nonControllable&&stat.nowHP > 0)
         {
             playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             Vector3 movement = new Vector3(playerDir.x, 0, playerDir.y) * stat.moveSpeed * Time.deltaTime;
@@ -92,6 +93,12 @@ public class PlayerControler : MonoBehaviour
                 fsmChanger(stat.states["dodge"]);
             } 
         }
+        else if (stat.nowHP <0 && stat.nowState != stat.states["die"])
+        {
+            fsmChanger(stat.states["die"]);
+            Debug.Log("플레이어 죽음판정");
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             nowWeapon = 0;
@@ -117,14 +124,19 @@ public class PlayerControler : MonoBehaviour
         }
         playerAttackTimer += Time.deltaTime;
         dodgeCooldown += Time.deltaTime;
-        if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
+        if (playerWeapons[nowWeapon] != null)
         {
-            coolTimeIMG[0].fillAmount = ((stat.attackSpeed + playerWeapons[nowWeapon].stat.fireSpeed) / 1f) * playerAttackTimer;
+            if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
+            {
+                coolTimeIMG[0].fillAmount = ((stat.attackSpeed + playerWeapons[nowWeapon].stat.fireSpeed) / 1f) * playerAttackTimer;
+            }
+            else if ((playerWeapons[nowWeapon].stat.weaponIndex == 254 || playerWeapons[nowWeapon] != null))
+            {
+                coolTimeIMG[0].fillAmount = 0;
+            }
         }
-        else if ((playerWeapons[nowWeapon].stat.weaponIndex == 254 || playerWeapons[nowWeapon] != null))
-        {
-            coolTimeIMG[0].fillAmount = 0;
-        }
+
+
         coolTimeIMG[1].fillAmount = dodgeCooldown/stat.dodgeCooltime;
     }
     public void GetMousePos()
