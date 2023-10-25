@@ -31,7 +31,7 @@ public class Monster_Bullet : MonoBehaviour
         rb.velocity = transform.forward * speed;
         if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
         {
-            Managers.GameManager.PlayerStat.GetDamage(hit.transform.position,damage);
+            Managers.GameManager.PlayerStat.GetDamage(damage);
             Managers.Pool.Push(this.gameObject);
         }
         else if(pushTime >= pushTimer)

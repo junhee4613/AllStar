@@ -28,7 +28,21 @@ public class Bullet : MonoBehaviour
         {
             if (!targetHitParticle.gameObject.activeSelf)
             {
-                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(hit.transform.position, bulletTotalDMG);
+                RectTransform txtTR;
+                if (isCritical)
+                {
+                    txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                    txtTR.position = hit.transform.position;
+                    txtTR.GetChild(0).GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
+                }
+                else
+                {
+                    txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                    txtTR.position = hit.transform.position;
+                    txtTR.GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
+                }
+
+                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage( bulletTotalDMG);
                 targetHitParticle.gameObject.SetActive(true);
                 meshtr.gameObject.SetActive(false);
                 timer = removeTimer;
@@ -40,8 +54,19 @@ public class Bullet : MonoBehaviour
                 isExplode = true;
                 for (int i = 0; i < hitMonsters.Length; i++)
                 {
-                    
-                    Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(hitMonsters[i].transform.position, totalExplosionDMG);
+                    RectTransform txtTR;
+                    if (isCritical)
+                    {
+                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                        txtTR.position = hitMonsters[i].transform.position;
+                    }
+                    else
+                    {
+                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                        txtTR.position = hitMonsters[i].transform.position;
+                    }
+                    txtTR.GetComponent<DamageText>().text.text = totalExplosionDMG.ToString();
+                    Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
                 }
             }
             if ((targetHitParticle.time / targetHitParticle.main.duration) > 1)
