@@ -16,7 +16,8 @@ public class Status
     public BaseState nowState;
     public virtual void GetDamage(Vector3 MobPos,float Damage)
     {
-        
+        RectTransform txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+        txtTR.position = MobPos;
         nowHP -= Damage;
     }
 }

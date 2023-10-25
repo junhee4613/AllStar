@@ -7,6 +7,7 @@ public class DamageText : MonoBehaviour
     public void OnDamageTextOff()
     {
         Debug.Log("ÀÌ¹ÌÁö" + transform.parent.name);
-        Managers.Pool.Push(transform.parent.gameObject);
+        Managers.Pool.UIPush(transform.parent.gameObject);
+
     }
 }

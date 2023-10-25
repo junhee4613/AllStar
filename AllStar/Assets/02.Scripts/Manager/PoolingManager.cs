@@ -57,16 +57,17 @@ class Pool
     }
     GameObject OnUICreate()
     {
+
         if (Root.transform.childCount == 0)
         {
-            GameObject tempCanvas = new GameObject {name = "Canvas" };
+            GameObject tempCanvas = new GameObject() {name = "Canvas" };
             tempCanvas.transform.SetParent(Root);
             Canvas tempCanvasComp = tempCanvas.AddComponent<Canvas>();
-            tempCanvasComp.renderMode = RenderMode.ScreenSpaceOverlay;
-            _root = tempCanvas.transform;
+            tempCanvasComp.renderMode = RenderMode.WorldSpace;
         }
+        Transform tempTR = Root.GetChild(0);
         GameObject go = GameObject.Instantiate(_prefabs);
-        go.transform.SetParent(Root);
+        go.transform.SetParent(tempTR);
         go.name = _prefabs.name;
         return go;
     }
@@ -127,7 +128,6 @@ public class PoolingManager
         if (_pools.ContainsKey(go.name) == false)
         {
             //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 없으면 false를 반환
-            CreatePool(go);
             return false;
         }
         //게임오브젝트를 풀로 반환해준다
@@ -140,7 +140,6 @@ public class PoolingManager
         if (_pools.ContainsKey(go.name) == false)
         {
             //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 없으면 false를 반환
-            CreateUIPool(go);
             return false;
         }
         //게임오브젝트를 풀로 반환해준다
@@ -152,7 +151,6 @@ public class PoolingManager
     {
         if (_pools.ContainsKey(MobType) == false)
         {
-            CreateMobPool(go,MobType);
             //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 없으면 false를 반환
             return false;
         }
