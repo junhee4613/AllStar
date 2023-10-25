@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class MonsterController_Static : MonsterBase
 {
-    public enum SG_pattern 
-    {
-        PATTERN1,
-        PATTERN2
-    }
-    public SG_pattern pattern;
-    public SGBaseShot sGBase;
+    
     [Header("포션 드랍 퍼센트 조절")]
     public int potionDropProbability = 0;
     [Header("아이템(유물) 드랍 퍼센트 조절")]
@@ -40,12 +34,7 @@ public class MonsterController_Static : MonsterBase
         {
             if (item.gameObject.tag == "Player")
             {
-                if(attack_time >= monsterStatus.attackSpeed && !sGBase.attack)
-                {
-                    sGBase._shooting = false;
-                    attack_time = 0;
-                    //지금 탄막패턴이 거리가 멀어져도 나오는데 이거 집에서 공격 범위 외에 있을 때 탄막이 안나오게 해야됨
-                }
+                AttackWay();
             }
         }
     }
@@ -71,6 +60,10 @@ public class MonsterController_Static : MonsterBase
             WeaponDropKind();
         }
         base.MonsterDie();
+    }
+    public virtual void AttackWay()
+    {
+        Debug.Log("공격");
     }
 
 }

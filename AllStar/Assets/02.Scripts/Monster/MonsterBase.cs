@@ -13,6 +13,7 @@ public class MonsterBase : MonoBehaviour
     public float idle_Detect_Range;
     public GameObject player = null;
     public Status monsterStatus;
+    //나중에 밑에 있는 불값은 무브 몬스터로 옮겨야됨
     public bool chase_player;
     //public bool look_player = false;
     public float attack_time = 0f;
@@ -47,9 +48,10 @@ public class MonsterBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (monsterStatus.nowHP <= 0)
+        if (monsterStatus.nowHP <= 0 && monsterStatus.nowState != monsterStatus.states["die"])
         {
             MonsterDie();
+            return;
         }
         else
         {
@@ -99,7 +101,7 @@ public class MonsterBase : MonoBehaviour
             }
         }
     }
-    public void Status_Init()
+    public virtual void Status_Init()
     {
         if (Detect_Range != idle_Detect_Range)
         {
@@ -123,8 +125,7 @@ public class MonsterBase : MonoBehaviour
     public virtual void MonsterDie()
     {
         monsterStatus.nowState = monsterStatus.states["die"];
-        Debug.Log("죽음2");
-        Managers.Pool.Push(this.gameObject);
+        Managers.Pool.MobPush(this.gameObject, "Ranged");
     }
     public void WeaponDropKind()
     {

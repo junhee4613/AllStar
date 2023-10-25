@@ -24,6 +24,7 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
     public float autoReleaseTime = 10f;
 
     public bool _shooting;
+    public bool continuous_attack = false;
     public bool attack = false;
 
     private SGShotCtrl _shotCtrl;
@@ -52,7 +53,7 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
     }  
     protected virtual void FiredShot()
     {
-        if (attack)
+        if (continuous_attack && attack)
         {
             _shooting = false;
         }

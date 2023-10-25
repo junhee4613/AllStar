@@ -59,6 +59,7 @@ MonoBehaviour:
   useAutoRelease: 0
   autoReleaseTime: 10
   _shooting: 1
+  continuous_attack: 1
   attack: 1
   wayNum: 4
   centerAngle: 180
@@ -77,11 +78,11 @@ GameObject:
   - component: {fileID: 2937748904611041870}
   - component: {fileID: 2875882513889782047}
   - component: {fileID: 2875882513889782046}
-  - component: {fileID: 2875882513889782045}
+  - component: {fileID: 1342057764308933041}
   - component: {fileID: 2875882513889782048}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Monster_Tower
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,7 +182,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.97164595, y: 1.010004, z: 0.97164583}
   m_Center: {x: -0.00000023841858, y: 0.5034965, z: -0.000000059604645}
---- !u!114 &2875882513889782045
+--- !u!114 &1342057764308933041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,13 +191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3730114502080721819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a5dfc2ee7f64c40a49028f50e38a88, type: 3}
+  m_Script: {fileID: 11500000, guid: e78ca2bd32582d54ca6cd15f118a9837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerSence: []
-  Detect_Range: 0
-  move_Detect_Range: 10
-  idle_Detect_Range: 5
+  Detect_Range: 15
+  move_Detect_Range: 15
+  idle_Detect_Range: 15
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
@@ -207,12 +208,16 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
-  chase_player: 0
+  chase_player: 1
   attack_time: 0
   action_start: 1
   action_delay: 0
   action_delay_init: 0
-  monster_type: 0
+  monster_type: 3
+  potionDropProbability: 0
+  itemDropProbability: 0
+  weaponDropProbability: 0
+  dropForce: 0
   pattern: 0
   sGBase: {fileID: 500349363}
 --- !u!114 &2875882513889782048

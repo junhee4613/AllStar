@@ -126,7 +126,7 @@ public class MonsterController_Base_Move : MonsterBase
     public override void MonsterDie()
     {
         agent.isStopped = true;
-        
+        Debug.Log("Á×À½");
         int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
         int num3 = Random.Range(1, 100);

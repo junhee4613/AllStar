@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6778612887054317183}
-  - component: {fileID: 6778612887054317168}
+  - component: {fileID: -5101540419472498637}
   m_Layer: 0
   m_Name: MonsterPush_Dragun
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6778612887054317168
+--- !u!114 &-5101540419472498637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6778612887054317169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea4bbb5ad46349c4d944988540131939, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5b2fc9b1201d9428658dac0484288b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
