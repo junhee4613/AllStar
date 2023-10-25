@@ -71,7 +71,7 @@ public class SGProjectile : MonoBehaviour
         {
             if(hit.collider.tag == "Player")
             {
-                Managers.GameManager.PlayerStat.GetDamage(transform.position,damage);
+                Managers.GameManager.PlayerStat.GetDamage(damage);
                 Destroy(this);
             }
             Destroy(this);

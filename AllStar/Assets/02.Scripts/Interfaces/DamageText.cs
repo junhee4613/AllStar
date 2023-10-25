@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DamageText : MonoBehaviour
 {
+    public TMPro.TextMeshProUGUI text;
+    public void OnNormalTextOff()
+    {
+        Managers.Pool.UIPush(gameObject);
+    }
     public void OnDamageTextOff()
     {
-        Debug.Log("¿ÃπÃ¡ˆ" + transform.parent.name);
         Managers.Pool.UIPush(transform.parent.gameObject);
-
     }
 }
