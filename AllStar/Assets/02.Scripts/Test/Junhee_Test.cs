@@ -11,8 +11,6 @@ public class Junhee_Test : MonoBehaviour
     private void Awake()
     {
         Managers.Pool.Pop(monster);
-        monster.gameObject.name = monster.gameObject.GetHashCode().ToString();
-        Managers.GameManager.monstersInScene.Add(monster.gameObject.name, monsterStat);
     }
 
 }

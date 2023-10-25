@@ -850,8 +850,8 @@ Transform:
   m_GameObject: {fileID: 7341781759679697020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -8.898825, y: 0.0000009536743, z: -3.6688824}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1303856287930194520}
   - {fileID: 2830531008848056064}
@@ -896,7 +896,7 @@ MonoBehaviour:
   monsterStatus:
     moveSpeed: 0
     maxHP: 0
-    nowHP: 100
+    nowHP: 500
     attackSpeed: 5
     attackDamage: 0
     criticalChance: 0
@@ -931,8 +931,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.4, z: 0.5}
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Size: {x: 0.7, y: 0.4468364, z: 0.7}
+  m_Center: {x: 0, y: 0.32341817, z: 0}
 --- !u!95 &1201258583490867908
 Animator:
   serializedVersion: 5

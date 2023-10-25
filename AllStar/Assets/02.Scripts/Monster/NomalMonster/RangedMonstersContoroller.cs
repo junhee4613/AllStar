@@ -22,11 +22,10 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
     }
     public override void AttackStart()
     {
-        Debug.Log("반응");
         GameObject test = Managers.Pool.Pop(Managers.DataManager.Datas["Monster_Bullet"] as GameObject);
         test.transform.position = bulletPos.transform.position;
         test.transform.rotation = this.transform.rotation;
         attack_time = 0;
-        //여기에 원거리 몬스터 공격타입 관련 로직을 넣으면 됨
+        
     }
 }
