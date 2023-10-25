@@ -23,7 +23,8 @@ public class MonsterBase : MonoBehaviour
     {
         DOG,
         POLICE,
-        DRAGUN
+        DRAGUN,
+        TURRET,
     }
     public Monster_type monster_type;
 
@@ -37,6 +38,8 @@ public class MonsterBase : MonoBehaviour
         action_delay = action_delay_init;
         this.gameObject.name = this.gameObject.GetHashCode().ToString();
         Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStatus);
+        Debug.Log("몬스터 키 등록 " + Managers.GameManager.monstersInScene.Values);
+        Debug.Log("어웨이크 실행");
     }
     // Start is called before the first frame update
     protected virtual void Start()
@@ -134,6 +137,9 @@ public class MonsterBase : MonoBehaviour
 
                 break;
             case Monster_type.DRAGUN:
+
+                break;
+            case Monster_type.TURRET:
 
                 break;
             default:

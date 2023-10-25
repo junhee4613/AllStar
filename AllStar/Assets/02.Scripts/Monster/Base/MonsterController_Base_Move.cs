@@ -125,9 +125,8 @@ public class MonsterController_Base_Move : MonsterBase
     }
     public override void MonsterDie()
     {
-        Debug.Log("Á×À½1");
         agent.isStopped = true;
-        base.MonsterDie();
+        
         int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
         int num3 = Random.Range(1, 100);
@@ -147,6 +146,6 @@ public class MonsterController_Base_Move : MonsterBase
         {
             WeaponDropKind();
         }
+        base.MonsterDie();
     }
-    
 }
