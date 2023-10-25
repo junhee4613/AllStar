@@ -21,11 +21,18 @@ class Pool
             return _root;
         }
     }
-    public Pool(GameObject prefab)
+    public Pool(GameObject prefab,bool isMob = false)
     {
         _prefabs = prefab;
-        _pool = new ObjectPool<GameObject>(OnCreate, OnGet, OnRelease, OnDestroy);
-    }
+        if (isMob == false)
+        {
+            _pool = new ObjectPool<GameObject>(OnCreate, OnGet, OnRelease, OnDestroy);
+        }
+        else
+        {
+            _pool = new ObjectPool<GameObject>(OnMobCreate, OnGet, OnRelease, OnDestroy);
+        }
+    }    
     public void Push(GameObject go)
     {
         if (go.activeSelf)
@@ -44,6 +51,12 @@ class Pool
         go.name = _prefabs.name;
         return go;
     }
+    GameObject OnMobCreate()
+    {
+        GameObject go = GameObject.Instantiate(_prefabs);
+        go.transform.SetParent(Root);
+        return go;
+    }
     void OnGet(GameObject go)
     {
         go.SetActive(true);
@@ -60,6 +73,13 @@ class Pool
 public class PoolingManager
 {
     Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();
+
+    public GameObject MonsterPop(string mobTypeName,GameObject prefab)
+    {
+        if (!_pools.ContainsKey(mobTypeName))CreateMobPool(prefab,mobTypeName);
+        return _pools[prefab.name].Pop();
+    }
+
     public GameObject Pop(GameObject prefab)
     {
         //매개변수 prefab을 받아서 같은 게임오브젝트 pool이 없다면! 풀을 만들어준다
@@ -79,6 +99,18 @@ public class PoolingManager
         //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 있으면 true를 반환
         return true;
     }
+    public bool MobPush(GameObject go,string MobType)
+    {
+        if (_pools.ContainsKey(MobType) == false)
+        {
+            //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 없으면 false를 반환
+            return false;
+        }
+        //게임오브젝트를 풀로 반환해준다
+        _pools[MobType].Push(go);
+        //_pools에 매개변수로 받은 오브젝트와 같은 이름을 가진풀이 있으면 true를 반환
+        return true;
+    }
     public void Clear()
     {
         //풀을 비워줌
@@ -89,5 +121,11 @@ public class PoolingManager
         //새로운 풀을 등록
         Pool pool = new Pool(original);
         _pools.Add(original.name, pool);
+    }
+    void CreateMobPool(GameObject original,string mobTypeName)
+    {
+        //새로운 풀을 등록
+        Pool pool = new Pool(original);
+        _pools.Add(mobTypeName, pool);
     }
 }

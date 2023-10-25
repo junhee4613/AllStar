@@ -166,6 +166,15 @@ public class UIController : MonoBehaviour
             }
         }
     }
+    public void OnClickExitBTN()
+    {
+        Application.Quit();
+    }
+    public void OnClickToMainMenu()
+    {
+        Debug.Log("메인씬 추가 필요");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("");
+    }
     private void infoStatUpdate()
     {
         statusValues[0].text = Managers.GameManager.PlayerStat.maxHP.ToString();
