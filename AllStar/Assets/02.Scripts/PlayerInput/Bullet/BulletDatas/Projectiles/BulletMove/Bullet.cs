@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]private bool isExplode = false;
     [SerializeField] private float totalExplosionDMG;
     [SerializeField] private float totalExplosionRange;
+    public bool isCritical = false;
     private void OnEnable()
     {
         Bullet tempThisCompo = this;
@@ -27,7 +28,7 @@ public class Bullet : MonoBehaviour
         {
             if (!targetHitParticle.gameObject.activeSelf)
             {
-                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
+                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(hit.transform.position, bulletTotalDMG);
                 targetHitParticle.gameObject.SetActive(true);
                 meshtr.gameObject.SetActive(false);
                 timer = removeTimer;
@@ -39,7 +40,8 @@ public class Bullet : MonoBehaviour
                 isExplode = true;
                 for (int i = 0; i < hitMonsters.Length; i++)
                 {
-                    Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
+                    
+                    Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(hitMonsters[i].transform.position, totalExplosionDMG);
                 }
             }
             if ((targetHitParticle.time / targetHitParticle.main.duration) > 1)

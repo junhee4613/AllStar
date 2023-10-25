@@ -14,8 +14,9 @@ public class Status
     public Animator animator;
     public Dictionary<string,BaseState> states = new Dictionary<string, BaseState>();
     public BaseState nowState;
-    public virtual void GetDamage(float Damage)
+    public virtual void GetDamage(Vector3 MobPos,float Damage)
     {
+        
         nowHP -= Damage;
     }
 }
@@ -23,7 +24,7 @@ public class Status
 public class PlayerOnlyStatus : Status
 {
     public float dodgeCooltime;
-    public override void GetDamage(float Damage)
+    public override void GetDamage(Vector3 MobPos,float Damage)
     {
         nowHP -= Damage;
         Managers.UI.hpbar.maxValue = maxHP;

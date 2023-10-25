@@ -21,7 +21,7 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
     }
     public override void AttackStart()
     {
-        Managers.GameManager.PlayerStat.GetDamage(monsterStatus.attackDamage);
+        Managers.GameManager.PlayerStat.GetDamage(transform.position,monsterStatus.attackDamage);
         //여기에 근거리 몬스터 공격타입 관련 로직을 넣으면 됨
     }
 }
