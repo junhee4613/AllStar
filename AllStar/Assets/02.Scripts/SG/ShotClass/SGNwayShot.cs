@@ -12,13 +12,16 @@ public class SGNwayShot : SGBaseShot
     private float delayTimer;
 
     public override void Shot()
-    { 
-        if(projectileNum <= 0 || projectileSpeed <= 0 || wayNum <= 0)
+    {
+        //_shootingÀÌ trueÀÌ¸é Åº¸·ÀÌ ¾È³ª°¨
+        if (projectileNum <= 0 || projectileSpeed <= 0 || wayNum <= 0)
         {
+            Debug.Log("Åº¸· ³¡");
             return;
         }
         if (_shooting)
         {
+            Debug.Log("Åº¸· ³¡");
             return;
         }
         _shooting = true;

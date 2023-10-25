@@ -28,6 +28,8 @@ public class SGProjectile : MonoBehaviour
     private bool useMinSpeed;
     private float minSpeed;
 
+    [SerializeField]
+    float damage = 1;
     private float baseAngle;
     private float selfFrameCnt;
     private float selfTimeCount;
@@ -61,7 +63,22 @@ public class SGProjectile : MonoBehaviour
         _DeadCheckTimer += Time.deltaTime;
 
         if (_DeadCheckTimer >= _DeadTimer)
+        {
+            Debug.Log("»ç¶óÁü");
             Destroy(this);
+        }
+        else if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
+        {
+            if(hit.collider.tag == "Player")
+            {
+                Managers.GameManager.PlayerStat.GetDamage(damage);
+                Destroy(this);
+            }
+            Destroy(this);
+        }
+
+
+
     }
 
     public void Shot(SGBaseShot parentBaseShot,

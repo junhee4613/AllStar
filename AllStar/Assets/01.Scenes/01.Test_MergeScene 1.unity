@@ -946,68 +946,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463010625}
   m_CullTransparentMesh: 1
---- !u!1 &500349362
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 500349364}
-  - component: {fileID: 500349363}
-  m_Layer: 0
-  m_Name: Bullet_pivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &500349363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500349362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101f55b3c3155ab468b978c2c5cc47ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1774612050036960145, guid: 085bc75a19f13c14983aa322b79815c3, type: 3}
-  projectileNum: 100
-  projectileSpeed: 20
-  accelerationSpeed: 0
-  useMaxSpeed: 0
-  maxSpeed: 0
-  useMinSpeed: 0
-  minSpeed: 0
-  accelerationTurn: 0
-  usePauseAndResume: 0
-  pauseTime: 0
-  resumeTime: 0
-  useAutoRelease: 0
-  autoReleaseTime: 10
-  wayNum: 5
-  centerAngle: 180
-  betweenAngle: 10
-  nextLineDely: 0.1
---- !u!4 &500349364
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500349362}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.62, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1172893573069629113}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571513168
 GameObject:
   m_ObjectHideFlags: 0
@@ -7241,11 +7179,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1172893573069629113 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-  m_PrefabInstance: {fileID: 2938919476975554456}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &1711813855830326382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7817,96 +7750,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
---- !u!1 &1949254694133513219 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-  m_PrefabInstance: {fileID: 2938919476975554456}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2875882513889782045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949254694133513219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a5dfc2ee7f64c40a49028f50e38a88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSence: []
-  Detect_Range: 0
-  move_Detect_Range: 10
-  idle_Detect_Range: 5
-  player: {fileID: 0}
-  monsterStatus:
-    moveSpeed: 0
-    maxHP: 100
-    nowHP: 100
-    attackSpeed: 0
-    attackDamage: 0
-    criticalChance: 0
-    criticalDamage: 0
-    animator: {fileID: 0}
-  chase_player: 0
-  attack_time: 0
-  action_start: 1
-  action_delay: 0
-  action_delay_init: 0
-  monster_type: 0
---- !u!65 &2875882513889782046
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949254694133513219}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.97164595, y: 1.010004, z: 0.97164583}
-  m_Center: {x: -0.00000023841858, y: 0.5034965, z: -0.000000059604645}
---- !u!54 &2875882513889782047
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949254694133513219}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!114 &2875882513889782048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949254694133513219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c64d94c8460dab489bd3112478b8167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shooting: 1
-  axisMove: 1
-  inheritAngle: 0
-  startOnAwake: 1
-  startOnAwakeDelay: 1
-  startOnEnable: 1
-  startOnEnableDelay: 1
-  loop: 1
-  shotList:
-  - shotObj: {fileID: 500349363}
-    afterDelay: 0.1
-  updateStep: 0
 --- !u!1001 &2938919476975554456
 PrefabInstance:
   m_ObjectHideFlags: 0

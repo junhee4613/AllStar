@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine;
+using GeneralFSM;
 
 public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적인 구성
 {
@@ -22,7 +23,8 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
     public bool useAutoRelease = false;    
     public float autoReleaseTime = 10f;
 
-    protected bool _shooting;
+    public bool _shooting;
+    public bool attack = false;
 
     private SGShotCtrl _shotCtrl;
 
@@ -50,12 +52,14 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
     }  
     protected virtual void FiredShot()
     {
-       
+        if (attack)
+        {
+            _shooting = false;
+        }
+        //여기로 공격 주기 설정하면 됨
     }
     public virtual void FinishedShot()              //샷이 끝났을 때 이벤트를 넣거나 함수 호출
     {
-        _shooting = false;
-       
     }      
     protected SGProjectile GetProjectile(Vector3 position, bool forceInstantiate = false)
     {

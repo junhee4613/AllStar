@@ -55,7 +55,10 @@ public class MonsterBase : MonoBehaviour
         {
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
-        attack_time += Time.deltaTime;
+        if(monster_type != Monster_type.TURRET)
+        {
+            attack_time += Time.deltaTime;
+        }
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);

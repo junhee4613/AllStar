@@ -10,8 +10,8 @@ public class Junhee_Test : MonoBehaviour
     public Status monsterStat = new Status();
     private void Awake()
     {
-        Managers.Pool.MobPush(monster, "Ranged");
         Managers.Pool.MonsterPop("Ranged", monster);
+        monster.transform.position = this.transform.position;
     }
 
 }
