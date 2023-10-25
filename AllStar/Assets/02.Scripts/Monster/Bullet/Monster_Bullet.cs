@@ -5,9 +5,10 @@ using UnityEngine;
 public class Monster_Bullet : MonoBehaviour
 {
     [SerializeField]
-    float damage;
+    float damage = 1;
     [SerializeField]
     float speed;
+    [SerializeField]
     Rigidbody rb;
     [Header("총알이 사라지는 현재시간")]
     public float pushTime;
@@ -16,7 +17,6 @@ public class Monster_Bullet : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
     }
     // Start is called before the first frame update
     void Start()
