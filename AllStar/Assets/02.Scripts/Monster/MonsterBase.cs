@@ -38,8 +38,6 @@ public class MonsterBase : MonoBehaviour
         action_delay = action_delay_init;
         this.gameObject.name = this.gameObject.GetHashCode().ToString();
         Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStatus);
-        Debug.Log("몬스터 키 등록 " + Managers.GameManager.monstersInScene.Values);
-        Debug.Log("어웨이크 실행");
     }
     // Start is called before the first frame update
     protected virtual void Start()
@@ -80,7 +78,6 @@ public class MonsterBase : MonoBehaviour
         {
             Detect_Range = move_Detect_Range;
         }
-/*        Debug.Log("움직임");*/
     }
     #endregion
     public void fsmChanger(BaseState BS)

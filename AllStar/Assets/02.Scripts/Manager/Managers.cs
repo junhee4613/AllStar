@@ -5,7 +5,9 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     static Managers s_instance;
-    static Managers instance { get { Init(); return s_instance; } }
+    public static Managers instance { get { Init(); return s_instance; } }
+
+    private static bool isInitialized = false;
     public static void Init()
     {
         if (s_instance == null)
@@ -18,8 +20,13 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
+            isInitialized = true; // 초기화 완료
             Debug.Log("게임 메니저 생성");
         }
+    }
+    public bool IsInitialized()
+    {
+        return isInitialized;
     }
     [SerializeField]
     GameManager _game = new GameManager();
@@ -27,9 +34,17 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     PoolingManager _pool = new PoolingManager();
     UIManager _ui = new UIManager();
+    SGProjectileManager _projectileManager = new SGProjectileManager();         //Manager 하위에 projectiManager
+    SGShotManager _shotManager = new SGShotManager();
 
     public static GameManager GameManager { get { return instance?._game; } }
     public static DataManager DataManager { get { return instance?._data; }}
     public static PoolingManager Pool { get { return instance?._pool; } }
     public static UIManager UI { get { return instance?._ui; } }
+    //Manager 하위에 shotManager
+                              //Manager 하위에 shotManager
+
+    public static SGShotManager ShotManager { get { return instance?._shotManager; } }      //ShotManager 접근 시 인스턴스 리턴
+    public static SGProjectileManager projectileManager { get { return instance?._projectileManager; } }
+
 }

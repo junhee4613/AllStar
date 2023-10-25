@@ -77,7 +77,7 @@ public class PoolingManager
     public GameObject MonsterPop(string mobTypeName,GameObject prefab)
     {
         if (!_pools.ContainsKey(mobTypeName))CreateMobPool(prefab,mobTypeName);
-        return _pools[prefab.name].Pop();
+        return _pools[mobTypeName].Pop();
     }
 
     public GameObject Pop(GameObject prefab)

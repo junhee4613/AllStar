@@ -25,14 +25,15 @@ public class MonsterController_Static : MonsterBase
         base.Perceive_player();
         foreach (var item in playerSence)
         {
-            if (item.name == "Player")
+            if (item.gameObject.tag == "Player")
             {
                 Debug.Log("ÃÄ´Ùº½");
-                gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z);
+                //¿©±â¿¡ Åº¸· ÆÐÅÏ ³Ö¾î¾ßµÊ
+                /*gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z);
                 if (monsterStatus.nowState != monsterStatus.states["attack"])
                 {
                     //fsmChanger(monsterStatus.states["attack"]);
-                }
+                }*/
                 break;
             }
         }
