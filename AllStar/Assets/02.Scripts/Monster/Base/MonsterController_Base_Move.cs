@@ -43,6 +43,7 @@ public class MonsterController_Base_Move : MonsterBase
         base.Update();
         if (chase_player && monsterStatus.nowState != monsterStatus.states["attack"] && Original_spot)
         {
+            Debug.Log("여기");
             if (!action_start)
             {
                 action_delay -= Time.deltaTime;
@@ -73,6 +74,7 @@ public class MonsterController_Base_Move : MonsterBase
                 }
                 else
                 {
+                    Debug.Log("공격안함");
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
@@ -89,7 +91,7 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     agent.isStopped = false;
                 }
-                if(monsterStatus.nowState != monsterStatus.states["run"])
+                if(monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
                 {
                     fsmChanger(monsterStatus.states["run"]);
                 }
@@ -98,17 +100,22 @@ public class MonsterController_Base_Move : MonsterBase
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
+            //여기가 문제임 Original_spot 이게 문제임
             Original_spot = false;
-            if (transform.position != pos_init && !Original_spot)
+            if (transform.position != pos_init)
             {
-                if (monsterStatus.nowState != monsterStatus.states["idle"])
+                if (monsterStatus.nowState != monsterStatus.states["run"])
                 {
-                    fsmChanger(monsterStatus.states["idle"]);
+                    fsmChanger(monsterStatus.states["run"]);
                 }
                 agent.SetDestination(pos_init);
                 init_pos_dis = Vector3.Distance(transform.position, pos_init);
-                if (init_pos_dis < Mathf.Abs(1f))
+                if (init_pos_dis < Mathf.Abs(0.1f))
                 {
+                    if (monsterStatus.nowState != monsterStatus.states["idle"])
+                    {
+                        fsmChanger(monsterStatus.states["idle"]);
+                    }
                     Original_spot = true;
                 }
             }
