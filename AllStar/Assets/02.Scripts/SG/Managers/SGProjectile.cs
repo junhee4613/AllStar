@@ -44,7 +44,7 @@ public class SGProjectile : MonoBehaviour
 
     public virtual bool isActive { get { return gameObject.activeSelf; } }
 
-    public float _DeadTimer = 10.0f;
+    public float _DeadTimer = 6.0f;
     private float _DeadCheckTimer;
 
     private void Awake()

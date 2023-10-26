@@ -45,23 +45,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1774612050036960145, guid: 085bc75a19f13c14983aa322b79815c3, type: 3}
-  projectileNum: 8
-  projectileSpeed: 10
-  accelerationSpeed: 0
+  projectileNum: 50
+  projectileSpeed: 7.3
+  accelerationSpeed: -1
   useMaxSpeed: 0
   maxSpeed: 0
-  useMinSpeed: 0
+  useMinSpeed: 1
   minSpeed: 0
-  accelerationTurn: 0
+  accelerationTurn: 130
   usePauseAndResume: 0
   pauseTime: 0
   resumeTime: 0
   useAutoRelease: 0
-  autoReleaseTime: 10
+  autoReleaseTime: 0
   _shooting: 1
   continuous_attack: 0
   attack: 1
   wayNum: 8
-  centerAngle: 180
-  betweenAngle: 45
-  nextLineDely: 0.1
+  centerAngle: 0
+  betweenAngle: 90
+  nextLineDely: 1.5
+  delayTimer: 0
