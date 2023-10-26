@@ -212,6 +212,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
+  - m_GUID: 9f377c6b9acaf8e468c661ac8f969eae
+    m_Address: ShotGun_Fire_Sound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 4a90e85556999254e99d8bae242d87dc
+    m_Address: Revolver_Fire_Sound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: c4935004c3074aa408add5c5ea2ac4fb
+    m_Address: Launcher_Fire_Sound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:

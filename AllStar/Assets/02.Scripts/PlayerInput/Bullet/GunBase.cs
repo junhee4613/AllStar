@@ -52,6 +52,7 @@ public class GunBase
                 }
             }
         }
+        Managers.Sound.SFX_Sound(Managers.DataManager.Datas[stat.codeName + "_Fire_Sound"] as AudioClip);
     }
     public void ResetGunSlot(Vector3 pos)
     {

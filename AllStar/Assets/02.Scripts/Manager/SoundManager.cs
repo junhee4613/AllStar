@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
     {
         GameObject go = new GameObject();
         AudioSource temp = go.AddComponent<AudioSource>();
-        temp.outputAudioMixerGroup = mixer.FindMatchingGroups("그룹 안에 있는 이름")[0];
+        //temp.outputAudioMixerGroup = mixer.FindMatchingGroups("그룹 안에 있는 이름")[0];
         temp.clip = clip;
         temp.Play();
         Destroy(go, temp.clip.length);

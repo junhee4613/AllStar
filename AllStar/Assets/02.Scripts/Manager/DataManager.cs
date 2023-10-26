@@ -20,18 +20,19 @@ public class DataManager
     public event Action onFunctionDone;
     public void Init(Action Done = null)
     {
+
+        if (Managers.UI.loadBar == null)
+        {
+            GameObject tempGOBJ = MonoBehaviour.Instantiate(Resources.Load<GameObject>("LoadingCanvas"), null);
+            Managers.UI.loadBar = tempGOBJ.transform.GetChild(0).Find("Slider").GetComponent<Slider>();
+        }
+
         LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
-
-
-            if (Managers.UI.loadBar == null)
-            {
-                GameObject tempGOBJ = MonoBehaviour.Instantiate(Resources.Load<GameObject>("LoadingCanvas"), null);
-                Managers.UI.loadBar = tempGOBJ.transform.GetChild(0).Find("Slider").GetComponent<Slider>();
-            }
             Managers.UI.loadBar.maxValue = totalCount;
             Managers.UI.loadBar.value = count;
+
 
             if (count == totalCount)
             {

@@ -71232,7 +71232,6 @@ MonoBehaviour:
   action_delay_init: 0
   die: 0
   monster_type: 0
-  ranged: 0
   agent: {fileID: 0}
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
@@ -73625,7 +73624,6 @@ MonoBehaviour:
   action_delay_init: 0
   die: 0
   monster_type: 0
-  ranged: 0
   agent: {fileID: 0}
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
@@ -122078,7 +122076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7756174467813043293, guid: 29ea1c0786271704ea14e3a360d22270, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.011
       objectReference: {fileID: 0}
     - target: {fileID: 7756174467813043293, guid: 29ea1c0786271704ea14e3a360d22270, type: 3}
       propertyPath: m_LocalPosition.z
