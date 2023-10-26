@@ -56,6 +56,7 @@ public class MonsterController_Base_Move : MonsterBase
             float dis = Vector3.Distance(transform.position, player.transform.position);
             if (dis <= Mathf.Abs(attack_Distance))
             {
+                Debug.Log("ÀÎ½Ä");
                 sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
                 if (!agent.isStopped)
                 {
@@ -132,11 +133,11 @@ public class MonsterController_Base_Move : MonsterBase
         {
             GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
             potion.transform.position = transform.position;
-            potion.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
         }
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
             GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
+
             tempArtifact.transform.position = transform.position;
         }
         if(num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
