@@ -9,7 +9,7 @@ public class SGNwayShot : SGBaseShot
     public float betweenAngle = 10f;
     public float nextLineDely = 0.1f;
     private int nowIndex;
-    private float delayTimer;
+    public float delayTimer;
 
     public override void Shot()
     {
@@ -37,13 +37,11 @@ public class SGNwayShot : SGBaseShot
         }
         delayTimer -= SGTimer.Instance.deltaTime;
 
-        while (delayTimer < 0)
+        while ((delayTimer < 0 && attack))
         {
+            Debug.Log("Åº¾Ë »ý¼º");
             for (int i = 0; i < wayNum; i++)
             {
-                Debug.Log(transform.position);
-                Debug.Log(projectilePrefab.name);
-                //Debug.Log()Âï¾îº¸´Ï ÇÁ¸®ÆÕÀº µé¾î°¡ÀÖ°í Æ÷Áö¼Çµµ ÀßÂïÈû
                 SGProjectile projectile = GetProjectile(transform.position);
 
                 if (projectile == null)

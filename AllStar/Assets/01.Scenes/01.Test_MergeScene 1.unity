@@ -7781,6 +7781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster_Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_RootOrder
       value: 1

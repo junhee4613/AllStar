@@ -131,9 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSence: []
-  Detect_Range: 15
-  move_Detect_Range: 15
-  idle_Detect_Range: 15
+  Detect_Range: 10
+  move_Detect_Range: 10
+  idle_Detect_Range: 10
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
@@ -169,10 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c64d94c8460dab489bd3112478b8167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shooting: 1
+  _shooting: 0
   axisMove: 1
   inheritAngle: 0
-  startOnAwake: 1
+  startOnAwake: 0
   startOnAwakeDelay: 1
   startOnEnable: 1
   startOnEnableDelay: 1
@@ -204,6 +204,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4075713463106513185}
     m_Modifications:
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: _shooting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: nextLineDely
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576497, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: m_Name
       value: Bullet_pivot
