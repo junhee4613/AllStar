@@ -95,7 +95,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730114502080721819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0033270717, y: -0.000000059604645, z: 3.537145}
+  m_LocalPosition: {x: 12.05, y: 0.43158022, z: -9.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -213,6 +213,7 @@ MonoBehaviour:
   action_start: 1
   action_delay: 0
   action_delay_init: 0
+  die: 0
   monster_type: 3
   potionDropProbability: 0
   itemDropProbability: 0

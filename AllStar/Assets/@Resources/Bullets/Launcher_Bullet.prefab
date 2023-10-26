@@ -19477,6 +19477,7 @@ MonoBehaviour:
   isExplode: 0
   totalExplosionDMG: 0
   totalExplosionRange: 0
+  isCritical: 0
 --- !u!1 &6788945533596006753
 GameObject:
   m_ObjectHideFlags: 0

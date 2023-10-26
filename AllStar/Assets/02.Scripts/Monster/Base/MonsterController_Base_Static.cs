@@ -60,10 +60,14 @@ public class MonsterController_Static : MonsterBase
             WeaponDropKind();
         }
         base.MonsterDie();
+        MonsterPush();
     }
     public virtual void AttackWay()
     {
         Debug.Log("АјАн");
+    }
+    protected virtual void MonsterPush()
+    {
     }
 
 }
