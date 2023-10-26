@@ -45,15 +45,13 @@ public class MonsterController_Static : MonsterBase
         int num3 = Random.Range(1, 100);
         if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
         {
-            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
-            potion.transform.position = transform.position;
-            potion.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
+           /* GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
+            potion.transform.position = transform.position;*/
         }
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
             GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
             tempArtifact.transform.position = transform.position;
-            tempArtifact.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
         }
         if (num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
         {

@@ -9,11 +9,12 @@ public class Monster_Bullet : MonoBehaviour
     [SerializeField]
     float speed;
     [SerializeField]
-    Rigidbody rb;
+    //Rigidbody rb;
     [Header("총알이 사라지는 현재시간")]
     public float pushTime;
     [Header("총알이 사라지는 기준시간")]
     public float pushTimer;
+    public LayerMask detection_target;
 
     private void Awake()
     {
@@ -28,10 +29,13 @@ public class Monster_Bullet : MonoBehaviour
     void Update()
     {
         pushTime += Time.deltaTime;
-        rb.velocity = transform.forward * speed;
-        if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
+        transform.Translate(transform.forward * Time.deltaTime * speed, Space.World);
+        if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, detection_target))
         {
-            Managers.GameManager.PlayerStat.GetDamage(damage);
+            if(hit.collider.tag == "Player")
+            {
+                Managers.GameManager.PlayerStat.GetDamage(damage);
+            }
             Managers.Pool.Push(this.gameObject);
         }
         else if(pushTime >= pushTimer)

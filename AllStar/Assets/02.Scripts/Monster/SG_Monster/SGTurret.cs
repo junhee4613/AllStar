@@ -13,6 +13,7 @@ public class SGTurret : Monster_Static
     public SGBaseShot sGBase;
     protected override void Awake()
     {
+        Managers.Pool.MonsterPop("SG", gameObject);
         base.Awake();
     }
     // Start is called before the first frame update

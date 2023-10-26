@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MonsterController_Base_Move : MonsterBase
 {
     public NavMeshAgent agent;
+    public LayerMask detection_target;
     public bool sense;
     public Vector3 pos_init;
     public bool Original_spot = false;
@@ -42,8 +43,8 @@ public class MonsterController_Base_Move : MonsterBase
         base.Update();
         if (chase_player)
         {
+
             Original_spot = false;
-            Debug.Log("여기");
             if (!action_start)
             {
                 action_delay -= Time.deltaTime;
@@ -55,10 +56,9 @@ public class MonsterController_Base_Move : MonsterBase
                 return;
             }
             float dis = Vector3.Distance(transform.position, player.transform.position);
-            if (dis <= Mathf.Abs(attack_Distance))
+            sense = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit ,attack_Distance, detection_target);
+            if (dis <= Mathf.Abs(attack_Distance) && hit.collider.tag == "Player")
             {
-                Debug.Log("인식");
-                sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
                 if (!agent.isStopped)
                 {
                     agent.isStopped = true;
@@ -67,14 +67,12 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     if (monsterStatus.nowState != monsterStatus.states["attack"])
                     {
-                        Debug.Log("공격");
                         AttackStart();
                         fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
                 else
                 {
-                    Debug.Log("공격안함");
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
@@ -100,8 +98,6 @@ public class MonsterController_Base_Move : MonsterBase
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            //여기가 문제임 Original_spot 이게 문제임
-            
             if (transform.position != pos_init)
             {
                 
@@ -142,8 +138,8 @@ public class MonsterController_Base_Move : MonsterBase
         int num3 = Random.Range(1, 100);
         if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
         {
-            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
-            potion.transform.position = transform.position;
+            /*GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
+            potion.transform.position = transform.position;*/
         }
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {

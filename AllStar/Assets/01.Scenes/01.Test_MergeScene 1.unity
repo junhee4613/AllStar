@@ -4746,6 +4746,10 @@ PrefabInstance:
       value: Dragun_Monster
       objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: sense
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: Original_spot
       value: 1
       objectReference: {fileID: 0}
@@ -6002,7 +6006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.8
+      value: -10.3
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6010,7 +6014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.87
+      value: 10.6
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalRotation.w
