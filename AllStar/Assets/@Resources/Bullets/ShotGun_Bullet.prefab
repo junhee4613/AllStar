@@ -9820,6 +9820,10 @@ MonoBehaviour:
   isExplode: 0
   totalExplosionDMG: 0
   totalExplosionRange: 0
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 1088
+  isCritical: 0
 --- !u!1001 &4948080241335097799
 PrefabInstance:
   m_ObjectHideFlags: 0
