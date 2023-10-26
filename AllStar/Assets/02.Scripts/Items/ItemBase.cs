@@ -7,6 +7,10 @@ public abstract class IItemBase : MonoBehaviour
     public byte itemIndex;
     public ItemTypeEnum type;
     public abstract void UseItem<T>(ref T changeOriginValue);
+    protected virtual void Start()
+    {
+        
+    }
     public void SetItemModel(Material mat, Mesh mesh, byte index) 
     {
         itemIndex = index;
