@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]private bool isExplode = false;
     [SerializeField] private float totalExplosionDMG;
     [SerializeField] private float totalExplosionRange;
+    [SerializeField]private LayerMask hitLayer = 64;
     public bool isCritical = false;
     private void OnEnable()
     {
@@ -24,25 +25,33 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if (Physics.SphereCast(transform.position , 0.1f, transform.forward, out RaycastHit hit, 0.5f, 64))
+        if (Physics.SphereCast(transform.position , 0.08f, transform.forward, out RaycastHit hit, 0.2f, hitLayer))
         {
-            if (!targetHitParticle.gameObject.activeSelf)
+            Vector3 randomValue = hit.transform.position + (Random.Range(-0.5f, 0.6f) * (Vector3.right + Vector3.forward));
+            
+            RectTransform txtTR;
+            if (hit.transform.gameObject.layer == 64)
             {
-                RectTransform txtTR;
-                if (isCritical)
+                if (!targetHitParticle.gameObject.activeSelf)
                 {
-                    txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
-                    txtTR.position = hit.transform.position;
+                    if (isCritical)
+                    {
+                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                    }
+                    else
+                    {
+                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                    }
+                    txtTR.position = randomValue;
                     txtTR.GetChild(0).GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
-                }
-                else
-                {
-                    txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
-                    txtTR.position = hit.transform.position;
-                    txtTR.GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
-                }
-
-                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage( bulletTotalDMG);
+                    Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
+                    targetHitParticle.gameObject.SetActive(true);
+                    meshtr.gameObject.SetActive(false);
+                    timer = removeTimer;
+                } 
+            }
+            else
+            {
                 targetHitParticle.gameObject.SetActive(true);
                 meshtr.gameObject.SetActive(false);
                 timer = removeTimer;
@@ -54,18 +63,17 @@ public class Bullet : MonoBehaviour
                 isExplode = true;
                 for (int i = 0; i < hitMonsters.Length; i++)
                 {
-                    RectTransform txtTR;
+                    randomValue = hitMonsters[i].transform.position + (Random.Range(-1f, 2f) * (Vector3.right + Vector3.forward));
                     if (isCritical)
                     {
                         txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
-                        txtTR.position = hitMonsters[i].transform.position;
                     }
                     else
                     {
                         txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
-                        txtTR.position = hitMonsters[i].transform.position;
                     }
-                    txtTR.GetComponent<DamageText>().text.text = totalExplosionDMG.ToString();
+                    txtTR.position = randomValue;
+                    txtTR.GetChild(0).GetComponent<DamageText>().text.text = totalExplosionDMG.ToString();
                     Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
                 }
             }
