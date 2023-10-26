@@ -37,6 +37,7 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
             {
                 _shotCtrl = GetComponentInParent<SGShotCtrl>();
             }
+            
             return _shotCtrl;
         }
     }   
@@ -82,9 +83,7 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
             return;
         }
 
-        projectile.Shot(this, speed, angle, accelerationSpeed, accelerationTurn, homing, homingTarget, homingAngleSpeed, 
-            sinWave, sinWaveSpeed, sinWaveRangeSize, sinWaveInverse, usePauseAndResume, pauseTime, resumeTime, useAutoRelease, autoReleaseTime,
-            _shotCtrl.axisMove, _shotCtrl.inheritAngle, useMaxSpeed, maxSpeed, useMinSpeed, minSpeed);
+        projectile.Shot(this, speed, angle, accelerationSpeed, accelerationTurn, homing, homingTarget, homingAngleSpeed, sinWave, sinWaveSpeed, sinWaveRangeSize, sinWaveInverse, usePauseAndResume, pauseTime, resumeTime, useAutoRelease, autoReleaseTime,_shotCtrl.axisMove, _shotCtrl.inheritAngle, useMaxSpeed, maxSpeed, useMinSpeed, minSpeed);
        
     }
 }

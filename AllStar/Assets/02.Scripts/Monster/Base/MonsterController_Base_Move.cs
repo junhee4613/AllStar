@@ -5,9 +5,6 @@ using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
-    
-
-    public bool ranged = false;
     public NavMeshAgent agent;
     public bool sense;
     public Vector3 pos_init;
@@ -43,8 +40,10 @@ public class MonsterController_Base_Move : MonsterBase
             return;
         }
         base.Update();
-        if (chase_player && monsterStatus.nowState != monsterStatus.states["attack"] && Original_spot)
+        if (chase_player)
         {
+            Original_spot = false;
+            Debug.Log("여기");
             if (!action_start)
             {
                 action_delay -= Time.deltaTime;
@@ -58,6 +57,7 @@ public class MonsterController_Base_Move : MonsterBase
             float dis = Vector3.Distance(transform.position, player.transform.position);
             if (dis <= Mathf.Abs(attack_Distance))
             {
+                Debug.Log("인식");
                 sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
                 if (!agent.isStopped)
                 {
@@ -65,14 +65,16 @@ public class MonsterController_Base_Move : MonsterBase
                 }
                 if (sense)
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["attack"]/* && monsterStatus.attackSpeed <= attack_time*/)
+                    if (monsterStatus.nowState != monsterStatus.states["attack"])
                     {
+                        Debug.Log("공격");
                         AttackStart();
                         fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
                 else
                 {
+                    Debug.Log("공격안함");
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
@@ -89,7 +91,7 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     agent.isStopped = false;
                 }
-                if(monsterStatus.nowState != monsterStatus.states["run"])
+                if(monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
                 {
                     fsmChanger(monsterStatus.states["run"]);
                 }
@@ -98,18 +100,27 @@ public class MonsterController_Base_Move : MonsterBase
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            Original_spot = false;
-            if (transform.position != pos_init && !Original_spot)
+            //여기가 문제임 Original_spot 이게 문제임
+            
+            if (transform.position != pos_init)
             {
-                if (monsterStatus.nowState != monsterStatus.states["idle"])
-                {
-                    fsmChanger(monsterStatus.states["idle"]);
-                }
+                
                 agent.SetDestination(pos_init);
                 init_pos_dis = Vector3.Distance(transform.position, pos_init);
-                if (init_pos_dis < Mathf.Abs(1f))
+                if (init_pos_dis < Mathf.Abs(0.1f))
                 {
+                    if (monsterStatus.nowState != monsterStatus.states["idle"])
+                    {
+                        fsmChanger(monsterStatus.states["idle"]);
+                    }
                     Original_spot = true;
+                }
+                else
+                {
+                    if (monsterStatus.nowState != monsterStatus.states["run"])
+                    {
+                        fsmChanger(monsterStatus.states["run"]);
+                    }
                 }
             }
         }
@@ -133,11 +144,11 @@ public class MonsterController_Base_Move : MonsterBase
         {
             GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
             potion.transform.position = transform.position;
-            potion.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
         }
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
             GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
+
             tempArtifact.transform.position = transform.position;
         }
         if(num3 == Mathf.Clamp(num3, 1, weaponDropProbability))

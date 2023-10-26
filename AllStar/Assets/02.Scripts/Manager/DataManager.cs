@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 using Newtonsoft.Json;
 using System.IO;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class DataManager
@@ -22,8 +23,19 @@ public class DataManager
         LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
+
+
+            if (Managers.UI.loadBar == null)
+            {
+                GameObject tempGOBJ = MonoBehaviour.Instantiate(Resources.Load<GameObject>("LoadingCanvas"), null);
+                Managers.UI.loadBar = tempGOBJ.transform.GetChild(0).Find("Slider").GetComponent<Slider>();
+            }
+            Managers.UI.loadBar.maxValue = totalCount;
+            Managers.UI.loadBar.value = count;
+
             if (count == totalCount)
             {
+                Managers.UI.loadBar.transform.parent.parent.gameObject.SetActive(false);
                 //string jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ArtifactTable.json");
                 TextAsset tempTA = Datas["ArtifactTable"] as TextAsset;
                 artifactTable = JsonConvert.DeserializeObject<List<ArtifactData>>(tempTA.text);
@@ -84,7 +96,7 @@ public class DataManager
     }
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : Object
     {
-        //½ºÇÁ¶óÀÌÆ®ÀÎ °æ¿ì ÇÏÀ§°´Ã¼ÀÇ ÀÌ¸§À¸·Î ·ÎµåÇÏ¸é ½ºÇÁ¶óÀÌÆ®·Î ·ÎµùÀÌ µÊ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½
         string loadKey = key;
         if (key.Contains(".sprite"))
         {
@@ -93,7 +105,7 @@ public class DataManager
         var asyncOperation = Addressables.LoadAssetAsync<T>(loadKey);
         asyncOperation.Completed += (op) =>
         {
-            //Ä³½Ã È®ÀÎ
+            //Ä³ï¿½ï¿½ È®ï¿½ï¿½
             if (Datas.TryGetValue(key, out Object resource))
             {
                 callback?.Invoke(op.Result);

@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730114502080721819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4, y: 0.00081825256, z: 0.69}
+  m_LocalPosition: {x: 2.971, y: 0.0008201599, z: -0.038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -131,15 +131,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSence: []
-  Detect_Range: 15
-  move_Detect_Range: 15
-  idle_Detect_Range: 15
+  Detect_Range: 10
+  move_Detect_Range: 10
+  idle_Detect_Range: 10
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
     maxHP: 100
     nowHP: 100
-    attackSpeed: 2
+    attackSpeed: 1.5
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
@@ -169,17 +169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c64d94c8460dab489bd3112478b8167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shooting: 1
+  _shooting: 0
   axisMove: 1
   inheritAngle: 0
-  startOnAwake: 1
+  startOnAwake: 0
   startOnAwakeDelay: 1
   startOnEnable: 1
   startOnEnableDelay: 1
   loop: 1
   shotList:
-  - shotObj: {fileID: 500349363}
-    afterDelay: 0.1
   - shotObj: {fileID: 500349363}
     afterDelay: 0.1
   updateStep: 0
@@ -207,36 +205,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 4075713463106513185}
     m_Modifications:
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: wayNum
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: centerAngle
+      propertyPath: _shooting
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: betweenAngle
-      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: nextLineDely
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: projectileNum
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: useAutoRelease
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: autoReleaseTime
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
-      propertyPath: accelerationTurn
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576497, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: m_Name

@@ -9,6 +9,7 @@ public class UIManager
     public Image[] artifactSlotIMG = new Image[20];
     public Image[] weaponSlotIMG = new Image[3];
     public Slider hpbar;
+    public Slider loadBar;
     public void ArtifactInventoryImageChanges(byte arrayNum,string codeName)
     {
         Sprite a = Managers.DataManager.Load<Sprite>(codeName + "_ICON");
