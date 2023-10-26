@@ -41,10 +41,14 @@ public class SGNwayShot : SGBaseShot
         {
             for (int i = 0; i < wayNum; i++)
             {
+                Debug.Log(transform.position);
+                Debug.Log(projectilePrefab.name);
+                //Debug.Log()찍어보니 프리팹은 들어가있고 포지션도 잘찍힘
                 SGProjectile projectile = GetProjectile(transform.position);
 
-                if(projectile == null)
+                if (projectile == null)
                 {
+                    Debug.Log("매개변수");
                     break;
                 }
 

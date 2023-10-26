@@ -2141,6 +2141,7 @@ MonoBehaviour:
   action_start: 1
   action_delay: 0
   action_delay_init: 0
+  die: 0
   monster_type: 0
   ranged: 0
   agent: {fileID: 0}
@@ -3635,6 +3636,7 @@ MonoBehaviour:
   action_start: 1
   action_delay: 0
   action_delay_init: 0
+  die: 0
   monster_type: 0
   ranged: 0
   agent: {fileID: 0}
@@ -3869,6 +3871,7 @@ MonoBehaviour:
   action_start: 1
   action_delay: 0
   action_delay_init: 0
+  die: 0
   monster_type: 0
   ranged: 0
   agent: {fileID: 0}
@@ -6763,6 +6766,7 @@ MonoBehaviour:
   action_start: 1
   action_delay: 0
   action_delay_init: 0
+  die: 0
   monster_type: 0
   ranged: 0
   agent: {fileID: 0}
@@ -7771,7 +7775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1342057764308933041, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: monsterStatus.attackSpeed
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_Name

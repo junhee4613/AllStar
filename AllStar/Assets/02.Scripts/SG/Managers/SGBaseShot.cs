@@ -66,6 +66,7 @@ public abstract class SGBaseShot : MonoBehaviour                //총알의 기본적�
     {
         if (projectilePrefab == null)
         {
+            Debug.Log("비었어");
             //블릿풀에 문제 있음
             return null;
         }

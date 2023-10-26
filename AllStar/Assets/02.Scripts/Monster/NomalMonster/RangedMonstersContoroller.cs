@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class RangedMonstersContoroller : MonsterController_Base_Move
 {
     public GameObject bulletPos;
