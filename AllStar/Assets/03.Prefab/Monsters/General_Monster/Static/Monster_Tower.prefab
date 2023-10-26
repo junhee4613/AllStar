@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730114502080721819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.05, y: 0.43158022, z: -9.71}
+  m_LocalPosition: {x: 4.4, y: 0.00081825256, z: 0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -180,6 +180,8 @@ MonoBehaviour:
   shotList:
   - shotObj: {fileID: 500349363}
     afterDelay: 0.1
+  - shotObj: {fileID: 500349363}
+    afterDelay: 0.1
   updateStep: 0
 --- !u!208 &4443580507393223406
 NavMeshObstacle:
@@ -204,6 +206,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4075713463106513185}
     m_Modifications:
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: wayNum
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: centerAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: betweenAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: nextLineDely
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: projectileNum
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: useAutoRelease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: autoReleaseTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: accelerationTurn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576497, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: m_Name
       value: Bullet_pivot
