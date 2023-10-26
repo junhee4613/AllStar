@@ -105,10 +105,11 @@ public class PoolingManager
             return true;
         }
     }
-    public GameObject MonsterPop(string mobTypeName,GameObject prefab)
+    public void MonsterPop(string mobTypeName,GameObject prefab)
     {
         if (!_pools.ContainsKey(mobTypeName))CreateMobPool(prefab,mobTypeName);
-        return _pools[mobTypeName].Pop();
+        return;
+        //return _pools[mobTypeName].Pop();
     }    
     public GameObject UIPop(GameObject prefab)
     {

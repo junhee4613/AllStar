@@ -840,7 +840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7973886130612783814
 Transform:
   m_ObjectHideFlags: 0
@@ -890,7 +890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSence: []
   Detect_Range: 0
-  move_Detect_Range: 15
+  move_Detect_Range: 20
   idle_Detect_Range: 10
   player: {fileID: 0}
   monsterStatus:
@@ -905,10 +905,10 @@ MonoBehaviour:
   chase_player: 0
   attack_time: 0
   action_start: 1
-  action_delay: 3
-  action_delay_init: 3
+  action_delay: 1.5
+  action_delay_init: 1.5
   die: 0
-  monster_type: 0
+  monster_type: 2
   ranged: 0
   agent: {fileID: 0}
   sense: 0
@@ -973,7 +973,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 0.5
-  m_BaseOffset: 0
+  m_BaseOffset: -0.08
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &8281662500836273824

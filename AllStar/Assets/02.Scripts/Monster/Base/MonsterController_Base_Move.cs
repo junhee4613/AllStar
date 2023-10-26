@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
-    
-
     public bool ranged = false;
     public NavMeshAgent agent;
     public bool sense;
@@ -65,8 +63,9 @@ public class MonsterController_Base_Move : MonsterBase
                 }
                 if (sense)
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["attack"]/* && monsterStatus.attackSpeed <= attack_time*/)
+                    if (monsterStatus.nowState != monsterStatus.states["attack"])
                     {
+                        Debug.Log("АјАн");
                         AttackStart();
                         fsmChanger(monsterStatus.states["attack"]);
                     }
