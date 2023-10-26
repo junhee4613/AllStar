@@ -4745,6 +4745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dragun_Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: Original_spot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_RootOrder
       value: 24

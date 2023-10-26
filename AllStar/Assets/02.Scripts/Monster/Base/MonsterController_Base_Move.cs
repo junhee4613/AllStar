@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
-    public bool ranged = false;
     public NavMeshAgent agent;
     public bool sense;
     public Vector3 pos_init;
@@ -41,8 +40,9 @@ public class MonsterController_Base_Move : MonsterBase
             return;
         }
         base.Update();
-        if (chase_player && monsterStatus.nowState != monsterStatus.states["attack"] && Original_spot)
+        if (chase_player)
         {
+            Original_spot = false;
             Debug.Log("여기");
             if (!action_start)
             {
@@ -101,13 +101,10 @@ public class MonsterController_Base_Move : MonsterBase
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
             //여기가 문제임 Original_spot 이게 문제임
-            Original_spot = false;
+            
             if (transform.position != pos_init)
             {
-                if (monsterStatus.nowState != monsterStatus.states["run"])
-                {
-                    fsmChanger(monsterStatus.states["run"]);
-                }
+                
                 agent.SetDestination(pos_init);
                 init_pos_dis = Vector3.Distance(transform.position, pos_init);
                 if (init_pos_dis < Mathf.Abs(0.1f))
@@ -117,6 +114,13 @@ public class MonsterController_Base_Move : MonsterBase
                         fsmChanger(monsterStatus.states["idle"]);
                     }
                     Original_spot = true;
+                }
+                else
+                {
+                    if (monsterStatus.nowState != monsterStatus.states["run"])
+                    {
+                        fsmChanger(monsterStatus.states["run"]);
+                    }
                 }
             }
         }
