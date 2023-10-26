@@ -890,8 +890,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSence: []
   Detect_Range: 0
-  move_Detect_Range: 20
-  idle_Detect_Range: 5
+  move_Detect_Range: 15
+  idle_Detect_Range: 10
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
@@ -907,6 +907,7 @@ MonoBehaviour:
   action_start: 1
   action_delay: 3
   action_delay_init: 3
+  die: 0
   monster_type: 0
   ranged: 0
   agent: {fileID: 0}
@@ -963,7 +964,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
+  m_Speed: 3
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 360

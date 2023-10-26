@@ -38,7 +38,7 @@ public class MonsterController_Base_Move : MonsterBase
     // Update is called once per frame
     protected override void Update()
     {
-        if(monsterStatus.nowState == monsterStatus.states["die"])
+        if(die)
         {
             return;
         }
@@ -126,7 +126,6 @@ public class MonsterController_Base_Move : MonsterBase
     public override void MonsterDie()
     {
         agent.isStopped = true;
-        Debug.Log("Á×À½");
         int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
         int num3 = Random.Range(1, 100);
@@ -140,12 +139,15 @@ public class MonsterController_Base_Move : MonsterBase
         {
             GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
             tempArtifact.transform.position = transform.position;
-            tempArtifact.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
         }
         if(num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
         {
             WeaponDropKind();
         }
         base.MonsterDie();
+        MonsterPush();
+    }
+    protected virtual void MonsterPush()
+    {
     }
 }

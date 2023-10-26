@@ -50,4 +50,9 @@ public class SGTurret : Monster_Static
         base.Perceive_player();
         sGBase.attack = true;
     }
+    protected override void MonsterPush()
+    {
+        base.MonsterPush();
+        Managers.Pool.MobPush(this.gameObject, "SG");
+    }
 }

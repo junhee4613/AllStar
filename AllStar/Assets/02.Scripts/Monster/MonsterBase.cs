@@ -20,6 +20,7 @@ public class MonsterBase : MonoBehaviour
     public bool action_start = true;
     public float action_delay = 0;
     public float action_delay_init = 0;
+    public bool die = false;
     public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
     {
         DOG,
@@ -48,9 +49,13 @@ public class MonsterBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (monsterStatus.nowHP <= 0 && monsterStatus.nowState != monsterStatus.states["die"])
+        if (monsterStatus.nowHP <= 0 )
         {
-            MonsterDie();
+            if (!die)
+            {
+                die = true;
+                MonsterDie();
+            }
             return;
         }
         else
@@ -125,7 +130,6 @@ public class MonsterBase : MonoBehaviour
     public virtual void MonsterDie()
     {
         monsterStatus.nowState = monsterStatus.states["die"];
-        Managers.Pool.MobPush(this.gameObject, "Ranged");
     }
     public void WeaponDropKind()
     {

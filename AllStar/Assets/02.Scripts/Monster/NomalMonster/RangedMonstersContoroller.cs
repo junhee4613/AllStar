@@ -26,6 +26,10 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         test.transform.position = bulletPos.transform.position;
         test.transform.rotation = this.transform.rotation;
         attack_time = 0;
-        
+    }
+    protected override void MonsterPush()
+    {
+        base.MonsterPush();
+        Managers.Pool.MobPush(this.gameObject, "Ranged");
     }
 }
