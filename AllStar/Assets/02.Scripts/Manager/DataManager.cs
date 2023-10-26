@@ -24,12 +24,15 @@ public class DataManager
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
             if (count == totalCount)
             {
-                string jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ArtifactTable.json");
-                artifactTable = JsonConvert.DeserializeObject<List<ArtifactData>>(jsonConvert);
-                jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ConsumableItemTable.json");
-                consumableTable = JsonConvert.DeserializeObject<List<ConsumableData>>(jsonConvert);
-                jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/GunItemTable.json");
-                weaponTable = JsonConvert.DeserializeObject<List<WeaponData>>(jsonConvert);
+                //string jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ArtifactTable.json");
+                TextAsset tempTA = Datas["ArtifactTable"] as TextAsset;
+                artifactTable = JsonConvert.DeserializeObject<List<ArtifactData>>(tempTA.text);
+                //jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ConsumableItemTable.json");
+                tempTA = Datas["ConsumableItemTable"] as TextAsset;
+                consumableTable = JsonConvert.DeserializeObject<List<ConsumableData>>(tempTA.text);
+                //jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/GunItemTable.json");
+                tempTA = Datas["GunItemTable"] as TextAsset;
+                weaponTable = JsonConvert.DeserializeObject<List<WeaponData>>(tempTA.text);
                 Done?.Invoke();
                 isLoadDone = true;
                 onFunctionDone?.Invoke();

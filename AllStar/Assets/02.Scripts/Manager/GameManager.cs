@@ -16,6 +16,7 @@ public class GameManager
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
+        Time.timeScale = 0;
         Managers.DataManager.Init(()=> {
             PlayerStat.maxHP = 100;
             PlayerStat.nowHP = 100;
@@ -28,6 +29,7 @@ public class GameManager
             done?.Invoke();
             OnIconChange();
         });
+        Time.timeScale = 1;
     }
     public void AddStatus(statType type, float addValue)
     {
@@ -38,6 +40,7 @@ public class GameManager
                 break;
             case statType.HP:
                 PlayerStat.maxHP = sumOper( PlayerStat.maxHP, addValue);
+                Managers.UI.hpbar.maxValue = PlayerStat.maxHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
@@ -63,6 +66,9 @@ public class GameManager
                 break;
             case statType.HP:
                 PlayerStat.nowHP = minusOper(PlayerStat.nowHP, addValue);
+                PlayerStat.maxHP = minusOper(PlayerStat.maxHP, addValue);
+                Managers.UI.hpbar.maxValue = PlayerStat.maxHP;
+                Managers.UI.hpbar.value = PlayerStat.nowHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = divisionOper(PlayerStat.attackSpeed, addValue,0.65f);
@@ -128,12 +134,12 @@ public class GameManager
        
         if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.explosion)
         {
-            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance), 
-                playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance));
+            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance,ref target.isCritical), 
+                playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance, ref target.isCritical));
         }
         else if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.basicBullet)
         {
-            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance));
+            target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance, ref target.isCritical));
         }
     }
     public byte GetWeaponSlot(in string bulletName)

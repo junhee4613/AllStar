@@ -86,7 +86,7 @@ public class Boss_Static : MonsterController_Static
 
         if (monsterStatus.states.ContainsKey("pattern1") && monsterStatus.nowState != monsterStatus.states["pattern1"])
         {
-            fsmChanger(monsterStatus.states["pattern1"]);
+            //fsmChanger(monsterStatus.states["pattern1"]);
         }
         while (pattern_loop)
         {
@@ -100,7 +100,7 @@ public class Boss_Static : MonsterController_Static
     {
         if (monsterStatus.states.ContainsKey("pattern2") && monsterStatus.nowState != monsterStatus.states["pattern2"])
         {
-            fsmChanger(monsterStatus.states["pattern2"]);
+            //fsmChanger(monsterStatus.states["pattern2"]);
         }
         while (pattern_loop)
         {
@@ -115,7 +115,7 @@ public class Boss_Static : MonsterController_Static
     {
         if (monsterStatus.states.ContainsKey("pattern3") && monsterStatus.nowState != monsterStatus.states["pattern3"])
         {
-            fsmChanger(monsterStatus.states["pattern3"]);
+            //fsmChanger(monsterStatus.states["pattern3"]);
         }
         while (pattern_loop)
         {
@@ -168,7 +168,7 @@ public class Boss_Static : MonsterController_Static
     {
         if (monsterStatus.states.ContainsKey("attack") && monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            fsmChanger(monsterStatus.states["attack"]);
+            //fsmChanger(monsterStatus.states["attack"]);
         }
     }
     #endregion

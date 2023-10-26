@@ -13,10 +13,23 @@ public class MonsterBase : MonoBehaviour
     public float idle_Detect_Range;
     public GameObject player = null;
     public Status monsterStatus;
+    //나중에 밑에 있는 불값은 무브 몬스터로 옮겨야됨
     public bool chase_player;
-    public bool look_player = false;
+    //public bool look_player = false;
     public float attack_time = 0f;
-    
+    public bool action_start = true;
+    public float action_delay = 0;
+    public float action_delay_init = 0;
+    public bool die = false;
+    public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
+    {
+        DOG,
+        POLICE,
+        DRAGUN,
+        TURRET,
+    }
+    public Monster_type monster_type;
+
 
     protected virtual void Awake()
     {
@@ -24,6 +37,9 @@ public class MonsterBase : MonoBehaviour
         monsterStatus.nowState = monsterStatus.states["idle"];
         Detect_Range = idle_Detect_Range;
         player = GameObject.FindGameObjectWithTag("Player");
+        action_delay = action_delay_init;
+        this.gameObject.name = this.gameObject.GetHashCode().ToString();
+        Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStatus);
     }
     // Start is called before the first frame update
     protected virtual void Start()
@@ -33,7 +49,23 @@ public class MonsterBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        attack_time += Time.deltaTime;
+        if (monsterStatus.nowHP <= 0 )
+        {
+            if (!die)
+            {
+                die = true;
+                MonsterDie();
+            }
+            return;
+        }
+        else
+        {
+            monsterStatus.nowState = monsterStatus.states["damaged"];
+        }
+        if(monster_type != Monster_type.TURRET)
+        {
+            attack_time += Time.deltaTime;
+        }
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);
@@ -49,19 +81,6 @@ public class MonsterBase : MonoBehaviour
             }
         }
     }
-    public void getDamage(float damage)
-    {
-        monsterStatus.nowHP -= damage;
-
-        if (monsterStatus.nowHP - damage <= 0)
-        {
-            MonsterDie();
-        }
-        else
-        {
-            monsterStatus.nowState = monsterStatus.states["damaged"];
-        }
-    }
     #region 플레이어 따라가며 공격 로직
     public virtual void Perceive_player()
     {
@@ -69,7 +88,6 @@ public class MonsterBase : MonoBehaviour
         {
             Detect_Range = move_Detect_Range;
         }
-/*        Debug.Log("움직임");*/
     }
     #endregion
     public void fsmChanger(BaseState BS)
@@ -82,19 +100,18 @@ public class MonsterBase : MonoBehaviour
 
             if (BS == monsterStatus.states["attack"])
             {
-                look_player = true;
                 Debug.Log("공격 시작");
-                StartCoroutine(animTimer());
+                action_start = false;
+                fsmChanger(monsterStatus.states["idle"]);
             }
         }
     }
-    public void Status_Init()
+    public virtual void Status_Init()
     {
         if (Detect_Range != idle_Detect_Range)
         {
             Detect_Range = idle_Detect_Range;
         }
-        Debug.Log("초기화");
     }
     public float LookPlayer(GameObject hit)
     {
@@ -102,16 +119,40 @@ public class MonsterBase : MonoBehaviour
         return target;
     }
 
-    public IEnumerator animTimer()
+    /*public IEnumerator animTimer()
     {
         yield return null;
         yield return new WaitUntil(() => monsterStatus.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
         look_player = false;
         attack_time = 0;
         fsmChanger(monsterStatus.states["idle"]);
-    }
+    }*/
     public virtual void MonsterDie()
     {
         monsterStatus.nowState = monsterStatus.states["die"];
+    }
+    public void WeaponDropKind()
+    {
+        switch (monster_type)
+        {
+            case Monster_type.DOG:
+
+                break;
+            case Monster_type.POLICE:
+
+                break;
+            case Monster_type.DRAGUN:
+
+                break;
+            case Monster_type.TURRET:
+
+                break;
+            default:
+                break;
+        }
+    }
+    public void MonsterPoolPush()
+    {
+       
     }
 }

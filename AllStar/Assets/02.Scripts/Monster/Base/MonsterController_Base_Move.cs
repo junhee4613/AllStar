@@ -1,20 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
-    public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
-    {
-        TYPE1,
-        TYPE2,
-        TYPE3
-    }
+    
+
     public bool ranged = false;
     public NavMeshAgent agent;
-    public Monster_type monster_type;
     public bool sense;
     public Vector3 pos_init;
     public bool Original_spot = false;
@@ -44,9 +38,23 @@ public class MonsterController_Base_Move : MonsterBase
     // Update is called once per frame
     protected override void Update()
     {
+        if(die)
+        {
+            return;
+        }
         base.Update();
         if (chase_player && monsterStatus.nowState != monsterStatus.states["attack"] && Original_spot)
         {
+            if (!action_start)
+            {
+                action_delay -= Time.deltaTime;
+                if(action_delay <= 0)
+                {
+                    action_start = true;
+                    action_delay = action_delay_init;
+                }
+                return;
+            }
             float dis = Vector3.Distance(transform.position, player.transform.position);
             if (dis <= Mathf.Abs(attack_Distance))
             {
@@ -57,17 +65,14 @@ public class MonsterController_Base_Move : MonsterBase
                 }
                 if (sense)
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.attackSpeed <= attack_time)
+                    if (monsterStatus.nowState != monsterStatus.states["attack"]/* && monsterStatus.attackSpeed <= attack_time*/)
                     {
                         AttackStart();
-                        MonsterDie();
                         fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
                 else
                 {
-                    //sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128); sence가 true값일 때 if문이 돌면서 해당 값이 true를 계속 유지하는 것 같음
-                    Debug.Log("실행");
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
@@ -84,6 +89,10 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     agent.isStopped = false;
                 }
+                if(monsterStatus.nowState != monsterStatus.states["run"])
+                {
+                    fsmChanger(monsterStatus.states["run"]);
+                }
                 agent.SetDestination(player.transform.position);
             }
         }
@@ -92,6 +101,10 @@ public class MonsterController_Base_Move : MonsterBase
             Original_spot = false;
             if (transform.position != pos_init && !Original_spot)
             {
+                if (monsterStatus.nowState != monsterStatus.states["idle"])
+                {
+                    fsmChanger(monsterStatus.states["idle"]);
+                }
                 agent.SetDestination(pos_init);
                 init_pos_dis = Vector3.Distance(transform.position, pos_init);
                 if (init_pos_dis < Mathf.Abs(1f))
@@ -108,29 +121,33 @@ public class MonsterController_Base_Move : MonsterBase
     }
     public virtual void AttackStart()
     {
-        Debug.Log("공격");
+
     }
     public override void MonsterDie()
     {
-        base.MonsterDie();
+        agent.isStopped = true;
         int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
         int num3 = Random.Range(1, 100);
         if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
         {
-            GameObject test = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
-            test.transform.position = transform.position;
-            test.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
+            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
+            potion.transform.position = transform.position;
+            potion.GetComponent<Rigidbody>().AddForce(Vector3.up * dropForce, ForceMode.Impulse);
         }
-
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
-            //유물 드랍
+            GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
+            tempArtifact.transform.position = transform.position;
         }
-
         if(num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
         {
-            //여기에 무기 드랍
+            WeaponDropKind();
         }
+        base.MonsterDie();
+        MonsterPush();
+    }
+    protected virtual void MonsterPush()
+    {
     }
 }

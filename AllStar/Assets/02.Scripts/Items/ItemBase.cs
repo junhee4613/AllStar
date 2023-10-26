@@ -10,8 +10,8 @@ public abstract class IItemBase : MonoBehaviour
     public void SetItemModel(Material mat, Mesh mesh, byte index) 
     {
         itemIndex = index;
-        this.gameObject.GetComponent<MeshRenderer>().material = mat;
-        this.gameObject.GetComponent<MeshFilter>().mesh = mesh;
+        this.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = mat;
+        this.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh = mesh;
     }
     public void OBJPushOnly()
     {

@@ -8,28 +8,43 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed;
     private float removeTimer;
     private float timer;
-    [SerializeField] private MeshRenderer mesh;
+    [SerializeField] private Transform meshtr;
     [SerializeField] private ParticleSystem targetHitParticle;
     [SerializeField]private bulletTypeEnum bulletType;
     [SerializeField]private float bulletTotalDMG;
     [SerializeField]private bool isExplode = false;
     [SerializeField] private float totalExplosionDMG;
     [SerializeField] private float totalExplosionRange;
+    public bool isCritical = false;
     private void OnEnable()
     {
         Bullet tempThisCompo = this;
         Managers.GameManager.SetBullet(this.gameObject.name,ref tempThisCompo);
-        mesh.enabled = true;
+        meshtr.gameObject.SetActive(true);
     }
     private void Update()
     {
-        if (Physics.SphereCast(transform.position - Vector3.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 64))
+        if (Physics.SphereCast(transform.position , 0.1f, transform.forward, out RaycastHit hit, 0.5f, 64))
         {
             if (!targetHitParticle.gameObject.activeSelf)
             {
-                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
+                RectTransform txtTR;
+                if (isCritical)
+                {
+                    txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                    txtTR.position = hit.transform.position;
+                    txtTR.GetChild(0).GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
+                }
+                else
+                {
+                    txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                    txtTR.position = hit.transform.position;
+                    txtTR.GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
+                }
+
+                Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage( bulletTotalDMG);
                 targetHitParticle.gameObject.SetActive(true);
-                mesh.enabled = false;
+                meshtr.gameObject.SetActive(false);
                 timer = removeTimer;
             }
             if (bulletType == bulletTypeEnum.explosion && (targetHitParticle.time / targetHitParticle.main.duration) > 0.5f&&isExplode == false)
@@ -39,6 +54,18 @@ public class Bullet : MonoBehaviour
                 isExplode = true;
                 for (int i = 0; i < hitMonsters.Length; i++)
                 {
+                    RectTransform txtTR;
+                    if (isCritical)
+                    {
+                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                        txtTR.position = hitMonsters[i].transform.position;
+                    }
+                    else
+                    {
+                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                        txtTR.position = hitMonsters[i].transform.position;
+                    }
+                    txtTR.GetComponent<DamageText>().text.text = totalExplosionDMG.ToString();
                     Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
                 }
             }

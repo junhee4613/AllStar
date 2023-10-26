@@ -14,7 +14,7 @@ public class Status
     public Animator animator;
     public Dictionary<string,BaseState> states = new Dictionary<string, BaseState>();
     public BaseState nowState;
-    public void GetDamage(float Damage)
+    public virtual void GetDamage(float Damage)
     {
         nowHP -= Damage;
     }
@@ -23,6 +23,12 @@ public class Status
 public class PlayerOnlyStatus : Status
 {
     public float dodgeCooltime;
+    public override void GetDamage(float Damage)
+    {
+        nowHP -= Damage;
+        Managers.UI.hpbar.maxValue = maxHP;
+        Managers.UI.hpbar.value = nowHP;
+    }
 }
 public enum statType
 {

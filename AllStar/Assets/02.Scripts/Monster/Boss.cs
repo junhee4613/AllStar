@@ -162,7 +162,7 @@ public class Boss : MonsterBase
     {
         if (monsterStatus.states.ContainsKey("attack") && monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            fsmChanger(monsterStatus.states["attack"]);
+            //fsmChanger(monsterStatus.states["attack"]);
         }
     }
     #endregion

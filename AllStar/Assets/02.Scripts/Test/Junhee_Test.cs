@@ -6,16 +6,13 @@ public class Junhee_Test : MonoBehaviour
 {
     public HashSet<int> test = new HashSet<int>();
     public HashSet<string> test1 = new HashSet<string>();
-    public GameObject test_GameObject = null;
-    // Start is called before the first frame update
-    void Start()
+    
+    public Status monsterStat = new Status();
+    public GameObject monster = null;
+    private void Awake()
     {
-        test_GameObject = GameObject.FindGameObjectWithTag("Player");
+        Managers.Pool.MonsterPop("Ranged", monster);
+        monster.transform.position = this.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(test_GameObject.transform.position);
-    }
 }

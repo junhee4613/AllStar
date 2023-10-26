@@ -10,5 +10,7 @@ public class MonsterController : MonoBehaviour
     {
         this.gameObject.name = this.gameObject.GetHashCode().ToString();
         Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStat);
+        Debug.Log(Managers.GameManager.monstersInScene.Values);
+        
     }
 }

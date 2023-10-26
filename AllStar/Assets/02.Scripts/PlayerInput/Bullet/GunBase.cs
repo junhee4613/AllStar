@@ -159,27 +159,31 @@ public class GunBase
         }
         doneCheck?.Invoke();
     }
-    public float GetTotalCollDamage(in float playerDMG, in float criDamage, in float criChance)
+    public float GetTotalCollDamage(in float playerDMG, in float criDamage, in float criChance, ref bool isCritical)
     {
         float totalDMG = stat.bulletDamage + playerDMG;
         if (UnityEngine.Random.Range((float)0,1) <= criChance/100)
         {
             Debug.Log("크리발동");
+            isCritical = true;
             return totalDMG+(totalDMG * (criDamage/100));
         }
         Debug.Log("크리아님");
+        isCritical = false;
         return totalDMG;
     }
-    public Vector2 GetTotalExDamage(in float playerDMG,  in float criDamage,in float criChance)
+    public Vector2 GetTotalExDamage(in float playerDMG,  in float criDamage,in float criChance,ref bool isCritical)
     {
         //x값 데미지,Y값 범위
         explosionType tempPro = stat.projectileStat as explosionType;
         if (UnityEngine.Random.Range((float)0,1) <= criChance/100)
         {
             Debug.Log("크리발동");
+            isCritical = true;
             return new Vector2(tempPro.explosionDamage + playerDMG + ((tempPro.explosionDamage + playerDMG) * (criDamage / 100)), tempPro.explosionRange);
         }
         Debug.Log("크리아님");
+        isCritical = false;
         return new Vector2(tempPro.explosionDamage + playerDMG, tempPro.explosionRange);
     }
 }

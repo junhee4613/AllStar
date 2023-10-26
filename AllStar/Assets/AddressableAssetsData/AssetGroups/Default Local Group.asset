@@ -32,11 +32,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: 2ad0167576c81164898fa0a024b55a1e
-    m_Address: WeaponItem
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
   - m_GUID: 89d5cb2d4454d804bbfe4e3eabf660a6
     m_Address: Revolver_Bullet
     m_ReadOnly: 0
@@ -174,6 +169,46 @@ MonoBehaviour:
     - PreLoad
   - m_GUID: 22ab4baaeb564ea4facaa65aa4524339
     m_Address: artifact_crichance_Item_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 2ad0167576c81164898fa0a024b55a1e
+    m_Address: WeaponItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 44fcd79e88862a547ad27cc694ce389f
+    m_Address: Dragun_Monster
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: e4239e11d824e1c42ab79a3614039b89
+    m_Address: ConsumableItemTable
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 7a2404dbc61a84a41abad71a626e6e3f
+    m_Address: GunItemTable
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: fb9a3aa5f1bc83e4eb69232cc5d6cee7
+    m_Address: ArtifactTable
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 1157ee85918825842b2e38ce6e4d3710
+    m_Address: CriticalDMGText
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 094925256dca16245bd53018429dc8fb
+    m_Address: DMGText
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 1c125cc85c50df14b98fa396fd47185b
+    m_Address: Monster_Tower
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
