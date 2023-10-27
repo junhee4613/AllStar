@@ -37,6 +37,7 @@ public class Managers : MonoBehaviour
 
     SGProjectileManager _projectileManager = new SGProjectileManager();         //Manager ÇÏÀ§¿¡ projectiManager
     SGShotManager _shotManager = new SGShotManager();
+    [SerializeField]
     SoundManager _soundManager = new SoundManager();
 
     public static GameManager GameManager { get { return instance?._game; } }

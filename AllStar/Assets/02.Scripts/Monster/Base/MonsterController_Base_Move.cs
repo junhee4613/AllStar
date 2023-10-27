@@ -71,7 +71,7 @@ public class MonsterController_Base_Move : MonsterBase
                         fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
-                else
+                else if(dis >= Mathf.Abs(attack_Distance))
                 {
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {

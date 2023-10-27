@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     private float artifactIconSize;
     public byte tempby = 255; //
     [Header("UI인터렉션 관련")]
+    [SerializeField]GameObject optionPanel;
     public DraggingArrayOBJ drag = new DraggingArrayOBJ();   //끌어당기는 이미지
     public DraggingState dragState = DraggingState.none;
     public float deleteItemAreaXPoint;
@@ -173,7 +174,7 @@ public class UIController : MonoBehaviour
     public void OnClickToMainMenu()
     {
         Debug.Log("메인씬 추가 필요");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
     private void infoStatUpdate()
     {
@@ -215,6 +216,21 @@ public class UIController : MonoBehaviour
         {
             Managers.UI.OpenUI(target);
         }
+    }
+    public void OnBGMVolumeChange(float value)
+    {
+        Managers.Sound.BGMVolumeSave = value;
+        Managers.Sound.bgm_Sound.volume = value;
+    }
+    public void OnSFXVolumeChange(float value)
+    {
+        Managers.Sound.SFXVolumeSave = value;
+        Managers.Sound.sfx_Sound.volume = value;
+    }
+    public void OnOptionButton()
+    {
+        if (optionPanel.activeSelf) { Managers.UI.CloseUI(optionPanel.transform); }
+        else { Managers.UI.OpenUI(optionPanel.transform); }
     }
 }
 public class DraggingArrayOBJ

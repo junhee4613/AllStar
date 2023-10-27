@@ -48,6 +48,7 @@ public class DataManager
                 weaponTable = JsonConvert.DeserializeObject<List<WeaponData>>(tempTA.text);
                 Done?.Invoke();
                 isLoadDone = true;
+                Managers.Sound.BGM_Sound("Stage_001");
                 onFunctionDone?.Invoke();
             }
         });
