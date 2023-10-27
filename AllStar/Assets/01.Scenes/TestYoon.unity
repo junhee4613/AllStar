@@ -71236,6 +71236,9 @@ MonoBehaviour:
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
   Original_spot: 0
+  detection_target:
+    serializedVersion: 2
+    m_Bits: 0
   rotateSpeed: 180
   attack_Distance: 2
   dropForce: 0
@@ -73628,6 +73631,9 @@ MonoBehaviour:
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
   Original_spot: 0
+  detection_target:
+    serializedVersion: 2
+    m_Bits: 0
   rotateSpeed: 180
   attack_Distance: 2
   dropForce: 0
@@ -105950,6 +105956,7 @@ MonoBehaviour:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
   tempby: 255
+  optionPanel: {fileID: 0}
   dragState: 0
   deleteItemAreaXPoint: 0
   weaponInvenIMGs:
