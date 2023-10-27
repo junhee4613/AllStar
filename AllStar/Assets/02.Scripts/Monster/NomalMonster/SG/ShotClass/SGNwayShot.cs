@@ -54,7 +54,6 @@ public class SGNwayShot : SGBaseShot
                 projectile.UpdateMove(-delayTimer);
 
                 nowIndex++;
-                Debug.Log(nowIndex);
                 if(nowIndex >= projectileNum)
                 {
                     break;

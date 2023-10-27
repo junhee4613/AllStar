@@ -57,37 +57,27 @@ public class MonsterController_Base_Move : MonsterBase
             }
             float dis = Vector3.Distance(transform.position, player.transform.position);
             sense = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit ,attack_Distance, detection_target);
-            if (dis <= Mathf.Abs(attack_Distance))
+            if (sense && hit.collider.tag == "Player")
             {
-                if (sense)
+                if (dis <= Mathf.Abs(attack_Distance))
                 {
-                    if (hit.collider.tag == "Player")
+                    if (!agent.isStopped)
                     {
-                        if (!agent.isStopped)
-                        {
-                            agent.isStopped = true;
-                        }
-                        if (monsterStatus.nowState != monsterStatus.states["attack"])
-                        {
-                            AttackStart();
-                            fsmChanger(monsterStatus.states["attack"]);
-                        }
+                        agent.isStopped = true;
                     }
-                    else
+                    if (monsterStatus.nowState != monsterStatus.states["attack"])
                     {
-                        if (agent.isStopped)
-                        {
-                            agent.isStopped = false;
-                        }
-                        if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
-                        {
-                            fsmChanger(monsterStatus.states["run"]);
-                        }
-                        agent.SetDestination(player.transform.position);
+                        AttackStart();
+                        fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
-                else if(dis >= Mathf.Abs(attack_Distance))
+            }
+            else 
+            {
+                Debug.Log("어스문");
+                if (dis <= Mathf.Abs(attack_Distance) && (!sense || hit.collider.tag != "Adornment"))
                 {
+                    Debug.Log("이프문");
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
@@ -97,19 +87,20 @@ public class MonsterController_Base_Move : MonsterBase
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                 }
-
-            }
-            else
-            {
-                if (agent.isStopped)
+                else
                 {
-                    agent.isStopped = false;
+                    Debug.Log("또 다른 어스문");
+                    if (agent.isStopped)
+                    {
+                        agent.isStopped = false;
+                    }
+                    if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
+                    {
+                        fsmChanger(monsterStatus.states["run"]);
+                    }
+                    agent.SetDestination(player.transform.position);
                 }
-                if(monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
-                {
-                    fsmChanger(monsterStatus.states["run"]);
-                }
-                agent.SetDestination(player.transform.position);
+                
             }
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
