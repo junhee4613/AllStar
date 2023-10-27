@@ -11,6 +11,7 @@ public class SGTurret : Monster_Static
     }
     public SG_pattern pattern;
     public SGBaseShot sGBase;
+    public GameObject portal;
     protected override void Awake()
     {
         Managers.Pool.MonsterPop("SG", gameObject);
@@ -55,5 +56,12 @@ public class SGTurret : Monster_Static
     {
         base.MonsterPush();
         Managers.Pool.MobPush(this.gameObject, "SG");
+    }
+    public override void MonsterDie()
+    {
+        Debug.Log("#Æ÷Å¾ Á×Àº µÚ Æ÷Å» »ý¼º");
+        portal.SetActive(true);
+        base.MonsterDie();
+        MonsterPush();
     }
 }

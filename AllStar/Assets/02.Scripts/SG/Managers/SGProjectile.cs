@@ -27,6 +27,9 @@ public class SGProjectile : MonoBehaviour
     private float maxSpeed;
     private bool useMinSpeed;
     private float minSpeed;
+    public LayerMask detection_target;
+
+
 
     [SerializeField]
     float damage = 1;
@@ -64,7 +67,6 @@ public class SGProjectile : MonoBehaviour
 
         if (_DeadCheckTimer >= _DeadTimer)
         {
-            Debug.Log("»ç¶óÁü");
             Destroy(this);
         }
         else if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))

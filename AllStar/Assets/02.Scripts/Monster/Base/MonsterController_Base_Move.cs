@@ -6,10 +6,10 @@ using UnityEngine.AI;
 public class MonsterController_Base_Move : MonsterBase
 {
     public NavMeshAgent agent;
-    public LayerMask detection_target;
     public bool sense;
     public Vector3 pos_init;
     public bool Original_spot = false;
+    public LayerMask detection_target;
     float init_pos_dis;
     public float rotateSpeed = 180f;
     public float attack_Distance;
@@ -57,18 +57,33 @@ public class MonsterController_Base_Move : MonsterBase
             }
             float dis = Vector3.Distance(transform.position, player.transform.position);
             sense = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit ,attack_Distance, detection_target);
-            if (dis <= Mathf.Abs(attack_Distance) && hit.collider.tag == "Player")
+            if (dis <= Mathf.Abs(attack_Distance))
             {
-                if (!agent.isStopped)
-                {
-                    agent.isStopped = true;
-                }
                 if (sense)
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["attack"])
+                    if (hit.collider.tag == "Player")
                     {
-                        AttackStart();
-                        fsmChanger(monsterStatus.states["attack"]);
+                        if (!agent.isStopped)
+                        {
+                            agent.isStopped = true;
+                        }
+                        if (monsterStatus.nowState != monsterStatus.states["attack"])
+                        {
+                            AttackStart();
+                            fsmChanger(monsterStatus.states["attack"]);
+                        }
+                    }
+                    else
+                    {
+                        if (agent.isStopped)
+                        {
+                            agent.isStopped = false;
+                        }
+                        if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
+                        {
+                            fsmChanger(monsterStatus.states["run"]);
+                        }
+                        agent.SetDestination(player.transform.position);
                     }
                 }
                 else
@@ -82,6 +97,7 @@ public class MonsterController_Base_Move : MonsterBase
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                 }
+
             }
             else
             {
@@ -138,8 +154,8 @@ public class MonsterController_Base_Move : MonsterBase
         int num3 = Random.Range(1, 100);
         if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
         {
-            /*GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
-            potion.transform.position = transform.position;*/
+            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
+            potion.transform.position = transform.position;
         }
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {

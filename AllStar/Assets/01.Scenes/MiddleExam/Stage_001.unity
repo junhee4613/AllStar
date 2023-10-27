@@ -1007,6 +1007,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_A (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
 --- !u!1 &16559449
@@ -1384,6 +1392,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &24917410
@@ -1516,6 +1532,11 @@ Transform:
   m_Father: {fileID: 703642983}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &25137320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7756174467813043292, guid: 29ea1c0786271704ea14e3a360d22270, type: 3}
+  m_PrefabInstance: {fileID: 1429437100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &25606503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,13 +2617,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1342057764308933041, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: portal
+      value: 
+      objectReference: {fileID: 25137320}
+    - target: {fileID: 1342057764308933041, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: monsterStatus.nowHP
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_Name
       value: Monster_Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_RootOrder
-      value: 36
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2963,6 +2996,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (6)
@@ -3854,6 +3895,14 @@ PrefabInstance:
     - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_Name
       value: Map_Object_Light (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
@@ -9440,6 +9489,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_B (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
 --- !u!4 &186162381 stripped
@@ -14210,6 +14267,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &260240936
@@ -16188,6 +16253,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &294960895
@@ -16315,6 +16388,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (11)
@@ -18091,6 +18172,14 @@ PrefabInstance:
     - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_Name
       value: Map_Object_Light (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
@@ -22591,6 +22680,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_VendingMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 7252199793934477408, guid: a38e58083eaa7b9418d62c7b4d78e8ce, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7252199793934477408, guid: a38e58083eaa7b9418d62c7b4d78e8ce, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a38e58083eaa7b9418d62c7b4d78e8ce, type: 3}
 --- !u!1 &388126691
@@ -25395,6 +25492,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (4)
@@ -25697,6 +25802,14 @@ PrefabInstance:
     - target: {fileID: 3089389949447380197, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
       propertyPath: m_Name
       value: Map_Object_Block_C
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089389949447380197, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089389949447380197, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
@@ -31419,6 +31532,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_A (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
 --- !u!1 &555813478
@@ -32048,6 +32169,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (5)
@@ -33425,6 +33554,14 @@ PrefabInstance:
     - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_Name
       value: Map_Object_Light (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
@@ -39600,6 +39737,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_B (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
 --- !u!1 &706451789
@@ -40287,6 +40432,14 @@ PrefabInstance:
     - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
       propertyPath: m_Name
       value: Map_Object_Aircon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
@@ -44878,6 +45031,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &803703598
@@ -48165,6 +48326,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &865826520
@@ -49841,6 +50010,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_B (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
 --- !u!1 &886766452
@@ -50144,6 +50321,14 @@ PrefabInstance:
     - target: {fileID: 2222582931181486556, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
       propertyPath: m_Name
       value: Map_Object_Block_D
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222582931181486556, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222582931181486556, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     - target: {fileID: 2489936616718769260, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
       propertyPath: m_RootOrder
@@ -51918,6 +52103,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_B (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
 --- !u!1 &918639531
@@ -53395,7 +53588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af78a06471318b4e986b849e8d91dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraDistance: 14.3
+  cameraDistance: 10
   target: {fileID: 20973141}
 --- !u!1 &939870108
 GameObject:
@@ -55210,6 +55403,14 @@ PrefabInstance:
     - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
       propertyPath: m_Name
       value: Map_Object_Aircon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
@@ -58653,11 +58854,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15961945
+      value: 0.15961947
       objectReference: {fileID: 0}
     - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.06833304
+      value: 0.068333045
       objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
@@ -58669,7 +58870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -61786,6 +61987,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (7)
@@ -64158,6 +64367,14 @@ PrefabInstance:
     - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_Name
       value: Map_Object_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
@@ -67701,6 +67918,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_D (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2222582931181486556, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222582931181486556, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     - target: {fileID: 2489936616718769260, guid: d4bc7c7c0f0c5bc4ba21ffbb9f1732ca, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -68782,6 +69007,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Tower_Broken
       objectReference: {fileID: 0}
+    - target: {fileID: 8867527749859013415, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867527749859013415, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
 --- !u!1 &1187120116
@@ -69058,6 +69291,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Helicopter_Broken
       objectReference: {fileID: 0}
+    - target: {fileID: 8123332940903350490, guid: ab7ea273622ec624d9ffd53a24d6d3c1, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123332940903350490, guid: ab7ea273622ec624d9ffd53a24d6d3c1, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     - target: {fileID: 8523923892960889012, guid: ab7ea273622ec624d9ffd53a24d6d3c1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -69260,6 +69501,14 @@ PrefabInstance:
     - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
       propertyPath: m_Name
       value: Map_Object_Block_B (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
@@ -75575,6 +75824,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
       value: 31
@@ -75675,6 +75932,14 @@ PrefabInstance:
     - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
       propertyPath: m_Name
       value: Map_Object_Aircon (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
@@ -77911,6 +78176,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Light (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
       value: 35
@@ -78242,6 +78515,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (10)
@@ -78249,14 +78530,6 @@ PrefabInstance:
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
-      propertyPath: chase_player
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
-      propertyPath: attack_Distance
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_RootOrder
@@ -80026,6 +80299,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_C (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3089389949447380197, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089389949447380197, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8d506f6d443dd24ebd7d485b92a7297, type: 3}
 --- !u!1 &1383685900
@@ -81075,6 +81356,14 @@ PrefabInstance:
     - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
       propertyPath: m_Name
       value: Map_Object_Block_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
@@ -82544,6 +82833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarpGate
       objectReference: {fileID: 0}
+    - target: {fileID: 7756174467813043292, guid: 29ea1c0786271704ea14e3a360d22270, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7756174467813043293, guid: 29ea1c0786271704ea14e3a360d22270, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -83080,7 +83373,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7219317875072789345, guid: bf83cf66447041e41a65eb86cf093764, type: 3}
       propertyPath: m_RootOrder
-      value: 34
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7219317875072789345, guid: bf83cf66447041e41a65eb86cf093764, type: 3}
       propertyPath: m_LocalPosition.x
@@ -83762,6 +84055,14 @@ PrefabInstance:
     - target: {fileID: 8867527749859013415, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
       propertyPath: m_Name
       value: Map_Object_Tower_Broken (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867527749859013415, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867527749859013415, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 560914487a787e04ba4715c3c8985d18, type: 3}
@@ -87700,6 +88001,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_B (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
 --- !u!1 &1519956165
@@ -88481,6 +88790,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &1544214185
@@ -88828,6 +89145,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (2)
@@ -88835,14 +89160,6 @@ PrefabInstance:
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
-      propertyPath: idle_Detect_Range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
-      propertyPath: move_Detect_Range
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_RootOrder
@@ -93396,6 +93713,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Block_B
       objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
 --- !u!1 &1627166527 stripped
@@ -95858,6 +96183,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Aircon (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
 --- !u!1 &1679038737
@@ -96747,6 +97080,14 @@ PrefabInstance:
     - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
       propertyPath: m_Name
       value: Map_Object_Block_B (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401767082443588762, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
@@ -99245,6 +99586,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_VendingMachine_LightOff
       objectReference: {fileID: 0}
+    - target: {fileID: 7252199793934477408, guid: f48959749a760c04faa0318bb71a6b98, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7252199793934477408, guid: f48959749a760c04faa0318bb71a6b98, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f48959749a760c04faa0318bb71a6b98, type: 3}
 --- !u!1 &1739702477
@@ -99600,6 +99949,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (9)
@@ -99697,7 +100054,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1745653361
 GameObject:
@@ -100986,6 +101343,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (8)
@@ -104210,6 +104575,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster (3)
@@ -108726,6 +109099,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_Object_Light (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 671076114480043915, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
+      objectReference: {fileID: 0}
     - target: {fileID: 6228282019787359817, guid: 2f28505c4d355af4b8b2d0c2a1119a8b, type: 3}
       propertyPath: m_RootOrder
       value: 36
@@ -109770,7 +110151,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5698080652956033191, guid: 2ad0167576c81164898fa0a024b55a1e, type: 3}
       propertyPath: m_RootOrder
-      value: 35
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 5698080652956033191, guid: 2ad0167576c81164898fa0a024b55a1e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -110637,6 +111018,14 @@ PrefabInstance:
     - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
       propertyPath: m_Name
       value: Map_Object_Aircon (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596220584448082761, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f5b2bd295c10246a2e2f58ddb626bc, type: 3}
@@ -116543,6 +116932,14 @@ PrefabInstance:
     - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
       propertyPath: m_Name
       value: Map_Object_Block_A (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602194644413065553, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
+      propertyPath: m_TagString
+      value: Adornment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8464af70ef7f742ab4465e6151b3ed, type: 3}
