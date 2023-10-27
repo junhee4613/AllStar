@@ -10,8 +10,8 @@ public class SGTurret : Monster_Static
         PATTERN2
     }
     public SG_pattern pattern;
-    public SGBaseShot sGBase;
     public GameObject portal;
+    public GameObject[] pivotSG;
     protected override void Awake()
     {
         Managers.Pool.MonsterPop("SG", gameObject);
@@ -32,25 +32,16 @@ public class SGTurret : Monster_Static
     public override void AttackWay()
     {
         base.AttackWay();
-        if (!sGBase.continuous_attack)
-        {
-            attack_time += Time.deltaTime;
-            if (attack_time >= monsterStatus.attackSpeed)
-            {
-                sGBase._shooting = false;
-                attack_time = 0;
-            }
-        }
+        pivotSG[0].SetActive(true);
     }
     public override void Status_Init()
     {
         base.Status_Init();
-        sGBase.attack = false;
+        pivotSG[0].SetActive(false);
     }
     public override void Perceive_player()
     {
         base.Perceive_player();
-        sGBase.attack = true;
     }
     protected override void MonsterPush()
     {

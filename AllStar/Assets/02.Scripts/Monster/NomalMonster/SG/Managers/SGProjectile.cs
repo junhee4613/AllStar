@@ -27,12 +27,7 @@ public class SGProjectile : MonoBehaviour
     private float maxSpeed;
     private bool useMinSpeed;
     private float minSpeed;
-    public LayerMask detection_target;
 
-
-
-    [SerializeField]
-    float damage = 1;
     private float baseAngle;
     private float selfFrameCnt;
     private float selfTimeCount;
@@ -47,7 +42,7 @@ public class SGProjectile : MonoBehaviour
 
     public virtual bool isActive { get { return gameObject.activeSelf; } }
 
-    public float _DeadTimer = 6.0f;
+    public float _DeadTimer = 30.0f;
     private float _DeadCheckTimer;
 
     private void Awake()
@@ -66,21 +61,7 @@ public class SGProjectile : MonoBehaviour
         _DeadCheckTimer += Time.deltaTime;
 
         if (_DeadCheckTimer >= _DeadTimer)
-        {
             Destroy(this);
-        }
-        else if(Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, 128))
-        {
-            if(hit.collider.tag == "Player")
-            {
-                Managers.GameManager.PlayerStat.GetDamage(damage);
-                Destroy(this);
-            }
-            Destroy(this);
-        }
-
-
-
     }
 
     public void Shot(SGBaseShot parentBaseShot,

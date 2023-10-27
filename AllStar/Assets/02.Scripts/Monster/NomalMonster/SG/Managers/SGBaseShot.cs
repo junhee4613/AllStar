@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine;
-using GeneralFSM;
 
 public abstract class SGBaseShot : MonoBehaviour                //ÃÑ¾ËÀÇ ±âº»ÀûÀÎ ±¸¼º
 {
@@ -23,9 +22,7 @@ public abstract class SGBaseShot : MonoBehaviour                //ÃÑ¾ËÀÇ ±âº»ÀûÀ
     public bool useAutoRelease = false;    
     public float autoReleaseTime = 10f;
 
-    public bool _shooting;
-    public bool continuous_attack = false;
-    public bool attack = false;
+    protected bool _shooting;
 
     private SGShotCtrl _shotCtrl;
 
@@ -37,7 +34,6 @@ public abstract class SGBaseShot : MonoBehaviour                //ÃÑ¾ËÀÇ ±âº»ÀûÀ
             {
                 _shotCtrl = GetComponentInParent<SGShotCtrl>();
             }
-            
             return _shotCtrl;
         }
     }   
@@ -54,20 +50,17 @@ public abstract class SGBaseShot : MonoBehaviour                //ÃÑ¾ËÀÇ ±âº»ÀûÀ
     }  
     protected virtual void FiredShot()
     {
-        if (continuous_attack && attack)
-        {
-            _shooting = false;
-        }
-        //¿©±â·Î °ø°Ý ÁÖ±â ¼³Á¤ÇÏ¸é µÊ
+        _shooting = false;
     }
     public virtual void FinishedShot()              //¼¦ÀÌ ³¡³µÀ» ¶§ ÀÌº¥Æ®¸¦ ³Ö°Å³ª ÇÔ¼ö È£Ãâ
     {
+        _shooting = false;
+       
     }      
     protected SGProjectile GetProjectile(Vector3 position, bool forceInstantiate = false)
     {
         if (projectilePrefab == null)
         {
-            Debug.Log("ºñ¾ú¾î");
             //ºí¸´Ç®¿¡ ¹®Á¦ ÀÖÀ½
             return null;
         }
@@ -83,7 +76,9 @@ public abstract class SGBaseShot : MonoBehaviour                //ÃÑ¾ËÀÇ ±âº»ÀûÀ
             return;
         }
 
-        projectile.Shot(this, speed, angle, accelerationSpeed, accelerationTurn, homing, homingTarget, homingAngleSpeed, sinWave, sinWaveSpeed, sinWaveRangeSize, sinWaveInverse, usePauseAndResume, pauseTime, resumeTime, useAutoRelease, autoReleaseTime,_shotCtrl.axisMove, _shotCtrl.inheritAngle, useMaxSpeed, maxSpeed, useMinSpeed, minSpeed);
+        projectile.Shot(this, speed, angle, accelerationSpeed, accelerationTurn, homing, homingTarget, homingAngleSpeed, 
+            sinWave, sinWaveSpeed, sinWaveRangeSize, sinWaveInverse, usePauseAndResume, pauseTime, resumeTime, useAutoRelease, autoReleaseTime,
+            _shotCtrl.axisMove, _shotCtrl.inheritAngle, useMaxSpeed, maxSpeed, useMinSpeed, minSpeed);
        
     }
 }
