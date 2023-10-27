@@ -30,6 +30,16 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
     }
     protected override void MonsterPush()
     {
+        /*GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["MonsterPop_Dragun"] as GameObject);
+        temp.transform.position = pos_init;
+        if(gameObject.TryGetComponent<DragunPop>(out DragunPop test))
+        {
+            test.Monstersummon(this.gameObject, "Ranged", pos_init);
+        }
+        else
+        {
+            temp.AddComponent<DragunPop>().Monstersummon(this.gameObject, "Ranged", pos_init);
+        }*/
         base.MonsterPush();
         Managers.Pool.MobPush(this.gameObject, "Ranged");
     }
