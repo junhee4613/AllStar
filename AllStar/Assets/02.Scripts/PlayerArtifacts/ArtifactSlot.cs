@@ -6,6 +6,7 @@ using System;
 public class ArtifactSlot
 {
     [SerializeField] public ArtifactData data;
+    public int artifactAmount = 0;
     public void ResetArtifact(bool isStart = true)
     {
         if (isStart)

@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private RectTransform flavorTextPanel;
     [SerializeField] private TextMeshProUGUI flavorText;
     [Header("유물 아이콘이미지")]
-    [SerializeField] private Image[] artifactInvenIMGs = new Image[20];
+    [SerializeField] private ItemUI.ItemIconSet[] artifactInvenSet = new ItemUI.ItemIconSet[20];
     public byte[] testNum = new byte[2];//0 아이템인덱스,1슬롯 인덱스 테스트코드
     public Vector2[] artifactIconPosition = new Vector2[20];
     private float artifactIconSize;
@@ -42,9 +42,12 @@ public class UIController : MonoBehaviour
         Vector2 tempVec;
         for (byte i = 0; i < inventory.GetChild(0).childCount; i++)
         {
-            artifactInvenIMGs[i] = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
-            Debug.Log(artifactInvenIMGs[i].gameObject.name);
-            tempVec = new Vector2(artifactInvenIMGs[i].rectTransform.position.x, artifactInvenIMGs[i].rectTransform.position.y);
+            artifactInvenSet[i].IconIMG = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
+            Debug.Log(artifactInvenSet[i].IconIMG.gameObject.name);
+            tempVec = new Vector2(artifactInvenSet[i].IconIMG.rectTransform.position.x, artifactInvenSet[i].IconIMG.rectTransform.position.y);
+            artifactInvenSet[i].IconIMG = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
+            artifactInvenSet[i].AmountText = inventory.GetChild(0).GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>();
+
             artifactIconPosition[i] = tempVec;
         }
         for (byte i = 0; i < inventory.GetChild(1).childCount; i++)
@@ -53,9 +56,11 @@ public class UIController : MonoBehaviour
             tempVec = new Vector2(weaponInvenIMGs[i].rectTransform.position.x, weaponInvenIMGs[i].rectTransform.position.y);
             weaponIconPosition[i] = tempVec;
         }
-        artifactIconSize = artifactInvenIMGs[0].rectTransform.sizeDelta.x / 2;
+        artifactIconSize = artifactInvenSet[0].IconIMG.rectTransform.sizeDelta.x / 2;
         weaponIconSize = weaponInvenIMGs[0].rectTransform.sizeDelta.x / 2;
-        Managers.UI.artifactSlotIMG = artifactInvenIMGs;
+
+        Managers.UI.artifactSet = artifactInvenSet;
+
         Managers.UI.weaponSlotIMG = weaponInvenIMGs;
         playerTR = GameObject.Find("PlayerController").transform;
     }
@@ -100,8 +105,8 @@ public class UIController : MonoBehaviour
                 {
                     dragState = DraggingState.artifact;
                     drag.array = tempby;
-                    drag.originPos = artifactInvenIMGs[tempby].rectTransform.position;
-                    drag.targetTR = artifactInvenIMGs[tempby].rectTransform;
+                    drag.originPos = artifactInvenSet[tempby].IconIMG.rectTransform.position;
+                    drag.targetTR = artifactInvenSet[tempby].IconIMG.rectTransform;
                 }
             }
             else
@@ -126,12 +131,12 @@ public class UIController : MonoBehaviour
             {
                 if (dragState == DraggingState.artifact)
                 {
-                    clickEndPoint = GetIMGPosition(artifactIconPosition, artifactIconSize);
+/*                    clickEndPoint = GetIMGPosition(artifactIconPosition, artifactIconSize);
                     if (clickEndPoint != 255&& clickEndPoint != tempby)
                     {
                         Managers.GameManager.BothChageArtifact(Managers.GameManager.playerArtifacts[drag.array].data.itemnum, drag.array,
                                         Managers.GameManager.playerArtifacts[clickEndPoint].data.itemnum, clickEndPoint);
-                    }
+                    }*/
                 }
                 else if (dragState == DraggingState.weapon)
                 {

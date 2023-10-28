@@ -30,6 +30,7 @@ public class PlayerOnlyStatus : Status
         Managers.UI.hpbar.value = nowHP;
     }
 }
+
 public enum statType
 {
     none,moveSpeed,HP,attackSpeed,attackDamage,criticalChance,criticalDamage
@@ -77,4 +78,15 @@ public enum ShotType
 public enum DraggingState
 {
     none,weapon,artifact
+}
+namespace ItemUI
+{
+    using TMPro;
+    using UnityEngine.UI;
+    [System.Serializable]
+    public class ItemIconSet
+    {
+        public Image IconIMG;
+        public TextMeshProUGUI AmountText;
+    }
 }
