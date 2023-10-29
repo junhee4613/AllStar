@@ -1,3 +1,7 @@
+using PlayerSkills.SkillProbs;
+using PlayerSkills.SkillProbs.DeffenceCon;
+using PlayerSkills.SkillProbs.OffenceCon;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,6 +83,105 @@ public enum DraggingState
 {
     none,weapon,artifact
 }
+
+namespace PlayerSkills
+{
+    namespace Skills
+    {
+        public abstract class SkillBase
+        {
+            [SerializeField]
+            public SkillInfomation skillInfo;
+            [SerializeField]
+            public TypeClasses DetailTypes;
+        }
+    }
+    namespace SkillProbs
+    {
+        public class SkillSet
+        {
+            public ItemUI.ItemIconSet UISets;
+        }
+        [System.Serializable]
+        public class SkillInfomation
+        {
+            [SerializeField]
+            public uint skillIndex;
+            [SerializeField]
+            public string skillName;
+            [SerializeField]
+            public float skilValue;
+            [SerializeField]
+            public string flavorText;
+            [SerializeField]
+            public SkillType SkillType;
+
+            
+        }
+        public abstract class TypeClasses
+        {
+            public abstract void Setting();
+        }
+
+        public enum SkillType
+        {
+            offence,deffence,buff
+        }
+        namespace OffenceCon
+        {
+            public class OffenceSkillData : TypeClasses
+            {
+                public OffenceSkillType DamageType;
+                public OffenceRangeType RangeType;
+                public override void Setting()
+                {
+
+                }
+            }
+            public enum OffenceSkillType
+            {
+                Single,Area
+                    //단일,원거리
+            }
+            public enum OffenceRangeType
+            {
+                Ranged,Melee
+            }
+        }
+        namespace DeffenceCon
+        {
+            public class DeffenceSkillData : TypeClasses
+            {
+                public DeffenceSkillType DamageType;
+                public override void Setting()
+                {
+
+                }
+            }
+            public enum DeffenceSkillType
+            {
+                dodge,telleport,deffence
+            }
+        }
+        namespace BuffCon
+        {
+            public class BuffSkillData : TypeClasses
+            {
+                public BuffSkillType buffSkillType;
+                public override void Setting()
+                {
+
+                }
+            }
+            public enum BuffSkillType
+            {
+                changeBulletType,AD,criChance,criDamage,moveSpeed,heal,HP
+            }
+        }
+
+    }
+}
+
 namespace ItemUI
 {
     using TMPro;
