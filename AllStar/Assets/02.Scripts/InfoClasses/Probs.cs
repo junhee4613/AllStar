@@ -3,10 +3,8 @@ using PlayerSkills.SkillProbs.BuffCon;
 using PlayerSkills.SkillProbs.DeffenceCon;
 using PlayerSkills.SkillProbs.OffenceCon;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Build.Pipeline;
 
 [System.Serializable]
 public class Status
@@ -219,6 +217,7 @@ namespace PlayerSkills
         }
         namespace BuffCon
         {
+            using System.Threading.Tasks;
             public class BuffSkillData : TypeClasses
             {
                 private statType buffSkillType;
@@ -228,7 +227,16 @@ namespace PlayerSkills
                 }
                 public override void UseSkill(SkillInfomation skillValue)
                 {
-                    
+                    Managers.GameManager.AddStatus(buffSkillType, skillValue.skillValue);
+                    Debug.Log("½ÇÇà");
+                    var result = Timer(buffSkillType, skillValue.skillValue, skillValue.secondValue);
+                }
+                private async Task Timer(statType type,float value,float time)
+                {
+                    float beforeConvert = time * 1000;
+                    int timeConvert = (int)beforeConvert;
+                    await Task.Delay(timeConvert);
+                    Managers.GameManager.ReduceStatus(type, value);
                 }
             }
         }
