@@ -34,7 +34,7 @@ public class SGTurret : Monster_Static
         base.AttackWay();
         pivotSG[0].SetActive(true);
     }
-    public override void Status_Init()
+    protected override void Status_Init()
     {
         base.Status_Init();
         pivotSG[0].SetActive(false);
@@ -48,7 +48,7 @@ public class SGTurret : Monster_Static
         base.MonsterPush();
         Managers.Pool.MobPush(this.gameObject, "SG");
     }
-    public override void MonsterDie()
+    protected override void MonsterDie()
     {
         Debug.Log("#Æ÷Å¾ Á×Àº µÚ Æ÷Å» »ý¼º");
         portal.SetActive(true);

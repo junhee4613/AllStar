@@ -38,7 +38,7 @@ public class MonsterController_Static : MonsterBase
             }
         }
     }
-    public override void MonsterDie()
+    protected override void MonsterDie()
     {
         int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);

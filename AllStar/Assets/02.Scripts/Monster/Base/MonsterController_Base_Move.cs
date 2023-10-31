@@ -5,15 +5,18 @@ using UnityEngine.AI;
 
 public class MonsterController_Base_Move : MonsterBase
 {
-    public NavMeshAgent agent;
-    public bool sense;
-    public Vector3 pos_init;
-    public bool Original_spot = false;
-    public LayerMask detection_target;
-    float init_pos_dis;
-    public float rotateSpeed = 180f;
-    public float attack_Distance;
     Rigidbody rb;
+    float init_pos_dis;
+    protected NavMeshAgent agent;
+    protected Vector3 pos_init;
+    protected bool Original_spot = false;
+    [Header("플레이어와 장애물 감지")]
+    public bool target_identification;
+    public LayerMask detection_target;
+    [Header("초당 회전하는 각도")]
+    public float rotateSpeed = 180f;
+    [Header("사거리")]
+    public float attack_Distance;
     public float dropForce;
     [Header("포션 드랍 퍼센트 조절")]
     public int potionDropProbability = 0;
@@ -47,6 +50,10 @@ public class MonsterController_Base_Move : MonsterBase
             Original_spot = false;
             if (!action_start)
             {
+                if (monsterStatus.nowState != monsterStatus.states["idle"])
+                {
+                    fsmChanger(monsterStatus.states["idle"]);
+                }
                 action_delay -= Time.deltaTime;
                 if(action_delay <= 0)
                 {
@@ -55,53 +62,7 @@ public class MonsterController_Base_Move : MonsterBase
                 }
                 return;
             }
-            float dis = Vector3.Distance(transform.position, player.transform.position);
-            sense = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit ,attack_Distance, detection_target);
-            if (sense && hit.collider.tag == "Player")
-            {
-                if (dis <= Mathf.Abs(attack_Distance))
-                {
-                    if (!agent.isStopped)
-                    {
-                        agent.isStopped = true;
-                    }
-                    if (monsterStatus.nowState != monsterStatus.states["attack"])
-                    {
-                        AttackStart();
-                        fsmChanger(monsterStatus.states["attack"]);
-                    }
-                }
-            }
-            else 
-            {
-                Debug.Log("어스문");
-                if (dis <= Mathf.Abs(attack_Distance) && (!sense || hit.collider.tag != "Adornment"))
-                {
-                    Debug.Log("이프문");
-                    if (TargetRotation(gameObject.transform, player.transform) >= 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                    }
-                    else if (TargetRotation(gameObject.transform, player.transform) < 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                    }
-                }
-                else
-                {
-                    Debug.Log("또 다른 어스문");
-                    if (agent.isStopped)
-                    {
-                        agent.isStopped = false;
-                    }
-                    if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
-                    {
-                        fsmChanger(monsterStatus.states["run"]);
-                    }
-                    agent.SetDestination(player.transform.position);
-                }
-                
-            }
+            AttackStyle();
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
@@ -133,11 +94,11 @@ public class MonsterController_Base_Move : MonsterBase
         float result = Mathf.Atan2(other.position.z - oneself.position.z, other.position.x - oneself.position.x) * Mathf.Rad2Deg;
         return result;
     }
-    public virtual void AttackStart()
+    protected virtual void AttackStart()
     {
 
     }
-    public override void MonsterDie()
+    protected override void MonsterDie()
     {
         agent.isStopped = true;
         int num1 = Random.Range(1, 100);
@@ -163,5 +124,9 @@ public class MonsterController_Base_Move : MonsterBase
     }
     protected virtual void MonsterPush()
     {
+    }
+    protected virtual void AttackStyle()
+    {
+
     }
 }

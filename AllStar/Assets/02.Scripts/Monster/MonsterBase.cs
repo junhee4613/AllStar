@@ -16,7 +16,6 @@ public class MonsterBase : MonoBehaviour
     //나중에 밑에 있는 불값은 무브 몬스터로 옮겨야됨
     public bool chase_player;
     //public bool look_player = false;
-    public float attack_time = 0f;
     public bool action_start = true;
     public float action_delay = 0;
     public float action_delay_init = 0;
@@ -62,10 +61,7 @@ public class MonsterBase : MonoBehaviour
         {
             monsterStatus.nowState = monsterStatus.states["damaged"];
         }
-        if(monster_type != Monster_type.TURRET)
-        {
-            attack_time += Time.deltaTime;
-        }
+        
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);
@@ -90,29 +86,20 @@ public class MonsterBase : MonoBehaviour
         }
     }
     #endregion
-    public void fsmChanger(BaseState BS)
+    protected virtual void fsmChanger(BaseState BS)
     {
-        if (BS != monsterStatus.nowState)
-        {
-            monsterStatus.nowState.OnStateExit();
-            monsterStatus.nowState = BS;
-            monsterStatus.nowState.OnStateEnter();
-
-            if (BS == monsterStatus.states["attack"])
-            {
-                action_start = false;
-                fsmChanger(monsterStatus.states["idle"]);
-            }
-        }
+        monsterStatus.nowState.OnStateExit();
+        monsterStatus.nowState = BS;
+        monsterStatus.nowState.OnStateEnter();
     }
-    public virtual void Status_Init()
+    protected virtual void Status_Init()
     {
         if (Detect_Range != idle_Detect_Range)
         {
             Detect_Range = idle_Detect_Range;
         }
     }
-    public float LookPlayer(GameObject hit)
+    protected float LookPlayer(GameObject hit)
     {
         float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
         return target;
@@ -126,7 +113,7 @@ public class MonsterBase : MonoBehaviour
         attack_time = 0;
         fsmChanger(monsterStatus.states["idle"]);
     }*/
-    public virtual void MonsterDie()
+    protected virtual void MonsterDie()
     {
         monsterStatus.nowState = monsterStatus.states["die"];
     }
