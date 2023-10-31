@@ -1,10 +1,13 @@
 using PlayerSkills.SkillProbs;
+using PlayerSkills.SkillProbs.BuffCon;
 using PlayerSkills.SkillProbs.DeffenceCon;
 using PlayerSkills.SkillProbs.OffenceCon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Build.Pipeline;
+
 [System.Serializable]
 public class Status
 {
@@ -16,7 +19,7 @@ public class Status
     public float criticalChance;
     public float criticalDamage;
     public Animator animator;
-    public Dictionary<string,BaseState> states = new Dictionary<string, BaseState>();
+    public Dictionary<string, BaseState> states = new Dictionary<string, BaseState>();
     public BaseState nowState;
     public virtual void GetDamage(float Damage)
     {
@@ -37,7 +40,7 @@ public class PlayerOnlyStatus : Status
 
 public enum statType
 {
-    none,moveSpeed,HP,attackSpeed,attackDamage,criticalChance,criticalDamage
+    none, moveSpeed, HP, attackSpeed, attackDamage, criticalChance, criticalDamage
 }
 public class BulletStatus
 {
@@ -68,20 +71,20 @@ public enum GeneralMonsters_Type        //일반몬스터 타입들 이 타입들로 몬스터 �
 }
 public enum bulletTypeEnum
 {
-    none,explosion, basicBullet
+    none, explosion, basicBullet
 }
 public enum ItemTypeEnum
 {
-    weapon, artifacts,consumAble
+    weapon, artifacts, consumAble
 }
 
 public enum ShotType
 {
-    none,multiShot, singleShot
+    none, multiShot, singleShot
 }
 public enum DraggingState
 {
-    none,weapon,artifact
+    none, weapon, artifact
 }
 
 namespace PlayerSkills
@@ -94,10 +97,45 @@ namespace PlayerSkills
             public SkillInfomation skillInfo;
             [SerializeField]
             public TypeClasses DetailTypes;
+
+            public void SkillSetting(SkillDataJson jsonData)
+            {
+                skillInfo.ValueSetting(jsonData);
+                switch (jsonData.skillType)
+                {
+                    case SkillType.offence:
+                        DetailTypes = new OffenceSkillData();
+                        break;
+                    case SkillType.deffence:
+                        DetailTypes = new DeffenceSkillData();
+                        break;
+                    case SkillType.buff:
+                        DetailTypes = new BuffSkillData();
+                        break;
+                }
+                DetailTypes.TypeValueSetting(jsonData);
+            }
         }
     }
     namespace SkillProbs
     {
+        [System.Serializable]
+        public class SkillDataJson
+        {
+            public uint skillIndex;
+            public string skillName;
+            public float skillValue;
+            public float secondValue;
+            public float coolTime;
+            public string flavorText;
+            public SkillType skillType;
+            public OffenceSkillType OffenceSkillType;
+            public OffenceRangeType OffenceRangeType;
+            public DeffenceSkillType DeffenceSkillType;
+            public statType BuffSkillType;
+        }
+
+
         public class SkillSet
         {
             public ItemUI.ItemIconSet UISets;
@@ -105,27 +143,34 @@ namespace PlayerSkills
         [System.Serializable]
         public class SkillInfomation
         {
-            [SerializeField]
             public uint skillIndex;
-            [SerializeField]
             public string skillName;
-            [SerializeField]
-            public float skilValue;
-            [SerializeField]
+            public float skillValue;
+            public float secondValue;
+            public float coolTime;
             public string flavorText;
-            [SerializeField]
-            public SkillType SkillType;
+            public SkillType skillType;
+            public void ValueSetting(SkillDataJson data)
+            {
+                skillIndex = data.skillIndex;
+                skillName = data.skillName;
+                skillValue = data.skillValue;
+                secondValue = data.secondValue;
+                coolTime = data.coolTime;
+                flavorText = data.flavorText;
+                skillType = data.skillType;
+            }
 
-            
         }
         public abstract class TypeClasses
         {
-            public abstract void Setting();
+            public abstract void TypeValueSetting(SkillDataJson data);
+            public abstract void UseSkill(SkillInfomation skillValue);
         }
 
         public enum SkillType
         {
-            offence,deffence,buff
+            offence, deffence, buff
         }
         namespace OffenceCon
         {
@@ -133,49 +178,58 @@ namespace PlayerSkills
             {
                 public OffenceSkillType DamageType;
                 public OffenceRangeType RangeType;
-                public override void Setting()
+                public override void TypeValueSetting(SkillDataJson data)
+                {
+                    DamageType = data.OffenceSkillType;
+                    RangeType = data.OffenceRangeType;
+                }
+                public override void UseSkill(SkillInfomation skillValue)
                 {
 
                 }
             }
             public enum OffenceSkillType
             {
-                Single,Area
-                    //단일,원거리
+                none, Single, Area
+                //단일,원거리
             }
             public enum OffenceRangeType
             {
-                Ranged,Melee
+                none, Ranged, Melee
             }
         }
         namespace DeffenceCon
         {
             public class DeffenceSkillData : TypeClasses
             {
-                public DeffenceSkillType DamageType;
-                public override void Setting()
+                public DeffenceSkillType DeffSkillType;
+                public override void TypeValueSetting(SkillDataJson data)
+                {
+                    DeffSkillType = data.DeffenceSkillType;
+                }
+                public override void UseSkill(SkillInfomation skillValue)
                 {
 
                 }
             }
             public enum DeffenceSkillType
             {
-                dodge,telleport,deffence
+                none, dodge, telleport, deffence
             }
         }
         namespace BuffCon
         {
             public class BuffSkillData : TypeClasses
             {
-                public BuffSkillType buffSkillType;
-                public override void Setting()
+                private statType buffSkillType;
+                public override void TypeValueSetting(SkillDataJson data)
                 {
-
+                    buffSkillType = data.BuffSkillType;
                 }
-            }
-            public enum BuffSkillType
-            {
-                changeBulletType,AD,criChance,criDamage,moveSpeed,heal,HP
+                public override void UseSkill(SkillInfomation skillValue)
+                {
+                    
+                }
             }
         }
 
