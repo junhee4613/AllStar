@@ -100,7 +100,6 @@ public class MonsterBase : MonoBehaviour
 
             if (BS == monsterStatus.states["attack"])
             {
-                Debug.Log("공격 시작");
                 action_start = false;
                 fsmChanger(monsterStatus.states["idle"]);
             }

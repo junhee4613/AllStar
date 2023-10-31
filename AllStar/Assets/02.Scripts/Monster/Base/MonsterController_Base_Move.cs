@@ -9,6 +9,7 @@ public class MonsterController_Base_Move : MonsterBase
     public bool sense;
     public Vector3 pos_init;
     public bool Original_spot = false;
+    public LayerMask detection_target;
     float init_pos_dis;
     public float rotateSpeed = 180f;
     public float attack_Distance;
@@ -42,8 +43,8 @@ public class MonsterController_Base_Move : MonsterBase
         base.Update();
         if (chase_player)
         {
+
             Original_spot = false;
-            Debug.Log("여기");
             if (!action_start)
             {
                 action_delay -= Time.deltaTime;
@@ -55,26 +56,28 @@ public class MonsterController_Base_Move : MonsterBase
                 return;
             }
             float dis = Vector3.Distance(transform.position, player.transform.position);
-            if (dis <= Mathf.Abs(attack_Distance))
+            sense = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit ,attack_Distance, detection_target);
+            if (sense && hit.collider.tag == "Player")
             {
-                Debug.Log("인식");
-                sense = Physics.Raycast(transform.position, transform.forward, attack_Distance, 128);
-                if (!agent.isStopped)
+                if (dis <= Mathf.Abs(attack_Distance))
                 {
-                    agent.isStopped = true;
-                }
-                if (sense)
-                {
+                    if (!agent.isStopped)
+                    {
+                        agent.isStopped = true;
+                    }
                     if (monsterStatus.nowState != monsterStatus.states["attack"])
                     {
-                        Debug.Log("공격");
                         AttackStart();
                         fsmChanger(monsterStatus.states["attack"]);
                     }
                 }
-                else
+            }
+            else 
+            {
+                Debug.Log("어스문");
+                if (dis <= Mathf.Abs(attack_Distance) && (!sense || hit.collider.tag != "Adornment"))
                 {
-                    Debug.Log("공격안함");
+                    Debug.Log("이프문");
                     if (TargetRotation(gameObject.transform, player.transform) >= 0)
                     {
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
@@ -84,24 +87,24 @@ public class MonsterController_Base_Move : MonsterBase
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                 }
-            }
-            else
-            {
-                if (agent.isStopped)
+                else
                 {
-                    agent.isStopped = false;
+                    Debug.Log("또 다른 어스문");
+                    if (agent.isStopped)
+                    {
+                        agent.isStopped = false;
+                    }
+                    if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
+                    {
+                        fsmChanger(monsterStatus.states["run"]);
+                    }
+                    agent.SetDestination(player.transform.position);
                 }
-                if(monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
-                {
-                    fsmChanger(monsterStatus.states["run"]);
-                }
-                agent.SetDestination(player.transform.position);
+                
             }
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            //여기가 문제임 Original_spot 이게 문제임
-            
             if (transform.position != pos_init)
             {
                 

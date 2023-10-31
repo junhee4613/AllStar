@@ -25,12 +25,12 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if (Physics.SphereCast(transform.position , 0.08f, transform.forward, out RaycastHit hit, 0.2f, hitLayer))
+        if (Physics.SphereCast(transform.position , 0.08f, transform.forward, out RaycastHit hit, 0.5f, hitLayer))
         {
             Vector3 randomValue = hit.transform.position + (Random.Range(-0.5f, 0.6f) * (Vector3.right + Vector3.forward));
             
             RectTransform txtTR;
-            if (hit.transform.gameObject.layer == 64)
+            if (hit.transform.gameObject.layer == 6)
             {
                 if (!targetHitParticle.gameObject.activeSelf)
                 {
@@ -48,6 +48,7 @@ public class Bullet : MonoBehaviour
                     targetHitParticle.gameObject.SetActive(true);
                     meshtr.gameObject.SetActive(false);
                     timer = removeTimer;
+
                 } 
             }
             else
@@ -59,6 +60,7 @@ public class Bullet : MonoBehaviour
             if (bulletType == bulletTypeEnum.explosion && (targetHitParticle.time / targetHitParticle.main.duration) > 0.5f&&isExplode == false)
             {
                 Collider[] hitMonsters = Physics.OverlapSphere(transform.position, totalExplosionRange, 64);
+                Managers.Sound.SFX_Sound(Managers.DataManager.Datas["Explosion_Sound"] as AudioClip);
                 Debug.Log("Æø¹ß");
                 isExplode = true;
                 for (int i = 0; i < hitMonsters.Length; i++)

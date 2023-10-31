@@ -6,14 +6,17 @@ using UnityEngine.UI;
 public class UIManager
 {
     private Stack<Transform> uiStack = new Stack<Transform>();
-    public Image[] artifactSlotIMG = new Image[20];
+    public ItemUI.ItemIconSet[] artifactSet = new ItemUI.ItemIconSet[20];
     public Image[] weaponSlotIMG = new Image[3];
     public Slider hpbar;
     public Slider loadBar;
-    public void ArtifactInventoryImageChanges(byte arrayNum,string codeName)
+    public void ArtifactInventoryImageChanges(byte itemIndex,string codeName)
     {
         Sprite a = Managers.DataManager.Load<Sprite>(codeName + "_ICON");
-        artifactSlotIMG[arrayNum].sprite = a;
+
+        artifactSet[itemIndex].IconIMG.sprite = a;
+        artifactSet[itemIndex].AmountText.text = Managers.GameManager.playerArtifacts[itemIndex].artifactAmount != 0? Managers.GameManager.playerArtifacts[itemIndex].artifactAmount.ToString():"";
+
         Debug.Log(a);
     }
     public void WeaponInventoryImageChanges(byte arrayNum,string codeName)

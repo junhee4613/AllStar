@@ -25,16 +25,16 @@ public class PlayerControler : MonoBehaviour
     public float rotationSpeed = 500;
     [Header("Å¸ÀÌ¸Ó")]
     public float playerAttackTimer = 0;
-    public float dodgeCooldown = 0 ;
+    public float dodgeCooldown = 0;
     public bool nonControllable;
     [Header("ÄðÅ¸ÀÓUI")]
-    [SerializeField]private UnityEngine.UI.Image[] coolTimeIMG;
+    [SerializeField] private UnityEngine.UI.Image[] coolTimeIMG;//0°ø°Ý,1È¸ÇÇ,2345 ½ºÅ³ °¢ qerv
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerWeapons = Managers.GameManager.playerWeapons;
         ownArtifacts = Managers.GameManager.playerArtifacts;
-        Managers.GameManager.BasicPlayerStats(()=> 
+        Managers.GameManager.BasicPlayerStats(() =>
         {
             for (int i = 0; i < playerWeapons.Length; i++)
             {
@@ -55,7 +55,7 @@ public class PlayerControler : MonoBehaviour
 
     private void Update()
     {
-        if (!nonControllable&&stat.nowHP > 0)
+        if (!nonControllable && stat.nowHP > 0)
         {
             playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             Vector3 movement = new Vector3(playerDir.x, 0, playerDir.y) * stat.moveSpeed * Time.deltaTime;
@@ -72,15 +72,15 @@ public class PlayerControler : MonoBehaviour
             }
             else if (playerDir == Vector2.zero)
             {
-                if (stat.states.ContainsKey("idle") && stat.nowState != stat.states["idle"]&& stat.nowState != stat.states["attack"])
+                if (stat.states.ContainsKey("idle") && stat.nowState != stat.states["idle"] && stat.nowState != stat.states["attack"])
                 {
                     fsmChanger(stat.states["idle"]);
                 }
             }
 
-            if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"]&&!EventSystem.current.IsPointerOverGameObject())
+            if (stat.states.ContainsKey("dodge") && stat.nowState != stat.states["dodge"] && !EventSystem.current.IsPointerOverGameObject())
             {
-                if (Input.GetKey(KeyCode.Mouse0) && (1f / (stat.attackSpeed+playerWeapons[nowWeapon].stat.fireSpeed)) < playerAttackTimer&&playerWeapons[nowWeapon].stat.weaponIndex !=254)
+                if (Input.GetKey(KeyCode.Mouse0) && (1f / (stat.attackSpeed + playerWeapons[nowWeapon].stat.fireSpeed)) < playerAttackTimer && playerWeapons[nowWeapon].stat.weaponIndex != 254)
                 {
                     GetMousePos();
                     fsmChanger(stat.states["attack"]);
@@ -91,36 +91,37 @@ public class PlayerControler : MonoBehaviour
             {
                 dodgeCooldown = 0;
                 fsmChanger(stat.states["dodge"]);
-            } 
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                nowWeapon = 0;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                nowWeapon = 1;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                nowWeapon = 2;
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
+                {
+                    playerWeapons[nowWeapon].ResetGunSlot(transform.position);
+                }
+            }
+            if (PlayerGetItem())
+            {
+
+            }
+
         }
-        else if (stat.nowHP <0 && stat.nowState != stat.states["die"])
+        else if (stat.nowHP < 0 && stat.nowState != stat.states["die"])
         {
             fsmChanger(stat.states["die"]);
             Debug.Log("ÇÃ·¹ÀÌ¾î Á×À½ÆÇÁ¤");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            nowWeapon = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            nowWeapon = 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            nowWeapon = 2;
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
-            {
-                playerWeapons[nowWeapon].ResetGunSlot(transform.position);
-            }
-        }
-        if (PlayerGetItem())
-        {
-
         }
         playerAttackTimer += Time.deltaTime;
         dodgeCooldown += Time.deltaTime;
@@ -135,18 +136,16 @@ public class PlayerControler : MonoBehaviour
                 coolTimeIMG[0].fillAmount = 0;
             }
         }
-
-
-        coolTimeIMG[1].fillAmount = dodgeCooldown/stat.dodgeCooltime;
+        coolTimeIMG[1].fillAmount = dodgeCooldown / stat.dodgeCooltime;
     }
     public void GetMousePos()
     {
         RaycastHit hit;
         float rotTemp = 0;
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(mouseRay,out hit,Mathf.Infinity,8))
+        if (Physics.Raycast(mouseRay, out hit, Mathf.Infinity, 8))
         {
-            AttackPoint(hit.point, ref rotTemp, () => 
+            AttackPoint(hit.point, ref rotTemp, () =>
             {
                 playerWeapons[nowWeapon].GunShot(firePos.position, rotTemp);
                 /*if (Managers.DataManager.Datas.TryGetValue(playerWeapons[nowWeapon].stat.codeName+ "_Bullet", out UnityEngine.Object Result))
@@ -161,7 +160,7 @@ public class PlayerControler : MonoBehaviour
                     bulletTemp.transform.position = firePos.position;
                     bulletTemp.transform.rotation = Quaternion.Euler(bulletTemp.transform.rotation.eulerAngles.x, rotTemp, bulletTemp.transform.rotation.eulerAngles.z);
                 }*/
-                
+
             });
         }
     }
@@ -211,7 +210,7 @@ public class PlayerControler : MonoBehaviour
             {
 
                 Debug.Log("ºóÄ­Ã£À½");
-                if (whatIsEmptySlot(target.itemIndex) != 255&&target.type == ItemTypeEnum.weapon)
+                if (whatIsEmptySlot(target.itemIndex) != 255 && target.type == ItemTypeEnum.weapon)
                 {
                     Debug.Log("ÃÑ¸ÔÀ½");
                     target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
@@ -241,10 +240,10 @@ public class PlayerControler : MonoBehaviour
     {
         Debug.Log("asd");
     }
-    public void AttackPoint(Vector3 TargetPos,ref float quatTemp,Action Time = null) 
+    public void AttackPoint(Vector3 TargetPos, ref float quatTemp, Action Time = null)
     {
-        TargetPos = new Vector3(TargetPos.x - transform.position.x,TargetPos.z - transform.position.z);
-        quatTemp = ((MathF.Atan2(TargetPos.y, TargetPos.x)*Mathf.Rad2Deg)-90)*-1;
+        TargetPos = new Vector3(TargetPos.x - transform.position.x, TargetPos.z - transform.position.z);
+        quatTemp = ((MathF.Atan2(TargetPos.y, TargetPos.x) * Mathf.Rad2Deg) - 90) * -1;
         transform.rotation = Quaternion.Euler(0, quatTemp, 0);
         Time?.Invoke();
     }
@@ -262,7 +261,7 @@ public class PlayerControler : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 StartCoroutine(dodgeTimer());
             }
-            else if(BS == stat.states["attack"])
+            else if (BS == stat.states["attack"])
             {
                 StartCoroutine(animTimer());
             }
@@ -271,14 +270,14 @@ public class PlayerControler : MonoBehaviour
 
     public IEnumerator dodgeTimer()
     {
-        transform.rotation = Quaternion.Euler(0, ((MathF.Atan2(playerDir.y, playerDir.x)*Mathf.Rad2Deg- 90)*-1), 0);
-        if (playerDir.x== 0&&playerDir.y==0)
+        transform.rotation = Quaternion.Euler(0, ((MathF.Atan2(playerDir.y, playerDir.x) * Mathf.Rad2Deg - 90) * -1), 0);
+        if (playerDir.x == 0 && playerDir.y == 0)
         {
             rb.AddForce(Vector3.forward * (stat.moveSpeed * 5), ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * (stat.moveSpeed*5), ForceMode.Impulse);
+            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * (stat.moveSpeed * 5), ForceMode.Impulse);
         }
         yield return null;
         Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
@@ -297,7 +296,7 @@ public class PlayerControler : MonoBehaviour
     }
     public bool isInAttacking()
     {
-        if (stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && stat.nowState==stat.states["attack"])
+        if (stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && stat.nowState == stat.states["attack"])
         {
             return false;
         }

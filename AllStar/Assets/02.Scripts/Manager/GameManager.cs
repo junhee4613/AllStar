@@ -26,10 +26,10 @@ public class GameManager
             PlayerStat.criticalChance = 10;
             PlayerStat.criticalDamage = 198.5f;
             PlayerStat.dodgeCooltime = 1;
+            Time.timeScale = 1;
             done?.Invoke();
             OnIconChange();
         });
-        Time.timeScale = 1;
     }
     public void AddStatus(statType type, float addValue)
     {
@@ -157,20 +157,76 @@ public class GameManager
     #region 아티펙트 관련
     public void ArtifactEquipOnly(byte itemIndex)
     {
-        //앞에서부터 채움
-        //254는 빈칸 255는 어레이가 빈곳이 없을경우 artifactArray에 반환
-        byte artifactArray = 255;
+        if (playerArtifacts[itemIndex].artifactAmount == 0)
+        {
+            playerArtifacts[itemIndex].artifactAmount++;
+            playerArtifacts[itemIndex].SetArtifact(Managers.DataManager.artifactTable[itemIndex]);
+            AddStatus(playerArtifacts[itemIndex].data.statustype, playerArtifacts[itemIndex].data.value);
+            Managers.UI.ArtifactInventoryImageChanges(itemIndex, playerArtifacts[itemIndex].data.codename);
+        }
+        else
+        {
+            playerArtifacts[itemIndex].artifactAmount++;
+            AddStatus(playerArtifacts[itemIndex].data.statustype, playerArtifacts[itemIndex].data.value);
+            Managers.UI.artifactSet[itemIndex].AmountText.text = playerArtifacts[itemIndex].artifactAmount.ToString();
+        }
+
+/*        bool artInOtherPos = false;
+        short testIndex = -1;
         for (byte i = 0; i < playerArtifacts.Length; i++)
         {
-            artifactArray = 254 == playerArtifacts[i].data.itemnum ? i : (byte)255;
-            if (artifactArray == i) break;
+            if (playerArtifacts[i].data.itemnum == itemIndex&& playerArtifacts[i] != playerArtifacts[itemIndex])
+            {
+                testIndex = i;
+                artInOtherPos = true;
+                break;
+            }
         }
-        if (artifactArray != 255)
+        if ((playerArtifacts[itemIndex].data.itemnum == itemIndex|| playerArtifacts[itemIndex].artifactAmount == 0)&&!artInOtherPos)
         {
-            playerArtifacts[artifactArray].SetArtifact(Managers.DataManager.artifactTable[itemIndex]);
-            AddStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
-            Managers.UI.ArtifactInventoryImageChanges(artifactArray,playerArtifacts[artifactArray].data.codename);
+  
         }
+        else if((playerArtifacts[itemIndex].data.itemnum != itemIndex&& playerArtifacts[itemIndex].data.itemnum != 254)||artInOtherPos)
+        {
+            if (testIndex != -1)
+            {
+                if (testIndex !=itemIndex)
+                {
+                    playerArtifacts[testIndex].artifactAmount++;
+                    AddStatus(playerArtifacts[testIndex].data.statustype, playerArtifacts[testIndex].data.value);
+                    Managers.UI.artifactSet[testIndex].AmountText.text = playerArtifacts[testIndex].artifactAmount.ToString();
+                }
+                else
+                {
+                    for (byte i = 0; i < playerArtifacts.Length; i++)
+                    {
+                        if (playerArtifacts[i].data.itemnum == 254)
+                        {
+                            playerArtifacts[i].artifactAmount++;
+                            playerArtifacts[i].SetArtifact(Managers.DataManager.artifactTable[itemIndex]);
+                            AddStatus(playerArtifacts[i].data.statustype, playerArtifacts[i].data.value);
+                            Managers.UI.ArtifactInventoryImageChanges(i, playerArtifacts[itemIndex].data.codename);
+                            break;
+                        }
+                    }
+                }
+            }
+            for (byte i = 0; i < playerArtifacts.Length; i++)
+            {
+                if (playerArtifacts[i].data.itemnum == itemIndex)
+                {
+
+                }
+                else if(playerArtifacts[i].data.itemnum == 254&&i != playerArtifacts[itemIndex].data.itemnum)
+                {
+                    playerArtifacts[i].artifactAmount++;
+                    playerArtifacts[i].SetArtifact(Managers.DataManager.artifactTable[itemIndex]);
+                    AddStatus(playerArtifacts[i].data.statustype, playerArtifacts[i].data.value);
+                    Managers.UI.ArtifactInventoryImageChanges(i, playerArtifacts[itemIndex].data.codename);
+                    break;
+                }
+            }
+        }*/
 
     }
     public void ChangeWeaponArray(byte weaponIndex,byte weaponIndex2)
@@ -184,25 +240,30 @@ public class GameManager
     }
     public void ArtifactWaste(byte artifactArray,Vector3 PlayerPosition)
     {
-        GameObject tempOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
-        byte tempIndex = playerArtifacts[artifactArray].data.itemnum;
-        ArtifactData tempDataWeap = Managers.DataManager.artifactTable[tempIndex];
-        ArtifactItem tempItemCompo = tempOBJ.GetComponent<ArtifactItem>();
-        tempItemCompo.type = ItemTypeEnum.artifacts;
-        tempItemCompo.itemIndex = tempIndex;
-        Debug.Log("메쉬 받으면 밑에있는 주석 풀어야함");
-/*        tempItemCompo.SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
-            Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, tempIndex);*/
-        tempOBJ.transform.position = PlayerPosition;
+        for (int i = 0; i < playerArtifacts[artifactArray].artifactAmount; i++)
+        {
+            GameObject tempOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
+            byte tempIndex = playerArtifacts[artifactArray].data.itemnum;
+            ArtifactData tempDataWeap = Managers.DataManager.artifactTable[tempIndex];
+            ArtifactItem tempItemCompo = tempOBJ.GetComponent<ArtifactItem>();
+            tempItemCompo.type = ItemTypeEnum.artifacts;
+            tempItemCompo.itemIndex = tempIndex;
+            Debug.Log("메쉬 받으면 밑에있는 주석 풀어야함");
+            tempOBJ.transform.position = PlayerPosition;
+            ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
+
+        }
+        playerArtifacts[artifactArray].artifactAmount = 0;
+        /*        tempItemCompo.SetItemModel(Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mat"] as Material,
+                    Managers.DataManager.Datas[tempDataWeap.codename + "_Item_Mesh"] as Mesh, tempIndex);*/
         ArtifactRemoveOnly(artifactArray);
     }
     public void ArtifactRemoveOnly(byte artifactArray)
     {
-        ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
         playerArtifacts[artifactArray].ResetArtifact(false);
         Managers.UI.ArtifactInventoryImageChanges(artifactArray,"Null");
     }
-    public void ChageArtifact(byte itemIndex,byte artifactArray)
+/*    public void ChageArtifact(byte itemIndex,byte artifactArray)
     {
         ReduceStatus(playerArtifacts[artifactArray].data.statustype, playerArtifacts[artifactArray].data.value);
         playerArtifacts[artifactArray].data = Managers.DataManager.artifactTable[itemIndex];
@@ -213,11 +274,10 @@ public class GameManager
     {
         if (itemIndex1 != 254&& itemIndex2 != 254)
         {
-            ReduceStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
-            ReduceStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
-
-            AddStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
-            AddStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
+            int tempAmount;
+            tempAmount = playerArtifacts[artifactArray1].artifactAmount;
+            playerArtifacts[artifactArray1].artifactAmount = playerArtifacts[artifactArray2].artifactAmount;
+            playerArtifacts[artifactArray2].artifactAmount = tempAmount;
 
             playerArtifacts[artifactArray1].SetArtifact(Managers.DataManager.artifactTable[itemIndex2]);
             playerArtifacts[artifactArray2].SetArtifact(Managers.DataManager.artifactTable[itemIndex1]);
@@ -230,26 +290,35 @@ public class GameManager
             MoveArtifact(itemIndex1, artifactArray1, itemIndex2, artifactArray2);
         }
     }
+
     public void MoveArtifact(byte itemIndex1, byte artifactArray1, byte itemIndex2, byte artifactArray2)
     {
+        int tempAmount;
         if (itemIndex1 == 254)
         {
-            ReduceStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
-            AddStatus(playerArtifacts[artifactArray2].data.statustype, playerArtifacts[artifactArray2].data.value);
+            tempAmount = playerArtifacts[artifactArray2].artifactAmount;
             playerArtifacts[artifactArray2].ResetArtifact(false);
             playerArtifacts[artifactArray1].SetArtifact(Managers.DataManager.artifactTable[itemIndex2]);
+
+            playerArtifacts[artifactArray2].artifactAmount = 0;
+            playerArtifacts[artifactArray1].artifactAmount = tempAmount;
+
             Managers.UI.ArtifactInventoryImageChanges(artifactArray1, playerArtifacts[artifactArray1].data.codename);
             Managers.UI.ArtifactInventoryImageChanges(artifactArray2, "Null");
         }
         else if (itemIndex2 == 254)
         {
-            ReduceStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
-            AddStatus(playerArtifacts[artifactArray1].data.statustype, playerArtifacts[artifactArray1].data.value);
+            tempAmount = playerArtifacts[artifactArray1].artifactAmount;
             playerArtifacts[artifactArray1].ResetArtifact(false);
             playerArtifacts[artifactArray2].SetArtifact(Managers.DataManager.artifactTable[itemIndex1]);
+            
+            
+
+            playerArtifacts[artifactArray1].artifactAmount = 0;
+            playerArtifacts[artifactArray2].artifactAmount = tempAmount;
             Managers.UI.ArtifactInventoryImageChanges(artifactArray2, playerArtifacts[artifactArray2].data.codename);
             Managers.UI.ArtifactInventoryImageChanges(artifactArray1, "Null");
         }
-    }
+    }*/
     #endregion
 }

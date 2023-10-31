@@ -848,7 +848,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7341781759679697020}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.0187173, y: 0.00000023841858, z: -4.035293}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -909,8 +909,10 @@ MonoBehaviour:
   action_delay_init: 1.5
   die: 0
   monster_type: 2
-  ranged: 0
   agent: {fileID: 0}
+  detection_target:
+    serializedVersion: 2
+    m_Bits: 1152
   sense: 0
   pos_init: {x: 0, y: 0, z: 0}
   Original_spot: 0
@@ -932,8 +934,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.4468364, z: 0.7}
-  m_Center: {x: 0, y: 0.32341817, z: 0}
+  m_Size: {x: 0.7, y: 1.0842819, z: 0.7}
+  m_Center: {x: 0, y: 0.64214087, z: 0}
 --- !u!95 &1201258583490867908
 Animator:
   serializedVersion: 5
@@ -963,7 +965,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7341781759679697020}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Speed: 3
   m_Acceleration: 100
   avoidancePriority: 50

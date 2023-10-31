@@ -34,8 +34,11 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     PoolingManager _pool = new PoolingManager();
     UIManager _ui = new UIManager();
+
     SGProjectileManager _projectileManager = new SGProjectileManager();         //Manager 하위에 projectiManager
     SGShotManager _shotManager = new SGShotManager();
+    [SerializeField]
+    SoundManager _soundManager = new SoundManager();
 
     public static GameManager GameManager { get { return instance?._game; } }
     public static DataManager DataManager { get { return instance?._data; }}
@@ -46,5 +49,6 @@ public class Managers : MonoBehaviour
 
     public static SGShotManager ShotManager { get { return instance?._shotManager; } }      //ShotManager 접근 시 인스턴스 리턴
     public static SGProjectileManager projectileManager { get { return instance?._projectileManager; } }
+    public static SoundManager Sound { get { return instance?._soundManager; } }
 
 }
