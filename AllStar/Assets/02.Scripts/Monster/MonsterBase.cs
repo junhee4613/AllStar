@@ -18,6 +18,7 @@ public class MonsterBase : MonoBehaviour
     //public bool look_player = false;
     public bool action_start = true;
     public float action_delay = 0;
+    [Header("공격 후 대기모드 시간")]
     public float action_delay_init = 0;
     public bool die = false;
     public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
@@ -57,10 +58,6 @@ public class MonsterBase : MonoBehaviour
             }
             return;
         }
-        else
-        {
-            monsterStatus.nowState = monsterStatus.states["damaged"];
-        }
         
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
@@ -90,7 +87,6 @@ public class MonsterBase : MonoBehaviour
     {
         monsterStatus.nowState.OnStateExit();
         monsterStatus.nowState = BS;
-        Debug.Log("여기: " + BS);
         monsterStatus.nowState.OnStateEnter();
     }
     protected virtual void Status_Init()

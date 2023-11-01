@@ -24,6 +24,7 @@ public static class FSMExtension
         dict.Add("run", new GeneralFSM.Run());
         dict.Add("die", new GeneralFSM.Die());
         dict.Add("idle", new GeneralFSM.Idle());
+
         foreach (var item in dict)
         {
             item.Value.animator = anim;
@@ -43,13 +44,13 @@ public static class FSMExtension
             item.Value.animator = anim;
         }
     }
-    public static void SetMonsterFSMDefault(this Dictionary<string, BaseState> dict, Animator anim, GameObject target)
+    public static void SetMonsterFSMDefault(this Dictionary<string, BaseState> dict,ref Animator anim, GameObject target)
     {
         if(anim == null)
         {
             anim = GetOrAddCompo<Animator>(target);
         }
-
         dict.Add("walk", new MonsterFSM.Walk());
+
     }
 }

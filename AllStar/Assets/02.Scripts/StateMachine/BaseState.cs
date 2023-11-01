@@ -37,6 +37,7 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
+            Debug.Log("공격모션");
             animator.Play("attack", 0);
         }
         public override void OnStateUpdate()
@@ -106,6 +107,7 @@ namespace MonsterFSM
         public override void OnStateEnter()
         {
             animator.Play("walk", 0);
+            Debug.Log("도착");
         }
         public override void OnStateUpdate()
         {

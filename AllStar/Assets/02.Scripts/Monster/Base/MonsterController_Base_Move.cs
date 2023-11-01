@@ -9,6 +9,7 @@ public class MonsterController_Base_Move : MonsterBase
     float init_pos_dis;
     protected NavMeshAgent agent;
     protected Vector3 pos_init;
+    [SerializeField]
     protected bool Original_spot = false;
     [Header("플레이어와 장애물 감지")]
     public bool target_identification;
@@ -49,7 +50,7 @@ public class MonsterController_Base_Move : MonsterBase
             Original_spot = false;
             if (!action_start)
             {
-                if (monsterStatus.nowState != monsterStatus.states["idle"])
+                if (monsterStatus.nowState != monsterStatus.states["idle"] && monsterStatus.nowState != monsterStatus.states["attack"])
                 {
                     fsmChanger(monsterStatus.states["idle"]);
                 }
@@ -82,6 +83,7 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     if (monsterStatus.nowState != monsterStatus.states["run"])
                     {
+                        Debug.Log(3);
                         fsmChanger(monsterStatus.states["run"]);
                     }
                 }

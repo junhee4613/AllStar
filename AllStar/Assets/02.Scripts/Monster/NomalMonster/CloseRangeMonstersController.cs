@@ -9,13 +9,14 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
     public float player_dis_run_mode;
     public float run_speed;
     public float walk_speed;
+    public bool damage = false;
 
     protected override void Awake()
     {
         Managers.Pool.MonsterPop(" CloseRanged", this.gameObject);
+        monsterStatus.states.SetMonsterFSMDefault(ref monsterStatus.animator, this.gameObject);//여기
         base.Awake();
         an = GetComponent<Animator>();
-        monsterStatus.states.SetMonsterFSMDefault(monsterStatus.animator, this.gameObject);
         Debug.Log(monsterStatus.states["walk"]);
         foreach (var item in monsterStatus.states)
         {
@@ -35,85 +36,92 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
     }
     protected override void AttackStart()
     {
-        if(an.GetCurrentAnimatorStateInfo(0).normalizedTime > 0 && an.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+        if(an.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.3f && an.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f)
         {
-            if(Physics.BoxCast(transform.position, Vector3.one, transform.forward, Quaternion.identity, 1, 1 << 7))
+            if(Physics.BoxCast(transform.position, Vector3.one * 0.1f, transform.forward, Quaternion.identity, 1.5f, 1 << 7) && !damage)
             {
+                damage = true;
+                Debug.Log("데미지 들감");
                 Managers.GameManager.PlayerStat.GetDamage(monsterStatus.attackDamage);
+            }
+        }
+        else if(an.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            damage = false;
+            action_start = false;
+            if (monsterStatus.nowState != monsterStatus.states["idle"])
+            {
+                //나중에 공격대기모드로 바꿔야됨
+                fsmChanger(monsterStatus.states["idle"]);
             }
         }
     }
     protected override void fsmChanger(BaseState BS)
     {
         base.fsmChanger(BS);
+        if (BS == monsterStatus.states["walk"] || BS == monsterStatus.states["run"])
+        {
+            agent.isStopped = false;
+        }
+        
     }
     protected override void AttackStyle()
     {
-        float dis = Vector3.Distance(transform.position, player.transform.position);
-        target_identification = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, attack_Distance, detection_target);
         if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
-            agent.SetDestination(player.transform.position); 
-        }
-        if (dis <= player_dis_run_mode)
-        {
-            if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.nowState != monsterStatus.states["run"])
-            {
-                agent.speed = run_speed;
-                fsmChanger(monsterStatus.states["run"]);
-            }
-            if (target_identification && hit.collider.tag == "Player")
+            float dis = Vector3.Distance(transform.position, player.transform.position);
+            target_identification = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, attack_Distance, detection_target);
+            agent.SetDestination(player.transform.position);
+            if (dis <= player_dis_run_mode)
             {
                 if (dis <= Mathf.Abs(attack_Distance))
                 {
-                    if (!agent.isStopped)
+                    if (target_identification && hit.collider.tag == "Player")
                     {
-                        agent.isStopped = true;
+                        if (dis <= Mathf.Abs(attack_Distance))
+                        {
+                            if (!agent.isStopped)
+                            {
+                                agent.isStopped = true;
+                            }
+                            fsmChanger(monsterStatus.states["attack"]);
+
+                        }
                     }
-                    if (monsterStatus.nowState != monsterStatus.states["attack"])
+                    else if (!target_identification || hit.collider.tag != "Adornment")
                     {
-                        fsmChanger(monsterStatus.states["attack"]);
+                        if (TargetRotation(gameObject.transform, player.transform) >= 0)
+                        {
+                            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+                        }
+                        else if (TargetRotation(gameObject.transform, player.transform) < 0)
+                        {
+                            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
                     {
-                        AttackStart();
+                        Debug.Log(1);
+                        agent.speed = run_speed;
+                        fsmChanger(monsterStatus.states["run"]);
                     }
                 }
             }
             else
             {
-                if (dis <= Mathf.Abs(attack_Distance) && (!target_identification || hit.collider.tag != "Adornment"))
+                if (monsterStatus.nowState != monsterStatus.states["walk"])
                 {
-                    if (TargetRotation(gameObject.transform, player.transform) >= 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                    }
-                    else if (TargetRotation(gameObject.transform, player.transform) < 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                    }
+                    agent.speed = walk_speed;
+                    fsmChanger(monsterStatus.states["walk"]);
                 }
-                else
-                {
-                    if (agent.isStopped)
-                    {
-                        agent.isStopped = false;
-                    }
-                    if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
-                    {
-                        fsmChanger(monsterStatus.states["run"]);
-                    }
-                }
-
-            } 
+            }
         }
         else
         {
-            if (monsterStatus.nowState != monsterStatus.states["walk"])
-            {
-                agent.speed = walk_speed;
-                fsmChanger(monsterStatus.states["walk"]);
-            }
+            AttackStart();
         }
     }
 }
