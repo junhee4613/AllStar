@@ -56,6 +56,11 @@ public class ItemInstantiater : MonoBehaviour
                     Managers.DataManager.Datas[tempConsumeTable.codename + "_Item_Mesh"] as Mesh, (byte)randomValue);
                 tempConsumOBJ.transform.position = transform.position;
                 break;
+            case ItemTypeEnum.skill:
+                randomValue = Random.Range(0, Managers.DataManager.skillTable.Count);
+                GameObject tempSkillOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["SkillItem"] as GameObject);
+                tempSkillOBJ.transform.position = transform.position;
+                break;
         }
         Managers.DataManager.onFunctionDone -= this.ItemSetting;
     }

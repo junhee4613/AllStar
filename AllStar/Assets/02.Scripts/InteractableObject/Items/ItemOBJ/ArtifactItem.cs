@@ -6,7 +6,7 @@ public class ArtifactItem : IItemBase
 {
     protected override void Start()
     {
-        int randomValue = Random.Range(0, Managers.DataManager.artifactTable.Count);
+        int randomValue = Random.Range(0, Managers.DataManager.skillTable.Count);
         ArtifactData tempDataArt = Managers.DataManager.artifactTable[randomValue];
         if (!Managers.DataManager.Datas.TryGetValue(tempDataArt.codename + "_Item_Mat", out Object aa))
         {

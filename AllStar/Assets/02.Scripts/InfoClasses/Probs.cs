@@ -73,7 +73,7 @@ public enum bulletTypeEnum
 }
 public enum ItemTypeEnum
 {
-    weapon, artifacts, consumAble
+    weapon, artifacts, consumAble,skill
 }
 
 public enum ShotType
@@ -89,10 +89,12 @@ namespace PlayerSkills
 {
     namespace Skills
     {
+        [Serializable]
         public class SkillBase
         {
             [SerializeField]
             public SkillInfomation skillInfo = new SkillInfomation();
+            public Transform playerTR;
             [SerializeField]
             public TypeClasses DetailTypes;
 
@@ -106,12 +108,19 @@ namespace PlayerSkills
                         break;
                     case SkillType.deffence:
                         DetailTypes = new DeffenceSkillData();
+                        DeffenceSkillData tempData = DetailTypes as DeffenceSkillData;
+                        tempData.pc = playerTR.GetComponent<PlayerControler>();
                         break;
                     case SkillType.buff:
                         DetailTypes = new BuffSkillData();
                         break;
                 }
                 DetailTypes.TypeValueSetting(jsonData);
+            }
+            public void SkillUpGrade()
+            {
+                skillInfo.skillLevel++;
+                
             }
             public void UseSkill()
             {
@@ -127,6 +136,7 @@ namespace PlayerSkills
             public uint skillIndex;
             public string skillName;
             public string codeName;
+            public short skillLevel;
             public float skillValue;
             public float secondValue;
             public float coolTime;
@@ -149,6 +159,7 @@ namespace PlayerSkills
             public uint skillIndex;
             public string skillName;
             public string codeName;
+            public short skillLevel;
             public float skillValue;
             public float secondValue;
             public float coolTime;
@@ -160,6 +171,7 @@ namespace PlayerSkills
                 skillIndex = data.skillIndex;
                 skillName = data.skillName;
                 codeName = data.codeName;
+                skillLevel = data.skillLevel;
                 skillValue = data.skillValue;
                 secondValue = data.secondValue;
                 coolTime = data.coolTime;
@@ -209,15 +221,35 @@ namespace PlayerSkills
             public class DeffenceSkillData : TypeClasses
             {
                 public DeffenceSkillType DeffSkillType;
+                public PlayerControler pc;
                 public override void TypeValueSetting(SkillDataJson data)
                 {
                     DeffSkillType = data.DeffenceSkillType;
                 }
                 public override void UseSkill(SkillInfomation skillValue)
                 {
+                    switch (DeffSkillType)
+                    {
+                        case DeffenceSkillType.none:
+                            break;
+                        case DeffenceSkillType.dodge:
+                            pc.fsmChanger(pc.stat.states["dodge"]);
+                            break;
+                        case DeffenceSkillType.telleport:
+                            pc.fsmChanger(pc.stat.states["tellleport"]);
+                            //텔레포트 스테이트 딕셔너리에 추가 필요
+                            break;
+                        case DeffenceSkillType.deffence:
+                            pc.fsmChanger(pc.stat.states["deffence"]);
+                            break;
+                        default:
+                            break;
+                    }
 
                 }
             }
+
+
             public enum DeffenceSkillType
             {
                 none, dodge, telleport, deffence

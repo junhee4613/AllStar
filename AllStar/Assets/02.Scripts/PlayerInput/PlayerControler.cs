@@ -91,10 +91,10 @@ public class PlayerControler : MonoBehaviour
                     playerAttackTimer = 0;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldown >= stat.dodgeCooltime)
+            if (Input.GetKeyDown(KeyCode.Space) && skillCoolTimes[0] >= skills[0].skillInfo.coolTime)
             {
-                dodgeCooldown = 0;
-                fsmChanger(stat.states["dodge"]);
+                skillCoolTimes[0] = 0;
+                skills[0].UseSkill();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -128,7 +128,10 @@ public class PlayerControler : MonoBehaviour
             Debug.Log("플레이어 죽음판정");
         }
         playerAttackTimer += Time.deltaTime;
-        dodgeCooldown += Time.deltaTime;
+        for (int i = 0; i < skillCoolTimes.Length; i++)
+        {
+            skillCoolTimes[i] += Time.deltaTime;
+        }
         if (playerWeapons[nowWeapon] != null)
         {
             if (playerWeapons[nowWeapon].stat.weaponIndex != 254)
@@ -145,6 +148,7 @@ public class PlayerControler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             Debug.Log(Managers.DataManager.skillTable[0].skillName+ Managers.DataManager.skillTable[0].codeName);
+
             SkillTest.SkillSetting(Managers.DataManager.skillTable[0]);
         }        
         if (Input.GetKeyDown(KeyCode.Keypad1))
@@ -243,6 +247,22 @@ public class PlayerControler : MonoBehaviour
                         }
                     }
                 }
+                else if (target.type == ItemTypeEnum.skill)
+                {
+                    SkillItem tempItem;
+                    tempItem = target as SkillItem;
+                    SkillBase tempSkill = FindSkillArray(target.itemIndex);
+                    if (tempSkill.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
+                    {
+                        tempSkill.playerTR = transform;
+                        tempItem.UseItem<SkillBase>(ref tempSkill);
+                    }
+                    else
+                    {
+                        tempItem.UseItemToUpGrade(tempSkill);
+                        Debug.Log("여기다가 중복스킬 처리");
+                    }
+                }
 
                 Debug.Log(target);
                 return true;
@@ -261,6 +281,38 @@ public class PlayerControler : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, quatTemp, 0);
         Time?.Invoke();
     }
+    #region 스킬관련 함수
+    public SkillBase[] skills = new SkillBase[6];
+    public float[] skillCoolTimes = new float[6];
+    private SkillBase FindSkillArray(int targetItemIndex)
+    {
+        SkillBase tempSkill = null;
+        byte tempNum = 255;
+        for (int i = skills.Length - 1; i >= 0; i--)
+        {
+            if (skills[i] == null)
+            {
+                skills[i] = new SkillBase();
+            }
+            if (skills[i].skillInfo.codeName == string.Empty)
+            {
+                tempNum = (byte)i;
+                tempSkill = skills[i];
+            }
+            else if (skills[i].skillInfo.codeName == Managers.DataManager.skillTable[targetItemIndex].codeName)
+            {
+                tempNum = 255;
+                tempSkill = skills[i];
+                break;
+            }
+        }
+        if (tempNum !=255)
+        {
+            skillCoolTimes[tempNum] = Managers.DataManager.skillTable[targetItemIndex].coolTime;
+        }
+        return tempSkill;
+    }
+    #endregion
     #region fsm 중계기를 만들어서 변수로 참조해와야함
     public void fsmChanger(BaseState BS)
     {

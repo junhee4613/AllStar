@@ -3,14 +3,30 @@
         "skillIndex": "0",
         "skillName": "공격력 강화",
         "codeName": "attackBuff",
+        "skillLevel": "1",
         "skillValue": "100",
         "secondValue": "10",
         "coolTime": "20",
-        "flavorText": "대충써넣자",
+        "flavorText": "공격력이 증가한다",
         "skillType": "buff",
         "OffenceSkillType": "none",
         "OffenceRangeType": "none",
         "DeffenceSkillType": "none",
         "BuffSkillType": "attackDamage"
+    },
+    {
+        "skillIndex": "1",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "0",
+        "secondValue": "0.4",
+        "coolTime": "3",
+        "flavorText": "앞으로 돌진한다",
+        "skillType": "deffence",
+        "OffenceSkillType": "none",
+        "OffenceRangeType": "none",
+        "DeffenceSkillType": "dodge",
+        "BuffSkillType": "none"
     }
 ]
