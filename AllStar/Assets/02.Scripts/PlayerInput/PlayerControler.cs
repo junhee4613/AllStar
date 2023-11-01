@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
 using GeneralFSM;
+using PlayerSkills.Skills;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class PlayerControler : MonoBehaviour
     public bool nonControllable;
     [Header("쿨타임UI")]
     [SerializeField] private UnityEngine.UI.Image[] coolTimeIMG;//0공격,1회피,2345 스킬 각 qerv
+
+    [Header("스킬")]
+    [SerializeField] public SkillBase SkillTest = new SkillBase();
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -137,6 +141,16 @@ public class PlayerControler : MonoBehaviour
             }
         }
         coolTimeIMG[1].fillAmount = dodgeCooldown / stat.dodgeCooltime;
+
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            Debug.Log(Managers.DataManager.skillTable[0].skillName+ Managers.DataManager.skillTable[0].codeName);
+            SkillTest.SkillSetting(Managers.DataManager.skillTable[0]);
+        }        
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            SkillTest.UseSkill();
+        }
     }
     public void GetMousePos()
     {

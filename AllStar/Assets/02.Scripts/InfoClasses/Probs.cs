@@ -89,10 +89,10 @@ namespace PlayerSkills
 {
     namespace Skills
     {
-        public abstract class SkillBase
+        public class SkillBase
         {
             [SerializeField]
-            public SkillInfomation skillInfo;
+            public SkillInfomation skillInfo = new SkillInfomation();
             [SerializeField]
             public TypeClasses DetailTypes;
 
@@ -113,6 +113,10 @@ namespace PlayerSkills
                 }
                 DetailTypes.TypeValueSetting(jsonData);
             }
+            public void UseSkill()
+            {
+                DetailTypes.UseSkill(skillInfo);
+            }
         }
     }
     namespace SkillProbs
@@ -122,6 +126,7 @@ namespace PlayerSkills
         {
             public uint skillIndex;
             public string skillName;
+            public string codeName;
             public float skillValue;
             public float secondValue;
             public float coolTime;
@@ -143,6 +148,7 @@ namespace PlayerSkills
         {
             public uint skillIndex;
             public string skillName;
+            public string codeName;
             public float skillValue;
             public float secondValue;
             public float coolTime;
@@ -150,8 +156,10 @@ namespace PlayerSkills
             public SkillType skillType;
             public void ValueSetting(SkillDataJson data)
             {
+                Debug.Log(data.ToString());
                 skillIndex = data.skillIndex;
                 skillName = data.skillName;
+                codeName = data.codeName;
                 skillValue = data.skillValue;
                 secondValue = data.secondValue;
                 coolTime = data.coolTime;
