@@ -105,6 +105,8 @@ namespace PlayerSkills
                 {
                     case SkillType.offence:
                         DetailTypes = new OffenceSkillData();
+                        OffenceSkillData tempAttackSkillData = DetailTypes as OffenceSkillData;
+                        tempAttackSkillData.pc = playerTR.GetComponent<PlayerControler>();
                         break;
                     case SkillType.deffence:
                         DetailTypes = new DeffenceSkillData();
@@ -196,6 +198,7 @@ namespace PlayerSkills
             {
                 public OffenceSkillType DamageType;
                 public OffenceRangeType RangeType;
+                public PlayerControler pc;
                 public override void TypeValueSetting(SkillDataJson data)
                 {
                     DamageType = data.OffenceSkillType;
@@ -203,7 +206,19 @@ namespace PlayerSkills
                 }
                 public override void UseSkill(SkillInfomation skillValue)
                 {
-
+                    switch (RangeType)
+                    {
+                        case OffenceRangeType.none:
+                            break;
+                        case OffenceRangeType.Ranged:
+                            Debug.Log("원거리 공격 구현 필요");
+                            break;
+                        case OffenceRangeType.Melee:
+                            Debug.Log("근거리 공격 구현 필요");
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             public enum OffenceSkillType
