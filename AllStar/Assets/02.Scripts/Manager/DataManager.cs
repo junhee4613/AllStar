@@ -7,6 +7,7 @@ using Object = UnityEngine.Object;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.UI;
+using PlayerSkills.SkillProbs;
 
 [System.Serializable]
 public class DataManager
@@ -16,6 +17,8 @@ public class DataManager
     public List<WeaponData> weaponTable = new List<WeaponData>();
     public List<ArtifactData> artifactTable = new List<ArtifactData>();
     public List<ConsumableData> consumableTable = new List<ConsumableData>();
+    [SerializeField]
+    public List<SkillDataJson> skillTable = new List<SkillDataJson>();
     public bool isLoadDone = false;
     public event Action onFunctionDone;
     public void Init(Action Done = null)
@@ -46,6 +49,8 @@ public class DataManager
                 //jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/GunItemTable.json");
                 tempTA = Datas["GunItemTable"] as TextAsset;
                 weaponTable = JsonConvert.DeserializeObject<List<WeaponData>>(tempTA.text);
+                tempTA = Datas["SkillTable"] as TextAsset;
+                skillTable = JsonConvert.DeserializeObject<List<SkillDataJson>>(tempTA.text);
                 Done?.Invoke();
                 isLoadDone = true;
                 Managers.Sound.BGM_Sound("Stage_001");
