@@ -8,7 +8,7 @@ public class Boss : MonsterBase
     public bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
-    public BossAttackPattern pattern;
+    //public BossAttackPattern pattern;
     public bool barrage_start = false;
     public float pattern_Time = 0.0f;
     public float pattern_CheckTime = 5.0f;
@@ -32,7 +32,7 @@ public class Boss : MonsterBase
         }
         if (pattern_Start_bool && (monsterStatus.nowState == monsterStatus.states["attack"] || barrage_start))
         {
-            Pattern();
+            //Pattern();
         }
 
        /* pattern_Time += Time.deltaTime;
@@ -50,7 +50,7 @@ public class Boss : MonsterBase
     }*/
 
 
-    public void Pattern()
+    /*public void Pattern()
     {
         pattern_Start_bool = false;
         pattern_loop = true;
@@ -83,7 +83,7 @@ public class Boss : MonsterBase
         }
 
 
-    }
+    }*/
     #region 보스 패턴들
     IEnumerator BosePattern1()              //탄막패턴
     {

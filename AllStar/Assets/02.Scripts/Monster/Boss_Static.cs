@@ -5,10 +5,11 @@ using UnityEngine;
 public class Boss_Static : MonoBehaviour
 {
     public bool pattern_Start_bool = true;              //패턴이 시작하기 위한 불값
+    //pattern_loop는 나중에 없애는 값
     public bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
-    public BossAttackPattern pattern;
+    public Boss_Simple_Pattern pattern;
     public bool barrage_start = false;
     public float time;
     public float[] standby_time = new float[2] {1f, 2f};
@@ -36,60 +37,59 @@ public class Boss_Static : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!heal_pattern_start)
+        /*if (!heal_pattern_start)
         {
             non_hit_time += Time.deltaTime;
         }
         //여기 전체적으로 손봐야될듯
-        if (state.nowHP == current_hp)
+        if (state.nowHP == current_hp && non_hit_time > heal_pattern_start_time)
         {
-            if(non_hit_time > heal_pattern_start_time)
-            {
-                HealPattern();
-            }
+            HealPattern();
         }
         else
         {
             current_hp = state.nowHP;
-        }
+        }*/
         if (pattern_Start_bool && standby_time[Random.Range(0, 1)] < time)
         {
             Pattern();
         }
+        time += Time.deltaTime;
     }
     public void Pattern()       //코루틴으로 하지말고 시간 체크해서 
     {
         pattern_Start_bool = false;
         pattern_loop = true;
         randomNum = Random.Range(0, 5);
-        motion_Type = $"BosePattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
-        pattern = (BossAttackPattern)randomNum;
-        
-        if(state.nowHP < state.maxHP / 10 * 3.5)
+        motion_Type = $"Simple_Pattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
+        pattern = (Boss_Simple_Pattern)randomNum;
+
+        switch (pattern)             //여긴 공격패턴(근접 공격 외에)
         {
-            switch (pattern)             //여긴 공격패턴(근접 공격 외에)
-            {
-                case BossAttackPattern.BARRAGE1: //가만히 있기
-                    StartCoroutine(motion_Type);
-                    break;
-                case BossAttackPattern.BARRAGE2:
-                    StartCoroutine(motion_Type);
-                    break;
-                case BossAttackPattern.BARRAGE3:
-                    StartCoroutine(motion_Type);
-                    break;
-                case BossAttackPattern.STOP:
-                    StartCoroutine(motion_Type);
-                    break;
-                case BossAttackPattern.SIMPLE_BULLET:
-                    StartCoroutine(motion_Type);
-                    break;
-                case BossAttackPattern.SIMPLE_ATTACK:
-                    StartCoroutine(motion_Type);
-                    break;
-                default:
-                    break;
-            }
+            case Boss_Simple_Pattern.BARRAGE1: //가만히 있기
+                StartCoroutine(motion_Type);
+                break;
+            case Boss_Simple_Pattern.BARRAGE2:
+                StartCoroutine(motion_Type);
+                break;
+            case Boss_Simple_Pattern.BARRAGE3:
+                StartCoroutine(motion_Type);
+                break;
+            case Boss_Simple_Pattern.LASER:
+                StartCoroutine(motion_Type);
+                break;
+            case Boss_Simple_Pattern.FOLLOW_LASER:
+                StartCoroutine(motion_Type);
+                break;
+            case Boss_Simple_Pattern.HEAL:
+                StartCoroutine(motion_Type);
+                break;
+            default:
+                break;
+        }
+        if (state.nowHP < state.maxHP / 10 * 3.5)
+        {
+            //나중에
         }
         else{ }
         
@@ -151,10 +151,6 @@ public class Boss_Static : MonoBehaviour
     }
     IEnumerator Simple_Pattern3()              //공격패턴
     {
-        if (state.states.ContainsKey("pattern3") && state.nowState != state.states["pattern3"])
-        {
-            //fsmChanger(monsterStatus.states["pattern3"]);
-        }
         while (pattern_loop)
         {
             Debug.Log("패턴3");
@@ -199,8 +195,12 @@ public class Boss_Static : MonoBehaviour
     }
     public void Pattern_Stop()  //이건 패턴이 끝나게 하는 함수
     {
-        if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
-            pattern_loop = false;
+        pattern_loop = false;
+        time = 0;
+        /*if (time > 5)
+        {
+            
+        }*/
     }
     public void AttackAnimator_Run()
     {

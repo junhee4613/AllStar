@@ -45,16 +45,23 @@ public class BulletStatus
     public float damage;
     public int bulletCount;
 }
-public enum BossAttackPattern
+public enum Boss_Simple_Pattern
 {
     BARRAGE1,
     BARRAGE2,
     BARRAGE3,
-    SIMPLE_ATTACK,
-    SIMPLE_BULLET,
-    STOP,
-
+    LASER,
+    FOLLOW_LASER,
+    HEAL,
 }
+public enum Boss_Hard_Pattern 
+{
+    BARRAGE1,
+    BARRAGE2,
+    BARRAGE3,
+    LASER,
+}
+
 public enum MonsterPaattern_Base
 {
     STOP,
