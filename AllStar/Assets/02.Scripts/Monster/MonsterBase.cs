@@ -64,7 +64,7 @@ public class MonsterBase : MonoBehaviour
         
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
-            playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 128);
+            playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 1 << 7);
             if (playerSence.Length != 0)
             {
                 Perceive_player();
@@ -90,6 +90,7 @@ public class MonsterBase : MonoBehaviour
     {
         monsterStatus.nowState.OnStateExit();
         monsterStatus.nowState = BS;
+        Debug.Log("여기: " + BS);
         monsterStatus.nowState.OnStateEnter();
     }
     protected virtual void Status_Init()

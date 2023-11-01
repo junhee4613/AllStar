@@ -46,7 +46,6 @@ public class MonsterController_Base_Move : MonsterBase
         base.Update();
         if (chase_player)
         {
-
             Original_spot = false;
             if (!action_start)
             {

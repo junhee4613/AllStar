@@ -43,4 +43,13 @@ public static class FSMExtension
             item.Value.animator = anim;
         }
     }
+    public static void SetMonsterFSMDefault(this Dictionary<string, BaseState> dict, Animator anim, GameObject target)
+    {
+        if(anim == null)
+        {
+            anim = GetOrAddCompo<Animator>(target);
+        }
+
+        dict.Add("walk", new MonsterFSM.Walk());
+    }
 }

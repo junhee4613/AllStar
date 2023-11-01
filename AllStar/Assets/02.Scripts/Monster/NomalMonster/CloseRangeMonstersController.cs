@@ -15,6 +15,12 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         Managers.Pool.MonsterPop(" CloseRanged", this.gameObject);
         base.Awake();
         an = GetComponent<Animator>();
+        monsterStatus.states.SetMonsterFSMDefault(monsterStatus.animator, this.gameObject);
+        Debug.Log(monsterStatus.states["walk"]);
+        foreach (var item in monsterStatus.states)
+        {
+            Debug.Log("¿©±â " + item);
+        }
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -49,7 +55,7 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         {
             agent.SetDestination(player.transform.position); 
         }
-        if (dis >= player_dis_run_mode)
+        if (dis <= player_dis_run_mode)
         {
             if (monsterStatus.nowState != monsterStatus.states["attack"] && monsterStatus.nowState != monsterStatus.states["run"])
             {

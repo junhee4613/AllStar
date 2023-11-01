@@ -16,6 +16,8 @@ namespace FSMSetUp
 }
 namespace GeneralFSM
 {
+    
+
     public class Run : BaseState
     {
         public override void OnStateEnter()
@@ -97,6 +99,25 @@ namespace EpicMonsterFSM
 {
 
 }
+namespace MonsterFSM 
+{
+    public class Walk : BaseState
+    {
+        public override void OnStateEnter()
+        {
+            animator.Play("walk", 0);
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+}
+
 namespace CommonMonsterFSM
 {
 
