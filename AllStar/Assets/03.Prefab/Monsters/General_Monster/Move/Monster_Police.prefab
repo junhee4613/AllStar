@@ -909,7 +909,7 @@ MonoBehaviour:
   potionDropProbability: 0
   itemDropProbability: 0
   weaponDropProbability: 0
-  player_dis_run_mode: 3
+  dis_criteria_run_mode: 8
   run_speed: 3
   walk_speed: 1
   damage: 0

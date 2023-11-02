@@ -44,6 +44,7 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         {
             if (dis <= Mathf.Abs(attack_Distance) && (!target_identification || hit.collider.tag != "Adornment"))
             {
+                agent.isStopped = false;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
             }
             else

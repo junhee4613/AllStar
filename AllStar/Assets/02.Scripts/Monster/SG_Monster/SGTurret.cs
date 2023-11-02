@@ -39,7 +39,7 @@ public class SGTurret : Monster_Static
         base.Status_Init();
         pivotSG[0].SetActive(false);
     }
-    public override void Perceive_player()
+    protected override void Perceive_player()
     {
         base.Perceive_player();
     }

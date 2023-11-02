@@ -62,7 +62,7 @@ public class MonsterBase : MonoBehaviour
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 1 << 7);
-            if (playerSence.Length != 0)
+            if (playerSence.Length != 0)//움직이는 몬스터는 제자리로 돌아온 후에 플레이어를 추적하게 해야됨
             {
                 Perceive_player();
                 chase_player = true;
@@ -75,7 +75,7 @@ public class MonsterBase : MonoBehaviour
         }
     }
     #region 플레이어 따라가며 공격 로직
-    public virtual void Perceive_player()
+    protected virtual void Perceive_player()
     {
         if (Detect_Range != move_Detect_Range)
         {

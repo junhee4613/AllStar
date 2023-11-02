@@ -5,8 +5,8 @@ using UnityEngine;
 public class CloseRangeMonstersController : MonsterController_Base_Move
 {
     Animator an;
-    [Header("달리기모드로 변할 때의 거리")]
-    public float player_dis_run_mode;
+    [Header("달리기모드로 변할 때의 기준거리")]
+    public float dis_criteria_run_mode;
     public float run_speed;
     public float walk_speed;
     public bool damage = false;
@@ -58,37 +58,43 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
     
     protected override void AttackStyle()
     {
-        if (monsterStatus.nowState != monsterStatus.states["attack"] && action_start)
+        if (monsterStatus.nowState != monsterStatus.states["attack"])
         {
             float dis = Vector3.Distance(transform.position, player.transform.position);
             target_identification = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, attack_Distance, detection_target);
             agent.SetDestination(player.transform.position);
-            if (dis <= player_dis_run_mode)
+            if (dis <= dis_criteria_run_mode)
             {
                 if (dis <= Mathf.Abs(attack_Distance))
                 {
                     if (target_identification && hit.collider.tag == "Player")
                     {
-                        if (dis <= Mathf.Abs(attack_Distance))
-                        {
-                            if (!agent.isStopped)
-                            {
-                                agent.isStopped = true;
-                            }
-                            fsmChanger(monsterStatus.states["attack"]);
-                        }
+                        fsmChanger(monsterStatus.states["attack"]);
                     }
                     else if (!target_identification || hit.collider.tag != "Adornment")
                     {
+                        if (monsterStatus.nowState != monsterStatus.states["idle"])//이거 나중에 공격 대기모드로 바꿔야됨
+                        {
+                            Debug.Log("dkdlemf");
+                            fsmChanger(monsterStatus.states["idle"]);
+                        }
+                        Debug.Log("회전");
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        if (monsterStatus.nowState != monsterStatus.states["run"])
+                        {
+                            fsmChanger(monsterStatus.states["run"]);
+                        }
+                        agent.SetDestination(player.transform.position);
                     }
                 }
                 else
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["run"] && Original_spot)
+                    Debug.Log("돌기");
+                    if (monsterStatus.nowState != monsterStatus.states["run"])
                     {
-                        Debug.Log(1);
-                        agent.speed = run_speed;
                         fsmChanger(monsterStatus.states["run"]);
                     }
                 }
@@ -97,7 +103,6 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
             {
                 if (monsterStatus.nowState != monsterStatus.states["walk"])
                 {
-                    agent.speed = walk_speed;
                     fsmChanger(monsterStatus.states["walk"]);
                 }
             }
@@ -111,13 +116,19 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
     protected override void fsmChanger(BaseState BS)
     {
         base.fsmChanger(BS);
-        if (BS == monsterStatus.states["attack"])
+        if (BS == monsterStatus.states["attack"] || BS == monsterStatus.states["idle"])//이거 나중에 공격 대기모드로 바꿔야됨
         {
+            Debug.Log("돌기");
             agent.isStopped = true;
-
         }
         else if (BS == monsterStatus.states["run"])
         {
+            agent.speed = run_speed;
+            agent.isStopped = false;
+        }
+        else if(BS == monsterStatus.states["walk"])
+        {
+            agent.speed = walk_speed;
             agent.isStopped = false;
         }
     }

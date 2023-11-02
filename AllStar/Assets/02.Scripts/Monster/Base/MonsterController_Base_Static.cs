@@ -27,7 +27,7 @@ public class MonsterController_Static : MonsterBase
     {
         base.Update();
     }
-    public override void Perceive_player()
+    protected override void Perceive_player()
     {
         base.Perceive_player();
         foreach (var item in playerSence)
