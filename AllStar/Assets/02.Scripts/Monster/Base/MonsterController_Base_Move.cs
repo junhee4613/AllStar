@@ -56,7 +56,6 @@ public class MonsterController_Base_Move : MonsterBase
             action_delay -= Time.deltaTime;
             if (action_delay <= 0)
             {
-                //agent.isStopped = false;
                 action_start = true;
                 action_delay = action_delay_init;
             }
@@ -108,6 +107,15 @@ public class MonsterController_Base_Move : MonsterBase
     protected override void Status_Init()
     {
         base.Status_Init();
+        if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
+        {
+            fsmChanger(monsterStatus.states["run"]);
+        }
+        if (Original_spot)
+        {
+            Debug.Log("È¸º¹");
+        }
+
     }
     protected override void MonsterDie()
     {
@@ -143,5 +151,16 @@ public class MonsterController_Base_Move : MonsterBase
     protected override void fsmChanger(BaseState BS)
     {
         base.fsmChanger(BS);
+    }
+    protected override bool Perceive_condition()
+    {
+        if (playerSence.Length != 0 && Original_spot)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

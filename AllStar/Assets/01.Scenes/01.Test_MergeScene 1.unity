@@ -5005,13 +5005,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.15961945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2284375319120962684, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06833304
+      objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_Name
       value: Dragun_Monster
       objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_RootOrder
@@ -5754,6 +5762,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster_Tower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5987,6 +5999,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 201510674265923732, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
+      propertyPath: action_delay_init
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7268398380993803578, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
       propertyPath: m_RootOrder
       value: 28
@@ -6886,7 +6902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_RootOrder

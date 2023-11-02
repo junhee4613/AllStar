@@ -75,10 +75,8 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
                     {
                         if (monsterStatus.nowState != monsterStatus.states["idle"])//이거 나중에 공격 대기모드로 바꿔야됨
                         {
-                            Debug.Log("dkdlemf");
                             fsmChanger(monsterStatus.states["idle"]);
                         }
-                        Debug.Log("회전");
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                     else
@@ -92,7 +90,6 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
                 }
                 else
                 {
-                    Debug.Log("돌기");
                     if (monsterStatus.nowState != monsterStatus.states["run"])
                     {
                         fsmChanger(monsterStatus.states["run"]);
@@ -118,7 +115,6 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         base.fsmChanger(BS);
         if (BS == monsterStatus.states["attack"] || BS == monsterStatus.states["idle"])//이거 나중에 공격 대기모드로 바꿔야됨
         {
-            Debug.Log("돌기");
             agent.isStopped = true;
         }
         else if (BS == monsterStatus.states["run"])

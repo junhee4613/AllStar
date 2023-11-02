@@ -907,6 +907,7 @@ MonoBehaviour:
   action_delay: 1.5
   action_delay_init: 1.5
   die: 0
+  heal_quantity: 0
   monster_type: 2
   Original_spot: 1
   target_identification: 0

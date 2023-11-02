@@ -21,6 +21,8 @@ public class MonsterBase : MonoBehaviour
     [Header("공격 후 대기모드 시간")]
     public float action_delay_init = 0;
     public bool die = false;
+    [Header("힐량")]
+    public float heal_quantity;
     public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
     {
         DOG,
@@ -62,12 +64,13 @@ public class MonsterBase : MonoBehaviour
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 1 << 7);
-            if (playerSence.Length != 0)//움직이는 몬스터는 제자리로 돌아온 후에 플레이어를 추적하게 해야됨
+
+            if (Perceive_condition())//움직이는 몬스터는 제자리로 돌아온 후에 플레이어를 추적하게 해야됨
             {
                 Perceive_player();
                 chase_player = true;
             }
-            else
+            else if(playerSence.Length == 0 || !chase_player)
             {
                 Status_Init();
                 chase_player = false;
@@ -139,4 +142,20 @@ public class MonsterBase : MonoBehaviour
     {
        
     }
+    protected virtual bool Perceive_condition()
+    {
+        if(playerSence.Length != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public virtual bool playerSence_condition()
+    {
+        return true;
+    }
+
 }

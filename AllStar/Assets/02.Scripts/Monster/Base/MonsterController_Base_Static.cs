@@ -67,5 +67,11 @@ public class MonsterController_Static : MonsterBase
     protected virtual void MonsterPush()
     {
     }
+    protected override void Status_Init()
+    {
+        base.Status_Init();
+        Debug.Log("È¸º¹");
+        Mathf.Clamp(monsterStatus.nowHP += heal_quantity * Time.deltaTime, 0, monsterStatus.maxHP);
+    }
 
 }
