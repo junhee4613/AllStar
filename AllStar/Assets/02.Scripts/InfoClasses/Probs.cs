@@ -156,12 +156,6 @@ namespace PlayerSkills
             public DeffenceSkillType DeffenceSkillType;
             public statType BuffSkillType;
         }
-
-
-        public class SkillSet
-        {
-            public ItemUI.ItemIconSet UISets;
-        }
         [System.Serializable]
         public class SkillInfomation
         {

@@ -8,15 +8,15 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField]private Transform playerTR;
-    [SerializeField] private RectTransform inventory;
+    [SerializeField] private RectTransform skillSlots;
     [SerializeField] private RectTransform escMenu;
     [Header("플레이버 텍스트")]
     [SerializeField] private RectTransform flavorTextPanel;
     [SerializeField] private TextMeshProUGUI flavorText;
     [Header("유물 아이콘이미지")]
-    [SerializeField] private ItemUI.ItemIconSet[] artifactInvenSet = new ItemUI.ItemIconSet[20];
+    [SerializeField] private ItemUI.ItemIconSet[] artifactInvenSet = new ItemUI.ItemIconSet[6];
     public byte[] testNum = new byte[2];//0 아이템인덱스,1슬롯 인덱스 테스트코드
-    public Vector2[] artifactIconPosition = new Vector2[20];
+    public Vector2[] artifactIconPosition = new Vector2[6];
     private float artifactIconSize;
     public byte tempby = 255; //
     [Header("UI인터렉션 관련")]
@@ -38,21 +38,22 @@ public class UIController : MonoBehaviour
     {
         Managers.UI.hpbar = PlrHPBar;
         Managers.GameManager.OnIconChange += infoStatUpdate;
-        deleteItemAreaXPoint = inventory.position.x+inventory.sizeDelta.x;
+        deleteItemAreaXPoint = skillSlots.position.x+skillSlots.sizeDelta.x;
         Vector2 tempVec;
-        for (byte i = 0; i < inventory.GetChild(0).childCount; i++)
+        for (byte i = 0; i < skillSlots.GetChild(0).childCount; i++)
         {
-            artifactInvenSet[i].IconIMG = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
+            Debug.Log("여기 다시짜야됨");
+            artifactInvenSet[i].IconIMG = skillSlots.GetChild(0).GetChild(i).GetComponent<Image>();
             Debug.Log(artifactInvenSet[i].IconIMG.gameObject.name);
             tempVec = new Vector2(artifactInvenSet[i].IconIMG.rectTransform.position.x, artifactInvenSet[i].IconIMG.rectTransform.position.y);
-            artifactInvenSet[i].IconIMG = inventory.GetChild(0).GetChild(i).GetComponent<Image>();
-            artifactInvenSet[i].AmountText = inventory.GetChild(0).GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>();
+            artifactInvenSet[i].IconIMG = skillSlots.GetChild(0).GetChild(i).GetComponent<Image>();
+            artifactInvenSet[i].AmountText = skillSlots.GetChild(0).GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>();
 
             artifactIconPosition[i] = tempVec;
         }
-        for (byte i = 0; i < inventory.GetChild(1).childCount; i++)
+        for (byte i = 0; i < skillSlots.GetChild(1).childCount; i++)
         {
-            weaponInvenIMGs[i] = inventory.GetChild(1).GetChild(i).GetComponent<Image>();
+            weaponInvenIMGs[i] = skillSlots.GetChild(1).GetChild(i).GetComponent<Image>();
             tempVec = new Vector2(weaponInvenIMGs[i].rectTransform.position.x, weaponInvenIMGs[i].rectTransform.position.y);
             weaponIconPosition[i] = tempVec;
         }
@@ -69,7 +70,7 @@ public class UIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            UIOpenAndClose(inventory);
+            UIOpenAndClose(skillSlots);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {

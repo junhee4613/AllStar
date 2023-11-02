@@ -34,6 +34,7 @@ public class PlayerControler : MonoBehaviour
 
     [Header("스킬")]
     [SerializeField] public SkillBase SkillTest = new SkillBase();
+    [SerializeField]ItemUI.ItemIconSet[] skillIcons = new ItemUI.ItemIconSet[6];
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -94,8 +95,7 @@ public class PlayerControler : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space) && skillCoolTimes[0] >= skills[0].skillInfo.coolTime)
             {
-                skillCoolTimes[0] = 0;
-                skills[0].UseSkill();
+                inputSkill(0);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -312,6 +312,14 @@ public class PlayerControler : MonoBehaviour
             skillCoolTimes[tempNum] = Managers.DataManager.skillTable[targetItemIndex].coolTime;
         }
         return tempSkill;
+    }
+    public void inputSkill(int tempInt)
+    {
+        if (skills[tempInt].DetailTypes != null)
+        {
+            skillCoolTimes[tempInt] = 0;
+            skills[tempInt].UseSkill();
+        }
     }
     #endregion
     #region fsm 중계기를 만들어서 변수로 참조해와야함
