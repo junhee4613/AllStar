@@ -903,19 +903,16 @@ MonoBehaviour:
     criticalDamage: 0
     animator: {fileID: 0}
   chase_player: 0
-  attack_time: 0
   action_start: 1
   action_delay: 1.5
   action_delay_init: 1.5
   die: 0
   monster_type: 2
-  agent: {fileID: 0}
+  Original_spot: 1
+  target_identification: 0
   detection_target:
     serializedVersion: 2
     m_Bits: 1152
-  sense: 0
-  pos_init: {x: 0, y: 0, z: 0}
-  Original_spot: 0
   rotateSpeed: 180
   attack_Distance: 5
   dropForce: 0

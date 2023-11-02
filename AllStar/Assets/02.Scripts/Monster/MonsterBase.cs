@@ -88,6 +88,7 @@ public class MonsterBase : MonoBehaviour
         monsterStatus.nowState.OnStateExit();
         monsterStatus.nowState = BS;
         monsterStatus.nowState.OnStateEnter();
+
     }
     protected virtual void Status_Init()
     {
