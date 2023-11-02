@@ -34,14 +34,13 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
     {
         base.Update();
     }
-    protected override void AttackStart()
+    protected override void AttackStart()               //얘도 공격 모션중에 감지 외로 도망가면 제자리론 안돌아감  action_start = true임
     {
         if(an.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.3f && an.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f)
         {
             if(Physics.BoxCast(transform.position, Vector3.one * 0.1f, transform.forward, Quaternion.identity, 1.5f, 1 << 7) && !damage)
             {
                 damage = true;
-                Debug.Log("데미지 들감");
                 Managers.GameManager.PlayerStat.GetDamage(monsterStatus.attackDamage);
             }
         }
@@ -56,18 +55,10 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
             }
         }
     }
-    protected override void fsmChanger(BaseState BS)
-    {
-        base.fsmChanger(BS);
-        if (BS == monsterStatus.states["walk"] || BS == monsterStatus.states["run"])
-        {
-            agent.isStopped = false;
-        }
-        
-    }
+    
     protected override void AttackStyle()
     {
-        if (monsterStatus.nowState != monsterStatus.states["attack"])
+        if (monsterStatus.nowState != monsterStatus.states["attack"] && action_start)
         {
             float dis = Vector3.Distance(transform.position, player.transform.position);
             target_identification = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, attack_Distance, detection_target);
@@ -85,7 +76,6 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
                                 agent.isStopped = true;
                             }
                             fsmChanger(monsterStatus.states["attack"]);
-
                         }
                     }
                     else if (!target_identification || hit.collider.tag != "Adornment")
@@ -95,7 +85,7 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
                 }
                 else
                 {
-                    if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
+                    if (monsterStatus.nowState != monsterStatus.states["run"] && Original_spot)
                     {
                         Debug.Log(1);
                         agent.speed = run_speed;
@@ -116,5 +106,20 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         {
             AttackStart();
         }
+
     }
+    protected override void fsmChanger(BaseState BS)
+    {
+        base.fsmChanger(BS);
+        if (BS == monsterStatus.states["attack"])
+        {
+            agent.isStopped = true;
+
+        }
+        else if (BS == monsterStatus.states["run"])
+        {
+            agent.isStopped = false;
+        }
+    }
+
 }

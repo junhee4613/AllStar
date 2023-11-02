@@ -9,6 +9,7 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
     {
         Managers.Pool.MonsterPop("Ranged", this.gameObject);
         base.Awake();
+        
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -32,10 +33,6 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         {
             if (dis <= Mathf.Abs(attack_Distance))
             {
-                if (!agent.isStopped)
-                {
-                    agent.isStopped = true;
-                }
                 if (monsterStatus.nowState != monsterStatus.states["attack"])
                 {
                     fsmChanger(monsterStatus.states["attack"]);
@@ -51,35 +48,21 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
             }
             else
             {
-                if (agent.isStopped)
+                Debug.Log("ÂÑ¾Æ°¨2");
+                if (monsterStatus.nowState != monsterStatus.states["run"] && Original_spot)
                 {
-                    agent.isStopped = false;
-                }
-                if (monsterStatus.nowState != monsterStatus.states["run"] && !Original_spot)
-                {
+                    Debug.Log("ÂÑ¾Æ°¨3");
                     fsmChanger(monsterStatus.states["run"]);
                 }
                 agent.SetDestination(player.transform.position);
             }
-
         }
-
     }
     protected override void AttackStart()
     {
         GameObject test = Managers.Pool.Pop(Managers.DataManager.Datas["Monster_Bullet"] as GameObject);
         test.transform.position = bulletPos.transform.position;
         test.transform.rotation = this.transform.rotation;
-    }
-    protected override void fsmChanger(BaseState BS)
-    {
-        base.fsmChanger(BS);
-
-        if (BS == monsterStatus.states["attack"])
-        {
-            action_start = false;
-            fsmChanger(monsterStatus.states["idle"]);
-        }
     }
     protected override void MonsterPush()
     {
@@ -96,5 +79,23 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         base.MonsterPush();
         Managers.Pool.MobPush(this.gameObject, "Ranged");
     }
-    
+    protected override void fsmChanger(BaseState BS)
+    {
+        base.fsmChanger(BS);
+        if (BS == monsterStatus.states["attack"])
+        {
+            agent.isStopped = true;
+            if (BS.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                Debug.Log("¿©±â¿¡¿ë");
+                fsmChanger(monsterStatus.states["idle"]);
+                action_start = false;
+            }
+        }
+        else if (BS == monsterStatus.states["run"])
+        {
+            agent.isStopped = false;
+        }
+    }
+
 }

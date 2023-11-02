@@ -1036,7 +1036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &540920975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5011,14 +5011,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7341781759679697020, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
-      propertyPath: sense
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7341781759679697023, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
-      propertyPath: Original_spot
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973886130612783814, guid: 44fcd79e88862a547ad27cc694ce389f, type: 3}
@@ -5383,7 +5375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTR: {fileID: 0}
-  inventory: {fileID: 1494556081}
+  skillSlots: {fileID: 0}
   escMenu: {fileID: 933096255}
   flavorTextPanel: {fileID: 1308790291}
   flavorText: {fileID: 2075620947}
@@ -6429,7 +6421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.3
+      value: -1.09
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6437,7 +6429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.6
+      value: 3.53
       objectReference: {fileID: 0}
     - target: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6952,6 +6944,10 @@ PrefabInstance:
     - target: {fileID: 7388772764542009463, guid: de5db267f8961d14c91130395f7afc7b, type: 3}
       propertyPath: m_Name
       value: Boss_test
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388772764542009463, guid: de5db267f8961d14c91130395f7afc7b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7908849819583240909, guid: de5db267f8961d14c91130395f7afc7b, type: 3}
       propertyPath: m_RootOrder

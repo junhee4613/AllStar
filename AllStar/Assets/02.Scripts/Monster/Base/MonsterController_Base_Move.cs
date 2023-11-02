@@ -10,7 +10,7 @@ public class MonsterController_Base_Move : MonsterBase
     protected NavMeshAgent agent;
     protected Vector3 pos_init;
     [SerializeField]
-    protected bool Original_spot = false;
+    protected bool Original_spot = true;
     [Header("플레이어와 장애물 감지")]
     public bool target_identification;
     public LayerMask detection_target;
@@ -31,6 +31,7 @@ public class MonsterController_Base_Move : MonsterBase
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         pos_init = transform.position;
+        
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -45,23 +46,24 @@ public class MonsterController_Base_Move : MonsterBase
             return;
         }
         base.Update();
-        if (chase_player)
+        if (!action_start)      //지금 드라군이 공격하고 잠시 딜레이 시간에 플레이어가 벗어나면 달리는 상태로 멈춤 -> 이거 수정
         {
-            Original_spot = false;
-            if (!action_start)
+            Debug.Log(2);
+            if (monsterStatus.nowState != monsterStatus.states["idle"] && monsterStatus.nowState != monsterStatus.states["attack"])
             {
-                if (monsterStatus.nowState != monsterStatus.states["idle"] && monsterStatus.nowState != monsterStatus.states["attack"])
-                {
-                    fsmChanger(monsterStatus.states["idle"]);
-                }
-                action_delay -= Time.deltaTime;
-                if(action_delay <= 0)
-                {
-                    action_start = true;
-                    action_delay = action_delay_init;
-                }
-                return;
+                fsmChanger(monsterStatus.states["idle"]);
             }
+            action_delay -= Time.deltaTime;
+            if (action_delay <= 0)
+            {
+                agent.isStopped = false;
+                action_start = true;
+                action_delay = action_delay_init;
+            }
+            return;
+        }
+        if (chase_player && Original_spot)       //감지 외로 벗어나면서 아래에 잇는 로직이 안돌아서 생기는 듯?? 수정했다
+        {
             AttackStyle();
         }
         else if (monsterStatus.nowState != monsterStatus.states["attack"])
@@ -98,6 +100,11 @@ public class MonsterController_Base_Move : MonsterBase
     {
 
     }
+    protected override void Status_Init()
+    {
+        base.Status_Init();
+        Original_spot = false;
+    }
     protected override void MonsterDie()
     {
         agent.isStopped = true;
@@ -128,5 +135,23 @@ public class MonsterController_Base_Move : MonsterBase
     protected virtual void AttackStyle()
     {
 
+    }
+    protected override void fsmChanger(BaseState BS)
+    {
+        base.fsmChanger(BS);
+        if (BS == monsterStatus.states["attack"])
+        {
+            agent.isStopped = true;
+            if(BS.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                Debug.Log("여기에용");
+                fsmChanger(monsterStatus.states["idle"]);
+                action_start = false;
+            }
+        }
+        else if (BS == monsterStatus.states["run"])
+        {
+            agent.isStopped = false;
+        }
     }
 }
