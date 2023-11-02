@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
 using GeneralFSM;
 using PlayerSkills.Skills;
+using PlayerSkills.SkillProbs;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -314,7 +315,7 @@ public class PlayerControler : MonoBehaviour
     }
     #endregion
     #region fsm 중계기를 만들어서 변수로 참조해와야함
-    public void fsmChanger(BaseState BS)
+    public void fsmChanger(BaseState BS,float numberalValue = 0,float duration = 0)
     {
         if (BS != stat.nowState)
         {
@@ -325,7 +326,7 @@ public class PlayerControler : MonoBehaviour
             {
                 nonControllable = true;
                 rb.velocity = Vector3.zero;
-                StartCoroutine(dodgeTimer());
+                StartCoroutine(dodgeTimer(numberalValue,duration));
             }
             else if (BS == stat.states["attack"])
             {
@@ -334,24 +335,26 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public IEnumerator dodgeTimer()
+    public IEnumerator dodgeTimer(float distance,float duration)
     {
         transform.rotation = Quaternion.Euler(0, ((MathF.Atan2(playerDir.y, playerDir.x) * Mathf.Rad2Deg - 90) * -1), 0);
         if (playerDir.x == 0 && playerDir.y == 0)
         {
-            rb.AddForce(Vector3.forward * (stat.moveSpeed * 5), ForceMode.Impulse);
+            rb.AddForce(Vector3.forward * (distance), ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * (stat.moveSpeed * 5), ForceMode.Impulse);
+            rb.AddForce(new Vector3(playerDir.x, 0, playerDir.y) * (distance), ForceMode.Impulse);
         }
         yield return null;
         Debug.Log(stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        stat.animator.speed = stat.animator.GetCurrentAnimatorStateInfo(0).length / duration;
         yield return new WaitUntil(() => stat.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
         rb.velocity = Vector3.zero;
         Debug.Log("애님끝남");
         nonControllable = false;
         fsmChanger(stat.states["idle"]);
+        stat.animator.speed = 1;
     }
     public IEnumerator animTimer()
     {

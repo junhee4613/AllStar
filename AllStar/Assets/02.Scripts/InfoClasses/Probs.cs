@@ -255,7 +255,7 @@ namespace PlayerSkills
                         case DeffenceSkillType.none:
                             break;
                         case DeffenceSkillType.dodge:
-                            pc.fsmChanger(pc.stat.states["dodge"]);
+                            pc.fsmChanger(pc.stat.states["dodge"],skillValue.skillValue,skillValue.secondValue);
                             break;
                         case DeffenceSkillType.telleport:
                             pc.fsmChanger(pc.stat.states["tellleport"]);
@@ -270,7 +270,6 @@ namespace PlayerSkills
 
                 }
             }
-
 
             public enum DeffenceSkillType
             {
