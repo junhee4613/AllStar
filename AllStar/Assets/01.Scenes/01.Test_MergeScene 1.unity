@@ -517,13 +517,14 @@ MonoBehaviour:
   pattern_loop: 0
   motion_Type: 
   randomNum: 0
-  pattern: 0
+  simple_pattern: 0
   barrage_start: 0
-  time: 0
-  standby_time:
+  standby_time: 0
+  standby_time_standard:
   - 1
   - 2
   player: {fileID: 0}
+  barrage_patterns: []
   state:
     moveSpeed: 0
     maxHP: 0
