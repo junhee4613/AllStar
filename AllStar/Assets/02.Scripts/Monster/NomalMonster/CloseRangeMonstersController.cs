@@ -90,14 +90,7 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
                     }
                     else if (!target_identification || hit.collider.tag != "Adornment")
                     {
-                        if (TargetRotation(gameObject.transform, player.transform) >= 0)
-                        {
-                            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                        }
-                        else if (TargetRotation(gameObject.transform, player.transform) < 0)
-                        {
-                            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
-                        }
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
                     }
                 }
                 else

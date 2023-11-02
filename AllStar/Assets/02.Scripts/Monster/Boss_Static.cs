@@ -17,6 +17,7 @@ public class Boss_Static : MonoBehaviour
     public GameObject player;
     public GameObject[] barrage_patterns;
     public Status state;
+    public float rotateSpeed;
     [Header("현재 hp")]
     public float current_hp;
     public float non_hit_time;
@@ -55,8 +56,7 @@ public class Boss_Static : MonoBehaviour
             if (standby_time_standard[Random.Range(0, 1)] < standby_time)
                 Pattern();
             else
-                TargetRotation(transform, player.gameObject.transform);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
-
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
         }
         else
         {
@@ -212,18 +212,7 @@ public class Boss_Static : MonoBehaviour
         heal_pattern_start = false;
         pattern_Start_bool = true;
     }
-    public void Pattern_Stop()  
-    {
-        if (standby_time > 3)
-        {
-            foreach (var item in barrage_patterns)
-            {
-                item.SetActive(false);
-            }
-            pattern_loop = false;//########################나중에 삭제
-            standby_time = 0;
-        }
-    }
+    
     public void AttackAnimator_Run()
     {
         if (state.states.ContainsKey("attack") && state.nowState != state.states["attack"])
@@ -312,9 +301,21 @@ public class Boss_Static : MonoBehaviour
         pattern_Start_bool = true;
     }
     #endregion
-    public float TargetRotation(Transform oneself, Transform other)
+    public void Pattern_Stop()
     {
-        float result = Mathf.Atan2(other.position.z - oneself.position.z, other.position.x - oneself.position.x) * Mathf.Rad2Deg;
-        return result;
+        if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            foreach (var item in barrage_patterns)
+            {
+                item.SetActive(false);
+            }
+            pattern_loop = false;//########################나중에 삭제
+            standby_time = 0;
+        }
+    }
+    public float LookPlayer(GameObject hit)
+    {
+        float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
+        return target;
     }
 }

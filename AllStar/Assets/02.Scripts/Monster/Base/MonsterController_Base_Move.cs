@@ -68,7 +68,6 @@ public class MonsterController_Base_Move : MonsterBase
         {
             if (transform.position != pos_init)
             {
-                
                 agent.SetDestination(pos_init);
                 init_pos_dis = Vector3.Distance(transform.position, pos_init);
                 if (init_pos_dis < Mathf.Abs(0.1f))
@@ -90,11 +89,11 @@ public class MonsterController_Base_Move : MonsterBase
             }
         }
     }
-    public float TargetRotation(Transform oneself, Transform other)
+    /*public float TargetRotation(Transform oneself, Transform other)
     {
         float result = Mathf.Atan2(other.position.z - oneself.position.z, other.position.x - oneself.position.x) * Mathf.Rad2Deg;
         return result;
-    }
+    }*/
     protected virtual void AttackStart()
     {
 
