@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using PlayerSkills.Skills;
+using JetBrains.Annotations;
+
 [System.Serializable]
 public class GameManager
 {
     public PlayerOnlyStatus PlayerStat = new PlayerOnlyStatus();
     public GunBase[] playerWeapons = new GunBase[3];
-    public ArtifactSlot[] playerArtifacts = new ArtifactSlot[20];
+    public SkillBase[] playerSkills = new SkillBase[5];
+    public float[] playerCooltimes;
+    public ArtifactSlot[] playerArtifacts = new ArtifactSlot[6];
     public Dictionary<string,Status> monstersInScene = new Dictionary<string, Status>();
     public delegate void statChangeEvent();
     public event statChangeEvent OnIconChange;
@@ -229,6 +234,23 @@ public class GameManager
         }*/
 
     }
+
+    public void ChangeSkillArray(byte skillIndex, byte skillIndex2)
+    {
+        SkillBase tempSkillbase = playerSkills[skillIndex];
+        SkillBase tempSkillbase2 = playerSkills[skillIndex2];
+        float tempCooltime = playerCooltimes[skillIndex];
+        float tempCooltime2 = playerCooltimes[skillIndex2];
+
+        playerCooltimes[skillIndex] = tempCooltime2;
+        playerCooltimes[skillIndex2] = tempCooltime;
+        playerSkills[skillIndex] = tempSkillbase2;
+        playerSkills[skillIndex2] = tempSkillbase;
+        //이건 그냥 제네릭으로 작업해도 되겠는데?
+        Managers.UI.SetSkillIcons(skillIndex, playerSkills[skillIndex].skillInfo.codeName);
+        Managers.UI.SetSkillIcons(skillIndex2, playerSkills[skillIndex2].skillInfo.codeName);
+        
+    }
     public void ChangeWeaponArray(byte weaponIndex,byte weaponIndex2)
     {
         GunBase tempGunbase = playerWeapons[weaponIndex];
@@ -237,6 +259,7 @@ public class GameManager
         playerWeapons[weaponIndex2] = tempGunbase;
         Managers.UI.WeaponInventoryImageChanges(weaponIndex, playerWeapons[weaponIndex].stat.codeName);
         Managers.UI.WeaponInventoryImageChanges(weaponIndex2, playerWeapons[weaponIndex2].stat.codeName);
+        
     }
     public void ArtifactWaste(byte artifactArray,Vector3 PlayerPosition)
     {

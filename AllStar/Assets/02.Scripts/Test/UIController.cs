@@ -8,7 +8,8 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField]private Transform playerTR;
-    [SerializeField] private RectTransform skillSlots;
+
+    [SerializeField] private RectTransform Inventory;
     [SerializeField] private RectTransform escMenu;
     [Header("플레이버 텍스트")]
     [SerializeField] private RectTransform flavorTextPanel;
@@ -23,7 +24,7 @@ public class UIController : MonoBehaviour
     [SerializeField]GameObject optionPanel;
     public DraggingArrayOBJ drag = new DraggingArrayOBJ();   //끌어당기는 이미지
     public DraggingState dragState = DraggingState.none;
-    public float deleteItemAreaXPoint;
+
     [Header("무기 정보창")]
     [SerializeField] private Image[] weaponInvenIMGs = new Image[3];
     public Vector2[] weaponIconPosition = new Vector2[3];
@@ -32,36 +33,46 @@ public class UIController : MonoBehaviour
     [SerializeField] private RectTransform charactorInfo;
     [SerializeField]private Slider PlrHPBar;
     public TextMeshProUGUI[] statusValues = new TextMeshProUGUI[5];
+    [Header("스킬관련")]
+    [SerializeField] private ItemUI.ItemIconSet[] skillSlotSet = new ItemUI.ItemIconSet[5];
+    [SerializeField] private RectTransform skillSlots;
+    public Vector2[] skillIconPosition = new Vector2[5];
+    private float skillIconSIze;
+    [SerializeField]private Animator SkillBarAnim;
     //0체력,1공격력,2공속,3치확,4치뎀
-
     private void Awake()
     {
         Managers.UI.hpbar = PlrHPBar;
         Managers.GameManager.OnIconChange += infoStatUpdate;
-        deleteItemAreaXPoint = skillSlots.position.x+skillSlots.sizeDelta.x;
         Vector2 tempVec;
         for (byte i = 0; i < skillSlots.GetChild(0).childCount; i++)
         {
             Debug.Log("여기 다시짜야됨");
-            artifactInvenSet[i].IconIMG = skillSlots.GetChild(0).GetChild(i).GetComponent<Image>();
+            artifactInvenSet[i].IconIMG = skillSlots.GetChild(0).GetChild(i).GetChild(0).GetComponent<Image>();
             Debug.Log(artifactInvenSet[i].IconIMG.gameObject.name);
             tempVec = new Vector2(artifactInvenSet[i].IconIMG.rectTransform.position.x, artifactInvenSet[i].IconIMG.rectTransform.position.y);
-            artifactInvenSet[i].IconIMG = skillSlots.GetChild(0).GetChild(i).GetComponent<Image>();
-            artifactInvenSet[i].AmountText = skillSlots.GetChild(0).GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>();
+            artifactInvenSet[i].AmountText = artifactInvenSet[i].IconIMG.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
             artifactIconPosition[i] = tempVec;
         }
         for (byte i = 0; i < skillSlots.GetChild(1).childCount; i++)
         {
-            weaponInvenIMGs[i] = skillSlots.GetChild(1).GetChild(i).GetComponent<Image>();
+            skillSlotSet[i].IconIMG = skillSlots.GetChild(1).GetChild(i).GetChild(0).GetComponent<Image>();
+            skillSlotSet[i].AmountText = skillSlots.GetChild(1).GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>();
+            tempVec = new Vector2(skillSlotSet[i].IconIMG.rectTransform.position.x, skillSlotSet[i].IconIMG.rectTransform.position.y);
+            skillIconPosition[i] = tempVec;
+        }
+        for (byte i = 0; i < Inventory.GetChild(0).childCount; i++)
+        {
+            weaponInvenIMGs[i] = Inventory.GetChild(0).GetChild(i).GetComponent<Image>();
             tempVec = new Vector2(weaponInvenIMGs[i].rectTransform.position.x, weaponInvenIMGs[i].rectTransform.position.y);
             weaponIconPosition[i] = tempVec;
         }
         artifactIconSize = artifactInvenSet[0].IconIMG.rectTransform.sizeDelta.x / 2;
         weaponIconSize = weaponInvenIMGs[0].rectTransform.sizeDelta.x / 2;
-
+        skillIconSIze = skillSlotSet[0].IconIMG.rectTransform.sizeDelta.x / 2;
         Managers.UI.artifactSet = artifactInvenSet;
-
+        Managers.UI.skillIconSet = skillSlotSet;
         Managers.UI.weaponSlotIMG = weaponInvenIMGs;
         playerTR = GameObject.Find("PlayerController").transform;
     }
@@ -70,15 +81,19 @@ public class UIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            UIOpenAndClose(skillSlots);
+            UIOpenAndClose(Inventory);
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        else if (Input.GetKeyDown(KeyCode.O))
         {
             UIOpenAndClose(charactorInfo);
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Managers.UI.popUI(escMenu);
+        }
+        else if(Input.GetKeyDown(KeyCode.C))
+        {
+            SkillBarAnim.SetTrigger("uiTrigger");
         }
         //플레이버 텍스트 출력은 마우스 위치를 받고 유물 순서를 대입받아 hashSet그리드로 하면 될듯? 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -91,34 +106,41 @@ public class UIController : MonoBehaviour
                 {
                     UIOpenAndClose(flavorTextPanel);
                     flavorText.text = Managers.GameManager.playerArtifacts[tempby].data.flavortext;
-                    flavorTextPanel.anchoredPosition = Input.mousePosition;
+                    flavorTextPanel.localPosition = Input.mousePosition-Inventory.transform.position;
                     Debug.Log(tempby);
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0))
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && Inventory.gameObject.activeSelf)
         {
-            tempby = GetIMGPosition(weaponIconPosition, weaponIconSize);
-            if (tempby == 255)
+
+            /*            if (tempby == 255)
+                        {
+                            tempby = GetIMGPosition(artifactIconPosition, artifactIconSize);
+                            if (tempby <= (byte)artifactIconPosition.Length)
+                            {
+                                dragState = DraggingState.artifact;
+                                drag.array = tempby;
+                                drag.originPos = artifactInvenSet[tempby].IconIMG.rectTransform.position;
+                                drag.targetTR = artifactInvenSet[tempby].IconIMG.rectTransform;
+                            }
+                        }*/
+            if (tempby <= (byte)weaponIconPosition.Length && IsMouseOnWhichTarget(weaponIconPosition, weaponIconSize))
             {
-                tempby = GetIMGPosition(artifactIconPosition, artifactIconSize);
-                if (tempby <= (byte)artifactIconPosition.Length)
-                {
-                    dragState = DraggingState.artifact;
-                    drag.array = tempby;
-                    drag.originPos = artifactInvenSet[tempby].IconIMG.rectTransform.position;
-                    drag.targetTR = artifactInvenSet[tempby].IconIMG.rectTransform;
-                }
+                tempby = GetIMGPosition(weaponIconPosition, weaponIconSize);
+                dragState = DraggingState.weapon;
+                drag.array = tempby;
+                drag.originPos = weaponInvenIMGs[tempby].rectTransform.position;
+                drag.targetTR = weaponInvenIMGs[tempby].rectTransform;
             }
-            else
+            else if (!SkillBarAnim.GetCurrentAnimatorStateInfo(0).IsName("ActiveSkillBarFalse")&&IsMouseOnWhichTarget(skillIconPosition,skillIconSIze))
             {
-                if (tempby <= (byte)weaponIconPosition.Length)
-                {
-                    dragState = DraggingState.weapon;
-                    drag.array = tempby;
-                    drag.originPos = weaponInvenIMGs[tempby].rectTransform.position;
-                    drag.targetTR = weaponInvenIMGs[tempby].rectTransform;
-                }
+                Debug.Log("스킬 누름");
+                tempby = GetIMGPosition(skillIconPosition, skillIconSIze);
+                dragState = DraggingState.skills;
+                drag.array = tempby;
+                drag.originPos = skillSlotSet[tempby].IconIMG.rectTransform.position;
+                drag.targetTR = skillSlotSet[tempby].IconIMG.rectTransform;
             }
         }
         else if (Input.GetKey(KeyCode.Mouse0) && drag.targetTR != null)
@@ -128,18 +150,18 @@ public class UIController : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse0)&&drag.targetTR != null)
         {
             byte clickEndPoint;
-            if (deleteItemAreaXPoint >= Input.mousePosition.x)
+            if (GetIMGPosition(weaponIconPosition, weaponIconSize) !=255/*|| GetIMGPosition(artifactIconPosition, artifactIconSize) != 255*/)
             {
-                if (dragState == DraggingState.artifact)
+/*                if (dragState == DraggingState.artifact)
                 {
-/*                    clickEndPoint = GetIMGPosition(artifactIconPosition, artifactIconSize);
+*//*                    clickEndPoint = GetIMGPosition(artifactIconPosition, artifactIconSize);
                     if (clickEndPoint != 255&& clickEndPoint != tempby)
                     {
                         Managers.GameManager.BothChageArtifact(Managers.GameManager.playerArtifacts[drag.array].data.itemnum, drag.array,
                                         Managers.GameManager.playerArtifacts[clickEndPoint].data.itemnum, clickEndPoint);
-                    }*/
-                }
-                else if (dragState == DraggingState.weapon)
+                    }*//*
+                }*/
+                if (dragState == DraggingState.weapon)
                 {
                     clickEndPoint = GetIMGPosition(weaponIconPosition, weaponIconSize);
                     if (clickEndPoint != tempby && clickEndPoint != 255)
@@ -148,18 +170,31 @@ public class UIController : MonoBehaviour
                     }
                 }
             }
-            else if(deleteItemAreaXPoint<Input.mousePosition.x)
+            else if(GetIMGPosition(weaponIconPosition, weaponIconSize) !=255)
             {
-                if (dragState == DraggingState.artifact)
+/*                if (dragState == DraggingState.artifact)
                 {
                     Managers.GameManager.ArtifactWaste(tempby, playerTR.position);
-                }
-                else if (dragState == DraggingState.weapon)
+                }*/
+                if (dragState == DraggingState.weapon)
                 {
                     if (Managers.GameManager.playerWeapons[tempby].stat.weaponIndex !=254)
                     {
                         Managers.GameManager.playerWeapons[tempby].ResetGunSlot(playerTR.position);
 
+                    }
+                }
+            }
+            else if (IsMouseOnWhichTarget(skillIconPosition,skillIconSIze))
+            {
+                if (dragState == DraggingState.skills)
+                {
+                    clickEndPoint = GetIMGPosition(skillIconPosition, skillIconSIze);
+                    Debug.Log("스킬 이동");
+                    if (clickEndPoint != tempby && clickEndPoint != 255)
+                    {
+                        Debug.Log("스킬 이동");
+                        Managers.GameManager.ChangeSkillArray(tempby, clickEndPoint);
                     }
                 }
             }
@@ -172,6 +207,7 @@ public class UIController : MonoBehaviour
                 drag.originPos = default;
             }
         }
+
     }
     public void OnClickExitBTN()
     {
@@ -211,6 +247,28 @@ public class UIController : MonoBehaviour
             }
         }
         return i;
+    }
+    private bool IsMouseOnWhichTarget(Vector2[] targetArray, float iconSize)
+    {
+        float distance;
+        byte i = 0;
+        for (i = 0; i <= targetArray.Length + 1; i++)
+        {
+            if (targetArray.Length > i)
+            {
+                distance = Vector2.Distance(targetArray[i], Input.mousePosition);
+                if (distance < iconSize)
+                {
+                    return true;
+                }
+            }
+            else if (targetArray.Length + 1 == i)
+            {
+                i = 255;
+                return false;
+            }
+        }
+        return false;
     }
     private void UIOpenAndClose(Transform target)
     {

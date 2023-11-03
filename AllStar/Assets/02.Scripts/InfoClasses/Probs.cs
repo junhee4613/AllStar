@@ -89,7 +89,7 @@ public enum ShotType
 }
 public enum DraggingState
 {
-    none, weapon, artifact
+    none, weapon/*, artifact*/,skills
 }
 
 namespace PlayerSkills

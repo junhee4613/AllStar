@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
-using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
 using GeneralFSM;
 using PlayerSkills.Skills;
 using PlayerSkills.SkillProbs;
+using UnityEngine.UI;
 
 public class PlayerControler : MonoBehaviour
 {
+    private bool isLoaddineDone = false;
     [Header("컨트롤 부속")]
     public Rigidbody rb;
     public Vector2 playerDir;
@@ -33,13 +34,17 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image[] coolTimeIMG;//0공격,1회피,2345 스킬 각 qerv
 
     [Header("스킬")]
-    [SerializeField] public SkillBase SkillTest = new SkillBase();
-    [SerializeField]ItemUI.ItemIconSet[] skillIcons = new ItemUI.ItemIconSet[6];
+    [SerializeField] private Image[] skillCoolIcons = new Image[5];
+    public SkillBase[] skills;
+    public float[] skillCoolTimes = new float[5];
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerWeapons = Managers.GameManager.playerWeapons;
         ownArtifacts = Managers.GameManager.playerArtifacts;
+        skills = Managers.GameManager.playerSkills;
+        Managers.GameManager.playerCooltimes = skillCoolTimes;
         Managers.GameManager.BasicPlayerStats(() =>
         {
             for (int i = 0; i < playerWeapons.Length; i++)
@@ -56,11 +61,20 @@ public class PlayerControler : MonoBehaviour
             stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
             stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
             stat.nowState = stat.states["idle"];
+            for (int i = 0; i < skillCoolIcons.Length; i++)
+            {
+                skillCoolIcons[i] = Managers.UI.skillIconSet[i].IconIMG.transform.GetChild(0).GetComponent<Image>();
+            }
+            isLoaddineDone = true;
         });
     }
 
     private void Update()
     {
+        if (!isLoaddineDone)
+        {
+            return; 
+        }
         if (!nonControllable && stat.nowHP > 0)
         {
             playerDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
@@ -93,9 +107,25 @@ public class PlayerControler : MonoBehaviour
                     playerAttackTimer = 0;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Space) && skillCoolTimes[0] >= skills[0].skillInfo.coolTime)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 inputSkill(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                inputSkill(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                inputSkill(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+                inputSkill(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.X))
+            {
+                inputSkill(4);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -132,6 +162,7 @@ public class PlayerControler : MonoBehaviour
         for (int i = 0; i < skillCoolTimes.Length; i++)
         {
             skillCoolTimes[i] += Time.deltaTime;
+            skillCoolIcons[i].fillAmount = 1 - skillCoolTimes[i] / skills[i].skillInfo.coolTime;
         }
         if (playerWeapons[nowWeapon] != null)
         {
@@ -145,17 +176,6 @@ public class PlayerControler : MonoBehaviour
             }
         }
         coolTimeIMG[1].fillAmount = dodgeCooldown / stat.dodgeCooltime;
-
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            Debug.Log(Managers.DataManager.skillTable[0].skillName+ Managers.DataManager.skillTable[0].codeName);
-
-            SkillTest.SkillSetting(Managers.DataManager.skillTable[0]);
-        }        
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            SkillTest.UseSkill();
-        }
     }
     public void GetMousePos()
     {
@@ -252,17 +272,20 @@ public class PlayerControler : MonoBehaviour
                 {
                     SkillItem tempItem;
                     tempItem = target as SkillItem;
-                    SkillBase tempSkill = FindSkillArray(target.itemIndex);
-                    if (tempSkill.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
+                    (SkillBase, byte) tempSkill = FindSkillArray(target.itemIndex);
+
+                    if (tempSkill.Item1.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
                     {
-                        tempSkill.playerTR = transform;
-                        tempItem.UseItem<SkillBase>(ref tempSkill);
+                        tempSkill.Item1.playerTR = transform;
+                        tempItem.UseItem<SkillBase>(ref tempSkill.Item1);
                     }
                     else
                     {
-                        tempItem.UseItemToUpGrade(tempSkill);
+                        tempItem.UseItemToUpGrade(tempSkill.Item1);
                         Debug.Log("여기다가 중복스킬 처리");
                     }
+                    Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName);
+
                 }
 
                 Debug.Log(target);
@@ -283,18 +306,19 @@ public class PlayerControler : MonoBehaviour
         Time?.Invoke();
     }
     #region 스킬관련 함수
-    public SkillBase[] skills = new SkillBase[6];
-    public float[] skillCoolTimes = new float[6];
-    private SkillBase FindSkillArray(int targetItemIndex)
+
+    private (SkillBase, byte) FindSkillArray(int targetItemIndex)
     {
         SkillBase tempSkill = null;
         byte tempNum = 255;
+        byte tempNum2 = 255;
         for (int i = skills.Length - 1; i >= 0; i--)
         {
             if (skills[i] == null)
             {
                 skills[i] = new SkillBase();
             }
+            tempNum2 = (byte)i;
             if (skills[i].skillInfo.codeName == string.Empty)
             {
                 tempNum = (byte)i;
@@ -307,15 +331,15 @@ public class PlayerControler : MonoBehaviour
                 break;
             }
         }
-        if (tempNum !=255)
+        if (tempNum != 255)
         {
             skillCoolTimes[tempNum] = Managers.DataManager.skillTable[targetItemIndex].coolTime;
         }
-        return tempSkill;
+        return (tempSkill, tempNum2);
     }
     public void inputSkill(int tempInt)
     {
-        if (skills[tempInt].DetailTypes != null)
+        if (skills[tempInt].DetailTypes != null&& skillCoolTimes[tempInt] >= skills[tempInt].skillInfo.coolTime)
         {
             skillCoolTimes[tempInt] = 0;
             skills[tempInt].UseSkill();
@@ -323,7 +347,7 @@ public class PlayerControler : MonoBehaviour
     }
     #endregion
     #region fsm 중계기를 만들어서 변수로 참조해와야함
-    public void fsmChanger(BaseState BS,float numberalValue = 0,float duration = 0)
+    public void fsmChanger(BaseState BS, float numberalValue = 0, float duration = 0)
     {
         if (BS != stat.nowState)
         {
@@ -334,7 +358,7 @@ public class PlayerControler : MonoBehaviour
             {
                 nonControllable = true;
                 rb.velocity = Vector3.zero;
-                StartCoroutine(dodgeTimer(numberalValue,duration));
+                StartCoroutine(dodgeTimer(numberalValue, duration));
             }
             else if (BS == stat.states["attack"])
             {
@@ -343,7 +367,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public IEnumerator dodgeTimer(float distance,float duration)
+    public IEnumerator dodgeTimer(float distance, float duration)
     {
         transform.rotation = Quaternion.Euler(0, ((MathF.Atan2(playerDir.y, playerDir.x) * Mathf.Rad2Deg - 90) * -1), 0);
         if (playerDir.x == 0 && playerDir.y == 0)

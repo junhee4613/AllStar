@@ -6,18 +6,40 @@ using UnityEngine.UI;
 public class UIManager
 {
     private Stack<Transform> uiStack = new Stack<Transform>();
-    public ItemUI.ItemIconSet[] artifactSet = new ItemUI.ItemIconSet[20];
-    public Image[] weaponSlotIMG = new Image[3];
+    public ItemUI.ItemIconSet[] artifactSet;
+    public ItemUI.ItemIconSet[] skillIconSet;  
+    public Image[] weaponSlotIMG;
     public Slider hpbar;
     public Slider loadBar;
-    public void ArtifactInventoryImageChanges(byte itemIndex,string codeName)
+
+    public void SetSkillIcons(byte slotArray,string codeName)
     {
         Sprite a = Managers.DataManager.Load<Sprite>(codeName + "_ICON");
 
-        artifactSet[itemIndex].IconIMG.sprite = a;
+        if (a != null )
+        {
+            skillIconSet[slotArray].IconIMG.sprite = a;
+        }
+        else
+        {
+            skillIconSet[slotArray].IconIMG.sprite = Managers.DataManager.Load<Sprite>("BasicSkill_ICON");
+        }
+        if (Managers.GameManager.playerSkills[slotArray].skillInfo.skillLevel != 0)
+        {
+            skillIconSet[slotArray].AmountText.text = Managers.GameManager.playerSkills[slotArray].skillInfo.skillLevel.ToString();
+        }
+        else
+        {
+            skillIconSet[slotArray].AmountText.text = "";
+        }
+
+        Debug.Log("¤·¤·");
+    }
+    public void ArtifactInventoryImageChanges(byte itemIndex,string codeName)
+    {
+        artifactSet[itemIndex].IconIMG.color = Color.white;
         artifactSet[itemIndex].AmountText.text = Managers.GameManager.playerArtifacts[itemIndex].artifactAmount != 0? Managers.GameManager.playerArtifacts[itemIndex].artifactAmount.ToString():"";
 
-        Debug.Log(a);
     }
     public void WeaponInventoryImageChanges(byte arrayNum,string codeName)
     {
