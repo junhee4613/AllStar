@@ -14,14 +14,14 @@ public class DamageText : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        timer += Time.deltaTime*5;
+        timer += Time.deltaTime*3;
         if (timer < 1)
         {
-            text.text = (dmg / timer).ToString();
+            text.text = (dmg / timer).ToString("#");
         }
         else if (timer > 1&&dmg != float.Parse(text.text))
         {
-            text.text = dmg.ToString();
+            text.text = dmg.ToString("#");
         }
     }
     public void ActiveSetting(float damage)

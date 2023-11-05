@@ -244,65 +244,61 @@ public class PlayerControler : MonoBehaviour
     }
 }*/
         itemSencer = Physics.OverlapSphere(transform.position, 1, 256);
-        
-        if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
+
+        if (itemSencer.Length !=0)
         {
-            if (Vector3.Distance(transform.position, target.transform.position) < 0.4)
+            if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
             {
-                interactableItem = target;
-                target.InteractionWindowOpen();
-            }
-            else if (Vector3.Distance(transform.position, target.transform.position) >= 0.4||!interactableItem.gameObject.activeSelf)
-            {
-                Debug.Log("여기 수정필요");
-                target.InteractionWindowClose();
-
-            }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-
-                Debug.Log("빈칸찾음");
-                if (whatIsEmptySlot(target.itemIndex) != 255 && target.type == ItemTypeEnum.weapon)
+                if (Vector3.Distance(transform.position, target.transform.position) < 0.4 && (interactableItem == null || interactableItem.gameObject.activeSelf))
                 {
-                    Debug.Log("총먹음");
-                    target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
-                    Debug.Log(target);
-                    return false;
+                    interactableItem = target;
+                    target.InteractionWindowOpen();
                 }
-                else if (target.type == ItemTypeEnum.artifacts)
+                else if (interactableItem != null && Vector3.Distance(transform.position, interactableItem.transform.position) >= 0.4)
                 {
-                    foreach (var item in ownArtifacts)
+                    Debug.Log("여기 수정필요");
+                    interactableItem.InteractionWindowClose();
+                    interactableItem = null;
+                }
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+
+                    Debug.Log("빈칸찾음");
+                    if (whatIsEmptySlot(target.itemIndex) != 255 && target.type == ItemTypeEnum.weapon)
                     {
-                        if (item.data.itemnum == 254)
+                        Debug.Log("총먹음");
+                        target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
+                        Debug.Log(target);
+                        return false;
+                    }
+                    else if (target.type == ItemTypeEnum.artifacts)
+                    {
+                        Managers.GameManager.ArtifactEquipOnly(target.itemIndex);
+                        target.OBJPushOnly();
+                    }
+                    else if (target.type == ItemTypeEnum.skill)
+                    {
+                        SkillItem tempItem;
+                        tempItem = target as SkillItem;
+                        (SkillBase, byte) tempSkill = FindSkillArray(target.itemIndex);
+
+                        if (tempSkill.Item1.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
                         {
-                            Managers.GameManager.ArtifactEquipOnly(target.itemIndex);
-                            target.OBJPushOnly();
-                            break;
+                            tempSkill.Item1.playerTR = transform;
+                            tempItem.UseItem<SkillBase>(ref tempSkill.Item1);
                         }
+                        else
+                        {
+                            tempItem.UseItemToUpGrade(tempSkill.Item1);
+                            Debug.Log("여기다가 중복스킬 처리");
+                        }
+                        Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName);
+
                     }
+
+                    Debug.Log(target);
+                    return true;
                 }
-                else if (target.type == ItemTypeEnum.skill)
-                {
-                    SkillItem tempItem;
-                    tempItem = target as SkillItem;
-                    (SkillBase, byte) tempSkill = FindSkillArray(target.itemIndex);
-
-                    if (tempSkill.Item1.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
-                    {
-                        tempSkill.Item1.playerTR = transform;
-                        tempItem.UseItem<SkillBase>(ref tempSkill.Item1);
-                    }
-                    else
-                    {
-                        tempItem.UseItemToUpGrade(tempSkill.Item1);
-                        Debug.Log("여기다가 중복스킬 처리");
-                    }
-                    Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName);
-
-                }
-
-                Debug.Log(target);
-                return true;
             }
         }
 

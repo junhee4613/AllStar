@@ -140,7 +140,7 @@ public class GameManager
         if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.explosion)
         {
             target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance,ref target.isCritical), 
-                playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance, ref target.isCritical));
+                playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance, ref target.isExplosionCritical));
         }
         else if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.basicBullet)
         {

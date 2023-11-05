@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float totalExplosionRange;
     [SerializeField]private LayerMask hitLayer = 64;
     public bool isCritical = false;
+    public bool isExplosionCritical = false;
     private void OnEnable()
     {
         Bullet tempThisCompo = this;
@@ -66,7 +67,7 @@ public class Bullet : MonoBehaviour
                 for (int i = 0; i < hitMonsters.Length; i++)
                 {
                     randomValue = hitMonsters[i].transform.position + (Random.Range(-1f, 2f) * (Vector3.right + Vector3.forward));
-                    if (isCritical)
+                    if (isExplosionCritical)
                     {
                         txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
                     }
@@ -75,7 +76,7 @@ public class Bullet : MonoBehaviour
                         txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
                     }
                     txtTR.position = randomValue;
-                    txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(bulletTotalDMG);
+                    txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(totalExplosionDMG);
                     Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
                 }
             }

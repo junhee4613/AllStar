@@ -22,6 +22,7 @@ public abstract class IItemBase : MonoBehaviour
     }
     public void OBJPushOnly()
     {
+        InteractionWindowClose();
         Managers.Pool.Push(this.gameObject);
     }
     public void InteractionWindowOpen()
@@ -31,18 +32,11 @@ public abstract class IItemBase : MonoBehaviour
             pressText = Managers.Pool.UIPop(Managers.DataManager.Datas["PressFKey"] as GameObject).transform;
             pressText.position = transform.position + Vector3.up;
         }
-        else
-        {
-
-        }
     }
     public void InteractionWindowClose()
     {
-        if (pressText == null)
-        {
 
-        }
-        else
+        if(pressText != null)
         {
             Managers.Pool.UIPush(pressText.gameObject);
             pressText = null;

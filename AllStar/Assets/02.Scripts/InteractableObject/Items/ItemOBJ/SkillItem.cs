@@ -19,7 +19,7 @@ public class SkillItem : IItemBase
         PlayerSkills.Skills.SkillBase tempSkillbase;
         tempSkillbase = t as PlayerSkills.Skills.SkillBase;
         tempSkillbase.SkillSetting(Managers.DataManager.skillTable[itemIndex]);
-        Managers.Pool.Push(this.gameObject);
+        OBJPushOnly();
     }
     public void UseItemToUpGrade(PlayerSkills.Skills.SkillBase tempSkill)
     {
