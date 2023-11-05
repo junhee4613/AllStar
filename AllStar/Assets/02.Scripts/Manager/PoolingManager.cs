@@ -3,13 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-class Pool
+class PoolTRBase
 {
-    GameObject _prefabs;
-    IObjectPool<GameObject> _pool;
-
-    Transform _root;
-    Transform Root
+    public GameObject _prefabs;
+}
+class PoolRectTR : PoolTRBase
+{
+    public RectTransform _root;
+    public RectTransform root
+    {
+        get
+        {
+            if (_root == null)
+            {
+                GameObject go = new GameObject() { name = $"@{_prefabs.name}Pool" };
+                RectTransform TempTR = go.AddComponent<RectTransform>();
+                _root = TempTR;
+            }
+            return _root;
+        }
+    }
+}
+class PoolTR : PoolTRBase
+{
+    public Transform _root;
+    public Transform root
     {
         get
         {
@@ -21,21 +39,32 @@ class Pool
             return _root;
         }
     }
+}
+class Pool
+{
+    IObjectPool<GameObject> _pool;
+    PoolTRBase poolSet;
     public Pool(GameObject prefab,PoolType poolType = PoolType.OBJ)
     {
-        _prefabs = prefab;
         switch (poolType)
         {
             case PoolType.UI:
+                poolSet = new PoolRectTR();
+                poolSet._prefabs = prefab;
                 _pool = new ObjectPool<GameObject>(OnUICreate, OnGet, OnRelease, OnDestroy);
                 break;
             case PoolType.Mob:
+                poolSet = new PoolTR();
+                poolSet._prefabs = prefab;
                 _pool = new ObjectPool<GameObject>(OnMobCreate, OnGet, OnRelease, OnDestroy);
                 break;
             case PoolType.OBJ:
+                poolSet = new PoolTR();
+                poolSet._prefabs = prefab;
                 _pool = new ObjectPool<GameObject>(OnCreate, OnGet, OnRelease, OnDestroy);
                 break;
         }
+
     }    
     public void Push(GameObject go)
     {
@@ -50,31 +79,40 @@ class Pool
     }
     GameObject OnCreate()
     {
-        GameObject go = GameObject.Instantiate(_prefabs);
-        go.transform.SetParent(Root);
-        go.name = _prefabs.name;
+        PoolTR tempSet = poolSet as PoolTR;
+        GameObject go = GameObject.Instantiate(poolSet._prefabs);
+        go.transform.SetParent(tempSet.root);
+        go.name = poolSet._prefabs.name;
         return go;
     }
     GameObject OnUICreate()
     {
-
-        if (Root.transform.childCount == 0)
+        PoolRectTR tempSet = poolSet as PoolRectTR;
+        if (Managers.Pool.UIPoolCanvas == null)
         {
-            GameObject tempCanvas = new GameObject() {name = "Canvas" };
-            tempCanvas.transform.SetParent(Root);
+            GameObject tempCanvas = new GameObject() { name = "TempUICanvas" };
+            RectTransform tempRectCanvas = tempCanvas.AddComponent<RectTransform>();
             Canvas tempCanvasComp = tempCanvas.AddComponent<Canvas>();
+
+            tempSet.root.SetParent(tempRectCanvas);
+
             tempCanvasComp.renderMode = RenderMode.WorldSpace;
+            Managers.Pool.UIPoolCanvas = tempRectCanvas;
         }
-        Transform tempTR = Root.GetChild(0);
-        GameObject go = GameObject.Instantiate(_prefabs);
-        go.transform.SetParent(tempTR);
-        go.name = _prefabs.name;
+        else
+        {
+            tempSet.root.SetParent(Managers.Pool.UIPoolCanvas);
+        }
+        GameObject go = GameObject.Instantiate(poolSet._prefabs);
+        go.transform.SetParent(tempSet.root);
+        go.name = poolSet._prefabs.name;
         return go;
     }
     GameObject OnMobCreate()
     {
-        GameObject go = GameObject.Instantiate(_prefabs);
-        go.transform.SetParent(Root);
+        PoolTR tempSet = poolSet as PoolTR;
+        GameObject go = GameObject.Instantiate(poolSet._prefabs);
+        go.transform.SetParent(tempSet.root);
         return go;
     }
     void OnGet(GameObject go)
@@ -93,7 +131,7 @@ class Pool
 public class PoolingManager
 {
     Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();
-
+    public RectTransform UIPoolCanvas;
     public bool IsObjectInPool(string Name)
     {
         if (_pools.ContainsKey(Name))

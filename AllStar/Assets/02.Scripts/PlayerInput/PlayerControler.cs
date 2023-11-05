@@ -221,31 +221,44 @@ public class PlayerControler : MonoBehaviour
         }
         return 255;
     }
+    IItemBase interactableItem;
     public bool PlayerGetItem()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        /*if (physicsPlus.IsChangedInArray(itemSencer, transform.position, 2, 8))
+{
+    Debug.Log("∫Ø∞Ê¿÷¿Ω");
+    itemSencer = Physics.OverlapSphere(transform.position, 2, 256);
+    if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
+    {
+        Debug.Log("∫Ûƒ≠√£¿Ω");
+        if (whatIsEmptySlot(target.itemIndex) != 255)
         {
-            /*if (physicsPlus.IsChangedInArray(itemSencer, transform.position, 2, 8))
-            {
-                Debug.Log("∫Ø∞Ê¿÷¿Ω");
-                itemSencer = Physics.OverlapSphere(transform.position, 2, 256);
-                if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
-                {
-                    Debug.Log("∫Ûƒ≠√£¿Ω");
-                    if (whatIsEmptySlot(target.itemIndex) != 255)
-                    {
-                        Debug.Log("√—∏‘¿Ω");
-                        target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
-                        Debug.Log(target);
-                        return false;
-                    }
+            Debug.Log("√—∏‘¿Ω");
+            target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
+            Debug.Log(target);
+            return false;
+        }
 
-                    Debug.Log(target);
-                    return true;
-                }
-            }*/
-            itemSencer = Physics.OverlapSphere(transform.position, 2, 256);
-            if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
+        Debug.Log(target);
+        return true;
+    }
+}*/
+        itemSencer = Physics.OverlapSphere(transform.position, 1, 256);
+        
+        if (physicsPlus.SearchTheComponent(itemSencer, out IItemBase target, "Item"))
+        {
+            if (Vector3.Distance(transform.position, target.transform.position) < 0.4)
+            {
+                interactableItem = target;
+                target.InteractionWindowOpen();
+            }
+            else if (Vector3.Distance(transform.position, target.transform.position) >= 0.4||!interactableItem.gameObject.activeSelf)
+            {
+                Debug.Log("ø©±‚ ºˆ¡§« ø‰");
+                target.InteractionWindowClose();
+
+            }
+            if (Input.GetKeyDown(KeyCode.F))
             {
 
                 Debug.Log("∫Ûƒ≠√£¿Ω");
@@ -292,6 +305,7 @@ public class PlayerControler : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
     public void functionTest()

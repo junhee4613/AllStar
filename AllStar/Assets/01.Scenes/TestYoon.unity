@@ -57726,7 +57726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af78a06471318b4e986b849e8d91dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraDistance: 3
+  cameraDistance: 6.4
   target: {fileID: 1767848175}
 --- !u!1 &939870108
 GameObject:
@@ -118041,7 +118041,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004035891}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.60399806, y: 0.8448449, z: 3.987107}
+  m_LocalPosition: {x: -10.3, y: 0.8448449, z: 11.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124434,6 +124434,7 @@ MonoBehaviour:
         flavorText: 
         skillType: 0
       playerTR: {fileID: 0}
+    playerCooltimes: []
     playerArtifacts:
     - data:
         itemnum: 0

@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         if (Physics.SphereCast(transform.position , 0.08f, transform.forward, out RaycastHit hit, 0.5f, hitLayer))
         {
-            Vector3 randomValue = hit.transform.position + (Random.Range(-0.5f, 0.6f) * (Vector3.right + Vector3.forward));
+            Vector3 randomValue = Random.Range(-0.5f, 0.6f) * (Vector3.right + Vector3.forward);
             
             RectTransform txtTR;
             if (hit.transform.gameObject.layer == 6)
@@ -42,8 +42,8 @@ public class Bullet : MonoBehaviour
                     {
                         txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
                     }
-                    txtTR.position = randomValue;
-                    txtTR.GetChild(0).GetComponent<DamageText>().text.text = bulletTotalDMG.ToString();
+                    txtTR.position = randomValue+hit.transform.position+Vector3.up;
+                    txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(bulletTotalDMG);
                     Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
                     targetHitParticle.gameObject.SetActive(true);
                     meshtr.gameObject.SetActive(false);
@@ -75,7 +75,7 @@ public class Bullet : MonoBehaviour
                         txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
                     }
                     txtTR.position = randomValue;
-                    txtTR.GetChild(0).GetComponent<DamageText>().text.text = totalExplosionDMG.ToString();
+                    txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(bulletTotalDMG);
                     Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
                 }
             }
