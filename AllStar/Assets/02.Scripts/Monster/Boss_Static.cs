@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class Boss_Static : MonoBehaviour
 {
-    public bool pattern_Start_bool = true;              //패턴이 시작하기 위한 불값
+    [Header("처음에 true여야 패턴 시작")]
+    public bool action_start = true;              //패턴이 시작하기 위한 불값
     //pattern_loop는 나중에 없애는 값
-    public bool pattern_loop;
-    public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
-    public int randomNum;
-    public Boss_Simple_Pattern simple_pattern;
-    private Boss_Hard_Pattern hard_pattern;
-    public bool barrage_start = false;
+    [Header("패턴 모션 끝난 후 쉬는 시간")]
     public float standby_time;
-    public float[] standby_time_standard = new float[2] {1f, 2f};
     public GameObject player;
-    public GameObject[] barrage_patterns;
+    public GameObject[] simple_barrage_patterns;
+    public GameObject[] hard_barrage_patterns;
     public Status state;
     public float rotateSpeed;
     [Header("현재 hp")]
@@ -23,57 +19,98 @@ public class Boss_Static : MonoBehaviour
     public float non_hit_time;
     [Header("안맞아서 힐패턴 나오는 시간 기준")]
     public float heal_pattern_start_time;
+    [Header("true여야 힐패턴 시작")]
     public bool heal_pattern_start;
-    [Header("힐량")]
+    [Header("힐량 = 초당 피의 ?퍼센트 ")]
     public float heal_quantity;
+    [Header("패턴 끝난 후 쉬는 시간들")]
+    public float[] standby_time_standard = new float[2] { 1f, 2f };
+
+    /*[Header("특정 패턴을 보기위한 테스트용 불값")]
+    public bool test = true;*/
+
+    //아래는 나중에 private로 변경
+    bool pattern_loop;
+    public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
+    public int randomNum;
+    Boss_Hard_Pattern hard_pattern;
+    public Boss_Simple_Pattern simple_pattern;
+    bool barrage_start = false;
+    
+
 
     // Start is called before the first frame update
     private void Awake()
     {
+
+        state.states.SetBossFSMDefault(ref state.animator, this.gameObject);
+        Debug.Log(state.states.Count);
+        Debug.Log(state.animator);
         player = GameObject.FindGameObjectWithTag("Player");
-        barrage_patterns = GameObject.FindGameObjectsWithTag("Barrage");
+        
     }
     private void Start()
     {                                   //this는 현재 클래스를 나타냄
-
+        fsmChanger(state.states["idle"]);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (current_hp == state.nowHP)
+        if (state.nowHP >= state.maxHP / 100 * 35 && !heal_pattern_start)
         {
-            if(!heal_pattern_start)
+            if (current_hp == state.nowHP)//현재 hp가 변동이 없을 경우
+            {
                 non_hit_time += Time.deltaTime;
+            }
+            else
+            {
+                current_hp = state.nowHP;
+                non_hit_time = 0;
+            }
+            //
+            if (non_hit_time >= heal_pattern_start_time)
+            {
+                Debug.Log("힐패턴 허용");
+                heal_pattern_start = true;
+            }
         }
         else
         {
-            current_hp = state.nowHP;
+            //heal_pattern_start = false;
         }
 
-        if (pattern_Start_bool)
+
+
+        if (action_start)
         {
-            if (standby_time_standard[Random.Range(0, 1)] < standby_time)
+            Debug.Log("움직임 시작");
+            if (Pattern_Start())
+            {
                 Pattern();
+                Debug.Log("패턴 시작");
+            }
             else
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
         }
         else
         {
+            
             standby_time += Time.deltaTime;
         }
     }
+    
     public void Pattern()       //코루틴으로 하지말고 시간 체크해서 
     {
-        pattern_Start_bool = false;
+        action_start = false;
         pattern_loop = true;
-
+        Debug.Log("움직임 false");
         //나중에 패턴에 하드모드로 변하는 모습을 넣어야되는데 어떻게 처리할지 고민중
         if (state.nowHP < state.maxHP / 10 * 3.5)
         {
-            randomNum = Random.Range(0, 3);             
-            motion_Type = $"Hard_Pattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
-            hard_pattern = (Boss_Hard_Pattern)randomNum;
+            randomNum = Random.Range(1, 4);             
+            motion_Type = $"Hard_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
+            hard_pattern = (Boss_Hard_Pattern)randomNum - 1;
             switch (hard_pattern)             
             {
                 case Boss_Hard_Pattern.BARRAGE1: 
@@ -94,12 +131,23 @@ public class Boss_Static : MonoBehaviour
         }
         else
         {
-            randomNum = Random.Range(0, 4);             //나중에 5로 늘려야됨
-            motion_Type = $"Simple_Pattern{randomNum + 1}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
-            simple_pattern = (Boss_Simple_Pattern)randomNum;
-            switch (simple_pattern)             //여긴 공격패턴(근접 공격 외에)
+            if (heal_pattern_start)
             {
-                case Boss_Simple_Pattern.BARRAGE1: //가만히 있기
+                Debug.Log("힐");
+                randomNum = 6;                  //힐패턴이 6번이기 때문
+
+            }
+            else
+            {
+                Debug.Log("힐 아님");
+                randomNum = 6;                  //힐패턴이 6번이기 때문
+                //randomNum = Random.Range(1, 5);             //나중에 5로 늘려야됨
+            }
+            motion_Type = $"Simple_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
+            simple_pattern = (Boss_Simple_Pattern)randomNum - 1;
+            switch (simple_pattern)             
+            {
+                case Boss_Simple_Pattern.BARRAGE1:
                     StartCoroutine(motion_Type);
                     break;
                 case Boss_Simple_Pattern.BARRAGE2:
@@ -115,6 +163,7 @@ public class Boss_Static : MonoBehaviour
                     StartCoroutine(motion_Type);
                     break;
                 case Boss_Simple_Pattern.HEAL:
+                    Debug.Log("코루틴");
                     StartCoroutine(motion_Type);
                     break;
                 default:
@@ -128,184 +177,180 @@ public class Boss_Static : MonoBehaviour
     {
         if (BS != state.nowState)
         {
-            state.nowState.OnStateExit();
+            if(state.nowState != null)
+            {
+                state.nowState.OnStateExit();
+            }
             state.nowState = BS;
             state.nowState.OnStateEnter();
         }
     }
+    
     #region 보스 패턴 HP35퍼 초과일 때
-    IEnumerator Simple_Pattern1()              //탄막패턴
+    IEnumerator Simple_Pattern1()               //탄막패턴   
     {
 
-        if (state.states.ContainsKey("pattern1") && state.nowState != state.states["pattern1"])
-        {
-            //fsmChanger(monsterStatus.states["pattern1"]);
-        }
+        
         while (pattern_loop)
         {
             Debug.Log("패턴1");
-            Pattern_Stop();
+            Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Simple_Pattern2()              //탄막패턴
     {
-        if (state.states.ContainsKey("pattern2") && state.nowState != state.states["pattern2"])
-        {
-            //fsmChanger(monsterStatus.states["pattern2"]);
-        }
+        
         while (pattern_loop)
         {
             Debug.Log("패턴2");
 
-            Pattern_Stop();
+            Pattern_Stop(simple_barrage_patterns);
         }
         Debug.Log("여기");
         yield return null;
 
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Simple_Pattern3()              //탄막패턴
     {
         while (pattern_loop)
         {
             Debug.Log("패턴3");
-            Pattern_Stop();
+            Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
 
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Simple_Pattern4()              //레이저 짧게 한번 쏘는 패턴 이때는 따라가는 레이저보다 더 빠르게 쏨
     {
-        AttackAnimator_Run();
         while (pattern_loop)
         {
             Debug.Log("패턴4");
-            Pattern_Stop();
+            Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Simple_Pattern5()              //레이저 쏘면서 플레이어를 천천히 쳐다보는 패턴
     {
-        AttackAnimator_Run();
         while (pattern_loop)
         {
             Debug.Log("패턴5");
-            Pattern_Stop();
+            Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Simple_Pattern6()      //힐패턴
     {
-        heal_pattern_start = true;
+        Debug.Log("도착");
         non_hit_time = 0;
-        fsmChanger(state.states["heal"]);
-        while (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+        fsmChanger(state.states["simple_pattern6"]);
+        yield return null;
+        while (heal_pattern_start)
         {
-            state.nowHP += Time.deltaTime * heal_quantity;
+            Debug.Log(state.nowState);
+            if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                Debug.Log("도착");
+                if (state.nowState == state.states["simple_pattern6"])
+                {
+                    fsmChanger(state.states["heal_idle"]);
+                    
+                }
+                else //나중에 여기를 시간으로 체크해서 루틴을 돌게 해야됨
+                {
+                    Debug.Log("힐 멈춤");
+                    heal_pattern_start = false;
+                }
+            }
+            else
+            {
+                state.nowHP += Time.deltaTime * state.maxHP / 100 * heal_quantity;
+            }
             yield return null;
         }
-        heal_pattern_start = false;
-        pattern_Start_bool = true;
+        fsmChanger(state.states["idle"]);
+        action_start = true;
     }
     
-    public void AttackAnimator_Run()
-    {
-        if (state.states.ContainsKey("attack") && state.nowState != state.states["attack"])
-        {
-            //fsmChanger(monsterStatus.states["attack"]);
-        }
-    }
     #endregion
     #region 보스 패턴 HP35퍼 이하일 때
     IEnumerator Hard_Pattern1()              //탄막패턴
     {
 
-        if (state.states.ContainsKey("pattern1") && state.nowState != state.states["pattern1"])
-        {
-            //fsmChanger(monsterStatus.states["pattern1"]);
-        }
+        
         while (pattern_loop)
         {
             Debug.Log("패턴1");
-            Pattern_Stop();
+            Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Hard_Pattern2()              //공격패턴
     {
-        if (state.states.ContainsKey("pattern2") && state.nowState != state.states["pattern2"])
-        {
-            //fsmChanger(monsterStatus.states["pattern2"]);
-        }
+        
         while (pattern_loop)
         {
             Debug.Log("패턴2");
 
-            Pattern_Stop();
+            Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Hard_Pattern3()              //공격패턴
     {
-        if (state.states.ContainsKey("pattern3") && state.nowState != state.states["pattern3"])
-        {
-            //fsmChanger(monsterStatus.states["pattern3"]);
-        }
+        
         while (pattern_loop)
         {
             Debug.Log("패턴3");
-            Pattern_Stop();
+            Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
 
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Hard_Pattern4()              //가만히 패턴
     {
-        AttackAnimator_Run();
         while (pattern_loop)
         {
             Debug.Log("패턴4");
-            Pattern_Stop();
+            Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Hard_Pattern5()              //움직이는 패턴
     {
-        AttackAnimator_Run();
         while (pattern_loop)
         {
             Debug.Log("패턴5");
-            Pattern_Stop();
+            Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     IEnumerator Hard_Pattern6()      //가만히 패턴
     {
-        AttackAnimator_Run();
         while (pattern_loop)
         {
             Debug.Log("패턴6");
-            Pattern_Stop();
+            Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
-        pattern_Start_bool = true;
+        action_start = true;
     }
     #endregion
-    public void Pattern_Stop()
+    public void Pattern_Stop(GameObject[] temp)
     {
         if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-            foreach (var item in barrage_patterns)
+            foreach (var item in temp)
             {
                 item.SetActive(false);
             }
@@ -317,5 +362,16 @@ public class Boss_Static : MonoBehaviour
     {
         float target = Mathf.Atan2(transform.position.z - hit.transform.position.z, hit.transform.position.x - transform.position.x) * Mathf.Rad2Deg + 90;
         return target;
+    }
+    public bool Pattern_Start()
+    {       //현재 대기 시간의 기준을 경과했거나 idle상태에 애니메이션이 완전히 끝났을 경우
+        if (standby_time_standard[Random.Range(0, standby_time_standard.Length - 1)] < standby_time
+            && state.nowState == state.states["idle"] && state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            return true;
+        else
+        {
+            return false;
+        }
+
     }
 }

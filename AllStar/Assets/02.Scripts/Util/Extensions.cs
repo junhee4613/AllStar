@@ -53,4 +53,30 @@ public static class FSMExtension
         dict.Add("walk", new MonsterFSM.Walk());
 
     }
+    public static void SetBossFSMDefault(this Dictionary<string, BaseState> dict, ref Animator anim, GameObject target)
+    {
+        
+        if (anim == null)
+        {
+            anim = GetOrAddCompo<Animator>(target);
+        }
+        
+        dict.Add("idle", new GeneralFSM.Idle());
+        dict.Add("simple_pattern1", new BossFSM.Simple_pattern1("simple_barrage1"));
+        dict.Add("simple_pattern2", new BossFSM.Simple_pattern2("simple_barrage2"));
+        dict.Add("simple_pattern3", new BossFSM.Simple_pattern3("simple_barrage3"));
+        dict.Add("simple_pattern4", new BossFSM.Simple_pattern4("simple_laser"));
+        dict.Add("simple_pattern5", new BossFSM.Simple_pattern5("simple_follow_laser")); ;
+        dict.Add("simple_pattern6", new BossFSM.Simple_pattern6("simple_heal"));
+        dict.Add("heal_idle", new BossFSM.Heal_idle());
+        dict.Add("hard_pattern1", new BossFSM.Hard_pattern1("hard_barrage1"));
+        dict.Add("hard_pattern2", new BossFSM.Hard_pattern2("hard_barrage2"));
+        dict.Add("hard_pattern3", new BossFSM.Hard_pattern3("hard_barrage3"));
+        dict.Add("hard_pattern4", new BossFSM.Hard_pattern4("hard_laser"));
+
+        foreach (var item in dict)
+        {
+            item.Value.animator = anim;
+        }
+    }
 }

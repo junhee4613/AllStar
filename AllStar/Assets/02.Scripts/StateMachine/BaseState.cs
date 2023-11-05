@@ -144,11 +144,17 @@ namespace PlayerFSM
 }
 namespace BossFSM
 {
-    public class Pattern1 : BaseState
+    
+    public class Simple_pattern1 : BaseState
     {
+        string pattern_name;
+        public Simple_pattern1(string name)
+        {
+            pattern_name = name;
+        }
         public override void OnStateEnter()
         {
-            animator.Play("pattern1", 0);
+            animator.Play(pattern_name, 0);
         }
         public override void OnStateUpdate()
         {
@@ -159,11 +165,16 @@ namespace BossFSM
 
         }
     }
-    public class Pattern2 : BaseState
+    public class Simple_pattern2 : BaseState
     {
+        string pattern_name;
+        public Simple_pattern2(string name)
+        {
+            pattern_name = name;
+        }
         public override void OnStateEnter()
         {
-            animator.Play("pattern2", 0);
+            animator.Play(pattern_name, 0);
 
         }
         public override void OnStateUpdate()
@@ -175,11 +186,182 @@ namespace BossFSM
 
         }
     }
-    public class Pattern3 : BaseState
+    public class Simple_pattern3 : BaseState
     {
+        string pattern_name;
+        public Simple_pattern3(string name)
+        {
+            pattern_name = name;
+        }
         public override void OnStateEnter()
         {
-            animator.Play("pattern3", 0);
+            animator.Play(pattern_name, 0);
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Simple_pattern4 : BaseState
+    {
+        string pattern_name;
+        public Simple_pattern4(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Simple_pattern5 : BaseState
+    {
+        string pattern_name;
+        public Simple_pattern5(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Simple_pattern6 : BaseState
+    {
+        string pattern_name;
+        public Simple_pattern6(string name)
+        {
+            pattern_name = name;
+            Debug.Log(name);
+        }
+        public override void OnStateEnter()
+        {
+            Debug.Log(pattern_name);
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Heal_idle : BaseState      //나중에 다른 네임스페이스로 옮길 것
+    {
+        
+        public override void OnStateEnter()
+        {
+            Debug.Log("힐 아이들");
+            animator.Play("heal_idle", 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Hard_pattern1 : BaseState
+    {
+        string pattern_name;
+        public Hard_pattern1(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Hard_pattern2 : BaseState
+    {
+        string pattern_name;
+        public Hard_pattern2(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Hard_pattern3 : BaseState
+    {
+        string pattern_name;
+        public Hard_pattern3(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Hard_pattern4 : BaseState
+    {
+        string pattern_name;
+        public Hard_pattern4(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
         }
         public override void OnStateUpdate()
         {
