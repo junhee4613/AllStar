@@ -114,6 +114,7 @@ public class GunBase
         WeaponData tempData = Managers.DataManager.weaponTable[weaponIndex];
         stat.isValueChanged = false;
         stat.weaponIndex = tempData.itemnum;
+        stat.flavorText = tempData.flavorText;
         stat.bulletType = tempData.bullettype;
         stat.shotType = tempData.shottype;
         stat.codeName = tempData.codename;

@@ -7,6 +7,7 @@ public class GunStat
 {
     public string name;
     public byte weaponIndex = 254;
+    public string flavorText;
     public string codeName;
     public float bulletSpeed;
     public float fireSpeed;

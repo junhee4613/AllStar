@@ -11,6 +11,7 @@ public class WeaponData : DataTable
 {
     public byte itemnum;
     public string name;
+    public string flavorText;
     public float bulletspeed;
     public float firespeed;
     public float removetimer;
