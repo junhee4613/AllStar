@@ -257,9 +257,28 @@ namespace BossFSM
         }
         public override void OnStateEnter()
         {
-            Debug.Log(pattern_name);
             animator.Play(pattern_name, 0);
 
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Form_return : BaseState
+    {
+        string pattern_name;
+        public Form_return(string name)
+        {
+            pattern_name = name;
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0, 0);
         }
         public override void OnStateUpdate()
         {

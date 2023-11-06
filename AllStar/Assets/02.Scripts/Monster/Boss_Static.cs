@@ -25,29 +25,23 @@ public class Boss_Static : MonoBehaviour
     public float heal_quantity;
     [Header("패턴 끝난 후 쉬는 시간들")]
     public float[] standby_time_standard = new float[2] { 1f, 2f };
-
-    /*[Header("특정 패턴을 보기위한 테스트용 불값")]
-    public bool test = true;*/
-
-    //아래는 나중에 private로 변경
     bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
     Boss_Hard_Pattern hard_pattern;
     public Boss_Simple_Pattern simple_pattern;
     bool barrage_start = false;
+    public AnimatorStateInfo test;
     
 
 
     // Start is called before the first frame update
     private void Awake()
     {
-
         state.states.SetBossFSMDefault(ref state.animator, this.gameObject);
         Debug.Log(state.states.Count);
         Debug.Log(state.animator);
         player = GameObject.FindGameObjectWithTag("Player");
-        
     }
     private void Start()
     {                                   //this는 현재 클래스를 나타냄
@@ -71,7 +65,6 @@ public class Boss_Static : MonoBehaviour
             //
             if (non_hit_time >= heal_pattern_start_time)
             {
-                Debug.Log("힐패턴 허용");
                 heal_pattern_start = true;
             }
         }
@@ -84,11 +77,9 @@ public class Boss_Static : MonoBehaviour
 
         if (action_start)
         {
-            Debug.Log("움직임 시작");
             if (Pattern_Start())
             {
                 Pattern();
-                Debug.Log("패턴 시작");
             }
             else
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
@@ -104,7 +95,6 @@ public class Boss_Static : MonoBehaviour
     {
         action_start = false;
         pattern_loop = true;
-        Debug.Log("움직임 false");
         //나중에 패턴에 하드모드로 변하는 모습을 넣어야되는데 어떻게 처리할지 고민중
         if (state.nowHP < state.maxHP / 10 * 3.5)
         {
@@ -133,13 +123,11 @@ public class Boss_Static : MonoBehaviour
         {
             if (heal_pattern_start)
             {
-                Debug.Log("힐");
                 randomNum = 6;                  //힐패턴이 6번이기 때문
 
             }
             else
             {
-                Debug.Log("힐 아님");
                 randomNum = 6;                  //힐패턴이 6번이기 때문
                 //randomNum = Random.Range(1, 5);             //나중에 5로 늘려야됨
             }
@@ -244,31 +232,40 @@ public class Boss_Static : MonoBehaviour
         }
         action_start = true;
     }
+    private void LateUpdate()
+    {
+        Debug.Log(state.animator.speed + "여기");
+    }
     IEnumerator Simple_Pattern6()      //힐패턴
     {
-        Debug.Log("도착");
         non_hit_time = 0;
         fsmChanger(state.states["simple_pattern6"]);
         yield return null;
         while (heal_pattern_start)
         {
-            Debug.Log(state.nowState);
-            if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            test = state.animator.GetCurrentAnimatorStateInfo(0);
+            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && state.nowState != state.states["return"])
             {
-                Debug.Log("도착");
                 if (state.nowState == state.states["simple_pattern6"])
                 {
                     fsmChanger(state.states["heal_idle"]);
-                    
                 }
                 else //나중에 여기를 시간으로 체크해서 루틴을 돌게 해야됨
                 {
-                    Debug.Log("힐 멈춤");
-                    heal_pattern_start = false;
+                    fsmChanger(state.states["return"]);
                 }
+            }
+            else if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2 && state.nowState == state.states["return"])
+            {
+                Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+                heal_pattern_start = false;
             }
             else
             {
+                if(state.nowState == state.states["return"])
+                {
+                    Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+                }
                 state.nowHP += Time.deltaTime * state.maxHP / 100 * heal_quantity;
             }
             yield return null;
@@ -277,6 +274,7 @@ public class Boss_Static : MonoBehaviour
         action_start = true;
     }
     
+
     #endregion
     #region 보스 패턴 HP35퍼 이하일 때
     IEnumerator Hard_Pattern1()              //탄막패턴
