@@ -2,6 +2,7 @@
     {
         "itemnum": "0",
         "name": "로켓런처",
+        "flavorText": "",
         "bulletspeed": "15",
         "firespeed": "-0.33",
         "removetimer": "8",
@@ -17,6 +18,7 @@
     {
         "itemnum": "1",
         "name": "샷건",
+        "flavorText": "",
         "bulletspeed": "40",
         "firespeed": "0",
         "removetimer": "4",
@@ -32,6 +34,7 @@
     {
         "itemnum": "2",
         "name": "리볼버",
+        "flavorText": "",
         "bulletspeed": "40",
         "firespeed": "0.3",
         "removetimer": "4",

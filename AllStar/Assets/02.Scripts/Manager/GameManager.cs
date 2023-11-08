@@ -171,8 +171,10 @@ public class GameManager
         }
         else
         {
+            Debug.Log(playerArtifacts[itemIndex].data.codename + "_" + playerArtifacts[itemIndex].artifactAmount);
+            ReduceStatus(playerArtifacts[itemIndex].data.statustype, Managers.DataManager.artifactLevelTable[playerArtifacts[itemIndex].data.codename + "_" + playerArtifacts[itemIndex].artifactAmount].Value);
             playerArtifacts[itemIndex].artifactAmount++;
-            AddStatus(playerArtifacts[itemIndex].data.statustype, playerArtifacts[itemIndex].data.value);
+            AddStatus(playerArtifacts[itemIndex].data.statustype, Managers.DataManager.artifactLevelTable[playerArtifacts[itemIndex].data.codename + "_" + playerArtifacts[itemIndex].artifactAmount].Value);
             Managers.UI.artifactSet[itemIndex].AmountText.text = playerArtifacts[itemIndex].artifactAmount.ToString();
         }
 

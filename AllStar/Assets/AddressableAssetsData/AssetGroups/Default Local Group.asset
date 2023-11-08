@@ -157,12 +157,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: 7a2404dbc61a84a41abad71a626e6e3f
+  - m_GUID: d496ee10785c104459e4390ae256ea5a
     m_Address: GunItemTable
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: fb9a3aa5f1bc83e4eb69232cc5d6cee7
+  - m_GUID: 9a555e2385a46a843a8bff6bdcba1321
     m_Address: ArtifactTable
     m_ReadOnly: 0
     m_SerializedLabels:
@@ -207,8 +207,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: 7eb7acc4c4f9ed849ab722c2a5559def
-    m_Address: SkillTable
+  - m_GUID: c460645a723523b41bf0fea5bec657bb
+    m_Address: SkillLevels
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -264,6 +264,16 @@ MonoBehaviour:
     - Sprites
   - m_GUID: 497a7fc8fa5c7c246bf21d9896ec69fb
     m_Address: PressFKey
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 313c83e3dcbec3c41a3d56d1ad0614b1
+    m_Address: SkillTable
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 158112f77ab0f304797475831f317658
+    m_Address: ArtifactLevelTable
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

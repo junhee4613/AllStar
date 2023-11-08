@@ -1,0 +1,83 @@
+﻿[
+    {
+        "skillLevel": "1",
+        "attackDamage": "10",
+        "attackSpeed": "0.3",
+        "HP": "50",
+        "moveSpeed": "2",
+        "criticalChance": "10",
+        "criticalDamage": "20"
+    },
+    {
+        "skillLevel": "2",
+        "attackDamage": "20",
+        "attackSpeed": "0.4",
+        "HP": "100",
+        "moveSpeed": "3",
+        "criticalChance": "20",
+        "criticalDamage": "40"
+    },
+    {
+        "skillLevel": "3",
+        "attackDamage": "30",
+        "attackSpeed": "0.5",
+        "HP": "150",
+        "moveSpeed": "4",
+        "criticalChance": "30",
+        "criticalDamage": "60"
+    },
+    {
+        "skillLevel": "4",
+        "attackDamage": "40",
+        "attackSpeed": "0.7",
+        "HP": "200",
+        "moveSpeed": "5",
+        "criticalChance": "40",
+        "criticalDamage": "80"
+    },
+    {
+        "skillLevel": "5",
+        "attackDamage": "50",
+        "attackSpeed": "0.9",
+        "HP": "300",
+        "moveSpeed": "6",
+        "criticalChance": "50",
+        "criticalDamage": "100"
+    },
+    {
+        "skillLevel": "6",
+        "attackDamage": "60",
+        "attackSpeed": "1.1",
+        "HP": "400",
+        "moveSpeed": "7",
+        "criticalChance": "60",
+        "criticalDamage": "120"
+    },
+    {
+        "skillLevel": "7",
+        "attackDamage": "70",
+        "attackSpeed": "1.4",
+        "HP": "500",
+        "moveSpeed": "8",
+        "criticalChance": "70",
+        "criticalDamage": "140"
+    },
+    {
+        "skillLevel": "8",
+        "attackDamage": "80",
+        "attackSpeed": "1.7",
+        "HP": "600",
+        "moveSpeed": "9",
+        "criticalChance": "80",
+        "criticalDamage": "160"
+    },
+    {
+        "skillLevel": "9",
+        "attackDamage": "90",
+        "attackSpeed": "2",
+        "HP": "800",
+        "moveSpeed": "10",
+        "criticalChance": "90",
+        "criticalDamage": "200"
+    }
+]

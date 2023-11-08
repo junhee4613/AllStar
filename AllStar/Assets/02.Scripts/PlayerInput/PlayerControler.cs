@@ -271,7 +271,7 @@ public class PlayerControler : MonoBehaviour
                         Debug.Log(target);
                         return false;
                     }
-                    else if (target.type == ItemTypeEnum.artifacts)
+                    else if (target.type == ItemTypeEnum.artifacts&&ownArtifacts[target.itemIndex].artifactAmount<9)
                     {
                         Managers.GameManager.ArtifactEquipOnly(target.itemIndex);
                         target.OBJPushOnly();
@@ -282,17 +282,20 @@ public class PlayerControler : MonoBehaviour
                         tempItem = target as SkillItem;
                         (SkillBase, byte) tempSkill = FindSkillArray(target.itemIndex);
 
-                        if (tempSkill.Item1.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
+                        if (tempSkill.Item2 !=255&&tempSkill.Item1.skillInfo.skillLevel <9)
                         {
-                            tempSkill.Item1.playerTR = transform;
-                            tempItem.UseItem<SkillBase>(ref tempSkill.Item1);
+                            if (tempSkill.Item1.skillInfo.codeName != Managers.DataManager.skillTable[target.itemIndex].codeName)
+                            {
+                                tempSkill.Item1.playerTR = transform;
+                                tempItem.UseItem<SkillBase>(ref tempSkill.Item1);
+                            }
+                            else
+                            {
+                                tempItem.UseItemToUpGrade(tempSkill.Item1);
+                                Debug.Log("여기다가 중복스킬 처리");
+                            }
+                            Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName); 
                         }
-                        else
-                        {
-                            tempItem.UseItemToUpGrade(tempSkill.Item1);
-                            Debug.Log("여기다가 중복스킬 처리");
-                        }
-                        Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName);
 
                     }
 
@@ -328,15 +331,16 @@ public class PlayerControler : MonoBehaviour
             {
                 skills[i] = new SkillBase();
             }
-            tempNum2 = (byte)i;
             if (skills[i].skillInfo.codeName == string.Empty)
             {
+                tempNum2 = (byte)i;
                 tempNum = (byte)i;
                 tempSkill = skills[i];
             }
             else if (skills[i].skillInfo.codeName == Managers.DataManager.skillTable[targetItemIndex].codeName)
             {
                 tempNum = 255;
+                tempNum2 = (byte)i;
                 tempSkill = skills[i];
                 break;
             }

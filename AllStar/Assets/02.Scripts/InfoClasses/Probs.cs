@@ -82,6 +82,12 @@ public enum ItemTypeEnum
 {
     weapon, artifacts, consumAble,skill
 }
+[System.Serializable]
+public class ArtifactLevelTable
+{
+    public string SkillName;
+    public float Value;
+}
 
 public enum ShotType
 {

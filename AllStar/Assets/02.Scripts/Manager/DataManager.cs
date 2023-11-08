@@ -16,6 +16,7 @@ public class DataManager
     public Dictionary<string, Object> Datas = new Dictionary<string, Object>();
     public List<WeaponData> weaponTable = new List<WeaponData>();
     public List<ArtifactData> artifactTable = new List<ArtifactData>();
+    public Dictionary<string, ArtifactLevelTable> artifactLevelTable = new Dictionary<string, ArtifactLevelTable>();
     public List<ConsumableData> consumableTable = new List<ConsumableData>();
     [SerializeField]
     public List<SkillDataJson> skillTable = new List<SkillDataJson>();
@@ -51,6 +52,11 @@ public class DataManager
                 weaponTable = JsonConvert.DeserializeObject<List<WeaponData>>(tempTA.text);
                 tempTA = Datas["SkillTable"] as TextAsset;
                 skillTable = JsonConvert.DeserializeObject<List<SkillDataJson>>(tempTA.text);
+                tempTA = Datas["ArtifactLevelTable"] as TextAsset;
+                foreach (var item in JsonConvert.DeserializeObject<List<ArtifactLevelTable>>(tempTA.text))
+                {
+                    artifactLevelTable.Add(item.SkillName, item);
+                }
                 Done?.Invoke();
                 isLoadDone = true;
                 Managers.Sound.BGM_Sound("Stage_001");
