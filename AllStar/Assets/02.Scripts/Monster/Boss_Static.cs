@@ -13,9 +13,11 @@ public class Boss_Static : MonoBehaviour
     public GameObject[] simple_barrage_patterns;
     public GameObject[] hard_barrage_patterns;
     public Status state;
+    [Header("초당 회전 각도")]
     public float rotateSpeed;
     [Header("현재 hp")]
     public float current_hp;
+    [Header("안때린 시간 - 테스트용")]
     public float non_hit_time;
     [Header("안맞아서 힐패턴 나오는 시간 기준")]
     public float heal_pattern_start_time;
@@ -32,6 +34,7 @@ public class Boss_Static : MonoBehaviour
     public Boss_Simple_Pattern simple_pattern;
     bool barrage_start = false;
     public AnimatorStateInfo test;
+    public bool look_target;
     
 
 
@@ -73,6 +76,9 @@ public class Boss_Static : MonoBehaviour
             //heal_pattern_start = false;
         }
 
+        if((action_start && Pattern_Start()) || look_target)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
+
 
 
         if (action_start)
@@ -81,8 +87,6 @@ public class Boss_Static : MonoBehaviour
             {
                 Pattern();
             }
-            else
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
         }
         else
         {
@@ -232,10 +236,7 @@ public class Boss_Static : MonoBehaviour
         }
         action_start = true;
     }
-    private void LateUpdate()
-    {
-        Debug.Log(state.animator.speed + "여기");
-    }
+    
     IEnumerator Simple_Pattern6()      //힐패턴
     {
         non_hit_time = 0;
@@ -255,7 +256,7 @@ public class Boss_Static : MonoBehaviour
                     fsmChanger(state.states["return"]);
                 }
             }
-            else if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2 && state.nowState == state.states["return"])
+            else if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && state.nowState == state.states["return"])
             {
                 Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
                 heal_pattern_start = false;

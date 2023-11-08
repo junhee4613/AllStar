@@ -539,6 +539,7 @@ MonoBehaviour:
   motion_Type: 
   randomNum: 0
   simple_pattern: 0
+  look_target: 0
 --- !u!23 &244886531
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7051,7 +7052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   action_start: 1
-  standby_time: 3
+  standby_time: 10
   player: {fileID: 1453213887}
   simple_barrage_patterns: []
   hard_barrage_patterns: []
@@ -7064,7 +7065,7 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
-  rotateSpeed: 0
+  rotateSpeed: 360
   current_hp: 0
   non_hit_time: 0
   heal_pattern_start_time: 2
@@ -7076,6 +7077,7 @@ MonoBehaviour:
   motion_Type: 
   randomNum: 0
   simple_pattern: 0
+  look_target: 0
 --- !u!1001 &8560827795431991065
 PrefabInstance:
   m_ObjectHideFlags: 0
