@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Junhee_Test : MonoBehaviour
 {
-    public HashSet<int> test = new HashSet<int>();
+    public Material test;
+    public float test_x;
+    public float test_y;
+    /*public HashSet<int> test = new HashSet<int>();
     public HashSet<string> test1 = new HashSet<string>();
     public float size;
     public float dis;
@@ -13,8 +16,8 @@ public class Junhee_Test : MonoBehaviour
     public GameObject monster = null;
     private void Awake()
     {
-       /* Managers.Pool.MonsterPop("Ranged", monster);
-        monster.transform.position = this.transform.position;*/
+       *//* Managers.Pool.MonsterPop("Ranged", monster);
+        monster.transform.position = this.transform.position;*//*
     }
     private void Update()
     {
@@ -22,6 +25,11 @@ public class Junhee_Test : MonoBehaviour
         {
             Debug.Log("데미지 들어감");
         }
+    }*/
+
+    private void Update()
+    {
+        test.mainTextureOffset = new Vector2(Time.time * test_x, Time.time * test_y);
     }
 
 }
