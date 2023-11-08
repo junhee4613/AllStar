@@ -639,8 +639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   test: {fileID: 2100000, guid: 4c5cd1e51f1c9f04fab43b5440b17c41, type: 2}
-  test_x: 3
-  test_y: 1
+  test_x: 0
+  test_y: 0
 --- !u!1001 &1751656406
 PrefabInstance:
   m_ObjectHideFlags: 0

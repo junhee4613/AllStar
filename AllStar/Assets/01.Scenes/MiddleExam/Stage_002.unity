@@ -106543,7 +106543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTR: {fileID: 0}
-  skillSlots: {fileID: 0}
+  Inventory: {fileID: 0}
   escMenu: {fileID: 933096255}
   flavorTextPanel: {fileID: 1308790291}
   flavorText: {fileID: 2075620947}
@@ -106613,7 +106613,6 @@ MonoBehaviour:
   tempby: 255
   optionPanel: {fileID: 0}
   dragState: 0
-  deleteItemAreaXPoint: 0
   weaponInvenIMGs:
   - {fileID: 0}
   - {fileID: 0}
@@ -106630,6 +106629,25 @@ MonoBehaviour:
   - {fileID: 1433556721}
   - {fileID: 1341384761}
   - {fileID: 1375922355}
+  skillSlotSet:
+  - IconIMG: {fileID: 0}
+    AmountText: {fileID: 0}
+  - IconIMG: {fileID: 0}
+    AmountText: {fileID: 0}
+  - IconIMG: {fileID: 0}
+    AmountText: {fileID: 0}
+  - IconIMG: {fileID: 0}
+    AmountText: {fileID: 0}
+  - IconIMG: {fileID: 0}
+    AmountText: {fileID: 0}
+  skillSlots: {fileID: 0}
+  skillIconPosition:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  SkillBarAnim: {fileID: 0}
 --- !u!1 &1860989257
 GameObject:
   m_ObjectHideFlags: 0
