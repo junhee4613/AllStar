@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Boss_Static : MonoBehaviour
 {
-    [Header("처음에 true여야 패턴 시작")]
-    public bool action_start = true;              //패턴이 시작하기 위한 불값
+                 //패턴이 시작하기 위한 불값
     //pattern_loop는 나중에 없애는 값
     [Header("패턴 모션 끝난 후 쉬는 시간")]
     public float standby_time;
@@ -15,10 +14,6 @@ public class Boss_Static : MonoBehaviour
     public Status state;
     [Header("초당 회전 각도")]
     public float rotateSpeed;
-    [Header("현재 hp")]
-    public float current_hp;
-    [Header("안때린 시간 - 테스트용")]
-    public float non_hit_time;
     [Header("안맞아서 힐패턴 나오는 시간 기준")]
     public float heal_pattern_start_time;
     [Header("true여야 힐패턴 시작")]
@@ -27,6 +22,16 @@ public class Boss_Static : MonoBehaviour
     public float heal_quantity;
     [Header("패턴 끝난 후 쉬는 시간들")]
     public float[] standby_time_standard = new float[2] { 1f, 2f };
+    [Header("체력 회복하는 시간")]
+    public int heal_time;
+
+    [Header("처음에 true여야 패턴 시작 - 테스트용(이건 안건드려도 됨)")]
+    public bool action_start = true;
+    [Header("안때린 시간 - 테스트용(이건 안건드려도 됨)")]
+    public float non_hit_time;
+    [Header("현재 hp - 테스트용(이건 안건드려도 됨)")]
+    public float current_hp;
+
     bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
@@ -132,7 +137,8 @@ public class Boss_Static : MonoBehaviour
             }
             else
             {
-                randomNum = 6;                  //힐패턴이 6번이기 때문
+                return;
+                //randomNum = 6;                  //힐패턴이 6번이기 때문
                 //randomNum = Random.Range(1, 5);             //나중에 5로 늘려야됨
             }
             motion_Type = $"Simple_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
@@ -186,7 +192,7 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴1");
-            Pattern_Stop(simple_barrage_patterns);
+            Barrage_Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
         action_start = true;
@@ -198,7 +204,7 @@ public class Boss_Static : MonoBehaviour
         {
             Debug.Log("패턴2");
 
-            Pattern_Stop(simple_barrage_patterns);
+            Barrage_Pattern_Stop(simple_barrage_patterns);
         }
         Debug.Log("여기");
         yield return null;
@@ -210,7 +216,7 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴3");
-            Pattern_Stop(simple_barrage_patterns);
+            Barrage_Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
 
@@ -221,19 +227,25 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴4");
-            Pattern_Stop(simple_barrage_patterns);
+            Barrage_Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
         action_start = true;
     }
     IEnumerator Simple_Pattern5()              //레이저 쏘면서 플레이어를 천천히 쳐다보는 패턴
     {
+        fsmChanger(state.states["simple_pattern5"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴5");
-            Pattern_Stop(simple_barrage_patterns);
-            yield return null;
+            if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.33)
+            {
+                //레이저 모으기
+            }
+
         }
+        Pattern_Stop(); // 나중에 else문에 넣기
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     
@@ -245,28 +257,25 @@ public class Boss_Static : MonoBehaviour
         while (heal_pattern_start)
         {
             test = state.animator.GetCurrentAnimatorStateInfo(0);
-            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && state.nowState != state.states["return"])
+            if (Current_anim_and_time("simple_pattern6", 1))
             {
-                if (state.nowState == state.states["simple_pattern6"])
-                {
-                    fsmChanger(state.states["heal_idle"]);
-                }
-                else //나중에 여기를 시간으로 체크해서 루틴을 돌게 해야됨
-                {
-                    fsmChanger(state.states["return"]);
-                }
+                Debug.Log("반복");
+                fsmChanger(state.states["heal_idle"]);
             }
-            else if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && state.nowState == state.states["return"])
+            else if (Current_anim_and_time("heal_idle", heal_time))
             {
+                Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+                Debug.Log("반복");
+                fsmChanger(state.states["return"]);
+            }
+            else if(Current_anim_and_time("return", 1))
+            {
+                Debug.Log("반복");
                 Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
                 heal_pattern_start = false;
             }
             else
             {
-                if(state.nowState == state.states["return"])
-                {
-                    Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-                }
                 state.nowHP += Time.deltaTime * state.maxHP / 100 * heal_quantity;
             }
             yield return null;
@@ -285,7 +294,7 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴1");
-            Pattern_Stop(hard_barrage_patterns);
+            Barrage_Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
         action_start = true;
@@ -297,7 +306,7 @@ public class Boss_Static : MonoBehaviour
         {
             Debug.Log("패턴2");
 
-            Pattern_Stop(hard_barrage_patterns);
+            Barrage_Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
         action_start = true;
@@ -308,7 +317,7 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴3");
-            Pattern_Stop(hard_barrage_patterns);
+            Barrage_Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
 
@@ -319,7 +328,7 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴4");
-            Pattern_Stop(hard_barrage_patterns);
+            Barrage_Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
         action_start = true;
@@ -329,7 +338,7 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴5");
-            Pattern_Stop(hard_barrage_patterns);
+            Barrage_Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
         action_start = true;
@@ -339,13 +348,13 @@ public class Boss_Static : MonoBehaviour
         while (pattern_loop)
         {
             Debug.Log("패턴6");
-            Pattern_Stop(hard_barrage_patterns);
+            Barrage_Pattern_Stop(hard_barrage_patterns);
             yield return null;
         }
         action_start = true;
     }
     #endregion
-    public void Pattern_Stop(GameObject[] temp)
+    public void Barrage_Pattern_Stop(GameObject[] temp)
     {
         if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
@@ -353,9 +362,13 @@ public class Boss_Static : MonoBehaviour
             {
                 item.SetActive(false);
             }
-            pattern_loop = false;//########################나중에 삭제
-            standby_time = 0;
+            Pattern_Stop();
         }
+    }
+    public void Pattern_Stop()
+    {
+        pattern_loop = false;
+        standby_time = 0;
     }
     public float LookPlayer(GameObject hit)
     {
@@ -372,5 +385,14 @@ public class Boss_Static : MonoBehaviour
             return false;
         }
 
+    }
+    public bool Current_anim_and_time(string anim, int time)
+    {
+        if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= time && state.nowState == state.states[anim])
+        {
+            return true;
+        }
+        else
+            return false;
     }
 }
