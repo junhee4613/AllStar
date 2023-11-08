@@ -1049,18 +1049,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4bbb5ad46349c4d944988540131939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0
-  dis: 0
-  monsterStat:
-    moveSpeed: 0
-    maxHP: 0
-    nowHP: 0
-    attackSpeed: 0
-    attackDamage: 0
-    criticalChance: 0
-    criticalDamage: 0
-    animator: {fileID: 0}
-  monster: {fileID: 0}
+  test: {fileID: 0}
+  test_x: 0
+  test_y: 0
 --- !u!65 &540920976
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6965,6 +6956,34 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: wayNum
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: centerAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: useAutoRelease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: autoReleaseTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: projectileSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: accelerationTurn
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 5044391184289437708, guid: a9d6633f130afc8449afa25f22c8466b, type: 3}
+    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: continuous_attack
       value: 0
       objectReference: {fileID: 0}
@@ -6980,13 +6999,29 @@ PrefabInstance:
       propertyPath: monsterStatus.attackSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2875882513889782048, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: shotList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875882513889782048, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: shotList.Array.data[1].shotObj
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875882513889782048, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: shotList.Array.data[0].afterDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875882513889782048, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
+      propertyPath: shotList.Array.data[1].afterDelay
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_Name
       value: Monster_Tower
       objectReference: {fileID: 0}
     - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_RootOrder
