@@ -280,7 +280,7 @@ public class Boss_Static : MonoBehaviour
                     if (laser_holding_time <= holding_time)
                     {
                         holding_time = 0;
-                        Managers.Pool.Push(temp);
+                        //Managers.Pool.Push(temp);
                     }
                     else
                     {
