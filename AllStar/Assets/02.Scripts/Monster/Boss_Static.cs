@@ -24,7 +24,12 @@ public class Boss_Static : MonoBehaviour
     public float[] standby_time_standard = new float[2] { 1f, 2f };
     [Header("체력 회복하는 시간")]
     public int heal_time;
+    [Header("레이저 홀딩시간")]
+    public int laser_holding_time;
+    [Header("따라가는 레이저 쏠 때 플레이어 쳐다보는 속도")]
+    public int follow_laser_look_rotation;
 
+    float holding_time;
     [Header("처음에 true여야 패턴 시작 - 테스트용(이건 안건드려도 됨)")]
     public bool action_start = true;
     [Header("안때린 시간 - 테스트용(이건 안건드려도 됨)")]
@@ -224,12 +229,37 @@ public class Boss_Static : MonoBehaviour
     }
     IEnumerator Simple_Pattern4()              //레이저 짧게 한번 쏘는 패턴 이때는 따라가는 레이저보다 더 빠르게 쏨
     {
+        fsmChanger(state.states["simple_pattern4"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴4");
-            Barrage_Pattern_Stop(simple_barrage_patterns);
+            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.306f)
+            {
+                //레이저 모으기
+            }
+            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.61f)
+            {
+
+            }
+            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.999f)
+            {
+                if (laser_holding_time <= holding_time)
+                {
+                    holding_time = 0;
+                }
+                else
+                {
+                    holding_time += Time.deltaTime;
+                }
+
+            }
+            else
+            {
+                Pattern_Stop(); // 나중에 else문에 넣기
+            }
             yield return null;
         }
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Simple_Pattern5()              //레이저 쏘면서 플레이어를 천천히 쳐다보는 패턴
@@ -238,13 +268,38 @@ public class Boss_Static : MonoBehaviour
         yield return null;
         while (pattern_loop)
         {
-            if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.33)
+            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.306f)
             {
-                //레이저 모으기
+                rotateSpeed = follow_laser_look_rotation;
             }
-
+            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.61f)
+            {
+                if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
+                {
+                    state.animator.speed = 0;
+                    if (laser_holding_time <= holding_time)
+                    {
+                        holding_time = 0;
+                        Managers.Pool.Push(temp);
+                    }
+                    else
+                    {
+                        holding_time += Time.deltaTime;
+                        GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
+                    }
+                }
+                else
+                {
+                    state.animator.speed = 0;
+                }
+                
+            }
+            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                Pattern_Stop(); // 나중에 else문에 넣기
+            }
+            yield return null;
         }
-        Pattern_Stop(); // 나중에 else문에 넣기
         fsmChanger(state.states["idle"]);
         action_start = true;
     }

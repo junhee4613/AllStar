@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CloseRangeMonstersController : MonsterController_Base_Move
 {
@@ -13,7 +14,7 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
 
     protected override void Awake()
     {
-        Managers.Pool.MonsterPop(" CloseRanged", this.gameObject);
+        Managers.Pool.MonsterPop("CloseRanged", this.gameObject);
         monsterStatus.states.SetMonsterFSMDefault(ref monsterStatus.animator, this.gameObject);//여기
         base.Awake();
         an = GetComponent<Animator>();
@@ -115,16 +116,22 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         base.fsmChanger(BS);
         if (BS == monsterStatus.states["attack"] || BS == monsterStatus.states["idle"])//이거 나중에 공격 대기모드로 바꿔야됨
         {
+            /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            agent.avoidancePriority = 50;*/
             agent.isStopped = true;
         }
         else if (BS == monsterStatus.states["run"])
         {
             agent.speed = run_speed;
+            /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+            agent.avoidancePriority = 51;*/
             agent.isStopped = false;
         }
         else if(BS == monsterStatus.states["walk"])
         {
             agent.speed = walk_speed;
+            /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+            agent.avoidancePriority = 51;*/
             agent.isStopped = false;
         }
     }

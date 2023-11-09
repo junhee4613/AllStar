@@ -91,10 +91,14 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         base.fsmChanger(BS);
         if (BS == monsterStatus.states["attack"] || BS == monsterStatus.states["idle"])
         {
+            /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            agent.avoidancePriority = 50;*/
             agent.isStopped = true;
         }
         else if (BS == monsterStatus.states["run"])
         {
+            /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+            agent.avoidancePriority = 51;*/
             agent.isStopped = false;
         }
     }

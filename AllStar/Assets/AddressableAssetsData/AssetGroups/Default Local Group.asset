@@ -277,6 +277,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
+  - m_GUID: a9d6633f130afc8449afa25f22c8466b
+    m_Address: Boss_Laser
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:
