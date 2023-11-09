@@ -12,7 +12,7 @@ public class MonsterBase : MonoBehaviour
     [Header("일반모드 일 때 감지 범위")]
     public float idle_Detect_Range;
     public GameObject player = null;
-    public Status monsterStatus;
+    public Nomal_monster monsterStatus;
     //나중에 밑에 있는 불값은 무브 몬스터로 옮겨야됨
     public bool chase_player;
     //public bool look_player = false;
@@ -51,7 +51,7 @@ public class MonsterBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (monsterStatus.nowHP <= 0 )
+        if (monsterStatus.nowHP <= 0)
         {
             if (!die)
             {
@@ -60,17 +60,22 @@ public class MonsterBase : MonoBehaviour
             }
             return;
         }
-        
+
         if (monsterStatus.nowState != monsterStatus.states["die"])
         {
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 1 << 7);
+            if (playerSence.Length != 0)
+            {
+                Debug.Log("반응");
+                monsterStatus.hit = false;
+            }
 
             if (Perceive_condition())//움직이는 몬스터는 제자리로 돌아온 후에 플레이어를 추적하게 해야됨
             {
                 Perceive_player();
                 chase_player = true;
             }
-            else if(playerSence.Length == 0 || !chase_player)
+            else if ((playerSence.Length == 0 && !monsterStatus.hit) || !chase_player)
             {
                 Status_Init();
                 chase_player = false;
@@ -140,11 +145,11 @@ public class MonsterBase : MonoBehaviour
     }
     public void MonsterPoolPush()
     {
-       
+
     }
     protected virtual bool Perceive_condition()
     {
-        if(playerSence.Length != 0)
+        if (playerSence.Length != 0)
         {
             return true;
         }

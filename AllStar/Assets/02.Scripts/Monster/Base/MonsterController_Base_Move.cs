@@ -31,7 +31,7 @@ public class MonsterController_Base_Move : MonsterBase
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         pos_init = transform.position;
-        
+
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -41,14 +41,14 @@ public class MonsterController_Base_Move : MonsterBase
     // Update is called once per frame
     protected override void Update()
     {
-        if(die)
+        if (die)
         {
             return;
         }
+        //if() 여기에 제자리로 돌아간 상태에서 공격당하면 쫓아가는 걸 하게 하는 로직
         base.Update();
         if (!action_start)      //지금 드라군이 공격하고 잠시 딜레이 시간에 플레이어가 벗어나면 달리는 상태로 멈춤 -> 이거 수정
         {
-            Debug.Log(2);
             if (monsterStatus.nowState != monsterStatus.states["idle"] && monsterStatus.nowState != monsterStatus.states["attack"])
             {
                 fsmChanger(monsterStatus.states["idle"]);
@@ -83,7 +83,6 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     if (monsterStatus.nowState != monsterStatus.states["run"])
                     {
-                        Debug.Log(3);
                         fsmChanger(monsterStatus.states["run"]);
                     }
                 }
@@ -134,7 +133,7 @@ public class MonsterController_Base_Move : MonsterBase
 
             tempArtifact.transform.position = transform.position;
         }
-        if(num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
+        if (num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
         {
             WeaponDropKind();
         }
@@ -154,7 +153,7 @@ public class MonsterController_Base_Move : MonsterBase
     }
     protected override bool Perceive_condition()
     {
-        if (playerSence.Length != 0 && Original_spot)
+        if ((playerSence.Length != 0 || monsterStatus.hit) && Original_spot)
         {
             return true;
         }

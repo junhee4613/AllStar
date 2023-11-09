@@ -35,6 +35,17 @@ public class PlayerOnlyStatus : Status
         Managers.UI.hpbar.value = nowHP;
     }
 }
+[System.Serializable]
+public class Nomal_monster : Status
+{
+    public bool hit;
+    public override void GetDamage(float Damage)
+    {
+        base.GetDamage(Damage);
+        hit = true;
+    }
+}
+
 
 public enum statType
 {
@@ -54,7 +65,7 @@ public enum Boss_Simple_Pattern
     FOLLOW_LASER,
     HEAL,
 }
-public enum Boss_Hard_Pattern 
+public enum Boss_Hard_Pattern
 {
     BARRAGE1,
     BARRAGE2,
@@ -80,7 +91,7 @@ public enum bulletTypeEnum
 }
 public enum ItemTypeEnum
 {
-    weapon, artifacts, consumAble,skill
+    weapon, artifacts, consumAble, skill
 }
 [System.Serializable]
 public class ArtifactLevelTable
@@ -95,7 +106,7 @@ public enum ShotType
 }
 public enum DraggingState
 {
-    none, weapon/*, artifact*/,skills
+    none, weapon/*, artifact*/, skills
 }
 
 namespace PlayerSkills
@@ -135,7 +146,7 @@ namespace PlayerSkills
             public void SkillUpGrade()
             {
                 skillInfo.skillLevel++;
-                
+
             }
             public void UseSkill()
             {
@@ -255,7 +266,7 @@ namespace PlayerSkills
                         case DeffenceSkillType.none:
                             break;
                         case DeffenceSkillType.dodge:
-                            pc.fsmChanger(pc.stat.states["dodge"],skillValue.skillValue,skillValue.secondValue);
+                            pc.fsmChanger(pc.stat.states["dodge"], skillValue.skillValue, skillValue.secondValue);
                             break;
                         case DeffenceSkillType.telleport:
                             pc.fsmChanger(pc.stat.states["tellleport"]);
@@ -292,7 +303,7 @@ namespace PlayerSkills
                     Debug.Log("½ÇÇà");
                     var result = Timer(buffSkillType, skillValue.skillValue, skillValue.secondValue);
                 }
-                private async Task Timer(statType type,float value,float time)
+                private async Task Timer(statType type, float value, float time)
                 {
                     float beforeConvert = time * 1000;
                     int timeConvert = (int)beforeConvert;
