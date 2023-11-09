@@ -280,12 +280,12 @@ public class Boss_Static : MonoBehaviour
                     if (laser_holding_time <= holding_time)
                     {
                         holding_time = 0;
-                        //Managers.Pool.Push(temp);
+                        Managers.Pool.Push(temp);
                     }
                     else
                     {
                         holding_time += Time.deltaTime;
-                        //GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
+                        GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
                     }
                 }
                 else
