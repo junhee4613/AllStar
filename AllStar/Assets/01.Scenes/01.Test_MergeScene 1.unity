@@ -5268,11 +5268,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784129506}
   m_CullTransparentMesh: 1
---- !u!1 &1804700057 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 500349362, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-  m_PrefabInstance: {fileID: 1940631026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1826782798
 GameObject:
   m_ObjectHideFlags: 0
@@ -6068,29 +6063,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-      propertyPath: useAutoRelease
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 500349363, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-      propertyPath: autoReleaseTime
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1342057764308933041, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-      propertyPath: pivotSG.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1342057764308933041, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-      propertyPath: pivotSG.Array.data[0]
-      value: 
-      objectReference: {fileID: 1804700057}
     - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_Name
       value: Monster_Tower (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3730114502080721819, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4075713463106513185, guid: 1c125cc85c50df14b98fa396fd47185b, type: 3}
       propertyPath: m_RootOrder
