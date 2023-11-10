@@ -25,22 +25,21 @@ public class DataManager
     public void Init(Action Done = null)
     {
 
+
         if (Managers.UI.loadBar == null)
         {
             GameObject tempGOBJ = MonoBehaviour.Instantiate(Resources.Load<GameObject>("LoadingCanvas"), null);
+            GameObject.DontDestroyOnLoad(tempGOBJ);
             Managers.UI.loadBar = tempGOBJ.transform.GetChild(0).Find("Slider").GetComponent<Slider>();
-        }
 
+        }
         LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
             Debug.Log("loading" + key + "||" + count + "/" + totalCount);
             Managers.UI.loadBar.maxValue = totalCount;
             Managers.UI.loadBar.value = count;
-
-
             if (count == totalCount)
             {
-                Managers.UI.loadBar.transform.parent.parent.gameObject.SetActive(false);
                 //string jsonConvert = File.ReadAllText("Assets/02.Scripts/Items/Jsons/JsonFile/ArtifactTable.json");
                 TextAsset tempTA = Datas["ArtifactTable"] as TextAsset;
                 artifactTable = JsonConvert.DeserializeObject<List<ArtifactData>>(tempTA.text);
@@ -57,10 +56,15 @@ public class DataManager
                 {
                     artifactLevelTable.Add(item.SkillName, item);
                 }
-                Done?.Invoke();
-                isLoadDone = true;
-                Managers.Sound.BGM_Sound("Stage_001");
-                onFunctionDone?.Invoke();
+                Managers.GameManager.BasicPlayerStats(() =>
+                {
+                    Done?.Invoke();
+                    isLoadDone = true;
+                    Managers.Sound.BGM_Sound("Stage_001");
+                    onFunctionDone?.Invoke();
+                    Managers.UI.loadBar.transform.parent.parent.gameObject.SetActive(false);
+                });
+
             }
         });
         LoadAllAsync<Sprite>("Sprites", (key, count, totalCount) =>

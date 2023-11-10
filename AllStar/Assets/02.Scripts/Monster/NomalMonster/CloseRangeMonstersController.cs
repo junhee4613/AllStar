@@ -18,11 +18,6 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         monsterStatus.states.SetMonsterFSMDefault(ref monsterStatus.animator, this.gameObject);//여기
         base.Awake();
         an = GetComponent<Animator>();
-        Debug.Log(monsterStatus.states["walk"]);
-        foreach (var item in monsterStatus.states)
-        {
-            Debug.Log("여기 " + item);
-        }
     }
     // Start is called before the first frame update
     protected override void Start()

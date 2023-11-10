@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class PlayerControler : MonoBehaviour
 {
-    private bool isLoaddineDone = false;
+    [SerializeField]private bool isLoaddineDone = false;
     [Header("컨트롤 부속")]
     public Rigidbody rb;
     public Vector2 playerDir;
@@ -38,35 +38,32 @@ public class PlayerControler : MonoBehaviour
     public SkillBase[] skills;
     public float[] skillCoolTimes = new float[5];
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerWeapons = Managers.GameManager.playerWeapons;
         ownArtifacts = Managers.GameManager.playerArtifacts;
         skills = Managers.GameManager.playerSkills;
         Managers.GameManager.playerCooltimes = skillCoolTimes;
-        Managers.GameManager.BasicPlayerStats(() =>
+        for (int i = 0; i < playerWeapons.Length; i++)
         {
-            for (int i = 0; i < playerWeapons.Length; i++)
-            {
-                playerWeapons[i] = new GunBase();
-                playerWeapons[i].StartSetting();
-            }
-            for (int i = 0; i < ownArtifacts.Length; i++)
-            {
-                ownArtifacts[i] = new ArtifactSlot();
-                ownArtifacts[i].ResetArtifact();
-            }
-            stat = Managers.GameManager.PlayerStat;
-            stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
-            stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
-            stat.nowState = stat.states["idle"];
-            for (int i = 0; i < skillCoolIcons.Length; i++)
-            {
-                skillCoolIcons[i] = Managers.UI.skillIconSet[i].IconIMG.transform.GetChild(0).GetComponent<Image>();
-            }
-            isLoaddineDone = true;
-        });
+            playerWeapons[i] = new GunBase();
+            playerWeapons[i].StartSetting();
+        }
+        for (int i = 0; i < ownArtifacts.Length; i++)
+        {
+            ownArtifacts[i] = new ArtifactSlot();
+            ownArtifacts[i].ResetArtifact();
+        }
+        stat = Managers.GameManager.PlayerStat;
+        stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
+        stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
+        stat.nowState = stat.states["idle"];
+        isLoaddineDone = true;
+        for (byte i = 0; i < skillCoolIcons.Length; i++)
+        {
+            skillCoolIcons[i] = Managers.UI.skillIconSet[i].IconIMG.transform.GetChild(0).GetComponent<Image>();
+        }
     }
 
     private void Update()

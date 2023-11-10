@@ -36446,6 +36446,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578038235}
   m_Mesh: {fileID: -2588310056375966473, guid: a8c2998ce5215a946ab2f6a94ed9c3d0, type: 3}
+--- !u!4 &578456638 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6771111779874308106, guid: 4bece95415c47bb42a1f52e247ac55f8, type: 3}
+  m_PrefabInstance: {fileID: 1021806702}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &579985788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 294644367903714120, guid: ca2b6a4a94b06b641889f93d7878c6a2, type: 3}
@@ -60373,7 +60378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraDistance: 6.4
-  target: {fileID: 1767848175}
+  target: {fileID: 1288453406}
 --- !u!1 &939870108
 GameObject:
   m_ObjectHideFlags: 0
@@ -66119,6 +66124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllStar_Character_Rig
       objectReference: {fileID: 0}
+    - target: {fileID: 6864561019807733035, guid: 4bece95415c47bb42a1f52e247ac55f8, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6622264641530768373, guid: 46a0873f9c4bc14469b25a44f65fe0e6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bece95415c47bb42a1f52e247ac55f8, type: 3}
 --- !u!1 &1021882192
@@ -79376,6 +79385,7 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
+    hit: 0
   chase_player: 0
   action_start: 1
   action_delay: 0
@@ -81990,6 +82000,7 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
+    hit: 0
   chase_player: 0
   action_start: 1
   action_delay: 0
@@ -84506,7 +84517,7 @@ MonoBehaviour:
   playerDir: {x: 0, y: 0}
   playerWeapons: []
   nowWeapon: 2
-  firePos: {fileID: 1832646094}
+  firePos: {fileID: 578456638}
   itemSencer: []
   stat:
     moveSpeed: 0
@@ -84569,6 +84580,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!4 &1288453406 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 18313342179406370, guid: 4bece95415c47bb42a1f52e247ac55f8, type: 3}
+  m_PrefabInstance: {fileID: 1021806702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1288453407
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288453402}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c20c35bb1ec7de74cb173807dbc11354, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1289886581
 GameObject:
   m_ObjectHideFlags: 0
@@ -110070,11 +110106,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767572486}
   m_Mesh: {fileID: 4018627693220626915, guid: 44193c73ce53f73439c7420a77731e2e, type: 3}
---- !u!4 &1767848175 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1760694688930559031, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
-  m_PrefabInstance: {fileID: 782542670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1769325975
 GameObject:
   m_ObjectHideFlags: 0
@@ -113950,11 +113981,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832183053}
   m_Mesh: {fileID: -2588310056375966473, guid: a8c2998ce5215a946ab2f6a94ed9c3d0, type: 3}
---- !u!4 &1832646094 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4779263316540999744, guid: fda8de6ba8c24944a906edc4b0292024, type: 3}
-  m_PrefabInstance: {fileID: 782542670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1841505907
 PrefabInstance:
   m_ObjectHideFlags: 0

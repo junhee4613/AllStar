@@ -22,6 +22,8 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
+
+            Debug.Log("´Þ¸®±â");
             animator.Play("run",0);
         }
         public override void OnStateUpdate()

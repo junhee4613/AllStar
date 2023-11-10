@@ -21,20 +21,17 @@ public class GameManager
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
-        Time.timeScale = 0;
-        Managers.DataManager.Init(()=> {
-            PlayerStat.maxHP = 100;
-            PlayerStat.nowHP = 100;
-            PlayerStat.moveSpeed = 2;
-            PlayerStat.attackSpeed = 0.65f;
-            PlayerStat.attackDamage = 10;
-            PlayerStat.criticalChance = 10;
-            PlayerStat.criticalDamage = 198.5f;
-            PlayerStat.dodgeCooltime = 1;
-            Time.timeScale = 1;
-            done?.Invoke();
-            OnIconChange();
-        });
+        PlayerStat.maxHP = 100;
+        PlayerStat.nowHP = 100;
+        PlayerStat.moveSpeed = 2;
+        PlayerStat.attackSpeed = 0.65f;
+        PlayerStat.attackDamage = 10;
+        PlayerStat.criticalChance = 10;
+        PlayerStat.criticalDamage = 198.5f;
+        PlayerStat.dodgeCooltime = 1;
+
+        done?.Invoke();
+        OnIconChange();
     }
     public void AddStatus(statType type, float addValue)
     {

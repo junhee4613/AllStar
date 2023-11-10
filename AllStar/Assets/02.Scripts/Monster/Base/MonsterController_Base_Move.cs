@@ -83,6 +83,7 @@ public class MonsterController_Base_Move : MonsterBase
                 {
                     if (monsterStatus.nowState != monsterStatus.states["run"])
                     {
+                        Debug.Log("반응");
                         fsmChanger(monsterStatus.states["run"]);
                     }
                 }
@@ -112,7 +113,6 @@ public class MonsterController_Base_Move : MonsterBase
         }
         if (Original_spot)
         {
-            Debug.Log("회복");
         }
 
     }

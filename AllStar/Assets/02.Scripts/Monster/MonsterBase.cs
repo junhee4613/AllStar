@@ -42,6 +42,7 @@ public class MonsterBase : MonoBehaviour
         action_delay = action_delay_init;
         this.gameObject.name = this.gameObject.GetHashCode().ToString();
         Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStatus);
+        monsterStatus.nowState = monsterStatus.states["idle"];
     }
     // Start is called before the first frame update
     protected virtual void Start()

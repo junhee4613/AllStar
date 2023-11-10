@@ -14,10 +14,10 @@ public class MainButton : MonoBehaviour
     }
     public void OnGameStartButton()
     {
+        SceneManager.LoadSceneAsync(1);
         Managers.DataManager.Init(() =>
         {
             Managers.Sound.bgmList.Add(Managers.DataManager.Datas["Stage_001"] as AudioClip);
-            SceneManager.LoadSceneAsync(1);
         });
     }
     public void OnBGMVolumeChange(float value)
