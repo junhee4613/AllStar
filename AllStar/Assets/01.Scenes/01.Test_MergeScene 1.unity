@@ -6382,10 +6382,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 201510674265923732, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
-      propertyPath: action_delay_init
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7268398380993803578, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -6433,10 +6429,6 @@ PrefabInstance:
     - target: {fileID: 8040431107366760320, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
       propertyPath: m_Name
       value: Monster_Police_recucy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8040431107366760320, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc52be1bf5a98f24dba3d277fe3b2258, type: 3}
