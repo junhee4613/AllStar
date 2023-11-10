@@ -895,13 +895,14 @@ MonoBehaviour:
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
-    maxHP: 0
+    maxHP: 500
     nowHP: 500
     attackSpeed: 5
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
+    hit: 0
   chase_player: 0
   action_start: 1
   action_delay: 1.5

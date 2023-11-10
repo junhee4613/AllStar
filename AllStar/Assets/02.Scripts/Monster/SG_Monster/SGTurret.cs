@@ -10,7 +10,7 @@ public class SGTurret : Monster_Static
         PATTERN2
     }
     public SG_pattern pattern;
-    public GameObject portal;
+    //public GameObject portal;
     public GameObject[] pivotSG;
     protected override void Awake()
     {
@@ -50,9 +50,8 @@ public class SGTurret : Monster_Static
     }
     protected override void MonsterDie()
     {
-        Debug.Log("#Æ÷Å¾ Á×Àº µÚ Æ÷Å» »ý¼º");
-        portal.SetActive(true);
+        //Debug.Log("#Æ÷Å¾ Á×Àº µÚ Æ÷Å» »ý¼º");
+        //portal.SetActive(true);
         base.MonsterDie();
-        MonsterPush();
     }
 }

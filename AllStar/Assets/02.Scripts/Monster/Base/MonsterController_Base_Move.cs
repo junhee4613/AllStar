@@ -119,24 +119,24 @@ public class MonsterController_Base_Move : MonsterBase
     protected override void MonsterDie()
     {
         agent.isStopped = true;
-        int num1 = Random.Range(1, 100);
+        //int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
-        int num3 = Random.Range(1, 100);
-        if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
+        //int num3 = Random.Range(1, 100);
+        /*if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))
         {
             GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
             potion.transform.position = transform.position;
-        }
+        }*/
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
             GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);
 
             tempArtifact.transform.position = transform.position;
         }
-        if (num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
+        /*if (num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
         {
             WeaponDropKind();
-        }
+        }*/
         base.MonsterDie();
         MonsterPush();
     }

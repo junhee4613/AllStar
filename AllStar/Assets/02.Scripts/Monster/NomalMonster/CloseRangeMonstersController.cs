@@ -130,5 +130,9 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
             agent.isStopped = false;
         }
     }
+    protected override void MonsterPush()
+    {
+        Managers.Pool.MobPush(this.gameObject, "CloseRanged");
+    }
 
 }
