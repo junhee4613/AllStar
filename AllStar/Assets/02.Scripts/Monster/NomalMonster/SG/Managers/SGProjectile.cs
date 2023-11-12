@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SGProjectile : MonoBehaviour
 {
+    [SerializeField]
+    float damage = 1;
+    public LayerMask detection_target;
+
     private Transform transformCache;
     private SGBaseShot parentBaseShot;
     private float speed;
@@ -27,7 +31,7 @@ public class SGProjectile : MonoBehaviour
     private float maxSpeed;
     private bool useMinSpeed;
     private float minSpeed;
-
+    
     private float baseAngle;
     private float selfFrameCnt;
     private float selfTimeCount;
@@ -49,6 +53,7 @@ public class SGProjectile : MonoBehaviour
     {
         transformCache = transform;
         _DeadCheckTimer = 0.0f;
+        detection_target = LayerMask.GetMask("Player", "Adornment");
     }
 
     public virtual void SetActive(bool isActive)
@@ -141,7 +146,14 @@ public class SGProjectile : MonoBehaviour
         }
 
         selfTimeCount += deltaTime;
-
+        if (Physics.SphereCast(transform.position - transform.forward, 0.5f, transform.forward, out RaycastHit hit, 0.7f, detection_target))
+        {
+            if (hit.collider.tag == "Player")
+            {
+                Managers.GameManager.PlayerStat.GetDamage(damage);
+            }
+            SGObjectPool.Instance.ReleaseProjectile(this);
+        }
         // 오토 릴리즈 체크
         if (useAutoRelease && autoReleaseTime > 0f)
         {

@@ -87,11 +87,11 @@ public class Boss_Static : MonoBehaviour
         }
         else
         {
-            //heal_pattern_start = false;
+            heal_pattern_start = false;
         }
 
         if((action_start && Pattern_Start()) || look_target)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);//나중에 보스 모델링 보고 로직 위치나 조건 수정할 가능성 높음
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
 
 
 
@@ -141,14 +141,12 @@ public class Boss_Static : MonoBehaviour
         {
             if (heal_pattern_start)
             {
-                randomNum = 5;                  //힐패턴이 6번이기 때문
+                randomNum = 6;                  //힐패턴이 6번이기 때문
 
             }
             else
             {
-                return;
-                //randomNum = 6;                  //힐패턴이 6번이기 때문
-                //randomNum = Random.Range(1, 5);             //나중에 5로 늘려야됨
+                randomNum = Random.Range(1, 5);             //나중에 5로 늘려야됨
             }
             motion_Type = $"Simple_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
             simple_pattern = (Boss_Simple_Pattern)randomNum - 1;

@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4075713463106513185
 Transform:
   m_ObjectHideFlags: 0
@@ -207,12 +207,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 4075713463106513185}
     m_Modifications:
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: wayNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: _shooting
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: centerAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: useMinSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: betweenAngle
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: nextLineDely
-      value: 2
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: projectileNum
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: useAutoRelease
@@ -220,7 +240,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: autoReleaseTime
-      value: 6
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: projectileSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: accelerationTurn
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 1774612050036960145, guid: 085bc75a19f13c14983aa322b79815c3, type: 3}
+    - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
+      propertyPath: accelerationSpeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576497, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: m_Name

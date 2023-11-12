@@ -44,25 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101f55b3c3155ab468b978c2c5cc47ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1774612050036960145, guid: 085bc75a19f13c14983aa322b79815c3, type: 3}
+  projectilePrefab: {fileID: 5044391184289437708, guid: a9d6633f130afc8449afa25f22c8466b, type: 3}
   projectileNum: 50
-  projectileSpeed: 7.3
+  projectileSpeed: 1
   accelerationSpeed: -1
   useMaxSpeed: 0
   maxSpeed: 0
   useMinSpeed: 1
   minSpeed: 0
-  accelerationTurn: 130
+  accelerationTurn: 90
   usePauseAndResume: 0
   pauseTime: 0
   resumeTime: 0
-  useAutoRelease: 0
-  autoReleaseTime: 0
-  _shooting: 1
-  continuous_attack: 0
-  attack: 1
-  wayNum: 8
-  centerAngle: 0
+  useAutoRelease: 1
+  autoReleaseTime: 3
+  wayNum: 4
+  centerAngle: 90
   betweenAngle: 90
-  nextLineDely: 1.5
-  delayTimer: 0
+  nextLineDely: 2
