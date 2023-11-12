@@ -286,6 +286,36 @@ MonoBehaviour:
     m_Address: Assets/01.Scenes/MapSetting/Map_002_Profiles/GameView.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 35574a2eb986c0e4bb4bc9b4d8d27b2f
+    m_Address: Revolver_Mesh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 7c9e0d1d89cc87149b4957fcbeccb734
+    m_Address: Launcher_Mesh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 4956f594fc136c7438884f3a9a44da9e
+    m_Address: ShotGun_Mesh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 452322cb3c5690047bb35c7117964b7f
+    m_Address: ShotGun_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: e850f5185a0366e45b9b6e89fffc1cf5
+    m_Address: Launcher_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: 3e3349caa787c7c46b54e37508b8dea7
+    m_Address: Revolver_Mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:

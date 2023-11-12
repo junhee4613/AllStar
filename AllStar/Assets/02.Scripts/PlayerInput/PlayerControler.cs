@@ -42,6 +42,7 @@ public class PlayerControler : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerWeapons = Managers.GameManager.playerWeapons;
+
         ownArtifacts = Managers.GameManager.playerArtifacts;
         skills = Managers.GameManager.playerSkills;
         Managers.GameManager.playerCooltimes = skillCoolTimes;
@@ -59,6 +60,11 @@ public class PlayerControler : MonoBehaviour
         stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
         stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
         stat.nowState = stat.states["idle"];
+        for (byte i = 0; i < playerWeapons.Length; i++)
+        {
+            playerWeapons[i].playerWeapon.Item1 = firePos.transform.GetChild(1).GetComponent<MeshFilter>();
+            playerWeapons[i].playerWeapon.Item2 = firePos.transform.GetChild(1).GetComponent<MeshRenderer>();
+        }
         isLoaddineDone = true;
         for (byte i = 0; i < skillCoolIcons.Length; i++)
         {
@@ -128,14 +134,17 @@ public class PlayerControler : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 nowWeapon = 0;
+                playerWeapons[nowWeapon].ChangeWeaponModel();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 nowWeapon = 1;
+                playerWeapons[nowWeapon].ChangeWeaponModel();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 nowWeapon = 2;
+                playerWeapons[nowWeapon].ChangeWeaponModel();
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
@@ -200,6 +209,12 @@ public class PlayerControler : MonoBehaviour
             });
         }
     }
+
+    public void SetWeaponModel()
+    {
+
+    }
+
     public byte whatIsEmptySlot(byte index)
     {
         for (byte i = 0; i < playerWeapons.Length; i++)
@@ -263,8 +278,14 @@ public class PlayerControler : MonoBehaviour
                     Debug.Log("ºóÄ­Ã£À½");
                     if (whatIsEmptySlot(target.itemIndex) != 255 && target.type == ItemTypeEnum.weapon)
                     {
+                        byte tempIndex = whatIsEmptySlot(target.itemIndex);
                         Debug.Log("ÃÑ¸ÔÀ½");
-                        target.UseItem<GunBase>(ref playerWeapons[whatIsEmptySlot(target.itemIndex)]);
+                        target.UseItem<GunBase>(ref playerWeapons[tempIndex]);
+                        if (tempIndex == nowWeapon)
+                        {
+                            //¿©±â¿¡ ÃÑ±â ÇØ´ç¹øÈ£ÀÇ ÇÔ¼ö ½ÇÇàÇÊ¿ä
+                            playerWeapons[tempIndex].ChangeWeaponModel();
+                        }
                         Debug.Log(target);
                         return false;
                     }
