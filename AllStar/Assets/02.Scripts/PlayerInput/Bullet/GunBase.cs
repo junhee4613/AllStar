@@ -7,6 +7,9 @@ using System;
 public class GunBase
 {
     public GunStat stat;
+    public Mesh gunMesh;
+    public Material gunMat;
+    [SerializeField]public (MeshFilter, MeshRenderer) playerWeapon;
     //세팅 
     public void StartSetting()
     {
@@ -105,6 +108,8 @@ public class GunBase
             }
             indexCheck++;
         }
+        gunMat = null;
+        gunMesh = null;
         //254는 무기가 없는 상태
 
     }
@@ -159,7 +164,15 @@ public class GunBase
             }
             indexCheck++;
         }
+        gunMesh = Managers.DataManager.Datas[stat.codeName + "_Mesh"] as Mesh;
+        gunMat = Managers.DataManager.Datas[stat.codeName+"_Mat"] as Material;
         doneCheck?.Invoke();
+    }
+    public void ChangeWeaponModel()
+    {
+        playerWeapon.Item1.mesh = gunMesh;
+        playerWeapon.Item2.material = gunMat;
+        
     }
     public float GetTotalCollDamage(in float playerDMG, in float criDamage, in float criChance, ref bool isCritical)
     {
