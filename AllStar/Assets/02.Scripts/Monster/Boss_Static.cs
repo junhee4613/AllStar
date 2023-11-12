@@ -27,15 +27,18 @@ public class Boss_Static : MonoBehaviour
     [Header("레이저 홀딩시간")]
     public int laser_holding_time;
     [Header("따라가는 레이저 쏠 때 플레이어 쳐다보는 속도")]
-    public int follow_laser_look_rotation;
+    public int follow_laser_rotation_speed;
 
-    float holding_time;
+
+    public float holding_time;
     [Header("처음에 true여야 패턴 시작 - 테스트용(이건 안건드려도 됨)")]
     public bool action_start = true;
     [Header("안때린 시간 - 테스트용(이건 안건드려도 됨)")]
     public float non_hit_time;
     [Header("현재 hp - 테스트용(이건 안건드려도 됨)")]
     public float current_hp;
+    [Header("홀딩 레이저 데미지 들어가는 주기")]
+    public float damage_cycle;
 
     bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
@@ -45,6 +48,7 @@ public class Boss_Static : MonoBehaviour
     bool barrage_start = false;
     public AnimatorStateInfo test;
     public bool look_target;
+    public bool attack;
     
 
 
@@ -137,7 +141,7 @@ public class Boss_Static : MonoBehaviour
         {
             if (heal_pattern_start)
             {
-                randomNum = 6;                  //힐패턴이 6번이기 때문
+                randomNum = 5;                  //힐패턴이 6번이기 때문
 
             }
             else
@@ -166,7 +170,6 @@ public class Boss_Static : MonoBehaviour
                     StartCoroutine(motion_Type);
                     break;
                 case Boss_Simple_Pattern.HEAL:
-                    Debug.Log("코루틴");
                     StartCoroutine(motion_Type);
                     break;
                 default:
@@ -192,35 +195,34 @@ public class Boss_Static : MonoBehaviour
     #region 보스 패턴 HP35퍼 초과일 때
     IEnumerator Simple_Pattern1()               //탄막패턴   
     {
-
-        
+        fsmChanger(state.states["simple_pattern4"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴1");
             Barrage_Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
+        yield return null;
         action_start = true;
     }
     IEnumerator Simple_Pattern2()              //탄막패턴
     {
-        
+        fsmChanger(state.states["simple_pattern4"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴2");
-
             Barrage_Pattern_Stop(simple_barrage_patterns);
+            yield return null;
         }
-        Debug.Log("여기");
         yield return null;
-
         action_start = true;
     }
     IEnumerator Simple_Pattern3()              //탄막패턴
     {
+        fsmChanger(state.states["simple_pattern4"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴3");
             Barrage_Pattern_Stop(simple_barrage_patterns);
             yield return null;
         }
@@ -230,73 +232,45 @@ public class Boss_Static : MonoBehaviour
     IEnumerator Simple_Pattern4()              //레이저 짧게 한번 쏘는 패턴 이때는 따라가는 레이저보다 더 빠르게 쏨
     {
         fsmChanger(state.states["simple_pattern4"]);
+        attack = true;
         yield return null;
         while (pattern_loop)
         {
-            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.306f)
-            {
-                //레이저 모으기
-            }
-            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.61f)
-            {
-
-            }
-            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.999f)
-            {
-                if (laser_holding_time <= holding_time)
-                {
-                    holding_time = 0;
-                }
-                else
-                {
-                    holding_time += Time.deltaTime;
-                }
-
-            }
-            else
+            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
             {
                 Pattern_Stop(); // 나중에 else문에 넣기
             }
+            else if (attack)
+            {
+                GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
+                temp.transform.position = gameObject.transform.position + transform.forward * 2;
+                temp.transform.rotation = gameObject.transform.rotation;
+                attack = false;
+            }
             yield return null;
         }
+        yield return null;
+        Debug.Log("실행");
         fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Simple_Pattern5()              //레이저 쏘면서 플레이어를 천천히 쳐다보는 패턴
     {
         fsmChanger(state.states["simple_pattern5"]);
+        attack = true;
         yield return null;
         while (pattern_loop)
         {
-            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.306f)
-            {
-                rotateSpeed = follow_laser_look_rotation;
-            }
-            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.61f)
-            {
-                if(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
-                {
-                    state.animator.speed = 0;
-                    if (laser_holding_time <= holding_time)
-                    {
-                        holding_time = 0;
-                        //Managers.Pool.Push(temp);
-                    }
-                    else
-                    {
-                        holding_time += Time.deltaTime;
-                        GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
-                    }
-                }
-                else
-                {
-                    state.animator.speed = 0;
-                }
-                
-            }
-            else if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
             {
                 Pattern_Stop(); // 나중에 else문에 넣기
+            }
+            else if (attack)
+            {
+                Laser_various_aspects();
+
+
+                attack = false;
             }
             yield return null;
         }
@@ -450,4 +424,54 @@ public class Boss_Static : MonoBehaviour
         else
             return false;
     }
+    public void Laser_various_aspects()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
+            Debug.Log("레이저 소환");
+            switch (i)
+            {
+                case 0:
+                    temp.transform.position = gameObject.transform.position + transform.forward * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 1:
+                    temp.transform.position = gameObject.transform.position + (transform.forward + transform.right).normalized * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 2:
+                    temp.transform.position = gameObject.transform.position + transform.right * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 3:
+                    temp.transform.position = gameObject.transform.position + (transform.forward * -1 + transform.right).normalized * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 4:
+                    temp.transform.position = gameObject.transform.position + transform.forward * -2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 5:
+                    temp.transform.position = gameObject.transform.position + (transform.forward + transform.right).normalized * -2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 6:
+                    temp.transform.position = gameObject.transform.position + transform.right* -2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 7:
+                    temp.transform.position = gameObject.transform.position + (transform.forward + transform.right * -1).normalized * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+
+                default:
+                    break;
+            }
+            Debug.Log(temp.gameObject.transform.position + "번호: " + i);
+            
+        }
+    }
+
+
 }

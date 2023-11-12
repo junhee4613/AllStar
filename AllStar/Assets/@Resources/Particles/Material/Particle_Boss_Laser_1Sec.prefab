@@ -14707,6 +14707,20 @@ MonoBehaviour:
   test: {fileID: 2100000, guid: e75db44d66126314280c2f5951dd6ef1, type: 2}
   test_x: -1.5
   test_y: -4
+  size_x: 0
+  size_y: 0
+  size_z: 0
+  dis: 0
+  monsterStat:
+    moveSpeed: 0
+    maxHP: 0
+    nowHP: 0
+    attackSpeed: 0
+    attackDamage: 0
+    criticalChance: 0
+    criticalDamage: 0
+    animator: {fileID: 0}
+  monster: {fileID: 0}
 --- !u!1 &5044391184064859018
 GameObject:
   m_ObjectHideFlags: 0
@@ -19593,6 +19607,20 @@ MonoBehaviour:
   test: {fileID: 2100000, guid: e75db44d66126314280c2f5951dd6ef1, type: 2}
   test_x: -1.5
   test_y: -4
+  size_x: 0
+  size_y: 0
+  size_z: 0
+  dis: 0
+  monsterStat:
+    moveSpeed: 0
+    maxHP: 0
+    nowHP: 0
+    attackSpeed: 0
+    attackDamage: 0
+    criticalChance: 0
+    criticalDamage: 0
+    animator: {fileID: 0}
+  monster: {fileID: 0}
 --- !u!1 &5044391184117998837
 GameObject:
   m_ObjectHideFlags: 0
@@ -24510,6 +24538,7 @@ GameObject:
   - component: {fileID: 5044391184289437711}
   - component: {fileID: 5044391184289437710}
   - component: {fileID: 5044391184289437709}
+  - component: {fileID: 4352720688662217919}
   m_Layer: 0
   m_Name: Particle_Boss_Laser_1Sec
   m_TagString: Untagged
@@ -29488,6 +29517,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4352720688662217919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044391184289437708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb9fad6161cd4148ab95d5e34db4673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 5044391184289437710}
 --- !u!1 &5044391184320992975
 GameObject:
   m_ObjectHideFlags: 0
@@ -34410,6 +34452,20 @@ MonoBehaviour:
   test: {fileID: 2100000, guid: e75db44d66126314280c2f5951dd6ef1, type: 2}
   test_x: -1.5
   test_y: -4
+  size_x: 0
+  size_y: 0
+  size_z: 0
+  dis: 0
+  monsterStat:
+    moveSpeed: 0
+    maxHP: 0
+    nowHP: 0
+    attackSpeed: 0
+    attackDamage: 0
+    criticalChance: 0
+    criticalDamage: 0
+    animator: {fileID: 0}
+  monster: {fileID: 0}
 --- !u!1 &5044391184627819539
 GameObject:
   m_ObjectHideFlags: 0
@@ -49108,3 +49164,17 @@ MonoBehaviour:
   test: {fileID: 2100000, guid: 3efddf33da64646428e376f0aa776b41, type: 2}
   test_x: 0
   test_y: 2
+  size_x: 0
+  size_y: 0
+  size_z: 0
+  dis: 0
+  monsterStat:
+    moveSpeed: 0
+    maxHP: 0
+    nowHP: 0
+    attackSpeed: 0
+    attackDamage: 0
+    criticalChance: 0
+    criticalDamage: 0
+    animator: {fileID: 0}
+  monster: {fileID: 0}
