@@ -11,7 +11,7 @@ public class Boss_Static : MonoBehaviour
     public GameObject player;
     public GameObject[] simple_barrage_patterns;
     public GameObject[] hard_barrage_patterns;
-    public Status state;
+    public Nomal_monster state;
     [Header("초당 회전 각도")]
     public float rotateSpeed;
     [Header("안맞아서 힐패턴 나오는 시간 기준")]
@@ -64,6 +64,9 @@ public class Boss_Static : MonoBehaviour
         Debug.Log(state.states.Count);
         Debug.Log(state.animator);
         player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log("#보스 피통 UI 나중에 수정");
+        state.hp_bar = GameObject.FindWithTag("Monster_hp_bar");
+        state.hp_bar.SetActive(false);
     }
     private void Start()
     {                                   //this는 현재 클래스를 나타냄
@@ -433,6 +436,11 @@ public class Boss_Static : MonoBehaviour
             else
             {
                 state.nowHP = Mathf.Clamp(state.nowHP + Time.deltaTime * state.maxHP / 100 * heal_quantity, 0, state.maxHP);
+                if (state.hp_bar != null && Managers.UI.monster_hp_bar.Item2 != null)
+                {
+                    Managers.UI.monster_hp_bar.Item2.text = state.name;
+                    Managers.UI.monster_hp_bar.Item1.value = (state.nowHP / state.maxHP) * 100;
+                }
             }
             yield return null;
         }

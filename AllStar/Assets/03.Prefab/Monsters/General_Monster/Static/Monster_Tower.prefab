@@ -137,21 +137,23 @@ MonoBehaviour:
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
-    maxHP: 100
-    nowHP: 100
+    maxHP: 5000
+    nowHP: 5000
     attackSpeed: 1.5
     attackDamage: 0
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 0}
+    monster_Type: 0
     hit: 0
+    name: dlatl
+    hp_bar: {fileID: 0}
   chase_player: 1
   action_start: 1
   action_delay: 0
   action_delay_init: 0
   die: 0
   heal_quantity: 0
-  monster_type: 3
   potionDropProbability: 0
   itemDropProbability: 0
   weaponDropProbability: 0
@@ -159,6 +161,7 @@ MonoBehaviour:
   pattern: 0
   pivotSG:
   - {fileID: 500349362}
+  portal: {fileID: 0}
 --- !u!114 &2875882513889782048
 MonoBehaviour:
   m_ObjectHideFlags: 0

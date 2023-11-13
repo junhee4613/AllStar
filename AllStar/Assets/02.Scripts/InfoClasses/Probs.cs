@@ -4,7 +4,9 @@ using PlayerSkills.SkillProbs.DeffenceCon;
 using PlayerSkills.SkillProbs.OffenceCon;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Status
@@ -39,14 +41,33 @@ public class PlayerOnlyStatus : Status
 [System.Serializable]
 public class Nomal_monster : Status
 {
+    public Monster_Type monster_Type;
     public bool hit;
+    public string name;
+    public GameObject hp_bar = null;
+
     public override void GetDamage(float Damage)
     {
         base.GetDamage(Damage);
         hit = true;
+        if (monster_Type == Monster_Type.STAGE_BOSS || monster_Type == Monster_Type.NAMED_MONSTER)
+        {
+            if (Managers.UI.monster_hp_bar.Item1 == null)
+            {
+                Managers.UI.monster_hp_bar.Item1 = hp_bar.GetComponent<Slider>();
+                Managers.UI.monster_hp_bar.Item2 = hp_bar.transform.GetComponentInChildren<TextMeshProUGUI>();
+            }
+            if (!hp_bar.activeSelf)
+            {
+                hp_bar.SetActive(true);
+
+            }
+            Managers.UI.monster_hp_bar_time = 0;
+            Managers.UI.monster_hp_bar.Item2.text = name;
+            Managers.UI.monster_hp_bar.Item1.value = (nowHP / maxHP) * 100;
+        }
     }
 }
-
 
 public enum statType
 {
@@ -57,6 +78,14 @@ public class BulletStatus
     public float damage;
     public int bulletCount;
 }
+public enum Monster_Type 
+{
+    NAMED_MONSTER,
+    BASIC_MONSTER,
+    STAGE_BOSS,
+
+}
+
 public enum Boss_Simple_Pattern
 {
     BARRAGE1,

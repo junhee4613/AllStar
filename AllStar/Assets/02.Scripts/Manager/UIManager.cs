@@ -12,6 +12,8 @@ public class UIManager
     public Image[] weaponSlotIMG;
     public (Slider,TextMeshProUGUI) hpbar;
     public Slider loadBar;
+    public (Slider, TextMeshProUGUI) monster_hp_bar;
+    public float monster_hp_bar_time;
 
     public void SetSkillIcons(byte slotArray,string codeName)
     {

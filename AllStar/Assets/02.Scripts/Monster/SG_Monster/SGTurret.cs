@@ -17,6 +17,10 @@ public class SGTurret : Monster_Static
     {
         Managers.Pool.MonsterPop("SG", gameObject);
         base.Awake();
+        Debug.Log("#포탑 피통 UI 나중에 수정");      //두개의 오브젝트가 있었는데 하나는 값이 할당되고 하나는 안됐음 그래서 하나를 지우니 값이 제대로 할당이 됐음ㅋㅋ
+        monsterStatus.hp_bar = GameObject.FindGameObjectWithTag("Monster_hp_bar");
+        monsterStatus.hp_bar.SetActive(false);
+
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -38,6 +42,11 @@ public class SGTurret : Monster_Static
     protected override void Status_Init()
     {
         base.Status_Init();
+        if(monsterStatus.hp_bar != null && Managers.UI.monster_hp_bar.Item2 != null)
+        {
+            Managers.UI.monster_hp_bar.Item2.text = monsterStatus.name;
+            Managers.UI.monster_hp_bar.Item1.value = (monsterStatus.nowHP / monsterStatus.maxHP) * 100;
+        }
         pivotSG[0].SetActive(false);
     }
     protected override void Perceive_player()
@@ -47,6 +56,7 @@ public class SGTurret : Monster_Static
     protected override void MonsterPush()
     {
         base.MonsterPush();
+        Debug.Log("들어감");
         Managers.Pool.MobPush(this.gameObject, "SG");
     }
     protected override void MonsterDie()

@@ -23,14 +23,14 @@ public class MonsterBase : MonoBehaviour
     public bool die = false;
     [Header("힐량")]
     public float heal_quantity;
-    public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
+   /* public enum Monster_type    //몬스터 타입에 따라 아이템 드랍하는 종류를 정해주기 위해 enum을 씀
     {
         DOG,
         POLICE,
         DRAGUN,
         TURRET,
     }
-    public Monster_type monster_type;
+    public Monster_type monster_type;*/
 
 
     protected virtual void Awake()
@@ -77,6 +77,7 @@ public class MonsterBase : MonoBehaviour
             }
             else if ((playerSence.Length == 0 && !monsterStatus.hit) || !chase_player)
             {
+                Debug.Log("포탑형 몬스터 땜에 여기 if문 수정");
                 Status_Init();
                 chase_player = false;
             }
@@ -123,7 +124,7 @@ public class MonsterBase : MonoBehaviour
     {
         monsterStatus.nowState = monsterStatus.states["die"];
     }
-    public void WeaponDropKind()
+    /*public void WeaponDropKind()
     {
         switch (monster_type)
         {
@@ -142,7 +143,7 @@ public class MonsterBase : MonoBehaviour
             default:
                 break;
         }
-    }
+    }*/
     public void MonsterPoolPush()
     {
 
