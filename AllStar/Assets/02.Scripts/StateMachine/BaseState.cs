@@ -39,7 +39,6 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-            Debug.Log("공격모션");
             animator.Play("attack", 0);
         }
         public override void OnStateUpdate()
@@ -85,7 +84,6 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-            Debug.Log("idle진입");
             animator.Play("idle", 0);
         }
         public override void OnStateUpdate()
@@ -253,6 +251,50 @@ namespace BossFSM
     {
         string pattern_name;
         public Simple_pattern6(string name)
+        {
+            pattern_name = name;
+            Debug.Log(name);
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class Attack_to_Idle : BaseState
+    {
+        string pattern_name;
+        public Attack_to_Idle(string name)
+        {
+            pattern_name = name;
+            Debug.Log(name);
+        }
+        public override void OnStateEnter()
+        {
+            animator.Play(pattern_name, 0);
+
+        }
+        public override void OnStateUpdate()
+        {
+
+        }
+        public override void OnStateExit()
+        {
+
+        }
+    }
+    public class IdleToAttack : BaseState
+    {
+        string pattern_name;
+        public IdleToAttack(string name)
         {
             pattern_name = name;
             Debug.Log(name);

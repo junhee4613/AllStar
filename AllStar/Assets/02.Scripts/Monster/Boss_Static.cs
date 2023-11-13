@@ -21,16 +21,18 @@ public class Boss_Static : MonoBehaviour
     [Header("힐량 = 초당 피의 ?퍼센트 ")]
     public float heal_quantity;
     [Header("패턴 끝난 후 쉬는 시간들")]
-    public float[] standby_time_standard = new float[2] { 1f, 2f };
+    public float[] standby_time_standard = new float[2] { 0.7f, 1.5f };
     [Header("체력 회복하는 시간")]
     public int heal_time;
     [Header("레이저 홀딩시간")]
     public int laser_holding_time;
+    [Header("탄막패턴 지속 시간 기준")]
+    public int barrage_pattern_operation_time;
     [Header("따라가는 레이저 쏠 때 플레이어 쳐다보는 속도")]
     public int follow_laser_rotation_speed;
-
-
-    public float holding_time;
+    public GameObject[] laser = new GameObject[8];
+    //모든 패턴이 시작된 시간
+    public float Pattern_last_time;
     [Header("처음에 true여야 패턴 시작 - 테스트용(이건 안건드려도 됨)")]
     public bool action_start = true;
     [Header("안때린 시간 - 테스트용(이건 안건드려도 됨)")]
@@ -49,6 +51,9 @@ public class Boss_Static : MonoBehaviour
     public AnimatorStateInfo test;
     public bool look_target;
     public bool attack;
+
+    //테스트용
+    public float test2 = 15;
     
 
 
@@ -87,11 +92,14 @@ public class Boss_Static : MonoBehaviour
         }
         else
         {
-            heal_pattern_start = false;
+            //heal_pattern_start = false;
         }
 
-        if((action_start && Pattern_Start()) || look_target)
+        if (!pattern_loop || look_target)
+        {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(transform.rotation.x, LookPlayer(player), transform.rotation.z), rotateSpeed * Time.deltaTime);
+            Debug.Log("회전");
+        }
 
 
 
@@ -101,11 +109,10 @@ public class Boss_Static : MonoBehaviour
             {
                 Pattern();
             }
-        }
-        else
-        {
-            
-            standby_time += Time.deltaTime;
+            else
+            {
+                standby_time += Time.deltaTime;
+            }
         }
     }
     
@@ -146,7 +153,7 @@ public class Boss_Static : MonoBehaviour
             }
             else
             {
-                randomNum = Random.Range(1, 5);             //나중에 5로 늘려야됨
+                randomNum = Random.Range(5, 6);             //나중에 5로 늘려야됨 randomNum = Random.Range(0, n);까지 설정하면 n-1까지만 숫자가 나옴  
             }
             motion_Type = $"Simple_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
             simple_pattern = (Boss_Simple_Pattern)randomNum - 1;
@@ -193,48 +200,162 @@ public class Boss_Static : MonoBehaviour
     #region 보스 패턴 HP35퍼 초과일 때
     IEnumerator Simple_Pattern1()               //탄막패턴   
     {
-        fsmChanger(state.states["simple_pattern4"]);
+        fsmChanger(state.states["idle_to_attack"]);
         yield return null;
         while (pattern_loop)
         {
-            Barrage_Pattern_Stop(simple_barrage_patterns);
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.6f))
+            {
+                Barrage_Pattern_Stop(simple_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.45f))
+            {
+                if (barrage_pattern_operation_time >= Pattern_last_time)
+                {
+                    state.animator.speed = 0;
+                    Pattern_last_time += Time.deltaTime;
+                }
+                else
+                {
+                    state.animator.speed = 1;
+                }
+
+            }
+            else if(Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop();
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.31f))
+            {
+                if (!simple_barrage_patterns[0].activeSelf)
+                {
+                    simple_barrage_patterns[0].SetActive(true);
+                }
+            }
+            
             yield return null;
         }
-        yield return null;
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Simple_Pattern2()              //탄막패턴
     {
-        fsmChanger(state.states["simple_pattern4"]);
+        fsmChanger(state.states["idle_to_attack"]);
         yield return null;
         while (pattern_loop)
         {
-            Barrage_Pattern_Stop(simple_barrage_patterns);
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.6f))
+            {
+                Barrage_Pattern_Stop(simple_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.45f))
+            {
+                if (barrage_pattern_operation_time >= Pattern_last_time)
+                {
+                    state.animator.speed = 0;
+                    Pattern_last_time += Time.deltaTime;
+                }
+                else
+                {
+                    state.animator.speed = 1;
+                }
+
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop();
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.31f))
+            {
+                if (!simple_barrage_patterns[1].activeSelf)
+                {
+                    simple_barrage_patterns[1].SetActive(true);
+                }
+            }
             yield return null;
         }
-        yield return null;
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Simple_Pattern3()              //탄막패턴
     {
-        fsmChanger(state.states["simple_pattern4"]);
+        fsmChanger(state.states["idle_to_attack"]);
         yield return null;
         while (pattern_loop)
         {
-            Barrage_Pattern_Stop(simple_barrage_patterns);
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if(Current_anim_Up_and_time("simple_pattern4", 0.6f))
+            {
+                Barrage_Pattern_Stop(simple_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.45f))
+            {
+                if (barrage_pattern_operation_time >= Pattern_last_time)
+                {
+                    state.animator.speed = 0;
+                    Pattern_last_time += Time.deltaTime;
+                }
+                else
+                {
+                    state.animator.speed = 1;
+                }
+
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop(); // 나중에 else문에 넣기
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.31f))
+            {
+                if (!simple_barrage_patterns[2].activeSelf)
+                {
+                    simple_barrage_patterns[2].SetActive(true);
+                }
+            }
             yield return null;
         }
-
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Simple_Pattern4()              //레이저 짧게 한번 쏘는 패턴 이때는 따라가는 레이저보다 더 빠르게 쏨
     {
-        fsmChanger(state.states["simple_pattern4"]);
-        attack = true;
+        fsmChanger(state.states["idle_to_attack"]);
         yield return null;
         while (pattern_loop)
         {
-            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+                attack = true;
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if(Current_anim_Up_and_time("attack_to_idle", 1))
             {
                 Pattern_Stop(); // 나중에 else문에 넣기
             }
@@ -247,27 +368,39 @@ public class Boss_Static : MonoBehaviour
             }
             yield return null;
         }
-        yield return null;
-        Debug.Log("실행");
         fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Simple_Pattern5()              //레이저 쏘면서 플레이어를 천천히 쳐다보는 패턴
     {
-        fsmChanger(state.states["simple_pattern5"]);
-        attack = true;
+        fsmChanger(state.states["idle_to_attack"]);
         yield return null;
         while (pattern_loop)
         {
-            if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern5"]);
+                attack = true;
+            }
+            else if (Current_anim_Up_and_time("simple_pattern5", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+                test2 = 2;
+            }
+            else if(Current_anim_Up_and_time("simple_pattern5", 0.4f) && state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.6 && state.nowState == state.states["simple_pattern5"])
+            {
+                //2의 6승으로 계산
+                test2 += Time.deltaTime;
+                //gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, Quaternion.Euler(0, gameObject.transform.rotation.y + 45, 0), Time.deltaTime);
+                gameObject.transform.Rotate(0, (test2 * test2 * test2 * test2 * test2 * test2) * Time.deltaTime, 0);
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
             {
                 Pattern_Stop(); // 나중에 else문에 넣기
             }
             else if (attack)
             {
                 Laser_various_aspects();
-
-
                 attack = false;
             }
             yield return null;
@@ -284,26 +417,22 @@ public class Boss_Static : MonoBehaviour
         while (heal_pattern_start)
         {
             test = state.animator.GetCurrentAnimatorStateInfo(0);
-            if (Current_anim_and_time("simple_pattern6", 1))
+            if (Current_anim_Up_and_time("simple_pattern6", 1))
             {
-                Debug.Log("반복");
                 fsmChanger(state.states["heal_idle"]);
             }
-            else if (Current_anim_and_time("heal_idle", heal_time))
+            else if (Current_anim_Up_and_time("heal_idle", heal_time))
             {
-                Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-                Debug.Log("반복");
                 fsmChanger(state.states["return"]);
             }
-            else if(Current_anim_and_time("return", 1))
+            else if(Current_anim_Up_and_time("return", 1))
             {
-                Debug.Log("반복");
-                Debug.Log(state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
                 heal_pattern_start = false;
+                Pattern_Stop();
             }
             else
             {
-                state.nowHP += Time.deltaTime * state.maxHP / 100 * heal_quantity;
+                state.nowHP = Mathf.Clamp(state.nowHP + Time.deltaTime * state.maxHP / 100 * heal_quantity, 0, state.maxHP);
             }
             yield return null;
         }
@@ -316,38 +445,146 @@ public class Boss_Static : MonoBehaviour
     #region 보스 패턴 HP35퍼 이하일 때
     IEnumerator Hard_Pattern1()              //탄막패턴
     {
-
-        
+        fsmChanger(state.states["idle_to_attack"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴1");
-            Barrage_Pattern_Stop(hard_barrage_patterns);
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.6f))
+            {
+                Barrage_Pattern_Stop(hard_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.45f))
+            {
+                if (barrage_pattern_operation_time >= Pattern_last_time)
+                {
+                    state.animator.speed = 0;
+                    Pattern_last_time += Time.deltaTime;
+                }
+                else
+                {
+                    state.animator.speed = 1;
+                }
+
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop();
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.31f))
+            {
+                if (!hard_barrage_patterns[0].activeSelf)
+                {
+                    hard_barrage_patterns[0].SetActive(true);
+                }
+            }
+
             yield return null;
         }
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Hard_Pattern2()              //공격패턴
     {
-        
+        fsmChanger(state.states["idle_to_attack"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴2");
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.6f))
+            {
+                Barrage_Pattern_Stop(hard_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.45f))
+            {
+                if (barrage_pattern_operation_time >= Pattern_last_time)
+                {
+                    state.animator.speed = 0;
+                    Pattern_last_time += Time.deltaTime;
+                }
+                else
+                {
+                    state.animator.speed = 1;
+                }
 
-            Barrage_Pattern_Stop(hard_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop();
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.31f))
+            {
+                if (!hard_barrage_patterns[1].activeSelf)
+                {
+                    hard_barrage_patterns[1].SetActive(true);
+                }
+            }
+
             yield return null;
         }
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Hard_Pattern3()              //공격패턴
     {
-        
+        fsmChanger(state.states["idle_to_attack"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴3");
-            Barrage_Pattern_Stop(hard_barrage_patterns);
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.6f))
+            {
+                Barrage_Pattern_Stop(hard_barrage_patterns);
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.45f))
+            {
+                if (barrage_pattern_operation_time >= Pattern_last_time)
+                {
+                    state.animator.speed = 0;
+                    Pattern_last_time += Time.deltaTime;
+                }
+                else
+                {
+                    state.animator.speed = 1;
+                }
+
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop();
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 0.31f))
+            {
+                if (!hard_barrage_patterns[2].activeSelf)
+                {
+                    hard_barrage_patterns[2].SetActive(true);
+                }
+            }
+
             yield return null;
         }
-
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     IEnumerator Hard_Pattern4()              //가만히 패턴
@@ -360,37 +597,15 @@ public class Boss_Static : MonoBehaviour
         }
         action_start = true;
     }
-    IEnumerator Hard_Pattern5()              //움직이는 패턴
-    {
-        while (pattern_loop)
-        {
-            Debug.Log("패턴5");
-            Barrage_Pattern_Stop(hard_barrage_patterns);
-            yield return null;
-        }
-        action_start = true;
-    }
-    IEnumerator Hard_Pattern6()      //가만히 패턴
-    {
-        while (pattern_loop)
-        {
-            Debug.Log("패턴6");
-            Barrage_Pattern_Stop(hard_barrage_patterns);
-            yield return null;
-        }
-        action_start = true;
-    }
     #endregion
     public void Barrage_Pattern_Stop(GameObject[] temp)
     {
-        if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        foreach (var item in temp)
         {
-            foreach (var item in temp)
-            {
-                item.SetActive(false);
-            }
-            Pattern_Stop();
+            item.SetActive(false);
         }
+        Pattern_last_time = 0;
+        Debug.Log("반응");
     }
     public void Pattern_Stop()
     {
@@ -413,7 +628,7 @@ public class Boss_Static : MonoBehaviour
         }
 
     }
-    public bool Current_anim_and_time(string anim, int time)
+    public bool Current_anim_Up_and_time(string anim, float time)
     {
         if (state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= time && state.nowState == state.states[anim])
         {
@@ -424,50 +639,49 @@ public class Boss_Static : MonoBehaviour
     }
     public void Laser_various_aspects()
     {
+        Debug.Log("#나중에 수정");
         for (int i = 0; i < 8; i++)
         {
-            GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
-            Debug.Log("레이저 소환");
+            laser[i].SetActive(true);
+           /* GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser"] as GameObject);
             switch (i)
             {
                 case 0:
                     temp.transform.position = gameObject.transform.position + transform.forward * 2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 1:
                     temp.transform.position = gameObject.transform.position + (transform.forward + transform.right).normalized * 2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 2:
                     temp.transform.position = gameObject.transform.position + transform.right * 2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 3:
                     temp.transform.position = gameObject.transform.position + (transform.forward * -1 + transform.right).normalized * 2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 4:
                     temp.transform.position = gameObject.transform.position + transform.forward * -2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 5:
                     temp.transform.position = gameObject.transform.position + (transform.forward + transform.right).normalized * -2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 6:
                     temp.transform.position = gameObject.transform.position + transform.right* -2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
                 case 7:
                     temp.transform.position = gameObject.transform.position + (transform.forward + transform.right * -1).normalized * 2;
-                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 45 * i, gameObject.transform.rotation.z);
                     break;
 
                 default:
                     break;
-            }
-            Debug.Log(temp.gameObject.transform.position + "번호: " + i);
-            
+            }*/
         }
     }
 

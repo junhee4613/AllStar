@@ -19,11 +19,8 @@ public class Junhee_Test : MonoBehaviour
     public float dis;
 
     public Status monsterStat = new Status();
-    public GameObject monster = null;
     private void Awake()
     {
-        Managers.Pool.MonsterPop("Ranged", monster);
-        monster.transform.position = this.transform.position;
     }
     private void Update()
     {
@@ -31,6 +28,59 @@ public class Junhee_Test : MonoBehaviour
         {
             Debug.Log("데미지 들어감");
         }
+        /*for (int i = 0; i < 8; i++)
+        {
+            Debug.Log("레이저 소환");
+            switch (i)
+            {
+                case 0:
+                    Debug.Log(gameObject.transform.forward);
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + transform.forward * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 1:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + (transform.forward + transform.right).normalized * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 2:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + transform.right * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 3:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + (transform.forward * -1 + transform.right).normalized * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 4:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + transform.forward * -2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 5:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + (transform.forward + transform.right).normalized * -2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 6:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + transform.right * -2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+                case 7:
+                    Debug.Log(gameObject.transform.forward);
+                    temp.transform.position = gameObject.transform.position + (transform.forward + transform.right * -1).normalized * 2;
+                    temp.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 45 * i, gameObject.transform.rotation.z);
+                    break;
+
+                default:
+                    break;
+            }
+        }*/
+        //Debug.Log(gameObject.transform.forward);
+        //Debug.Log(gameObject.transform.position + transform.forward * 2);
     }
 
     /*private void Update()

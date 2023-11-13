@@ -82,6 +82,8 @@ public static class FSMExtension
         dict.Add("simple_pattern4", new BossFSM.Simple_pattern4("Simple_attack_laser"));
         dict.Add("simple_pattern5", new BossFSM.Simple_pattern5("Simple_attack_laser")); ;
         dict.Add("simple_pattern6", new BossFSM.Simple_pattern6("simple_heal"));
+        dict.Add("attack_to_idle", new BossFSM.Attack_to_Idle("AttackToIdle"));
+        dict.Add("idle_to_attack", new BossFSM.IdleToAttack("IdleToAttack"));
         dict.Add("return", new BossFSM.Form_return("simple_heal_return"));
         dict.Add("heal_idle", new BossFSM.Heal_idle());
         dict.Add("hard_pattern1", new BossFSM.Hard_pattern1("hard_barrage1"));

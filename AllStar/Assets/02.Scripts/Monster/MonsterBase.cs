@@ -67,7 +67,6 @@ public class MonsterBase : MonoBehaviour
             playerSence = Physics.OverlapSphere(transform.position, Detect_Range, 1 << 7);
             if (playerSence.Length != 0)
             {
-                Debug.Log("반응");
                 monsterStatus.hit = false;
             }
 

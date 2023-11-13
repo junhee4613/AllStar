@@ -104,7 +104,6 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         {
             AttackStart();
         }
-
     }
     protected override void fsmChanger(BaseState BS)
     {
