@@ -43,7 +43,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.98565537, g: 1, b: 0.9009434, a: 1}
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
   m_Intensity: 1.75
   m_Range: 7.51
   m_SpotAngle: 74.9
@@ -228,8 +228,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.48
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
+  m_Intensity: 0.81
   m_Range: 0.24
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -322,8 +322,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.48
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
+  m_Intensity: 0.81
   m_Range: 0.24
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -416,8 +416,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.48
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
+  m_Intensity: 0.81
   m_Range: 0.24
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -606,7 +606,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.98565537, g: 1, b: 0.9009434, a: 1}
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
   m_Intensity: 1.75
   m_Range: 7.51
   m_SpotAngle: 74.9
@@ -700,8 +700,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.48
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
+  m_Intensity: 0.81
   m_Range: 0.24
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -826,7 +826,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.98565537, g: 1, b: 0.9009434, a: 1}
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
   m_Intensity: 1.75
   m_Range: 7.51
   m_SpotAngle: 74.9
@@ -920,7 +920,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.98565537, g: 1, b: 0.9009434, a: 1}
+  m_Color: {r: 1, g: 0.9137255, b: 0.5411765, a: 1}
   m_Intensity: 1.75
   m_Range: 7.51
   m_SpotAngle: 74.9
