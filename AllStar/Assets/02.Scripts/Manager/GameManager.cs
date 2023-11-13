@@ -29,7 +29,7 @@ public class GameManager
         PlayerStat.criticalChance = 10;
         PlayerStat.criticalDamage = 198.5f;
         PlayerStat.dodgeCooltime = 1;
-
+        Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
         done?.Invoke();
         OnIconChange();
     }
@@ -42,7 +42,8 @@ public class GameManager
                 break;
             case statType.HP:
                 PlayerStat.maxHP = sumOper( PlayerStat.maxHP, addValue);
-                Managers.UI.hpbar.maxValue = PlayerStat.maxHP;
+                Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
+                Managers.UI.hpbar.Item2.text = PlayerStat.maxHP + "/" + PlayerStat.nowHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
@@ -69,8 +70,9 @@ public class GameManager
             case statType.HP:
                 PlayerStat.nowHP = minusOper(PlayerStat.nowHP, addValue);
                 PlayerStat.maxHP = minusOper(PlayerStat.maxHP, addValue);
-                Managers.UI.hpbar.maxValue = PlayerStat.maxHP;
-                Managers.UI.hpbar.value = PlayerStat.nowHP;
+                Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
+                Managers.UI.hpbar.Item2.text = PlayerStat.maxHP + "/" + PlayerStat.nowHP;
+                Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = divisionOper(PlayerStat.attackSpeed, addValue,0.65f);

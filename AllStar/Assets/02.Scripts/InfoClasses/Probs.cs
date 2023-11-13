@@ -31,8 +31,9 @@ public class PlayerOnlyStatus : Status
     public override void GetDamage(float Damage)
     {
         nowHP -= Damage;
-        Managers.UI.hpbar.maxValue = maxHP;
-        Managers.UI.hpbar.value = nowHP;
+        Managers.UI.hpbar.Item1.maxValue = maxHP;
+        Managers.UI.hpbar.Item1.value = nowHP;
+        Managers.UI.hpbar.Item2.text = nowHP + "/" + maxHP;
     }
 }
 [System.Serializable]
