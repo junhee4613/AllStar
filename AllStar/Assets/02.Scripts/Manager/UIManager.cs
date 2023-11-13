@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class UIManager
     public ItemUI.ItemIconSet[] artifactSet;
     public ItemUI.ItemIconSet[] skillIconSet;  
     public Image[] weaponSlotIMG;
-    public Slider hpbar;
+    public (Slider,TextMeshProUGUI) hpbar;
     public Slider loadBar;
 
     public void SetSkillIcons(byte slotArray,string codeName)

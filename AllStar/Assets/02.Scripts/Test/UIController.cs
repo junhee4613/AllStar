@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
     private float weaponIconSize;
     [Header("플레이어 정보창")]
     [SerializeField] private RectTransform charactorInfo;
-    [SerializeField]private Slider PlrHPBar;
+    [SerializeField]private (Slider,TextMeshProUGUI) PlrHPBar;
     public TextMeshProUGUI[] statusValues = new TextMeshProUGUI[5];
     [Header("스킬관련")]
     [SerializeField] private ItemUI.ItemIconSet[] skillSlotSet = new ItemUI.ItemIconSet[5];
@@ -42,6 +42,8 @@ public class UIController : MonoBehaviour
     //0체력,1공격력,2공속,3치확,4치뎀
     private void Awake()
     {
+        PlrHPBar.Item1 = GameObject.Find("Slider_HPBar").GetComponent<Slider>();
+        PlrHPBar.Item2 = GameObject.Find("HPText").GetComponent<TextMeshProUGUI>();
         Managers.UI.hpbar = PlrHPBar;
         Managers.GameManager.OnIconChange += infoStatUpdate;
         Vector2 tempVec;
