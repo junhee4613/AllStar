@@ -12,7 +12,12 @@ public abstract class IItemBase : MonoBehaviour
     public abstract void UseItem<T>(ref T changeOriginValue);
     protected virtual void Start()
     {
-        
+
+
+    }
+    protected void OnEnable()
+    {
+        Start();
     }
     public void SetItemModel(Material mat, Mesh mesh, byte index) 
     {
@@ -42,6 +47,50 @@ public abstract class IItemBase : MonoBehaviour
             pressText = null;
         }
 
+    }
+    public LayerMask targetLayer;
+    public float speed = 3f;
+    protected float meshSize;
+    public float defaultFallHeight = 2;
+    public float coefficientOfFriction = 1.6f;
+    protected Vector3 randomDir;
+    public bool IsToUp = false;
+    public Vector3 targetVec;
+    // Start is called before the first frame update
+    // Update is called once per frame
+    public void GetItemBouce()
+    {
+        IsToUp = false;
+        meshSize = transform.GetChild(0).GetComponent<MeshFilter>().mesh.bounds.extents.y;
+        randomDir = new Vector3(Random.Range(-0.3f, 0.4f), 0, Random.Range(-0.3f, 0.4f));
+        targetVec = Vector3.up * defaultFallHeight;
+    }
+    void Update()
+    {
+        if (IsToUp)
+        {
+            return;
+        }
+        if (Physics.Raycast(transform.position, Vector3.down, meshSize*3, targetLayer))
+        {
+            Debug.Log("asd");
+            targetVec = targetVec / coefficientOfFriction;
+            speed = 9.8f;
+            if (targetVec.y < 0.2)
+            {
+                IsToUp = true;
+            }
+        }
+        transform.Translate((targetVec * Time.deltaTime) * speed);
+        if (Physics.Raycast(transform.position+Vector3.right, Vector3.left, meshSize, targetLayer)|| Physics.Raycast(transform.position + Vector3.forward, Vector3.back, meshSize, targetLayer))
+        {
+            Debug.Log("º®´êÀ½");
+        }
+        else
+        {
+            transform.Translate((randomDir * Time.deltaTime));
+        }
+        speed -= (Time.deltaTime * 19.6f);
     }
 }
 

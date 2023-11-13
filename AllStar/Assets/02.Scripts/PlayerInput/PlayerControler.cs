@@ -56,6 +56,7 @@ public class PlayerControler : MonoBehaviour
             ownArtifacts[i] = new ArtifactSlot();
             ownArtifacts[i].ResetArtifact();
         }
+
         stat = Managers.GameManager.PlayerStat;
         stat.states.SetGeneralFSMDefault(ref stat.animator, this.gameObject);
         stat.states.SetPlayerFSMDefault(stat.animator, this.gameObject);
@@ -312,11 +313,14 @@ public class PlayerControler : MonoBehaviour
                                 tempItem.UseItemToUpGrade(tempSkill.Item1);
                                 Debug.Log("여기다가 중복스킬 처리");
                             }
-                            Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName); 
+                            Managers.UI.SetSkillIcons(tempSkill.Item2, tempSkill.Item1.skillInfo.codeName);
                         }
-
                     }
-
+                    else if (target.type == ItemTypeEnum.portal)
+                    {
+                        string aa = string.Empty;
+                        target.UseItem<string>(ref aa);
+                    }
                     Debug.Log(target);
                     return true;
                 }
@@ -349,7 +353,7 @@ public class PlayerControler : MonoBehaviour
             {
                 skills[i] = new SkillBase();
             }
-            if (skills[i].skillInfo.codeName == string.Empty)
+            if (skills[i].skillInfo.skillLevel == 0)
             {
                 tempNum2 = (byte)i;
                 tempNum = (byte)i;

@@ -19,11 +19,18 @@ public static class FSMExtension
             anim = GetOrAddCompo<Animator>(target);
         }
         //중립FSM 상태값 추가 시 여기에 등록해줘야함
-        dict.Add("attack", new GeneralFSM.Attack());
-        dict.Add("damaged", new GeneralFSM.Damaged());
-        dict.Add("run", new GeneralFSM.Run());
-        dict.Add("die", new GeneralFSM.Die());
-        dict.Add("idle", new GeneralFSM.Idle());
+        if (dict.TryGetValue("idle",out BaseState value))
+        {
+            
+        }
+        else
+        {
+            dict.Add("attack", new GeneralFSM.Attack());
+            dict.Add("damaged", new GeneralFSM.Damaged());
+            dict.Add("run", new GeneralFSM.Run());
+            dict.Add("die", new GeneralFSM.Die());
+            dict.Add("idle", new GeneralFSM.Idle());
+        }
 
         foreach (var item in dict)
         {
@@ -38,7 +45,14 @@ public static class FSMExtension
             anim = GetOrAddCompo<Animator>(target);
         }
         //플레이어FSM 상태값 추가 시 여기에 등록해줘야함
-        dict.Add("dodge", new PlayerFSM.Dodge());
+        if (dict.TryGetValue("dodge", out BaseState value))
+        {
+
+        }
+        else
+        {
+            dict.Add("dodge", new PlayerFSM.Dodge());
+        }
         foreach (var item in dict)
         {
             item.Value.animator = anim;

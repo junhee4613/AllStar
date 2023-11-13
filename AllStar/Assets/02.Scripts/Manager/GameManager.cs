@@ -43,7 +43,7 @@ public class GameManager
             case statType.HP:
                 PlayerStat.maxHP = sumOper( PlayerStat.maxHP, addValue);
                 Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
-                Managers.UI.hpbar.Item2.text = PlayerStat.maxHP + "/" + PlayerStat.nowHP;
+                Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = multipleOper( PlayerStat.attackSpeed, addValue,0.65f);
@@ -71,7 +71,7 @@ public class GameManager
                 PlayerStat.nowHP = minusOper(PlayerStat.nowHP, addValue);
                 PlayerStat.maxHP = minusOper(PlayerStat.maxHP, addValue);
                 Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
-                Managers.UI.hpbar.Item2.text = PlayerStat.maxHP + "/" + PlayerStat.nowHP;
+                Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
                 Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
                 break;
             case statType.attackSpeed:

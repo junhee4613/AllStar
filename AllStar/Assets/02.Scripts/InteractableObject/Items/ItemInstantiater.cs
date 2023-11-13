@@ -61,6 +61,10 @@ public class ItemInstantiater : MonoBehaviour
                 GameObject tempSkillOBJ = Managers.Pool.Pop(Managers.DataManager.Datas["SkillItem"] as GameObject);
                 tempSkillOBJ.transform.position = transform.position;
                 break;
+            case ItemTypeEnum.portal:
+                GameObject portal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                portal.AddComponent<Portal>();
+                break;
         }
         Managers.DataManager.onFunctionDone -= this.ItemSetting;
     }

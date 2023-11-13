@@ -61,9 +61,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIndex: 0
   type: 0
+  pressText: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  speed: 3
+  defaultFallHeight: 2
+  coefficientOfFriction: 1.6
+  IsToUp: 0
+  targetVec: {x: 0, y: 0, z: 0}
   weaponInfo:
     name: 
     weaponIndex: 254
+    flavorText: 
     codeName: 
     bulletSpeed: 0
     fireSpeed: 0

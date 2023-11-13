@@ -61,6 +61,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIndex: 0
   type: 3
+  pressText: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  speed: 3
+  defaultFallHeight: 2
+  coefficientOfFriction: 1.6
+  IsToUp: 0
+  targetVec: {x: 0, y: 0, z: 0}
 --- !u!1 &8984529268268967418
 GameObject:
   m_ObjectHideFlags: 0

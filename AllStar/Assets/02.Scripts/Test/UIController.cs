@@ -77,6 +77,7 @@ public class UIController : MonoBehaviour
         Managers.UI.skillIconSet = skillSlotSet;
         Managers.UI.weaponSlotIMG = weaponInvenIMGs;
         playerTR = GameObject.Find("PlayerController").transform;
+        flavorTextPanel.SetAsFirstSibling();
     }
 
     private void Update()
@@ -100,15 +101,37 @@ public class UIController : MonoBehaviour
         //플레이버 텍스트 출력은 마우스 위치를 받고 유물 순서를 대입받아 hashSet그리드로 하면 될듯? 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            tempby = GetIMGPosition(artifactIconPosition, artifactIconSize);
-            if (tempby <= (byte)artifactIconPosition.Length)
+            if (SkillBarAnim.GetCurrentAnimatorStateInfo(0).IsName("skillbarAllTrue") && IsMouseOnWhichTarget(artifactIconPosition, artifactIconSize))
             {
+                tempby = GetIMGPosition(artifactIconPosition, artifactIconSize);
                 string tempFlavor = Managers.GameManager.playerArtifacts[tempby].data.flavortext;
                 if (tempFlavor != default)
                 {
                     UIOpenAndClose(flavorTextPanel);
                     flavorText.text = Managers.GameManager.playerArtifacts[tempby].data.flavortext;
                     flavorTextPanel.localPosition = Input.mousePosition-Inventory.transform.position;
+                    Debug.Log(tempby);
+                }
+            }
+            else if (SkillBarAnim.GetCurrentAnimatorStateInfo(0).IsName("skillbarAllTrue") && IsMouseOnWhichTarget(skillIconPosition, skillIconSIze))
+            {
+                tempby = GetIMGPosition(skillIconPosition, skillIconSIze);
+                if (tempby <= (byte)skillIconPosition.Length)
+                {
+                    UIOpenAndClose(flavorTextPanel);
+                    flavorText.text = Managers.GameManager.playerSkills[tempby].skillInfo.flavorText;
+                    flavorTextPanel.localPosition = Input.mousePosition - Inventory.transform.position;
+                    Debug.Log(tempby);
+                }
+            }            
+            else if (Inventory.gameObject.activeSelf && IsMouseOnWhichTarget(weaponIconPosition, weaponIconSize))
+            {
+                tempby = GetIMGPosition(weaponIconPosition, weaponIconSize);
+                if (tempby <= (byte)skillIconPosition.Length)
+                {
+                    UIOpenAndClose(flavorTextPanel);
+                    flavorText.text = Managers.GameManager.playerWeapons[tempby].stat.flavorText;
+                    flavorTextPanel.localPosition = Input.mousePosition - Inventory.transform.position;
                     Debug.Log(tempby);
                 }
             }

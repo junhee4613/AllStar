@@ -92,7 +92,7 @@ public enum bulletTypeEnum
 }
 public enum ItemTypeEnum
 {
-    weapon, artifacts, consumAble, skill
+    weapon, artifacts, consumAble, skill,portal
 }
 [System.Serializable]
 public class ArtifactLevelTable
