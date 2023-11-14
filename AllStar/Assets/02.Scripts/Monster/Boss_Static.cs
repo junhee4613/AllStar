@@ -67,9 +67,8 @@ public class Boss_Static : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Managers.Pool.MonsterPop("Boss1", this.gameObject);
         state.states.SetBossFSMDefault(ref state.animator, this.gameObject);
-        Debug.Log(state.states.Count);
-        Debug.Log(state.animator);
         player = GameObject.FindGameObjectWithTag("Player");
         Debug.Log("#보스 피통 UI 나중에 수정");
         state.hp_bar = GameObject.FindWithTag("Monster_hp_bar");
