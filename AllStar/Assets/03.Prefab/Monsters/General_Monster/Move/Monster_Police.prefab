@@ -343,6 +343,7 @@ MonoBehaviour:
     monster_Type: 1
     hit: 0
     name: 
+    hp_bar: {fileID: 0}
   chase_player: 0
   action_start: 1
   action_delay: 0
@@ -357,8 +358,8 @@ MonoBehaviour:
   rotateSpeed: 360
   attack_Distance: 1.5
   dropForce: 0
-  potionDropProbability: 0
-  itemDropProbability: 0
+  skillDropProbability: 100
+  itemDropProbability: 100
   weaponDropProbability: 0
   dis_criteria_run_mode: 8
   run_speed: 3

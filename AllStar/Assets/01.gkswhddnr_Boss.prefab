@@ -1622,8 +1622,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.0029821396, b: 1, a: 0}
-        key1: {r: 0, g: 0.5815592, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0.14888287, a: 0}
+        key1: {r: 1, g: 0, b: 0.07823992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6466,8 +6466,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.0029821396, b: 1, a: 0}
-        key1: {r: 0, g: 0.5815592, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0.14888287, a: 0}
+        key1: {r: 1, g: 0, b: 0.07823992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11402,8 +11402,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 0, g: 0.5815592, b: 1, a: 1}
+        key0: {r: 1, g: 0.29622638, b: 0.40110254, a: 0}
+        key1: {r: 1, g: 0, b: 0.07823992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -16395,8 +16395,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.26026773, b: 1, a: 0}
-        key1: {r: 0.057249546, g: 0, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0.14888287, a: 0}
+        key1: {r: 1, g: 0, b: 0.07823992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -26377,8 +26377,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.89014006, b: 1, a: 0}
-        key1: {r: 0, g: 0.6612811, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0.14888287, a: 0}
+        key1: {r: 1, g: 0, b: 0.07823992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -30537,6 +30537,10 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
     animator: {fileID: 4432701139556750311}
+    monster_Type: 0
+    hit: 0
+    name: 
+    hp_bar: {fileID: 0}
   rotateSpeed: 360
   heal_pattern_start_time: 2
   heal_pattern_start: 1
@@ -30546,14 +30550,28 @@ MonoBehaviour:
   - 2
   heal_time: 0
   laser_holding_time: 0
-  follow_laser_look_rotation: 0
+  barrage_pattern_operation_time: 0
+  follow_laser_rotation_speed: 0
+  laser:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Pattern_last_time: 0
   action_start: 1
   non_hit_time: 2.0223284
   current_hp: 2000
+  damage_cycle: 0
   motion_Type: 
   randomNum: 0
   simple_pattern: 0
   look_target: 0
+  attack: 0
+  test2: 15
 --- !u!1 &9011023527353563561
 GameObject:
   m_ObjectHideFlags: 0
