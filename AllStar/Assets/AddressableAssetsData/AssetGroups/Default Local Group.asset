@@ -337,9 +337,10 @@ MonoBehaviour:
     m_SerializedLabels:
     - Sprites
   - m_GUID: 46714a646e0475e45809f9a3a27a127d
-    m_Address: Assets/UI_Resource/Skill_UI/activeHeal_ICON.png
+    m_Address: activeHeal_ICON
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Sprites
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:
