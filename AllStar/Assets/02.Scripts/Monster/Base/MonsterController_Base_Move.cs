@@ -19,12 +19,12 @@ public class MonsterController_Base_Move : MonsterBase
     [Header("사거리")]
     public float attack_Distance;
     public float dropForce;
-    [Header("포션 드랍 퍼센트 조절")]
-    public int potionDropProbability = 0;
+    [Header("스킬 드랍 퍼센트 조절")]
+    public int skillDropProbability = 0;
     [Header("아이템(유물) 드랍 퍼센트 조절")]
     public int itemDropProbability = 0;
-    [Header("무기 드랍 퍼센트 조절")]
-    public int weaponDropProbability = 0;
+    /*[Header("무기 드랍 퍼센트 조절")]
+    public int weaponDropProbability = 0;*/
     protected override void Awake()
     {
         base.Awake();
@@ -119,14 +119,14 @@ public class MonsterController_Base_Move : MonsterBase
     protected override void MonsterDie()
     {
         agent.isStopped = true;
-        //int num1 = Random.Range(1, 100);
+        int num1 = Random.Range(1, 100);
         int num2 = Random.Range(1, 100);
         //int num3 = Random.Range(1, 100);
-        /*if (num1 == Mathf.Clamp(num1, 1, potionDropProbability))          스킬도 그냥 랜덤으로 뜨게
+        if (num1 == Mathf.Clamp(num1, 1, skillDropProbability)) //스킬도 그냥 랜덤으로 뜨게
         {
-            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["Potion_Hp_Item"] as GameObject);
+            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["SkillItem"] as GameObject);
             potion.transform.position = transform.position;
-        }*/
+        }
         if (num2 == Mathf.Clamp(num2, 1, itemDropProbability))
         {
             GameObject tempArtifact = Managers.Pool.Pop(Managers.DataManager.Datas["ArtifactItem"] as GameObject);

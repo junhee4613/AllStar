@@ -156,7 +156,7 @@ public class Boss_Static : MonoBehaviour
             }
             else
             {
-                randomNum = Random.Range(5, 6);             //나중에 5로 늘려야됨 randomNum = Random.Range(0, n);까지 설정하면 n-1까지만 숫자가 나옴  
+                randomNum = Random.Range(1, 6);             //나중에 5로 늘려야됨 randomNum = Random.Range(0, n);까지 설정하면 n-1까지만 숫자가 나옴  
             }
             motion_Type = $"Simple_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
             simple_pattern = (Boss_Simple_Pattern)randomNum - 1;
@@ -388,12 +388,12 @@ public class Boss_Static : MonoBehaviour
             else if (Current_anim_Up_and_time("simple_pattern5", 1))
             {
                 fsmChanger(state.states["attack_to_idle"]);
-                test2 = 2;
+                test2 = 1;
             }
             else if(Current_anim_Up_and_time("simple_pattern5", 0.4f) && state.animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.6 && state.nowState == state.states["simple_pattern5"])
             {
                 //2의 6승으로 계산
-                test2 += Time.deltaTime;
+                test2 += Time.deltaTime * 2;
                 //gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, Quaternion.Euler(0, gameObject.transform.rotation.y + 45, 0), Time.deltaTime);
                 gameObject.transform.Rotate(0, (test2 * test2 * test2 * test2 * test2 * test2) * Time.deltaTime, 0);
             }
