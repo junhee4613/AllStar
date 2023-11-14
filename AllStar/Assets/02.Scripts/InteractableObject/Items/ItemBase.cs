@@ -19,7 +19,7 @@ public abstract class IItemBase : MonoBehaviour
     {
         Start();
     }
-    public void SetItemModel(Material mat, Mesh mesh, byte index) 
+    public void SetItemModel(Material mat, Mesh mesh, byte index)
     {
         itemIndex = index;
         this.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = mat;
@@ -41,13 +41,14 @@ public abstract class IItemBase : MonoBehaviour
     public void InteractionWindowClose()
     {
 
-        if(pressText != null)
+        if (pressText != null)
         {
             Managers.Pool.UIPush(pressText.gameObject);
             pressText = null;
         }
 
     }
+    public Vector3 startVec;
     public LayerMask targetLayer;
     public float speed = 3f;
     protected float meshSize;
@@ -60,6 +61,7 @@ public abstract class IItemBase : MonoBehaviour
     // Update is called once per frame
     public void GetItemBouce()
     {
+        startVec = transform.position;
         IsToUp = false;
         meshSize = transform.GetChild(0).GetComponent<MeshFilter>().mesh.bounds.extents.y;
         randomDir = new Vector3(Random.Range(-0.3f, 0.4f), 0, Random.Range(-0.3f, 0.4f));
@@ -71,7 +73,7 @@ public abstract class IItemBase : MonoBehaviour
         {
             return;
         }
-        if (Physics.Raycast(transform.position, Vector3.down, meshSize*3, targetLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, meshSize * 3, targetLayer))
         {
             Debug.Log("asd");
             targetVec = targetVec / coefficientOfFriction;
@@ -82,7 +84,7 @@ public abstract class IItemBase : MonoBehaviour
             }
         }
         transform.Translate((targetVec * Time.deltaTime) * speed);
-        if (Physics.Raycast(transform.position+Vector3.right, Vector3.left, meshSize, targetLayer)|| Physics.Raycast(transform.position + Vector3.forward, Vector3.back, meshSize, targetLayer))
+        if (Physics.Raycast(transform.position + Vector3.right, Vector3.left, meshSize, targetLayer) || Physics.Raycast(transform.position + Vector3.forward, Vector3.back, meshSize, targetLayer))
         {
             Debug.Log("∫Æ¥Í¿Ω");
         }
@@ -91,6 +93,11 @@ public abstract class IItemBase : MonoBehaviour
             transform.Translate((randomDir * Time.deltaTime));
         }
         speed -= (Time.deltaTime * 19.6f);
+        if (speed < -100)
+        {
+            transform.position = startVec;
+            IsToUp = true;
+        }
     }
 }
 
