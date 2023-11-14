@@ -1,83 +1,407 @@
 ﻿[
     {
+        "level": "attackspeedBuff_1",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
         "skillLevel": "1",
-        "attackDamage": "10",
-        "attackSpeed": "0.3",
-        "HP": "50",
-        "moveSpeed": "2",
-        "criticalChance": "10",
-        "criticalDamage": "20"
+        "skillValue": "10",
+        "secondValue": "5",
+        "coolTime": "30"
     },
     {
-        "skillLevel": "2",
-        "attackDamage": "20",
-        "attackSpeed": "0.4",
-        "HP": "100",
-        "moveSpeed": "3",
-        "criticalChance": "20",
-        "criticalDamage": "40"
+        "level": "attackspeedBuff_2",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "20",
+        "secondValue": "5",
+        "coolTime": "29"
     },
     {
-        "skillLevel": "3",
-        "attackDamage": "30",
-        "attackSpeed": "0.5",
-        "HP": "150",
-        "moveSpeed": "4",
-        "criticalChance": "30",
-        "criticalDamage": "60"
+        "level": "attackspeedBuff_3",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "30",
+        "secondValue": "5",
+        "coolTime": "28"
     },
     {
-        "skillLevel": "4",
-        "attackDamage": "40",
-        "attackSpeed": "0.7",
-        "HP": "200",
-        "moveSpeed": "5",
-        "criticalChance": "40",
-        "criticalDamage": "80"
+        "level": "attackspeedBuff_4",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "45",
+        "secondValue": "7",
+        "coolTime": "27"
     },
     {
-        "skillLevel": "5",
-        "attackDamage": "50",
-        "attackSpeed": "0.9",
-        "HP": "300",
-        "moveSpeed": "6",
-        "criticalChance": "50",
-        "criticalDamage": "100"
+        "level": "attackspeedBuff_5",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "60",
+        "secondValue": "8",
+        "coolTime": "26"
     },
     {
-        "skillLevel": "6",
-        "attackDamage": "60",
-        "attackSpeed": "1.1",
-        "HP": "400",
-        "moveSpeed": "7",
-        "criticalChance": "60",
-        "criticalDamage": "120"
+        "level": "attackspeedBuff_6",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "110",
+        "secondValue": "10",
+        "coolTime": "25"
     },
     {
-        "skillLevel": "7",
-        "attackDamage": "70",
-        "attackSpeed": "1.4",
-        "HP": "500",
-        "moveSpeed": "8",
-        "criticalChance": "70",
-        "criticalDamage": "140"
+        "level": "attackspeedBuff_7",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "140",
+        "secondValue": "11",
+        "coolTime": "24"
     },
     {
-        "skillLevel": "8",
-        "attackDamage": "80",
-        "attackSpeed": "1.7",
-        "HP": "600",
-        "moveSpeed": "9",
-        "criticalChance": "80",
-        "criticalDamage": "160"
+        "level": "attackspeedBuff_8",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "160",
+        "secondValue": "12",
+        "coolTime": "23"
     },
     {
-        "skillLevel": "9",
-        "attackDamage": "90",
-        "attackSpeed": "2",
-        "HP": "800",
-        "moveSpeed": "10",
-        "criticalChance": "90",
-        "criticalDamage": "200"
+        "level": "attackspeedBuff_9",
+        "skillName": "공격속도 강화",
+        "codeName": "attackspeedBuff",
+        "skillLevel": "1",
+        "skillValue": "170",
+        "secondValue": "13",
+        "coolTime": "20"
+    },
+    {
+        "level": "speedBuff_1",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "5",
+        "coolTime": "30"
+    },
+    {
+        "level": "speedBuff_2",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "20",
+        "secondValue": "5",
+        "coolTime": "29"
+    },
+    {
+        "level": "speedBuff_3",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "30",
+        "secondValue": "5",
+        "coolTime": "28"
+    },
+    {
+        "level": "speedBuff_4",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "45",
+        "secondValue": "7",
+        "coolTime": "27"
+    },
+    {
+        "level": "speedBuff_5",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "60",
+        "secondValue": "8",
+        "coolTime": "26"
+    },
+    {
+        "level": "speedBuff_6",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "110",
+        "secondValue": "10",
+        "coolTime": "25"
+    },
+    {
+        "level": "speedBuff_7",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "140",
+        "secondValue": "11",
+        "coolTime": "24"
+    },
+    {
+        "level": "speedBuff_8",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "160",
+        "secondValue": "12",
+        "coolTime": "23"
+    },
+    {
+        "level": "speedBuff_9",
+        "skillName": "이동속도 강화",
+        "codeName": "speedBuff",
+        "skillLevel": "1",
+        "skillValue": "170",
+        "secondValue": "13",
+        "coolTime": "20"
+    },
+    {
+        "level": "criticaldamageBuff_1",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "100",
+        "secondValue": "5",
+        "coolTime": "300"
+    },
+    {
+        "level": "criticaldamageBuff_2",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "120",
+        "secondValue": "5",
+        "coolTime": "280"
+    },
+    {
+        "level": "criticaldamageBuff_3",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "150",
+        "secondValue": "6",
+        "coolTime": "260"
+    },
+    {
+        "level": "criticaldamageBuff_4",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "190",
+        "secondValue": "6",
+        "coolTime": "240"
+    },
+    {
+        "level": "criticaldamageBuff_5",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "270",
+        "secondValue": "7",
+        "coolTime": "200"
+    },
+    {
+        "level": "criticaldamageBuff_6",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "320",
+        "secondValue": "8",
+        "coolTime": "150"
+    },
+    {
+        "level": "criticaldamageBuff_7",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "350",
+        "secondValue": "8",
+        "coolTime": "130"
+    },
+    {
+        "level": "criticaldamageBuff_8",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "380",
+        "secondValue": "9",
+        "coolTime": "110"
+    },
+    {
+        "level": "criticaldamageBuff_9",
+        "skillName": "치명타데미지 강화",
+        "codeName": "criticaldamageBuff",
+        "skillLevel": "1",
+        "skillValue": "400",
+        "secondValue": "10",
+        "coolTime": "100"
+    },
+    {
+        "level": "activeDash_1",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "4"
+    },
+    {
+        "level": "activeDash_2",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "3.6"
+    },
+    {
+        "level": "activeDash_3",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "3.2"
+    },
+    {
+        "level": "activeDash_4",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "2.9"
+    },
+    {
+        "level": "activeDash_5",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "2.6"
+    },
+    {
+        "level": "activeDash_6",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "2.3"
+    },
+    {
+        "level": "activeDash_7",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "2"
+    },
+    {
+        "level": "activeDash_8",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "1.5"
+    },
+    {
+        "level": "activeDash_9",
+        "skillName": "대쉬",
+        "codeName": "activeDash",
+        "skillLevel": "1",
+        "skillValue": "10",
+        "secondValue": "0.4",
+        "coolTime": "1"
+    },
+    {
+        "level": "activeHeal_1",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "60",
+        "secondValue": "0",
+        "coolTime": "20"
+    },
+    {
+        "level": "activeHeal_2",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "80",
+        "secondValue": "0",
+        "coolTime": "20"
+    },
+    {
+        "level": "activeHeal_3",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "100",
+        "secondValue": "0",
+        "coolTime": "19"
+    },
+    {
+        "level": "activeHeal_4",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "120",
+        "secondValue": "0",
+        "coolTime": "17"
+    },
+    {
+        "level": "activeHeal_5",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "160",
+        "secondValue": "0",
+        "coolTime": "15"
+    },
+    {
+        "level": "activeHeal_6",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "200",
+        "secondValue": "0",
+        "coolTime": "12"
+    },
+    {
+        "level": "activeHeal_7",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "240",
+        "secondValue": "0",
+        "coolTime": "10"
+    },
+    {
+        "level": "activeHeal_8",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "280",
+        "secondValue": "0",
+        "coolTime": "9"
+    },
+    {
+        "level": "activeHeal_9",
+        "skillName": "체력회복",
+        "codeName": "activeHeal",
+        "skillLevel": "1",
+        "skillValue": "360",
+        "secondValue": "0",
+        "coolTime": "8"
     }
 ]

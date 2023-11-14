@@ -193,6 +193,10 @@ namespace PlayerSkills
             public void SkillUpGrade()
             {
                 skillInfo.skillLevel++;
+                SkillLevelTable tempLevelTable = Managers.DataManager.skillLevelTable[skillInfo.codeName + "_" + skillInfo.skillLevel];
+                skillInfo.skillValue = tempLevelTable.skillValue;
+                skillInfo.secondValue = tempLevelTable.secondValue;
+                skillInfo.coolTime = tempLevelTable.coolTime;
 
             }
             public void UseSkill()
@@ -219,6 +223,17 @@ namespace PlayerSkills
             public OffenceRangeType OffenceRangeType;
             public DeffenceSkillType DeffenceSkillType;
             public statType BuffSkillType;
+        }
+        [System.Serializable]
+        public class SkillLevelTable
+        {
+            public string level;
+            public string skillName;
+            public string codeName;
+            public short skillLevel;
+            public float skillValue;
+            public float secondValue;
+            public float coolTime;
         }
         [System.Serializable]
         public class SkillInfomation

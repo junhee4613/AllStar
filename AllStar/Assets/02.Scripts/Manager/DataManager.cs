@@ -18,6 +18,7 @@ public class DataManager
     public List<ArtifactData> artifactTable = new List<ArtifactData>();
     public Dictionary<string, ArtifactLevelTable> artifactLevelTable = new Dictionary<string, ArtifactLevelTable>();
     public List<ConsumableData> consumableTable = new List<ConsumableData>();
+    public Dictionary<string, SkillLevelTable> skillLevelTable = new Dictionary<string, SkillLevelTable>();
     [SerializeField]
     public List<SkillDataJson> skillTable = new List<SkillDataJson>();
     public bool isLoadDone = false;
@@ -55,6 +56,11 @@ public class DataManager
                 foreach (var item in JsonConvert.DeserializeObject<List<ArtifactLevelTable>>(tempTA.text))
                 {
                     artifactLevelTable.Add(item.SkillName, item);
+                }
+                tempTA = Datas["SkillLevels"] as TextAsset;
+                foreach (var item in JsonConvert.DeserializeObject<List<SkillLevelTable>>(tempTA.text))
+                {
+                    skillLevelTable.Add(item.level, item);
                 }
                 Managers.GameManager.BasicPlayerStats(() =>
                 {
