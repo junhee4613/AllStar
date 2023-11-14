@@ -173,6 +173,23 @@ namespace PlayerSkills
                 }
                 DetailTypes.TypeValueSetting(jsonData);
             }
+            public void ChangedSetting(in Transform plrTR)
+            {
+                playerTR = plrTR;
+                switch (skillInfo.skillType)
+                {
+                    case SkillType.offence:
+                        OffenceSkillData tempAttackSkillData = DetailTypes as OffenceSkillData;
+                        tempAttackSkillData.pc = playerTR.GetComponent<PlayerControler>();
+                        break;
+                    case SkillType.deffence:
+                        DeffenceSkillData tempData = DetailTypes as DeffenceSkillData;
+                        tempData.pc = playerTR.GetComponent<PlayerControler>();
+                        break;
+                    case SkillType.buff:
+                        break;
+                }
+            }
             public void SkillUpGrade()
             {
                 skillInfo.skillLevel++;
@@ -234,6 +251,10 @@ namespace PlayerSkills
         {
             public abstract void TypeValueSetting(SkillDataJson data);
             public abstract void UseSkill(SkillInfomation skillValue);
+            public virtual void SettingChanged()
+            {
+
+            }
         }
 
         public enum SkillType
@@ -267,6 +288,10 @@ namespace PlayerSkills
                         default:
                             break;
                     }
+                }
+                public override void SettingChanged()
+                {
+
                 }
             }
             public enum OffenceSkillType

@@ -247,13 +247,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sprites
-  - m_GUID: a517f71fd4fe7024b882f643370e5160
-    m_Address: attackBuff_ICON
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Sprites
-  - m_GUID: ab4cced2482a20242b089a1c38868ecd
-    m_Address: activeDash_ICON
+  - m_GUID: 6e096c34b9e165a4f99b302199189e36
+    m_Address: criticaldamageBuff_ICON
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sprites
@@ -321,6 +316,30 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
+  - m_GUID: 2b340aad1a4deea4ab99595e90a84a50
+    m_Address: activeDash_ICON
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprites
+  - m_GUID: 0fbbfbb847c76074aa25f386f5c7cc0d
+    m_Address: attackspeedBuff_ICON
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprites
+  - m_GUID: 8ce43bd9b2a05254cb8ce1bbe8692e6a
+    m_Address: attackBuff_ICON
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprites
+  - m_GUID: e988d6860ebc8c649b567ac34acc7395
+    m_Address: speedBuff_ICON
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprites
+  - m_GUID: 46714a646e0475e45809f9a3a27a127d
+    m_Address: Assets/UI_Resource/Skill_UI/activeHeal_ICON.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:

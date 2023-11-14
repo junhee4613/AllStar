@@ -40,21 +40,36 @@ public class PlayerControler : MonoBehaviour
 
     private void Start()
     {
+        rb = null;
         rb = GetComponent<Rigidbody>();
         playerWeapons = Managers.GameManager.playerWeapons;
 
         ownArtifacts = Managers.GameManager.playerArtifacts;
         skills = Managers.GameManager.playerSkills;
         Managers.GameManager.playerCooltimes = skillCoolTimes;
-        for (int i = 0; i < playerWeapons.Length; i++)
+        for (byte i = 0; i < playerWeapons.Length; i++)
         {
-            playerWeapons[i] = new GunBase();
-            playerWeapons[i].StartSetting();
+            if (playerWeapons[i].stat == null)
+            {
+                //playerWeapons[i] = new GunBase();
+                playerWeapons[i].StartSetting();
+            }
+            else
+            {
+                Managers.UI.WeaponInventoryImageChanges(i, playerWeapons[i].stat.codeName);
+            }
         }
-        for (int i = 0; i < ownArtifacts.Length; i++)
+        for (byte i = 0; i < ownArtifacts.Length; i++)
         {
-            ownArtifacts[i] = new ArtifactSlot();
-            ownArtifacts[i].ResetArtifact();
+            if (ownArtifacts[i] == null)
+            {
+                ownArtifacts[i] = new ArtifactSlot();
+                ownArtifacts[i].ResetArtifact();
+            }
+            else if (ownArtifacts[i].artifactAmount !=0)
+            {
+                Managers.UI.ArtifactInventoryImageChanges(i, ownArtifacts[i].data.codename);
+            }
         }
 
         stat = Managers.GameManager.PlayerStat;
@@ -70,7 +85,13 @@ public class PlayerControler : MonoBehaviour
         for (byte i = 0; i < skillCoolIcons.Length; i++)
         {
             skillCoolIcons[i] = Managers.UI.skillIconSet[i].IconIMG.transform.GetChild(0).GetComponent<Image>();
+            if (skills[i].skillInfo != null && skills[i].skillInfo.skillLevel !=0)
+            {
+                Managers.UI.SetSkillIcons(i, skills[i].skillInfo.codeName);
+                skills[i].ChangedSetting(transform);
+            }
         }
+
     }
 
     private void Update()
