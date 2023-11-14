@@ -340,6 +340,11 @@ MonoBehaviour:
     m_Address: Assets/UI_Resource/Skill_UI/activeHeal_ICON.png
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0060b315f47c49e43b81e178458b8df1
+    m_Address: Boss_Laser_hard
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2ec98a31940b3d34a998772f86b97890, type: 2}
   m_SchemaSet:
