@@ -387,6 +387,8 @@ GameObject:
   - component: {fileID: 8523923892960889012}
   - component: {fileID: 759141867111129263}
   - component: {fileID: 7194822593448320236}
+  - component: {fileID: 3993197895250710741}
+  - component: {fileID: 1966458935664708484}
   m_Layer: 0
   m_Name: Map_Object_Helicopter_Broken
   m_TagString: Untagged
@@ -463,3 +465,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3993197895250710741
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123332940903350490}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.4464183, y: 6.6733823, z: 4.403996}
+  m_Center: {x: 0.23820996, y: 0.72124845, z: 3.4601662}
+--- !u!208 &1966458935664708484
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123332940903350490}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.1720002, y: 4.078, z: 2.2020001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.223, y: 1.0150001, z: 3.4600003}
+  m_TimeToStationary: 0.5

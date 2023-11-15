@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 2088986917337819796}
   - component: {fileID: 3722883906391559760}
   - component: {fileID: 6118125444383456512}
-  m_Layer: 0
+  - component: {fileID: 9028887401259902826}
+  - component: {fileID: 8430314485830657181}
+  m_Layer: 10
   m_Name: Map_Object_Trash_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +85,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9028887401259902826
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691800535927791990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6581468, y: 0.6305585, z: 0.4041081}
+  m_Center: {x: -0.09063843, y: 0.023619624, z: 2.2018435}
+--- !u!208 &8430314485830657181
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691800535927791990}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.41200003, y: 0.31500003, z: 0.202}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.097, y: 0.024, z: 2.2020001}
+  m_TimeToStationary: 0.5

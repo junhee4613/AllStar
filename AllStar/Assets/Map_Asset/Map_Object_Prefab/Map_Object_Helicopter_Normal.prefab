@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 7609422256567241992}
   - component: {fileID: 6532582419021557519}
   - component: {fileID: 6120028848754343620}
-  m_Layer: 0
+  - component: {fileID: 4090847446902201238}
+  - component: {fileID: 1520345119905143194}
+  m_Layer: 10
   m_Name: Map_Object_Helicopter_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +85,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4090847446902201238
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8096871056193472196}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.796274, y: 8.0634775, z: 3.889194}
+  m_Center: {x: 0.025580555, y: 1.5375328, z: 4.1398044}
+--- !u!208 &1520345119905143194
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8096871056193472196}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.9840002, y: 5.1980004, z: 1.945}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.077, z: 4.1400003}
+  m_TimeToStationary: 0.5

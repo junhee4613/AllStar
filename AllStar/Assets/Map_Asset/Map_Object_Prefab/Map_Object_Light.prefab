@@ -105,7 +105,9 @@ GameObject:
   - component: {fileID: 6228282019787359817}
   - component: {fileID: 1310870678756851726}
   - component: {fileID: 2147045762053416134}
-  m_Layer: 0
+  - component: {fileID: 8764879316572655568}
+  - component: {fileID: 7359793660629483715}
+  m_Layer: 10
   m_Name: Map_Object_Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +187,35 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8764879316572655568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671076114480043915}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.12985194, y: 0.14163382, z: 1.7619951}
+  m_Center: {x: 0.45740098, y: -0.44800845, z: 2.9238389}
+--- !u!208 &7359793660629483715
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671076114480043915}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.158, y: 0.158, z: 0.88100004}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.44500002, y: -0.44500002, z: 2.924}
+  m_TimeToStationary: 0.5
 --- !u!1 &1302970000130928491
 GameObject:
   m_ObjectHideFlags: 0

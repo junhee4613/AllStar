@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 6850193078589719264}
   - component: {fileID: 319680277394542434}
   - component: {fileID: 5271021536833642889}
-  m_Layer: 0
+  - component: {fileID: 8654393289197917522}
+  - component: {fileID: 4596866954436494323}
+  m_Layer: 10
   m_Name: Map_Object_Tower_Broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +85,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &8654393289197917522
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867527749859013415}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 6.741, y: 9.866, z: 11.161}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 2.1160002, y: 4.8100004, z: -4.051}
+  m_TimeToStationary: 0.5
+--- !u!65 &4596866954436494323
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867527749859013415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.5314012, y: 19.731451, z: 13.405672}
+  m_Center: {x: 1.9107676, y: 4.8102136, z: 2.0305903}
