@@ -169,12 +169,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb16190cb8fb194b99aaa2fe8910b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLoaddineDone: 0
   rb: {fileID: 0}
   playerDir: {x: 0, y: 0}
   playerWeapons:
   - stat:
       name: 
       weaponIndex: 254
+      flavorText: 
       codeName: 
       bulletSpeed: 0
       fireSpeed: 0
@@ -183,9 +185,12 @@ MonoBehaviour:
       isValueChanged: 0
       bulletType: 0
       shotType: 0
+    gunMesh: {fileID: 0}
+    gunMat: {fileID: 0}
   - stat:
       name: 
       weaponIndex: 254
+      flavorText: 
       codeName: 
       bulletSpeed: 0
       fireSpeed: 0
@@ -194,9 +199,12 @@ MonoBehaviour:
       isValueChanged: 0
       bulletType: 0
       shotType: 0
+    gunMesh: {fileID: 0}
+    gunMat: {fileID: 0}
   - stat:
       name: 
       weaponIndex: 254
+      flavorText: 
       codeName: 
       bulletSpeed: 0
       fireSpeed: 0
@@ -205,6 +213,8 @@ MonoBehaviour:
       isValueChanged: 0
       bulletType: 0
       shotType: 0
+    gunMesh: {fileID: 0}
+    gunMat: {fileID: 0}
   nowWeapon: 2
   firePos: {fileID: 0}
   itemSencer: []
@@ -224,31 +234,12 @@ MonoBehaviour:
   dodgeCooldown: 0
   nonControllable: 0
   coolTimeIMG: []
-  SkillTest:
-    skillInfo:
-      skillIndex: 0
-      skillName: 
-      codeName: 
-      skillLevel: 0
-      skillValue: 0
-      secondValue: 0
-      coolTime: 0
-      flavorText: 
-      skillType: 0
-    playerTR: {fileID: 0}
-  skillIcons:
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
+  skillCoolIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skills:
   - skillInfo:
       skillIndex: 0
@@ -746,12 +737,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb16190cb8fb194b99aaa2fe8910b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLoaddineDone: 0
   rb: {fileID: 717455817}
   playerDir: {x: 0, y: 0}
   playerWeapons:
   - stat:
       name: 
       weaponIndex: 254
+      flavorText: 
       codeName: 
       bulletSpeed: 0
       fireSpeed: 0
@@ -760,9 +753,12 @@ MonoBehaviour:
       isValueChanged: 0
       bulletType: 0
       shotType: 0
+    gunMesh: {fileID: 0}
+    gunMat: {fileID: 0}
   - stat:
       name: 
       weaponIndex: 254
+      flavorText: 
       codeName: 
       bulletSpeed: 0
       fireSpeed: 0
@@ -771,9 +767,12 @@ MonoBehaviour:
       isValueChanged: 0
       bulletType: 0
       shotType: 0
+    gunMesh: {fileID: 0}
+    gunMat: {fileID: 0}
   - stat:
       name: 
       weaponIndex: 254
+      flavorText: 
       codeName: 
       bulletSpeed: 0
       fireSpeed: 0
@@ -782,6 +781,8 @@ MonoBehaviour:
       isValueChanged: 0
       bulletType: 0
       shotType: 0
+    gunMesh: {fileID: 0}
+    gunMat: {fileID: 0}
   nowWeapon: 2
   firePos: {fileID: 0}
   itemSencer: []
@@ -801,31 +802,12 @@ MonoBehaviour:
   dodgeCooldown: 0
   nonControllable: 0
   coolTimeIMG: []
-  SkillTest:
-    skillInfo:
-      skillIndex: 0
-      skillName: 
-      codeName: 
-      skillLevel: 0
-      skillValue: 0
-      secondValue: 0
-      coolTime: 0
-      flavorText: 
-      skillType: 0
-    playerTR: {fileID: 0}
-  skillIcons:
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
-  - IconIMG: {fileID: 0}
-    AmountText: {fileID: 0}
+  skillCoolIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skills:
   - skillInfo:
       skillIndex: 0

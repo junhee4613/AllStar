@@ -41,7 +41,14 @@ public class Boss_Static : MonoBehaviour
     public float current_hp;
     [Header("홀딩 레이저 데미지 들어가는 주기")]
     public float damage_cycle;
+    [Header("하드 패턴 레이저 공격 횟수")]
+    public int laser_attack_num;
+    [Header("하드 패턴 레이저 최대 각도")]
+    public float hard_laser_rotation;
+    public GameObject simple_core;
+    public GameObject hard_core;
 
+    bool hard_pattern_start = false;
     bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
     public int randomNum;
@@ -60,9 +67,8 @@ public class Boss_Static : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Managers.Pool.MonsterPop("Boss1", this.gameObject);
         state.states.SetBossFSMDefault(ref state.animator, this.gameObject);
-        Debug.Log(state.states.Count);
-        Debug.Log(state.animator);
         player = GameObject.FindGameObjectWithTag("Player");
         Debug.Log("#보스 피통 UI 나중에 수정");
         state.hp_bar = GameObject.FindWithTag("Monster_hp_bar");
@@ -76,26 +82,31 @@ public class Boss_Static : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (state.nowHP >= state.maxHP / 100 * 35 && !heal_pattern_start)
+        if (state.nowHP >= state.maxHP / 100 * 35)
         {
-            if (current_hp == state.nowHP)//현재 hp가 변동이 없을 경우
+            if (!heal_pattern_start)
             {
-                non_hit_time += Time.deltaTime;
-            }
-            else
-            {
-                current_hp = state.nowHP;
-                non_hit_time = 0;
-            }
-            //
-            if (non_hit_time >= heal_pattern_start_time)
-            {
-                heal_pattern_start = true;
+                if (current_hp == state.nowHP)//현재 hp가 변동이 없을 경우
+                {
+                    non_hit_time += Time.deltaTime;
+                }
+                else
+                {
+                    current_hp = state.nowHP;
+                    non_hit_time = 0;
+                }
+                //
+                if (non_hit_time >= heal_pattern_start_time)
+                {
+                    heal_pattern_start = true;
+                } 
             }
         }
         else
         {
-            //heal_pattern_start = false;
+            hard_pattern_start = true;
+            hard_core.SetActive(true);
+            simple_core.SetActive(false);
         }
 
         if (!pattern_loop || look_target)
@@ -124,9 +135,9 @@ public class Boss_Static : MonoBehaviour
         action_start = false;
         pattern_loop = true;
         //나중에 패턴에 하드모드로 변하는 모습을 넣어야되는데 어떻게 처리할지 고민중
-        if (state.nowHP < state.maxHP / 10 * 3.5)
+        if (hard_pattern_start)
         {
-            randomNum = Random.Range(1, 4);             
+            randomNum = Random.Range(4, 5);             
             motion_Type = $"Hard_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
             hard_pattern = (Boss_Hard_Pattern)randomNum - 1;
             switch (hard_pattern)             
@@ -152,7 +163,6 @@ public class Boss_Static : MonoBehaviour
             if (heal_pattern_start)
             {
                 randomNum = 6;                  //힐패턴이 6번이기 때문
-
             }
             else
             {
@@ -184,9 +194,7 @@ public class Boss_Static : MonoBehaviour
                     break;
             }
         }
-        
     }
-    
     public void fsmChanger(BaseState BS)
     {
         if (BS != state.nowState)
@@ -197,6 +205,10 @@ public class Boss_Static : MonoBehaviour
             }
             state.nowState = BS;
             state.nowState.OnStateEnter();
+            if (hard_pattern_start)
+            {
+                state.animator.speed = 2;
+            }
         }
     }
     
@@ -597,12 +609,42 @@ public class Boss_Static : MonoBehaviour
     }
     IEnumerator Hard_Pattern4()              //가만히 패턴
     {
+        fsmChanger(state.states["idle_to_attack"]);
+        yield return null;
         while (pattern_loop)
         {
-            Debug.Log("패턴4");
-            Barrage_Pattern_Stop(hard_barrage_patterns);
+            if (Current_anim_Up_and_time("idle_to_attack", 1))
+            {
+                fsmChanger(state.states["simple_pattern4"]);
+                attack = true;
+            }
+            else if (Current_anim_Up_and_time("simple_pattern4", 1))
+            {
+                fsmChanger(state.states["attack_to_idle"]);
+            }
+            else if (Current_anim_Up_and_time("attack_to_idle", 1))
+            {
+                Pattern_Stop(); // 나중에 else문에 넣기
+            }
+            else if (attack)
+            {
+                state.animator.speed = 0;
+                for (int i = 0; i < laser_attack_num; i++)      //여기에 레이저 반복 횟수 써주기
+                {
+                    float range = Random.Range(-hard_laser_rotation, hard_laser_rotation);
+                    gameObject.transform.rotation = Quaternion.Euler(0, LookPlayer(player) + range, 0);
+                    Debug.Log(transform.rotation);
+                    GameObject temp = Managers.Pool.Pop(Managers.DataManager.Datas["Boss_Laser_hard"] as GameObject);
+                    temp.transform.position = gameObject.transform.position + transform.forward * 2;
+                    temp.transform.rotation = gameObject.transform.rotation;
+                    yield return new WaitForSeconds(1);
+                }
+                attack = false;
+                state.animator.speed = 2f;
+            }
             yield return null;
         }
+        fsmChanger(state.states["idle"]);
         action_start = true;
     }
     #endregion

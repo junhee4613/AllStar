@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Laser_attack2 : MonoBehaviour
 {
-    float damage;
+    float damage = 1;
     public ParticleSystem particle;
+    float time;
     // Update is called once per frame
     void Update()
     {
@@ -18,7 +19,15 @@ public class Laser_attack2 : MonoBehaviour
         {
             if (Physics.BoxCast(gameObject.transform.position, new Vector3(1, 2, 0), transform.forward, Quaternion.identity, 16, 1 << 7))
             {
-                Managers.GameManager.PlayerStat.GetDamage(damage);
+                if(time >= 0.25f)
+                {
+                    Managers.GameManager.PlayerStat.GetDamage(damage);
+                    time = 0;
+                }
+                else
+                {
+                    time += Time.deltaTime;
+                }
             }
         }
     }

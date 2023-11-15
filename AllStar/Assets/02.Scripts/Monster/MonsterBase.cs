@@ -77,7 +77,6 @@ public class MonsterBase : MonoBehaviour
             }
             else if ((playerSence.Length == 0 && !monsterStatus.hit) || !chase_player)
             {
-                Debug.Log("포탑형 몬스터 땜에 여기 if문 수정");
                 Status_Init();
                 chase_player = false;
             }

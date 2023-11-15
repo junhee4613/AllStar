@@ -4,7 +4,7 @@
         "name": "공격력증강",
         "statustype": "attackDamage",
         "value": "10",
-        "flavortext": "",
+        "flavortext": "공격력 증가시켜 줍니다.",
         "codename": "artifact_damage"
     },
     {
@@ -12,7 +12,7 @@
         "name": "치명타확률 증강",
         "statustype": "criticalChance",
         "value": "10",
-        "flavortext": "",
+        "flavortext": "치명타확률을 증가시켜 줍니다",
         "codename": "artifact_crichance"
     },
     {
@@ -20,7 +20,7 @@
         "name": "치명타 데미지 증강",
         "statustype": "criticalDamage",
         "value": "20",
-        "flavortext": "",
+        "flavortext": "치명타 데미지를 증가시켜 줍니다.",
         "codename": "artifact_cridamage"
     },
     {
@@ -28,7 +28,7 @@
         "name": "이동속도 증강",
         "statustype": "moveSpeed",
         "value": "2",
-        "flavortext": "",
+        "flavortext": "이동속도를 증가시켜 줍니다.",
         "codename": "artifact_moveSpeed"
     },
     {
@@ -36,7 +36,7 @@
         "name": "체력 증강",
         "statustype": "HP",
         "value": "50",
-        "flavortext": "",
+        "flavortext": "최대체력을 증가시켜 줍니다.",
         "codename": "artifact_HP"
     },
     {
@@ -44,7 +44,7 @@
         "name": "공격속도 증강",
         "statustype": "attackSpeed",
         "value": "30",
-        "flavortext": "",
+        "flavortext": "공격속도를 증가시켜 줍니다.",
         "codename": "artifact_attackSpeed"
     }
 ]
