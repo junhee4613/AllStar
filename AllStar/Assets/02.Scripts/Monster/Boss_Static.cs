@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Boss_Static : MonoBehaviour
 {
                  //패턴이 시작하기 위한 불값
     //pattern_loop는 나중에 없애는 값
-    [Header("패턴 모션 끝난 후 쉬는 시간")]
-    public float standby_time;
     public GameObject player;
     public GameObject[] simple_barrage_patterns;
     public GameObject[] hard_barrage_patterns;
@@ -24,8 +23,6 @@ public class Boss_Static : MonoBehaviour
     public float[] standby_time_standard = new float[2] { 0.7f, 1.5f };
     [Header("체력 회복하는 시간")]
     public int heal_time;
-    [Header("레이저 홀딩시간")]
-    public int laser_holding_time;
     [Header("탄막패턴 지속 시간 기준")]
     public int barrage_pattern_operation_time;
     [Header("따라가는 레이저 쏠 때 플레이어 쳐다보는 속도")]
@@ -47,7 +44,10 @@ public class Boss_Static : MonoBehaviour
     public float hard_laser_rotation;
     public GameObject simple_core;
     public GameObject hard_core;
+    public GameObject portal;
+    bool die = false;
 
+    float standby_time;
     bool hard_pattern_start = false;
     bool pattern_loop;
     public string motion_Type;                          //랜덤한 패턴을 시작하기 위한 string값
@@ -59,6 +59,7 @@ public class Boss_Static : MonoBehaviour
     public bool look_target;
     public bool attack;
 
+
     //테스트용
     public float test2 = 15;
     
@@ -67,6 +68,7 @@ public class Boss_Static : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Managers.GameManager.monstersInScene.Add(this.gameObject.name, state);
         Managers.Pool.MonsterPop("Boss1", this.gameObject);
         state.states.SetBossFSMDefault(ref state.animator, this.gameObject);
         player = GameObject.FindGameObjectWithTag("Player");
@@ -82,6 +84,18 @@ public class Boss_Static : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(state.nowHP <= 0)
+        {
+            if (die)
+            {
+                return;
+            }
+            else
+            {
+                die = true;
+                Die();
+            }
+        }
         if (state.nowHP >= state.maxHP / 100 * 35)
         {
             if (!heal_pattern_start)
@@ -686,6 +700,11 @@ public class Boss_Static : MonoBehaviour
         }
         else
             return false;
+    }
+    public void Die()
+    {
+        portal.SetActive(true);
+        gameObject.SetActive(false);
     }
     public void Laser_various_aspects()
     {
