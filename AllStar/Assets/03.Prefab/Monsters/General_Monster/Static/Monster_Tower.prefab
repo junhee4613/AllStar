@@ -137,8 +137,8 @@ MonoBehaviour:
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
-    maxHP: 5000
-    nowHP: 5000
+    maxHP: 50000
+    nowHP: 50000
     attackSpeed: 1.5
     attackDamage: 0
     criticalChance: 0
