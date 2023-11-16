@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float totalExplosionDMG;
     [SerializeField] private float totalExplosionRange;
     [SerializeField]private LayerMask hitLayer = 64;
+    [SerializeField] private LayerMask shieldLayer = 4096;
+    private bool isCollided = false;
     public bool isCritical = false;
     public bool isExplosionCritical = false;
     private void OnEnable()
@@ -23,82 +25,97 @@ public class Bullet : MonoBehaviour
         Bullet tempThisCompo = this;
         Managers.GameManager.SetBullet(this.gameObject.name,ref tempThisCompo);
         meshtr.gameObject.SetActive(true);
+        isCollided = false;
     }
     private void Update()
     {
-        if (Physics.SphereCast(transform.position , 0.08f, transform.forward, out RaycastHit hit, 0.5f, hitLayer))
+        if (Physics.BoxCast(transform.position,Vector3.one* 0.08f, transform.forward,Quaternion.identity,0.5f,shieldLayer))
         {
-            Vector3 randomValue = Random.Range(-0.5f, 0.6f) * (Vector3.right + Vector3.forward);
-            
-            RectTransform txtTR;
-            if (hit.transform.gameObject.layer == 6)
-            {
-                if (!targetHitParticle.gameObject.activeSelf)
-                {
-                    if (isCritical)
-                    {
-                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
-                    }
-                    else
-                    {
-                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
-                    }
-                    txtTR.position = randomValue+hit.transform.position+Vector3.up;
-                    txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(bulletTotalDMG);
-                    Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
-                    targetHitParticle.gameObject.SetActive(true);
-                    meshtr.gameObject.SetActive(false);
-                    timer = removeTimer;
-
-                } 
-            }
-            else
+            if (!isCollided)
             {
                 targetHitParticle.gameObject.SetActive(true);
                 meshtr.gameObject.SetActive(false);
                 timer = removeTimer;
-            }
-            if (bulletType == bulletTypeEnum.explosion && (targetHitParticle.time / targetHitParticle.main.duration) > 0.5f&&isExplode == false)
-            {
-                Collider[] hitMonsters = Physics.OverlapSphere(transform.position, totalExplosionRange, 64);
-                Managers.Sound.SFX_Sound(Managers.DataManager.Datas["Explosion_Sound"] as AudioClip);
-                Debug.Log("Æø¹ß");
-                isExplode = true;
-                for (int i = 0; i < hitMonsters.Length; i++)
-                {
-                    randomValue = hitMonsters[i].transform.position + (Random.Range(-1f, 2f) * (Vector3.right + Vector3.forward));
-                    if (isExplosionCritical)
-                    {
-                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
-                    }
-                    else
-                    {
-                        txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
-                    }
-                    txtTR.position = randomValue;
-                    txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(totalExplosionDMG);
-                    Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
-                }
-            }
-            if ((targetHitParticle.time / targetHitParticle.main.duration) > 1)
-            {
-                targetHitParticle.gameObject.SetActive(false);
-                if (bulletType == bulletTypeEnum.explosion)
-                {
-                    isExplode = false;
-                }
-                Managers.Pool.Push(this.gameObject);
+                isCollided = true;
             }
         }
         else
         {
-            transform.Translate(transform.forward * (bulletSpeed * Time.deltaTime), Space.World);
+            if (Physics.SphereCast(transform.position, 0.08f, transform.forward, out RaycastHit hit, 0.5f, hitLayer))
+            {
+                Vector3 randomValue = Random.Range(-0.5f, 0.6f) * (Vector3.right + Vector3.forward);
+
+                RectTransform txtTR;
+
+                if (hit.transform.gameObject.layer == 6 && !isCollided)
+                {
+
+                    if (!targetHitParticle.gameObject.activeSelf)
+                    {
+                        if (isCritical)
+                        {
+                            txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                        }
+                        else
+                        {
+                            txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                        }
+                        txtTR.position = randomValue + hit.transform.position + Vector3.up;
+                        txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(bulletTotalDMG);
+                        if (!isCollided)
+                        {
+                            isCollided = true;
+                            Managers.GameManager.monstersInScene[hit.collider.gameObject.name].GetDamage(bulletTotalDMG);
+                        }
+                        targetHitParticle.gameObject.SetActive(true);
+                        meshtr.gameObject.SetActive(false);
+                        timer = removeTimer;
+
+                    }
+                }
+
+                if (bulletType == bulletTypeEnum.explosion && (targetHitParticle.time / targetHitParticle.main.duration) > 0.5f && isExplode == false)
+                {
+                    Collider[] hitMonsters = Physics.OverlapSphere(transform.position, totalExplosionRange, 64);
+                    Managers.Sound.SFX_Sound(Managers.DataManager.Datas["Explosion_Sound"] as AudioClip);
+                    Debug.Log("Æø¹ß");
+                    isExplode = true;
+                    for (int i = 0; i < hitMonsters.Length; i++)
+                    {
+                        randomValue = hitMonsters[i].transform.position + (Random.Range(-1f, 2f) * (Vector3.right + Vector3.forward));
+                        if (isExplosionCritical)
+                        {
+                            txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("CriticalDMGText")).transform as RectTransform;
+                        }
+                        else
+                        {
+                            txtTR = Managers.Pool.UIPop(Managers.DataManager.Load<GameObject>("DMGText")).transform as RectTransform;
+                        }
+                        txtTR.position = randomValue;
+                        txtTR.GetChild(0).GetComponent<DamageText>().ActiveSetting(totalExplosionDMG);
+                        Managers.GameManager.monstersInScene[hitMonsters[i].gameObject.name].GetDamage(totalExplosionDMG);
+                    }
+                }
+            }
+            else if (meshtr.gameObject.activeSelf)
+            {
+                transform.Translate(transform.forward * (bulletSpeed * Time.deltaTime), Space.World);
+            }
         }
         if (timer <= 0)
         {
             timer = removeTimer;
             targetHitParticle.gameObject.SetActive(false);
             isExplode = false;
+            Managers.Pool.Push(this.gameObject);
+        }
+        if ((targetHitParticle.time / targetHitParticle.main.duration) > 1&&targetHitParticle.gameObject.activeSelf)
+        {
+            if (bulletType == bulletTypeEnum.explosion)
+            {
+                isExplode = false;
+            }
+            targetHitParticle.gameObject.SetActive(false);
             Managers.Pool.Push(this.gameObject);
         }
         timer -= Time.deltaTime;
