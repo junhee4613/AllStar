@@ -71,7 +71,7 @@ public class Nomal_monster : Status
 
 public enum statType
 {
-    none, moveSpeed, HP, attackSpeed, attackDamage, criticalChance, criticalDamage
+    none, moveSpeed, HP, attackSpeed, attackDamage, criticalChance, criticalDamage,nowHP
 }
 public class BulletStatus
 {

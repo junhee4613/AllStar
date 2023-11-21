@@ -9822,8 +9822,12 @@ MonoBehaviour:
   totalExplosionRange: 0
   hitLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 64
+  shieldLayer:
+    serializedVersion: 2
+    m_Bits: 5120
   isCritical: 0
+  isExplosionCritical: 0
 --- !u!1001 &4948080241335097799
 PrefabInstance:
   m_ObjectHideFlags: 0

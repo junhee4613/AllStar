@@ -14651,8 +14651,12 @@ MonoBehaviour:
   totalExplosionRange: 0
   hitLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 64
+  shieldLayer:
+    serializedVersion: 2
+    m_Bits: 5120
   isCritical: 0
+  isExplosionCritical: 0
 --- !u!23 &8027456385163588237
 MeshRenderer:
   m_ObjectHideFlags: 0

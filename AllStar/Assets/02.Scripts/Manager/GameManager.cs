@@ -29,6 +29,8 @@ public class GameManager
         PlayerStat.criticalChance = 10;
         PlayerStat.criticalDamage = 198.5f;
         PlayerStat.dodgeCooltime = 1;
+        Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
+        Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
         Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
         done?.Invoke();
         OnIconChange();
@@ -42,6 +44,7 @@ public class GameManager
                 break;
             case statType.HP:
                 PlayerStat.maxHP = sumOper( PlayerStat.maxHP, addValue);
+                Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
                 Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
                 Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
                 break;
@@ -57,6 +60,20 @@ public class GameManager
             case statType.criticalDamage:
                 PlayerStat.criticalDamage = multipleOper( PlayerStat.criticalDamage, addValue, 198.5f);
                 break;
+            case statType.nowHP:
+                float tempHP = sumOper(PlayerStat.nowHP, addValue);
+                if (tempHP >= PlayerStat.maxHP)
+                {
+                    PlayerStat.nowHP = PlayerStat.maxHP;
+                }
+                else
+                {
+                    PlayerStat.nowHP = tempHP;
+                }
+                Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
+                Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
+                Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
+                break;
         }
         OnIconChange();
     }
@@ -70,8 +87,8 @@ public class GameManager
             case statType.HP:
                 PlayerStat.maxHP = minusOper(PlayerStat.maxHP, addValue);
                 Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
-                Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
                 Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
+                Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
                 break;
             case statType.attackSpeed:
                 PlayerStat.attackSpeed = divisionOper(PlayerStat.attackSpeed, addValue,0.65f);
