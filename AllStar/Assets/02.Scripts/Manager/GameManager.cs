@@ -68,7 +68,6 @@ public class GameManager
                 PlayerStat.moveSpeed = divisionOper(PlayerStat.moveSpeed, addValue,2);
                 break;
             case statType.HP:
-                PlayerStat.nowHP = minusOper(PlayerStat.nowHP, addValue);
                 PlayerStat.maxHP = minusOper(PlayerStat.maxHP, addValue);
                 Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
                 Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;
