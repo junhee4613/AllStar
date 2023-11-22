@@ -152,7 +152,7 @@ public class GameManager
     {
         byte slotNum = GetWeaponSlot(bulletName);
        
-        if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.explosion)
+            if (playerWeapons[slotNum].stat.bulletType == bulletTypeEnum.explosion)
         {
             target.BulletSetting(in playerWeapons[slotNum].stat, playerWeapons[slotNum].GetTotalCollDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance,ref target.isCritical), 
                 playerWeapons[slotNum].GetTotalExDamage(PlayerStat.attackDamage, PlayerStat.criticalDamage, PlayerStat.criticalChance, ref target.isExplosionCritical));
@@ -166,9 +166,12 @@ public class GameManager
     {
         for (byte i = 0; i < playerWeapons.Length; i++)
         {
-            if (bulletName.Contains(playerWeapons[i].stat.codeName))
+            if (playerWeapons[i].stat.codeName !=null)
             {
-                return i;
+                if (bulletName.Contains(playerWeapons[i].stat.codeName))
+                {
+                    return i;
+                }
             }
         }
         return 255;
