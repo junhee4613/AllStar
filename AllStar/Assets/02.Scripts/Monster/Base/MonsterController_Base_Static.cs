@@ -19,7 +19,7 @@ public class MonsterController_Static : MonsterBase
     // Start is called before the first frame update
     protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame

@@ -15,17 +15,19 @@ public class SGTurret : Monster_Static
     public GameObject portal;
     protected override void Awake()
     {
-        Managers.Pool.MonsterPop("SG", gameObject);
+        
         base.Awake();
         Debug.Log("#포탑 피통 UI 나중에 수정");      //두개의 오브젝트가 있었는데 하나는 값이 할당되고 하나는 안됐음 그래서 하나를 지우니 값이 제대로 할당이 됐음ㅋㅋ
-        monsterStatus.hp_bar = GameObject.FindGameObjectWithTag("Monster_hp_bar");
-        monsterStatus.hp_bar.SetActive(false);
+        
 
     }
     // Start is called before the first frame update
     protected override void Start()
     {
+        Managers.Pool.MonsterPop("SG", gameObject);
         base.Start();
+        monsterStatus.hp_bar = GameObject.FindGameObjectWithTag("Monster_hp_bar");
+        monsterStatus.hp_bar.SetActive(false);
     }
 
     // Update is called once per frame

@@ -35,6 +35,11 @@ public class MonsterBase : MonoBehaviour
 
     protected virtual void Awake()
     {
+        
+    }
+    // Start is called before the first frame update
+    protected virtual void Start()
+    {
         monsterStatus.states.SetGeneralFSMDefault(ref monsterStatus.animator, this.gameObject);
         monsterStatus.nowState = monsterStatus.states["idle"];
         Detect_Range = idle_Detect_Range;
@@ -43,11 +48,6 @@ public class MonsterBase : MonoBehaviour
         this.gameObject.name = this.gameObject.GetHashCode().ToString();
         Managers.GameManager.monstersInScene.Add(this.gameObject.name, monsterStatus);
         monsterStatus.nowState = monsterStatus.states["idle"];
-    }
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-
     }
     // Update is called once per frame
     protected virtual void Update()

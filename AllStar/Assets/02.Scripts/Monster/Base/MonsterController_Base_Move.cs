@@ -28,15 +28,14 @@ public class MonsterController_Base_Move : MonsterBase
     protected override void Awake()
     {
         base.Awake();
-        rb = GetComponent<Rigidbody>();
-        agent = GetComponent<NavMeshAgent>();
-        pos_init = transform.position;
-
     }
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        pos_init = transform.position;
     }
     // Update is called once per frame
     protected override void Update()

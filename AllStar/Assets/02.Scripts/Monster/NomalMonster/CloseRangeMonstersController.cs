@@ -14,15 +14,15 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
 
     protected override void Awake()
     {
-        Managers.Pool.MonsterPop("CloseRanged", this.gameObject);
-        monsterStatus.states.SetMonsterFSMDefault(ref monsterStatus.animator, this.gameObject);//여기
         base.Awake();
-        an = GetComponent<Animator>();
     }
     // Start is called before the first frame update
     protected override void Start()
     {
+        Managers.Pool.MonsterPop("CloseRanged", this.gameObject);
+        monsterStatus.states.SetMonsterFSMDefault(ref monsterStatus.animator, this.gameObject);//여기
         base.Start();
+        an = GetComponent<Animator>();
     }
 
     // Update is called once per frame
