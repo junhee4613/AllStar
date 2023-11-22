@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 523216883414707911}
   - component: {fileID: 7846963489209605044}
   - component: {fileID: 5686741344899185782}
+  - component: {fileID: -7993236118397887648}
   m_Layer: 0
   m_Name: Map_Object_Tower_HalfBroken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &523216883414707911
 Transform:
@@ -83,3 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &-7993236118397887648
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5348620152642609155}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5.145, y: 3.65, z: 15.692}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 2.371, y: 1.0610001, z: 8.703}
+  m_TimeToStationary: 0.5

@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 832135151758768152}
   - component: {fileID: 2292413537094381480}
   - component: {fileID: 1085082462164434469}
+  - component: {fileID: 7774578166425217695}
   m_Layer: 0
   m_Name: Map_Object_Tower_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &832135151758768152
 Transform:
@@ -83,3 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &7774578166425217695
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231955043703880576}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 11.780001, y: 4.1260004, z: 17.415}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 2, y: 3.808, z: 10.426001}
+  m_TimeToStationary: 0.5

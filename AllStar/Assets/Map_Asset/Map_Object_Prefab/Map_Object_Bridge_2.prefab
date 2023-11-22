@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1697858706977076728}
   - component: {fileID: 6702915427072297752}
   - component: {fileID: 3003107494313287010}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1697858706977076728
 Transform:
@@ -92,12 +92,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5679153547183093659}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5679153547183093659
 Transform:
@@ -129,12 +129,12 @@ GameObject:
   - component: {fileID: 6426008112126992990}
   - component: {fileID: 738177019224021841}
   - component: {fileID: 3714379970014313882}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6426008112126992990
 Transform:
@@ -212,12 +212,12 @@ GameObject:
   - component: {fileID: 5685570560912841981}
   - component: {fileID: 1110477554991349847}
   - component: {fileID: 1441087899327181945}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5685570560912841981
 Transform:
@@ -295,12 +295,12 @@ GameObject:
   - component: {fileID: 4293785459277387365}
   - component: {fileID: 5181996937368016752}
   - component: {fileID: 6438780878651130920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4293785459277387365
 Transform:

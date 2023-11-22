@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2088986917337819796
 Transform:
@@ -110,7 +110,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.41200003, y: 0.31500003, z: 0.202}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.097, y: 0.024, z: 2.2020001}
   m_TimeToStationary: 0.5

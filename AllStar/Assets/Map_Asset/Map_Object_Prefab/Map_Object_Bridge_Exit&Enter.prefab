@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2117270009004505088}
   - component: {fileID: 6338683109646550752}
   - component: {fileID: 2548794395759104154}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2117270009004505088
 Transform:
@@ -92,12 +92,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4909597227860523619}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_Exit&Enter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4909597227860523619
 Transform:
@@ -134,12 +134,12 @@ GameObject:
   - component: {fileID: 3309712764632185109}
   - component: {fileID: 3060625453685214906}
   - component: {fileID: 282852184260073321}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3309712764632185109
 Transform:
@@ -217,12 +217,12 @@ GameObject:
   - component: {fileID: 6043770165445439398}
   - component: {fileID: 57566803548001961}
   - component: {fileID: 4142797370715172962}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6043770165445439398
 Transform:
@@ -300,12 +300,12 @@ GameObject:
   - component: {fileID: 1898562751388197042}
   - component: {fileID: 6015788082543268662}
   - component: {fileID: 785935179247574974}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1898562751388197042
 Transform:
@@ -383,12 +383,12 @@ GameObject:
   - component: {fileID: 8184030821898084099}
   - component: {fileID: 4906401034538714602}
   - component: {fileID: 581372495435978866}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8184030821898084099
 Transform:
@@ -466,12 +466,12 @@ GameObject:
   - component: {fileID: 4083349014486577686}
   - component: {fileID: 6180759399826018766}
   - component: {fileID: 4309544330079907729}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4083349014486577686
 Transform:
@@ -549,12 +549,12 @@ GameObject:
   - component: {fileID: 1689764138670553171}
   - component: {fileID: 3638227507576561140}
   - component: {fileID: 6279748683243337968}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1689764138670553171
 Transform:
@@ -632,12 +632,12 @@ GameObject:
   - component: {fileID: 3559140602565516189}
   - component: {fileID: 5555236763281824392}
   - component: {fileID: 6028395468926814672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3559140602565516189
 Transform:
@@ -715,12 +715,12 @@ GameObject:
   - component: {fileID: 3019772061050507387}
   - component: {fileID: 1818679003342303510}
   - component: {fileID: 1782000559281449013}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Map_Object_Bridge_B (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3019772061050507387
 Transform:
