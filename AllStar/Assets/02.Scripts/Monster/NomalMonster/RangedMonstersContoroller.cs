@@ -7,13 +7,13 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
     public GameObject bulletPos;
     protected override void Awake()
     {
-        Managers.Pool.MonsterPop("Ranged", this.gameObject);
         base.Awake();
         
     }
     // Start is called before the first frame update
     protected override void Start()
     {
+        Managers.Pool.MonsterPop("Ranged", this.gameObject);
         base.Start();
     }
 
