@@ -922,7 +922,6 @@ MonoBehaviour:
   dropForce: 0
   skillDropProbability: 100
   itemDropProbability: 100
-  weaponDropProbability: 0
   bulletPos: {fileID: 3172558400622387201}
 --- !u!65 &1201258583490867913
 BoxCollider:

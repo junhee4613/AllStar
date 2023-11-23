@@ -69,7 +69,7 @@ public class MonsterController_Base_Move : MonsterBase
             if (transform.position != pos_init)
             {
                 agent.SetDestination(pos_init);
-                init_pos_dis = Vector3.Distance(transform.position, pos_init);
+                init_pos_dis = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(pos_init.x, 0 , pos_init.z));
                 if (init_pos_dis < Mathf.Abs(0.1f))
                 {
                     if (monsterStatus.nowState != monsterStatus.states["idle"])

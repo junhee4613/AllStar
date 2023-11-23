@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 public class RangedMonstersContoroller : MonsterController_Base_Move
 {
+    
     public GameObject bulletPos;
     protected override void Awake()
     {
         base.Awake();
+        //SceneManager.sceneLoaded 
         
     }
     // Start is called before the first frame update
