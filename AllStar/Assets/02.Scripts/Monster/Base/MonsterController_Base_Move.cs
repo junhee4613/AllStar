@@ -18,10 +18,9 @@ public class MonsterController_Base_Move : MonsterBase
     public float rotateSpeed = 180f;
     [Header("사거리")]
     public float attack_Distance;
-    public float dropForce;
-    [Header("스킬 드랍 퍼센트 조절")]
+    [Header("액티브 스킬 드랍 퍼센트 조절")]
     public int skillDropProbability = 0;
-    [Header("아이템(유물) 드랍 퍼센트 조절")]
+    [Header("패시브 스킬 드랍 퍼센트 조절")]
     public int itemDropProbability = 0;
     /*[Header("무기 드랍 퍼센트 조절")]
     public int weaponDropProbability = 0;*/
