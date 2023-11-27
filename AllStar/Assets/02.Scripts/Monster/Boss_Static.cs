@@ -96,6 +96,14 @@ public class Boss_Static : MonoBehaviour
                 Die();
             }
         }
+        if (state.hp_bar.activeSelf)
+        {
+            state.hit_time += Time.deltaTime;
+            if (state.hit_time > 5)
+            {
+                state.hp_bar.SetActive(false);
+            }
+        }
         if (state.nowHP >= state.maxHP / 100 * 35)
         {
             if (!heal_pattern_start)

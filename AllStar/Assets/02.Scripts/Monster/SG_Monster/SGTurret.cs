@@ -34,6 +34,16 @@ public class SGTurret : Monster_Static
     protected override void Update()
     {
         base.Update();
+        if (monsterStatus.hp_bar.activeSelf)
+        {
+            monsterStatus.hit_time += Time.deltaTime;
+            if(monsterStatus.hit_time > 5)
+            {
+                monsterStatus.hp_bar.SetActive(false);
+            }
+
+        }
+        
         
     }
     public override void AttackWay()

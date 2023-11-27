@@ -44,12 +44,14 @@ public class Nomal_monster : Status
     public Monster_Type monster_Type;
     public bool hit;
     public string name;
+    public float hit_time;
     public GameObject hp_bar = null;
 
     public override void GetDamage(float Damage)
     {
         base.GetDamage(Damage);
         hit = true;
+        hit_time = 0;
         if (monster_Type == Monster_Type.STAGE_BOSS || monster_Type == Monster_Type.NAMED_MONSTER)
         {
             if (Managers.UI.monster_hp_bar.Item1 == null)
