@@ -55,6 +55,7 @@ namespace GeneralFSM
         public override void OnStateEnter()
         {
             animator.Play("die", 0);
+            Debug.Log("여기다가 UI매니저에서 사망 메뉴 호출");
         }
         public override void OnStateUpdate()
         {
