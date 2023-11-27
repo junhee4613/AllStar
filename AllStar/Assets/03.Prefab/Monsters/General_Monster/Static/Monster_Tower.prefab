@@ -156,7 +156,7 @@ MonoBehaviour:
   heal_quantity: 0
   potionDropProbability: 0
   itemDropProbability: 0
-  weaponDropProbability: 0
+  weaponDropProbability: 100
   dropForce: 0
   pattern: 0
   pivotSG:
