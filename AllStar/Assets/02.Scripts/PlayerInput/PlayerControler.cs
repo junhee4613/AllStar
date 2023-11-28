@@ -184,6 +184,7 @@ public class PlayerControler : MonoBehaviour
         else if (stat.nowHP < 0 && stat.nowState != stat.states["die"])
         {
             fsmChanger(stat.states["die"]);
+            Invoke("playerDie", 1.2f);
             Debug.Log("플레이어 죽음판정");
         }
         playerAttackTimer += Time.deltaTime;
@@ -204,6 +205,10 @@ public class PlayerControler : MonoBehaviour
             }
         }
         coolTimeIMG[1].fillAmount = dodgeCooldown / stat.dodgeCooltime;
+    }
+    public void playerDie()
+    {
+        Managers.UI.exitMenu.SetActive(true);
     }
     public void GetMousePos()
     {

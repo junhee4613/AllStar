@@ -14,6 +14,7 @@ public class UIManager
     public Slider loadBar;
     public (Slider, TextMeshProUGUI) monster_hp_bar;
     public float monster_hp_bar_time;
+    public GameObject exitMenu;
 
     public void SetSkillIcons(byte slotArray,string codeName)
     {

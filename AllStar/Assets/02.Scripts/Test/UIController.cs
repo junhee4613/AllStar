@@ -78,6 +78,7 @@ public class UIController : MonoBehaviour
         Managers.UI.weaponSlotIMG = weaponInvenIMGs;
         playerTR = GameObject.Find("PlayerController").transform;
         flavorTextPanel.SetAsFirstSibling();
+        Managers.UI.exitMenu = escMenu.gameObject;
     }
 
     private void Update()
