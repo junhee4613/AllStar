@@ -23,7 +23,7 @@ public class GameManager
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
         PlayerStat.maxHP = 100;
         PlayerStat.nowHP = 100;
-        PlayerStat.moveSpeed = 2;
+        PlayerStat.moveSpeed = 4;
         PlayerStat.attackSpeed = 0.65f;
         PlayerStat.attackDamage = 10;
         PlayerStat.criticalChance = 10;

@@ -137,8 +137,8 @@ MonoBehaviour:
   player: {fileID: 0}
   monsterStatus:
     moveSpeed: 0
-    maxHP: 50000
-    nowHP: 50000
+    maxHP: 10000
+    nowHP: 10000
     attackSpeed: 1.5
     attackDamage: 0
     criticalChance: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
     monster_Type: 0
     hit: 0
     name: dlatl
+    hit_time: 0
     hp_bar: {fileID: 0}
   chase_player: 1
   action_start: 1

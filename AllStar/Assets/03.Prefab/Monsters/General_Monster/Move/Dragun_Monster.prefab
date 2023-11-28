@@ -905,6 +905,7 @@ MonoBehaviour:
     monster_Type: 1
     hit: 0
     name: 
+    hit_time: 0
     hp_bar: {fileID: 0}
   chase_player: 0
   action_start: 1
@@ -919,8 +920,7 @@ MonoBehaviour:
     m_Bits: 1152
   rotateSpeed: 180
   attack_Distance: 5
-  dropForce: 0
-  skillDropProbability: 25
+  skillDropProbability: 75
   itemDropProbability: 25
   bulletPos: {fileID: 3172558400622387201}
 --- !u!65 &1201258583490867913
