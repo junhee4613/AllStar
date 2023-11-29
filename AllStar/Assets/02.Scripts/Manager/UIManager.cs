@@ -98,4 +98,8 @@ public class UIManager
             menuTR.gameObject.SetActive(true);
         }
     }
+    public void ResetUI()
+    {
+        uiStack.Clear();
+    }
 }
