@@ -55,8 +55,8 @@ public class MonsterController_Static : MonsterBase
         }*/
         if (num3 == Mathf.Clamp(num3, 1, weaponDropProbability))
         {
-            GameObject potion = Managers.Pool.Pop(Managers.DataManager.Datas["WeaponItem"] as GameObject);
-            potion.transform.position = transform.position;
+            GameObject weaponItem = Managers.Pool.Pop(Managers.DataManager.Datas["WeaponItem"] as GameObject);
+            weaponItem.transform.position = transform.position;
         }
         base.MonsterDie();
         MonsterPush();
