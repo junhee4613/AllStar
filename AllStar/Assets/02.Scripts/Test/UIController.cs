@@ -45,6 +45,9 @@ public class UIController : MonoBehaviour
         PlrHPBar.Item1 = GameObject.Find("Slider_HPBar").GetComponent<Slider>();
         PlrHPBar.Item2 = GameObject.Find("HPText").GetComponent<TextMeshProUGUI>();
         Managers.UI.hpbar = PlrHPBar;
+        PlrHPBar.Item1.maxValue = Managers.GameManager.PlayerStat.maxHP;
+        PlrHPBar.Item1.value = Managers.GameManager.PlayerStat.nowHP;
+        PlrHPBar.Item2.text = PlrHPBar.Item1.value + "/" + PlrHPBar.Item1.maxValue;
         Managers.GameManager.OnIconChange += infoStatUpdate;
         Vector2 tempVec;
         for (byte i = 0; i < skillSlots.GetChild(0).childCount; i++)

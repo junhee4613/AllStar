@@ -23,8 +23,11 @@ namespace GeneralFSM
         public override void OnStateEnter()
         {
 
-            Debug.Log("달리기");
-            animator.Play("run",0);
+            if (animator.gameObject.activeSelf)
+            {
+                Debug.Log("달리기");
+                animator.Play("run", 0);
+            }
         }
         public override void OnStateUpdate()
         {
@@ -85,7 +88,11 @@ namespace GeneralFSM
     {
         public override void OnStateEnter()
         {
-            animator.Play("idle", 0);
+            if (animator.gameObject.activeSelf)
+            {
+                animator.Play("idle", 0);
+            }
+            
         }
         public override void OnStateUpdate()
         {

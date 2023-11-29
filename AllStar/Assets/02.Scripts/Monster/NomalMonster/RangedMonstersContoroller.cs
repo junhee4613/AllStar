@@ -96,7 +96,10 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         {
             /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             agent.avoidancePriority = 50;*/
-            agent.isStopped = true;
+            if (agent.isActiveAndEnabled)
+            {
+                agent.isStopped = true;
+            }
         }
         else if (BS == monsterStatus.states["run"])
         {
