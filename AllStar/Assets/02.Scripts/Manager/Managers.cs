@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
@@ -50,5 +51,13 @@ public class Managers : MonoBehaviour
     public static SGShotManager ShotManager { get { return instance?._shotManager; } }      //ShotManager 접근 시 인스턴스 리턴
     public static SGProjectileManager projectileManager { get { return instance?._projectileManager; } }
     public static SoundManager Sound { get { return instance?._soundManager; } }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            Managers.Pool.Clear();
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            Managers.Sound.bgmList.Add(Managers.DataManager.Datas["Stage_00" + SceneManager.GetActiveScene().buildIndex + 1] as AudioClip);
+        }
+    }
 }
