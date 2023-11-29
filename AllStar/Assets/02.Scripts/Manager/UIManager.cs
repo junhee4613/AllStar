@@ -49,6 +49,10 @@ public class UIManager
     {
         Sprite a = Managers.DataManager.Load<Sprite>(codeName + "_ICON");
         weaponSlotIMG[arrayNum].sprite = a;
+        if (a == null)
+        {
+            weaponSlotIMG[arrayNum].sprite = Managers.DataManager.Load<Sprite>("EmptyGun_ICON");
+        }
         Debug.Log(a);
     }
     public void OpenUI(Transform targetTR)

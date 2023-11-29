@@ -151,8 +151,9 @@ public class UIController : MonoBehaviour
                                 drag.targetTR = artifactInvenSet[tempby].IconIMG.rectTransform;
                             }
                         }*/
-            if (tempby <= (byte)weaponIconPosition.Length && IsMouseOnWhichTarget(weaponIconPosition, weaponIconSize))
+            if (IsMouseOnWhichTarget(weaponIconPosition, weaponIconSize))
             {
+                Debug.Log("무기집음");
                 tempby = GetIMGPosition(weaponIconPosition, weaponIconSize);
                 dragState = DraggingState.weapon;
                 drag.array = tempby;
@@ -285,6 +286,7 @@ public class UIController : MonoBehaviour
                 distance = Vector2.Distance(targetArray[i], Input.mousePosition);
                 if (distance < iconSize)
                 {
+                    
                     return true;
                 }
             }
