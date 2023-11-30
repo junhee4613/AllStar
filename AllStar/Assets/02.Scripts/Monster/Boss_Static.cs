@@ -159,7 +159,7 @@ public class Boss_Static : MonoBehaviour
         //나중에 패턴에 하드모드로 변하는 모습을 넣어야되는데 어떻게 처리할지 고민중
         if (hard_pattern_start)
         {
-            randomNum = Random.Range(4, 5);             
+            randomNum = Random.Range(2, 5);             
             motion_Type = $"Hard_Pattern{randomNum}";     //나중에 패턴 나오면 이 변수 대신 코루틴에 해당 패턴 이름으로 변경
             hard_pattern = (Boss_Hard_Pattern)randomNum - 1;
             switch (hard_pattern)             

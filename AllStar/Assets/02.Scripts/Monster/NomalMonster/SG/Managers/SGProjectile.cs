@@ -5,7 +5,7 @@ using UnityEngine;
 public class SGProjectile : MonoBehaviour
 {
     [SerializeField]
-    float damage = 1;
+    float damage = 20;
     public LayerMask detection_target;
 
     private Transform transformCache;

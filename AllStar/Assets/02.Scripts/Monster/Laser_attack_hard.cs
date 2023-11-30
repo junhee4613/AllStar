@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Laser_attack_hard : MonoBehaviour
 {
-    float damage = 1;
+    float damage = 100;
     public ParticleSystem particle;
     float time;
     // Update is called once per frame
