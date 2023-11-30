@@ -58,7 +58,10 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         {
             float dis = Vector3.Distance(transform.position, player.transform.position);
             target_identification = Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, attack_Distance, detection_target);
-            agent.SetDestination(player.transform.position);
+            if (agent.isActiveAndEnabled)
+            {
+                agent.SetDestination(player.transform.position);
+            }
             if (dis <= dis_criteria_run_mode)
             {
                 if (dis <= Mathf.Abs(attack_Distance))
@@ -112,21 +115,30 @@ public class CloseRangeMonstersController : MonsterController_Base_Move
         {
             /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             agent.avoidancePriority = 50;*/
-            agent.isStopped = true;
+            if (agent.isActiveAndEnabled)
+            {
+                agent.isStopped = true;
+            }
         }
         else if (BS == monsterStatus.states["run"])
         {
             agent.speed = run_speed;
             /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
             agent.avoidancePriority = 51;*/
-            agent.isStopped = false;
+            if (agent.isActiveAndEnabled)
+            {
+                agent.isStopped = false;
+            }
         }
         else if(BS == monsterStatus.states["walk"])
         {
             agent.speed = walk_speed;
             /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
             agent.avoidancePriority = 51;*/
-            agent.isStopped = false;
+            if (agent.isActiveAndEnabled)
+            {
+                agent.isStopped = false;
+            }
         }
     }
     protected override void MonsterPush()

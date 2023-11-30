@@ -59,7 +59,11 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
                 {
                     fsmChanger(monsterStatus.states["run"]);
                 }
-                agent.SetDestination(player.transform.position);
+                if (agent.isActiveAndEnabled)
+                {
+                    agent.SetDestination(player.transform.position);
+
+                }
             }
         }
     }
@@ -105,7 +109,11 @@ public class RangedMonstersContoroller : MonsterController_Base_Move
         {
             /*agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
             agent.avoidancePriority = 51;*/
-            agent.isStopped = false;
+            if (agent.isActiveAndEnabled)
+            {
+                agent.isStopped = false;
+
+            }
         }
     }
 
