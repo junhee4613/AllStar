@@ -212,7 +212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: wayNum
-      value: 3
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: _shooting
@@ -228,11 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: betweenAngle
-      value: 120
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: nextLineDely
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: projectileNum
@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: accelerationTurn
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6085771480294576496, guid: 67938bdc3778cd64e847e06ea94188a2, type: 3}
       propertyPath: projectilePrefab

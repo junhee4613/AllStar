@@ -10,7 +10,7 @@ public class SGNwayShot : SGBaseShot
     public float nextLineDely = 0.1f;
     private int nowIndex;
     private float delayTimer;
-
+    bool maxAngle = false;
     public override void Shot()
     { 
         if(projectileNum <= 0 || projectileSpeed <= 0 || wayNum <= 0)
@@ -33,7 +33,25 @@ public class SGNwayShot : SGBaseShot
             return;
         }
         delayTimer -= SGTimer.Instance.deltaTime;
-
+        if (maxAngle)
+        {
+            Mathf.Clamp(centerAngle -= Time.deltaTime * 10, 0, 360);
+            if (centerAngle == 0)
+            {
+                maxAngle = false;
+            }
+        }
+        else
+        {
+            Mathf.Clamp(centerAngle += Time.deltaTime * 3, 0, 360);
+            if (centerAngle == 360)
+            {
+                maxAngle = true;
+            }
+        }
+        
+        
+        
         while (delayTimer < 0)
         {
             for (int i = 0; i < wayNum; i++)
