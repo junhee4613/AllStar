@@ -53,7 +53,7 @@ public class SGProjectile : MonoBehaviour
     {
         transformCache = transform;
         _DeadCheckTimer = 0.0f;
-        detection_target = LayerMask.GetMask("Player", "Adornment");
+        detection_target = LayerMask.GetMask("Player");
     }
 
     public virtual void SetActive(bool isActive)
