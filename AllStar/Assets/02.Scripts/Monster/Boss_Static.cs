@@ -54,7 +54,6 @@ public class Boss_Static : MonoBehaviour
     public int randomNum;
     Boss_Hard_Pattern hard_pattern;
     public Boss_Simple_Pattern simple_pattern;
-    bool barrage_start = false;
     public AnimatorStateInfo test;
     public bool look_target;
     public bool attack;

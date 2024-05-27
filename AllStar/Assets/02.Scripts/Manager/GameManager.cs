@@ -21,14 +21,14 @@ public class GameManager
     public void BasicPlayerStats(Action done)
     {
         //추후 데이터테이블에서 불러와야되므로 콜백으로 작업
-        PlayerStat.maxHP = 100;
-        PlayerStat.nowHP = 100;
-        PlayerStat.moveSpeed = 4;
-        PlayerStat.attackSpeed = 0.65f;
-        PlayerStat.attackDamage = 10;
-        PlayerStat.criticalChance = 10;
-        PlayerStat.criticalDamage = 198.5f;
-        PlayerStat.dodgeCooltime = 1;
+        PlayerStat.maxHP = 1000;
+        PlayerStat.nowHP = 1000;
+        PlayerStat.moveSpeed = 4;       //애만 10 안곱해줌
+        PlayerStat.attackSpeed = 6.5f;      
+        PlayerStat.attackDamage = 100;
+        PlayerStat.criticalChance = 100;
+        PlayerStat.criticalDamage = 1985f;
+        PlayerStat.dodgeCooltime = 10;
         Managers.UI.hpbar.Item1.maxValue = PlayerStat.maxHP;
         Managers.UI.hpbar.Item1.value = PlayerStat.nowHP;
         Managers.UI.hpbar.Item2.text = PlayerStat.nowHP + "/" + PlayerStat.maxHP;

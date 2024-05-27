@@ -17,9 +17,7 @@ public class SGTurret : Monster_Static
     {
         
         base.Awake();
-        Debug.Log("#포탑 피통 UI 나중에 수정");      //두개의 오브젝트가 있었는데 하나는 값이 할당되고 하나는 안됐음 그래서 하나를 지우니 값이 제대로 할당이 됐음ㅋㅋ
-        
-
+        Debug.Log("#포탑 피통 UI 나중에 수정");
     }
     // Start is called before the first frame update
     protected override void Start()

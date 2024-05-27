@@ -25,7 +25,6 @@ namespace GeneralFSM
 
             if (animator.gameObject.activeSelf)
             {
-                Debug.Log("´Þ¸®±â");
                 animator.Play("run", 0);
             }
         }
